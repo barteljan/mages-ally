@@ -1,12 +1,12 @@
 import {Engine} from 'random-js';
-import {DiceRollConfig} from './DiceRollConfig';
+import {DiceRollConfig} from './DiceRoll.config';
 import {
   rollOnce,
   rollMany,
   calculateRollDiceOutcome,
   rollDice,
 } from './rollDice';
-import {DiceRollOutcome} from './DiceRollOutcome';
+import {DiceRollOutcome} from './DiceRoll.outcome';
 /**
  *  @hidden
  */

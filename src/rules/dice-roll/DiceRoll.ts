@@ -1,5 +1,5 @@
-import {DiceRollOutcome} from './DiceRollOutcome';
-import {DiceRollConfig} from './DiceRollConfig';
+import {DiceRollOutcome} from './DiceRoll.outcome';
+import {DiceRollConfig} from './DiceRoll.config';
 
 /**
  * The result of a dice roll

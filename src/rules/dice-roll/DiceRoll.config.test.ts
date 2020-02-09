@@ -3,7 +3,7 @@ import {
   make9AgainRollConfig,
   make8AgainRollConfig,
   makeRoteQualityRollConfig,
-} from './DiceRollConfig';
+} from './DiceRoll.config';
 import StringMap from '../../data-types/StringMap';
 
 test('makeRollConfig return a correct value', () => {

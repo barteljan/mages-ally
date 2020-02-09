@@ -1,8 +1,8 @@
-import {DiceRollConfig} from './DiceRollConfig';
+import {DiceRollConfig} from './DiceRoll.config';
 import {DiceRoll} from './DiceRoll';
 import moment from 'moment';
 import uuid from 'uuid';
-import {DiceRollOutcome} from './DiceRollOutcome';
+import {DiceRollOutcome} from './DiceRoll.outcome';
 import {createEntropy, MersenneTwister19937, integer, Engine} from 'random-js';
 
 /**
