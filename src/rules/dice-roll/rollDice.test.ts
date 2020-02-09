@@ -1,4 +1,3 @@
-import {Engine} from 'random-js';
 import {DiceRollConfig} from './DiceRoll.config';
 import {
   rollOnce,
@@ -7,27 +6,32 @@ import {
   rollDice,
 } from './rollDice';
 import {DiceRollOutcome} from './DiceRoll.outcome';
+import {RandomEngine} from 'src/random/random';
 /**
  *  @hidden
  */
-function createMockRandomEngine(values: number[]): Engine {
-  return {
-    next: () => {
-      const value = values.shift();
-      return value ? value - 1 : 0;
-    },
+function createMockRandomEngine(values: number[]): RandomEngine {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return (min: number, max: number): number => {
+    const value = values.shift();
+    return value ? value : 0;
   };
 }
 
 test('check that mockRandomEngine works correct', () => {
   let engine = createMockRandomEngine([1, 2, 3]);
-  expect(engine.next()).toBe(0);
-  expect(engine.next()).toBe(1);
-  expect(engine.next()).toBe(2);
+  expect(engine(1, 10)).toBe(1);
+  expect(engine(1, 10)).toBe(2);
+  expect(engine(1, 10)).toBe(3);
 });
 
 test('check that rollOnce works correct', () => {
+  const id = 'an_identifier';
+  const title = 'an_title';
+
   const config: DiceRollConfig = {
+    id,
+    title,
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -36,21 +40,7 @@ test('check that rollOnce works correct', () => {
     successesNeededForExceptionalSuccess: 5,
   };
 
-  const engine = createMockRandomEngine([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-  ]);
+  const engine = createMockRandomEngine([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
   expect(rollOnce(config, engine)).toBe(1);
   expect(rollOnce(config, engine)).toBe(2);
@@ -62,13 +52,12 @@ test('check that rollOnce works correct', () => {
   expect(rollOnce(config, engine)).toBe(8);
   expect(rollOnce(config, engine)).toBe(9);
   expect(rollOnce(config, engine)).toBe(10);
-  expect(rollOnce(config, engine)).toBe(1);
-  expect(rollOnce(config, engine)).toBe(2);
-  expect(rollOnce(config, engine)).toBe(3);
 });
 
 test('rollMany works correct with no dice rolls containing a exploding number', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -84,6 +73,8 @@ test('rollMany works correct with no dice rolls containing a exploding number', 
 
 test('rollMany works correct with a dice roll containing a exploding number', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -99,6 +90,8 @@ test('rollMany works correct with a dice roll containing a exploding number', ()
 
 test('rollMany works correct with a dice roll containing two exploding numbers in a row', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -114,6 +107,8 @@ test('rollMany works correct with a dice roll containing two exploding numbers i
 
 test('rollMany works correct with a dice roll with several exploding numbers', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -129,6 +124,8 @@ test('rollMany works correct with a dice roll with several exploding numbers', (
 
 test('rollMany works correct with a dice roll with 9 again', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [9, 10],
     explodeOnceFor: [],
@@ -144,6 +141,8 @@ test('rollMany works correct with a dice roll with 9 again', () => {
 
 test('rollMany works correct with a dice explodingOnce', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -159,6 +158,8 @@ test('rollMany works correct with a dice explodingOnce', () => {
 
 test('calculateRollDiceOutcome works on success', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -174,6 +175,8 @@ test('calculateRollDiceOutcome works on success', () => {
 
 test('calculateRollDiceOutcome works on failure', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -189,6 +192,8 @@ test('calculateRollDiceOutcome works on failure', () => {
 
 test('calculateRollDiceOutcome works on dramatic failure', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -204,6 +209,8 @@ test('calculateRollDiceOutcome works on dramatic failure', () => {
 
 test('calculateRollDiceOutcome works on exceptional success', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -217,8 +224,10 @@ test('calculateRollDiceOutcome works on exceptional success', () => {
   );
 });
 
-test('rollDice sets id,config and createdAt', () => {
+test('rollDice sets id,config,title and createdAt', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -227,18 +236,20 @@ test('rollDice sets id,config and createdAt', () => {
     successesNeededForExceptionalSuccess: 5,
   };
 
-  const id = 'meineId';
   const createdAt = 12;
 
-  const result = rollDice(config, id, createdAt);
+  const result = rollDice(config, createdAt);
   expect(result).toBeDefined();
-  expect(result.id).toBe(id);
+  expect(result.id).toBe(config.id);
+  expect(result.title).toBe(config.title);
   expect(result.createdAt).toBe(createdAt);
   expect(result.configuration).toBe(config);
 });
 
 test('rollDice generates id and createdAt if none is given', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -255,6 +266,8 @@ test('rollDice generates id and createdAt if none is given', () => {
 
 test('rollDice generates different dice rolls on two trys', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -272,6 +285,8 @@ test('rollDice generates different dice rolls on two trys', () => {
 
 test('rollDice generates correct min and max values', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -280,14 +295,16 @@ test('rollDice generates correct min and max values', () => {
     successesNeededForExceptionalSuccess: 5,
   };
 
-  const engine = createMockRandomEngine([1, 1, 1, 4, 55, 66, 7, 10, 9, 10, 11]);
+  const engine = createMockRandomEngine([1, 1, 1, 4, 55, 66, 7, 10, 9, 10, 1]);
 
-  const result = rollDice(config, 'id', 4, engine);
+  const result = rollDice(config, 4, engine);
 
   expect(result.rolledDices.filter(dice => dice === 1).length).toBe(4);
   expect(result.rolledDices.filter(dice => dice === 10).length).toBe(2);
 
   const config2: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -296,7 +313,7 @@ test('rollDice generates correct min and max values', () => {
     successesNeededForExceptionalSuccess: 5,
   };
 
-  const result2 = rollDice(config2, 'id', 4);
+  const result2 = rollDice(config2, 4);
 
   expect(result2.rolledDices.filter(dice => dice === 1).length).toBeGreaterThan(
     0,
@@ -309,6 +326,8 @@ test('rollDice generates correct min and max values', () => {
 
 test('rollDice rolls correct number of dice with two positive modifiers', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -323,6 +342,8 @@ test('rollDice rolls correct number of dice with two positive modifiers', () => 
 
 test('roll dice rolls correct number of dice with two positive modifiers and a negative modifier', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -337,6 +358,8 @@ test('roll dice rolls correct number of dice with two positive modifiers and a n
 
 test('rollDice rolls 1 dice when all modifiers are negative', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -351,6 +374,8 @@ test('rollDice rolls 1 dice when all modifiers are negative', () => {
 
 test('rollDice rolls 1 dice when sum of modifiers is negative', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -365,6 +390,8 @@ test('rollDice rolls 1 dice when sum of modifiers is negative', () => {
 
 test('rollDice works correct with no dice rolls containing a exploding number', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -375,18 +402,13 @@ test('rollDice works correct with no dice rolls containing a exploding number', 
 
   const engine = createMockRandomEngine([6, 6, 6, 6, 8, 9]);
 
-  expect(rollDice(config, 'id', 1, engine).rolledDices).toEqual([
-    6,
-    6,
-    6,
-    6,
-    8,
-    9,
-  ]);
+  expect(rollDice(config, 1, engine).rolledDices).toEqual([6, 6, 6, 6, 8, 9]);
 });
 
 test('rollDice works correct with a dice roll containing a exploding number', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -402,6 +424,8 @@ test('rollDice works correct with a dice roll containing a exploding number', ()
 
 test('rollDice works correct with a dice roll containing two exploding numbers in a row', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -412,7 +436,7 @@ test('rollDice works correct with a dice roll containing two exploding numbers i
 
   const engine = createMockRandomEngine([6, 6, 6, 6, 8, 10, 10, 7]);
 
-  expect(rollDice(config, 'id', 1, engine).rolledDices).toEqual([
+  expect(rollDice(config, 1, engine).rolledDices).toEqual([
     6,
     6,
     6,
@@ -426,6 +450,8 @@ test('rollDice works correct with a dice roll containing two exploding numbers i
 
 test('rollDice works correct with a dice roll with several exploding numbers', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [10],
     explodeOnceFor: [],
@@ -436,7 +462,7 @@ test('rollDice works correct with a dice roll with several exploding numbers', (
 
   const engine = createMockRandomEngine([10, 6, 10, 6, 10, 5, 5, 7, 6]);
 
-  expect(rollDice(config, 'id', 1, engine).rolledDices).toEqual([
+  expect(rollDice(config, 1, engine).rolledDices).toEqual([
     10,
     6,
     10,
@@ -451,6 +477,8 @@ test('rollDice works correct with a dice roll with several exploding numbers', (
 
 test('rollDice works correct with a dice roll with 9 again', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [9, 10],
     explodeOnceFor: [],
@@ -461,17 +489,13 @@ test('rollDice works correct with a dice roll with 9 again', () => {
 
   const engine = createMockRandomEngine([9, 6, 10, 6, 7]);
 
-  expect(rollDice(config, 'id', 1, engine).rolledDices).toEqual([
-    9,
-    6,
-    10,
-    6,
-    7,
-  ]);
+  expect(rollDice(config, 1, engine).rolledDices).toEqual([9, 6, 10, 6, 7]);
 });
 
 test('rollDice works correct with a dice explodingOnce', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [10],
@@ -482,11 +506,13 @@ test('rollDice works correct with a dice explodingOnce', () => {
 
   const engine = createMockRandomEngine([9, 6, 10, 10]);
 
-  expect(rollDice(config, 'id', 1, engine).rolledDices).toEqual([9, 6, 10, 10]);
+  expect(rollDice(config, 1, engine).rolledDices).toEqual([9, 6, 10, 10]);
 });
 
 test('rollDice works on success', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -496,7 +522,7 @@ test('rollDice works on success', () => {
   };
 
   const engine = createMockRandomEngine([9, 6, 10]);
-  const result = rollDice(config, 'id', 1, engine);
+  const result = rollDice(config, 1, engine);
 
   expect(result).toBeDefined();
   expect(result.outcome).toEqual(DiceRollOutcome.success);
@@ -504,6 +530,8 @@ test('rollDice works on success', () => {
 
 test('rollDice works on failure', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -513,7 +541,7 @@ test('rollDice works on failure', () => {
   };
 
   const engine = createMockRandomEngine([4, 6, 5]);
-  const result = rollDice(config, 'id', 1, engine);
+  const result = rollDice(config, 1, engine);
 
   expect(result).toBeDefined();
   expect(result.outcome).toEqual(DiceRollOutcome.failure);
@@ -521,6 +549,8 @@ test('rollDice works on failure', () => {
 
 test('rollDice works on dramatic failure', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -530,7 +560,7 @@ test('rollDice works on dramatic failure', () => {
   };
 
   const engine = createMockRandomEngine([1]);
-  const result = rollDice(config, 'id', 1, engine);
+  const result = rollDice(config, 1, engine);
 
   expect(result).toBeDefined();
   expect(result.outcome).toEqual(DiceRollOutcome.dramaticFailure);
@@ -538,6 +568,8 @@ test('rollDice works on dramatic failure', () => {
 
 test('rollDice works on exceptional success', () => {
   const config: DiceRollConfig = {
+    id: 'an_identifier',
+    title: 'an_title',
     diceRange: {lowest: 1, highest: 10},
     explodeFor: [],
     explodeOnceFor: [],
@@ -547,7 +579,7 @@ test('rollDice works on exceptional success', () => {
   };
 
   const engine = createMockRandomEngine([9, 8, 7, 8, 8, 8]);
-  const result = rollDice(config, 'id', 1, engine);
+  const result = rollDice(config, 1, engine);
 
   expect(result).toBeDefined();
   expect(result.outcome).toEqual(DiceRollOutcome.exceptionalSuccess);

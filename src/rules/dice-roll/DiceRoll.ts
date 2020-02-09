@@ -11,6 +11,11 @@ export interface DiceRoll {
   id: string;
 
   /**
+   * A describing title for this roll
+   */
+  title: string;
+
+  /**
    * timestamp when this dice roll was created
    */
   createdAt: number;

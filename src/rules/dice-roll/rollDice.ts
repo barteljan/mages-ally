@@ -1,9 +1,8 @@
 import {DiceRollConfig} from './DiceRoll.config';
 import {DiceRoll} from './DiceRoll';
 import moment from 'moment';
-import uuid from 'uuid';
 import {DiceRollOutcome} from './DiceRoll.outcome';
-import {createEntropy, MersenneTwister19937, integer, Engine} from 'random-js';
+import {RandomEngine, random} from '../../random/random';
 
 /**
  * Roll a number of dices - evaluate success, failure, exceptional failure and exceptional success
@@ -14,13 +13,11 @@ import {createEntropy, MersenneTwister19937, integer, Engine} from 'random-js';
  */
 export function rollDice(
   configuration: DiceRollConfig,
-  id: string = uuid.v4(),
   createdAt: number = moment().unix(),
-  randomGenerator: Engine | undefined = undefined,
+  randomGenerator: RandomEngine | undefined = undefined,
 ): DiceRoll {
   if (!randomGenerator) {
-    const seed = createEntropy();
-    randomGenerator = MersenneTwister19937.seedWithArray(seed);
+    randomGenerator = random;
   }
 
   let initialNumberOfDices = 0;
@@ -47,7 +44,8 @@ export function rollDice(
   );
 
   return {
-    id,
+    id: configuration.id,
+    title: configuration.title,
     createdAt,
     configuration,
     outcome: outcome,
@@ -86,13 +84,12 @@ export function calculateRollDiceOutcome(
  */
 export function rollOnce(
   configuration: DiceRollConfig,
-  randomGenerator: Engine,
+  randomGenerator: RandomEngine,
 ): number {
-  const distribution = integer(
+  return randomGenerator(
     configuration.diceRange.lowest,
     configuration.diceRange.highest,
   );
-  return distribution(randomGenerator);
 }
 
 /**
@@ -101,7 +98,7 @@ export function rollOnce(
 export function rollMany(
   configuration: DiceRollConfig,
   numberOfDices: number,
-  randomGenerator: Engine,
+  randomGenerator: RandomEngine,
 ): number[] {
   let rolledValues: number[] = [];
 

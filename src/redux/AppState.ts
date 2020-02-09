@@ -1,5 +1,7 @@
-export interface AppState {}
+import {RollDiceState} from '../features/roll-dice/RollDice.redux';
+import {RollsState} from '../features/rolls/Rolls.redux';
 
-export function createAppState(): AppState {
-  return {};
+export interface AppState {
+  rollDice: RollDiceState;
+  rolls: RollsState;
 }

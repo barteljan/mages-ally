@@ -68,6 +68,7 @@
     "out": "docs",
     "includeDeclarations": true,
     "excludeExternals": true,
-    "inputFiles": "src"
+    "inputFiles": "src",
+    "ignoreCompilerErrors": true
   }
 }

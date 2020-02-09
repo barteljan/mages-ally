@@ -19,6 +19,7 @@
 		4E4A5D7B06726EADFDC30D00 /* libPods-Mage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCA42597863890B6DED2CD2 /* libPods-Mage.a */; };
 		6120F18BA66B58293E007DB6 /* libPods-MageTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA207FDCCCF92F1A8DB403A /* libPods-MageTests.a */; };
 		6DD639F1BA789BB635606085 /* libPods-Mage-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D07C5E789765D60FAFE294 /* libPods-Mage-tvOS.a */; };
+		9A1699F423F0544100D0866F /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 9A1699F323F0544100D0866F /* Fonts */; };
 		C12EF176F0B717D4D2E522A8 /* libPods-Mage-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00B0CCBFC7E576AA043B462 /* libPods-Mage-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		5DA207FDCCCF92F1A8DB403A /* libPods-MageTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MageTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DCA42597863890B6DED2CD2 /* libPods-Mage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mage.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		986273384AB9581D126D43C7 /* Pods-MageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MageTests.release.xcconfig"; path = "Target Support Files/Pods-MageTests/Pods-MageTests.release.xcconfig"; sourceTree = "<group>"; };
+		9A1699F323F0544100D0866F /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		A2543F41E88260CE18341062 /* Pods-MageTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MageTests.debug.xcconfig"; path = "Target Support Files/Pods-MageTests/Pods-MageTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B00B0CCBFC7E576AA043B462 /* libPods-Mage-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mage-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2BA81B5AB4BD0B9A7102070 /* Pods-Mage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mage.release.xcconfig"; path = "Target Support Files/Pods-Mage/Pods-Mage.release.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MageTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				9A1699F223F053B100D0866F /* Ressources */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				DDB4BE3188559FCCEC6FA175 /* Pods */,
 			);
@@ -182,6 +185,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9A1699F223F053B100D0866F /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				9A1699F323F0544100D0866F /* Fonts */,
+			);
+			name = Ressources;
+			sourceTree = "<group>";
+		};
 		DDB4BE3188559FCCEC6FA175 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,7 +205,6 @@
 				A2543F41E88260CE18341062 /* Pods-MageTests.debug.xcconfig */,
 				986273384AB9581D126D43C7 /* Pods-MageTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -230,6 +240,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				8E1DCBE5502A92FED0A5E4EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,6 +303,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = NXRMZBFVGZ;
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -308,6 +322,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -336,6 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A1699F423F0544100D0866F /* Fonts in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -452,6 +468,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		8E1DCBE5502A92FED0A5E4EA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mage/Pods-Mage-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mage/Pods-Mage-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		94A0D17E83E735B12C083DE1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -583,6 +647,7 @@
 			baseConfigurationReference = A2543F41E88260CE18341062 /* Pods-MageTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -606,6 +671,7 @@
 			baseConfigurationReference = 986273384AB9581D126D43C7 /* Pods-MageTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = MageTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -628,6 +694,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = NXRMZBFVGZ;
 				INFOPLIST_FILE = Mage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -635,7 +702,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = de.janbartel.Mage;
 				PRODUCT_NAME = Mage;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -647,6 +714,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NXRMZBFVGZ;
 				INFOPLIST_FILE = Mage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -654,7 +722,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = de.janbartel.Mage;
 				PRODUCT_NAME = Mage;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -680,7 +748,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Mage-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.janbartel.Mage-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -708,7 +776,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Mage-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.janbartel.Mage-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;

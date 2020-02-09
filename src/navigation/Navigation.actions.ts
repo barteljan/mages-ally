@@ -1,4 +1,4 @@
-import {PayloadedAction} from 'src/redux/PAyloadedAction';
+import {PayloadedAction} from 'src/redux/PayloadedAction';
 import {Routes} from './Routes';
 
 export enum NavigationActionTypes {

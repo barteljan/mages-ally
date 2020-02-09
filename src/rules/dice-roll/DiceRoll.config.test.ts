@@ -9,9 +9,14 @@ import StringMap from '../../data-types/StringMap';
 test('makeRollConfig return a correct value', () => {
   const rollFor: StringMap<number> = {Wits: 4, Composure: 5};
 
-  const config = makeRollConfig(rollFor, 3);
+  const id = 'an_identifier';
+  const title = 'an_title';
+
+  const config = makeRollConfig(title, rollFor, id, 3);
 
   expect(config).toBeDefined();
+  expect(config.id).toBe(id);
+  expect(config.title).toBe(title);
   expect(config.diceRange).toBeDefined();
   expect(config.diceRange.highest).toBe(10);
   expect(config.diceRange.lowest).toBe(1);
@@ -26,9 +31,14 @@ test('makeRollConfig return a correct value', () => {
 test('make9AgainRollConfig return a correct value', () => {
   const rollFor: StringMap<number> = {Wits: 4, Composure: 5};
 
-  const config = make9AgainRollConfig(rollFor, 3);
+  const id = 'an_identifier';
+  const title = 'an_title';
+
+  const config = make9AgainRollConfig(title, rollFor, id, 3);
 
   expect(config).toBeDefined();
+  expect(config.id).toBe(id);
+  expect(config.title).toBe(title);
   expect(config.diceRange).toBeDefined();
   expect(config.diceRange.highest).toBe(10);
   expect(config.diceRange.lowest).toBe(1);
@@ -43,9 +53,14 @@ test('make9AgainRollConfig return a correct value', () => {
 test('make8AgainRollConfig return a correct value', () => {
   const rollFor: StringMap<number> = {Wits: 4, Composure: 5};
 
-  const config = make8AgainRollConfig(rollFor, 3);
+  const id = 'an_identifier';
+  const title = 'an_title';
+
+  const config = make8AgainRollConfig(title, rollFor, id, 3);
 
   expect(config).toBeDefined();
+  expect(config.id).toBe(id);
+  expect(config.title).toBe(title);
   expect(config.diceRange).toBeDefined();
   expect(config.diceRange.highest).toBe(10);
   expect(config.diceRange.lowest).toBe(1);
@@ -60,9 +75,14 @@ test('make8AgainRollConfig return a correct value', () => {
 test('makeRoteQualityRollConfig return a correct value', () => {
   const rollFor: StringMap<number> = {Wits: 4, Composure: 5};
 
-  const config = makeRoteQualityRollConfig(rollFor, 3);
+  const id = 'an_identifier';
+  const title = 'an_title';
+
+  const config = makeRoteQualityRollConfig(title, rollFor, id, 3);
 
   expect(config).toBeDefined();
+  expect(config.id).toBe(id);
+  expect(config.title).toBe(title);
   expect(config.diceRange).toBeDefined();
   expect(config.diceRange.highest).toBe(10);
   expect(config.diceRange.lowest).toBe(1);

@@ -1,9 +1,20 @@
 import StringMap from '../../data-types/StringMap';
+import uuid from 'uuid';
 
 /**
  * An object defining how a DiceRoll should be made
  */
 export interface DiceRollConfig {
+  /**
+   * A id identifieng this dice roll
+   */
+  id: string;
+
+  /**
+   * a title for this dice roll
+   */
+  title: string;
+
   /**
    * all dice providing properties mapped to a number of dices provided by them
    */
@@ -41,10 +52,14 @@ export interface DiceRollConfig {
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function makeRollConfig(
+  title: string,
   modifiers: StringMap<number>,
+  id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
   return {
+    id,
+    title,
     modifiers,
     explodeFor: [10],
     explodeOnceFor: [],
@@ -63,10 +78,14 @@ export function makeRollConfig(
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function make9AgainRollConfig(
+  title: string,
   modifiers: StringMap<number>,
+  id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
   return {
+    id,
+    title,
     modifiers,
     explodeFor: [9, 10],
     explodeOnceFor: [],
@@ -85,10 +104,14 @@ export function make9AgainRollConfig(
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function make8AgainRollConfig(
+  title: string,
   modifiers: StringMap<number>,
+  id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
   return {
+    id,
+    title,
     modifiers,
     explodeFor: [8, 9, 10],
     explodeOnceFor: [],
@@ -107,10 +130,14 @@ export function make8AgainRollConfig(
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function makeRoteQualityRollConfig(
+  title: string,
   modifiers: StringMap<number>,
+  id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
   return {
+    id,
+    title,
     modifiers,
     explodeFor: [],
     explodeOnceFor: [1, 2, 3, 4, 5, 6, 7],

@@ -1,13 +1,16 @@
-import {AnyAction} from 'redux';
-import {createAppState, AppState} from './AppState';
+import {combineReducers, AnyAction} from 'redux';
+import {AppState} from './AppState';
+import {rollDiceReducer} from '../features/roll-dice/RollDice.redux';
+import {rollsReducer} from '../features/rolls/Rolls.redux';
 
-export function rootReducer(
+const combinedReducer = combineReducers<AppState>({
+  rollDice: rollDiceReducer,
+  rolls: rollsReducer,
+});
+
+export const rootReducer = (
   state: AppState | undefined,
   action: AnyAction,
-): AppState {
-  console.log('Action:', action);
-  if (state === undefined) {
-    return createAppState();
-  }
-  return state;
-}
+): AppState => {
+  return combinedReducer(state, action);
+};
