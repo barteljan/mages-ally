@@ -5,8 +5,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RollsContainer from './features/rolls/Rolls.container';
 import AddRollContainer from './features/addRoll/AddRoll.container';
-import {navigationRef} from './NavigationService';
-import {Routes} from './Routes';
+import {navigationRef} from './navigation/Navigation.service';
+import {Routes} from './navigation/Routes';
 
 const store = initStore();
 

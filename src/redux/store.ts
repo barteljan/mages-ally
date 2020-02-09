@@ -1,8 +1,11 @@
 import {rootReducer} from './rootReducer';
-import {createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {persistReducer} from 'redux-persist';
 import storage from '@react-native-community/async-storage';
+import {AnyAction, applyMiddleware, createStore} from 'redux';
+import {createEpicMiddleware} from 'redux-observable';
+import {AppState} from './AppState';
+import {configureEpics} from './configureEpics';
 
 const persistConfig = {
   key: 'mage',
@@ -10,7 +13,16 @@ const persistConfig = {
   version: 1,
 };
 
-let persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const initStore = () =>
-  createStore(persistedReducer, undefined, composeWithDevTools());
+const epicMiddleware = createEpicMiddleware<AnyAction, AnyAction, AppState>();
+
+export const initStore = () => {
+  const store = createStore(
+    persistedReducer,
+    undefined,
+    composeWithDevTools(applyMiddleware(epicMiddleware)),
+  );
+  configureEpics(epicMiddleware);
+  return store;
+};
