@@ -5,6 +5,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RollsContainer from './features/rolls/Rolls.container';
 import AddRollContainer from './features/addRoll/AddRoll.container';
+import {navigationRef} from './NavigationService';
+import {Routes} from './Routes';
 
 const store = initStore();
 
@@ -12,15 +14,15 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Provider store={store}>
         <Stack.Navigator>
           <Stack.Screen
-            name="Rolls"
+            name={Routes.rolls}
             component={RollsContainer}
             options={{title: 'Dice Rolls'}}
           />
-          <Stack.Screen name="AddRoll" component={AddRollContainer} />
+          <Stack.Screen name={Routes.addRoll} component={AddRollContainer} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

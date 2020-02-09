@@ -1,3 +1,3 @@
 export interface RollsProps {
-  navigation: any;
+  addRoll: () => void;
 }

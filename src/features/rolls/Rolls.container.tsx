@@ -2,6 +2,8 @@ import {connect, MergeProps} from 'react-redux';
 import {RollsScreen} from './Rolls.screen';
 //import {AppState} from 'src/redux/AppState';
 import {RollsProps} from './Rolls.props';
+import {navigate} from '../../NavigationService';
+import {Routes} from '../../Routes';
 
 interface OwnProps {
   navigation: any;
@@ -17,6 +19,10 @@ const mapStateToProps = (/*state: AppState, ownProps: OwnProps*/): StateProps =>
 
 const mapDispatchToProps = {};
 
+const addRoll = () => {
+  navigate(Routes.addRoll);
+};
+
 const mergeProps: MergeProps<
   StateProps,
   DispatchProps,
@@ -24,7 +30,7 @@ const mergeProps: MergeProps<
   RollsProps
 > = (stateProps, dispatchProps, ownProps) => {
   return {
-    navigation: ownProps.navigation,
+    addRoll,
   };
 };
 

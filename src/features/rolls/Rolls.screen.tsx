@@ -8,10 +8,7 @@ export class RollsScreen extends React.PureComponent<RollsProps> {
     return (
       <View style={style.container}>
         <Text>Rolls Screen</Text>
-        <Button
-          title="Add a roll"
-          onPress={() => this.props.navigation.navigate('AddRoll')}
-        />
+        <Button title="Add a roll" onPress={() => this.props.addRoll()} />
       </View>
     );
   }
