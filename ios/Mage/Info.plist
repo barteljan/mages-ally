@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Mage</string>
+	<string>Mages Ally</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -51,7 +51,12 @@
 		<string>FontAwesome5_Solid.ttf</string>
 		<string>Fontisto.ttf</string>
 		<string>Foundation.ttf</string>
-		<string>Ionicons.ttfMaterialCommunityIcons.ttfMaterialIcons.ttfOcticons.ttfSimpleLineIcons.ttfZocial.ttf</string>
+		<string>Ionicons.ttf
+MaterialCommunityIcons.ttf
+MaterialIcons.ttf
+Octicons.ttf
+SimpleLineIcons.ttf
+Zocial.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 		<string>MaterialIcons.ttf</string>
 		<string>Octicons.ttf</string>
