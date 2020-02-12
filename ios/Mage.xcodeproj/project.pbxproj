@@ -305,6 +305,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = NXRMZBFVGZ;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -692,6 +693,8 @@
 			baseConfigurationReference = E8C7B56B2C82019F72BAB82F /* Pods-Mage.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = NXRMZBFVGZ;
@@ -704,6 +707,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.janbartel.Mage;
 				PRODUCT_NAME = "Mage-Assistant";
+				PROVISIONING_PROFILE_SPECIFIER = "Mages Ally - Store";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -713,6 +717,8 @@
 			baseConfigurationReference = C2BA81B5AB4BD0B9A7102070 /* Pods-Mage.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NXRMZBFVGZ;
 				INFOPLIST_FILE = Mage/Info.plist;
@@ -724,6 +730,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.janbartel.Mage;
 				PRODUCT_NAME = "Mage-Assistant";
+				PROVISIONING_PROFILE_SPECIFIER = "Mages Ally - Store";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
