@@ -86,7 +86,11 @@ class SkullListIcon extends React.PureComponent<{item: DiceRoll}> {
   render() {
     return (
       <View style={style.skullItem}>
-        <Icon name="skull" size={24} color={Colors.textOnAccentColor} />
+        <Icon
+          name="skull-crossbones"
+          size={24}
+          color={Colors.textOnAccentColor}
+        />
       </View>
     );
   }

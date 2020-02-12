@@ -11,8 +11,11 @@ import ActionButton from './features/actionButton/ActionButton.container';
 import {Platform} from 'react-native';
 import {Colors} from './layout/Colors';
 import {localization} from './navigation/Navigation.strings';
+import FlashMessage from 'react-native-flash-message';
 
 const Stack = createStackNavigator();
+
+//export let dropdownAlert: FlashMessage | null;
 
 function App() {
   return (
@@ -38,6 +41,7 @@ function App() {
             }}
           />
         </Stack.Navigator>
+        <FlashMessage position="top" />
       </Provider>
     </NavigationContainer>
   );

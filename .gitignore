@@ -1,3 +1,4 @@
+*.dSYM.zip
 fastlane/report.xml
 # OSX
 #
