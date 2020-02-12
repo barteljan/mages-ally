@@ -8,7 +8,7 @@ import {
   didRollDicesAction,
 } from './RollDice.redux';
 import {rollDice} from '../../rules/dice-roll/rollDice';
-import {showDropDownForDiceRoll} from '../../helper/showDropDownForDiceRoll';
+import {showDropDownForDiceRoll} from './helper/showDropDownForDiceRoll';
 
 export const rollDicesEpic: Epic<any, RollDiceActions, AppState> = action$ =>
   action$.pipe(

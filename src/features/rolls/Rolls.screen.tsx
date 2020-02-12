@@ -5,7 +5,7 @@ import {RollsProps} from './Rolls.props';
 import ActionButton from '../actionButton/ActionButton.container';
 import {FlatList} from 'react-native-gesture-handler';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
-import {RollListItem} from './RollListItem';
+import {RollListItem} from './RollListItem/RollListItem';
 
 export class RollsScreen extends React.PureComponent<RollsProps> {
   renderItem = (item: {item: DiceRoll}) => {

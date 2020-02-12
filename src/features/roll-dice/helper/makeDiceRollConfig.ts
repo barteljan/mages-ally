@@ -5,16 +5,23 @@ import {
   make9AgainRollConfig,
   make8AgainRollConfig,
   makeRoteQualityRollConfig,
-} from '../../rules/dice-roll/DiceRoll.config';
-import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
+} from '../../../rules/dice-roll/DiceRoll.config';
+import {DiceRollAgainType} from '../../../rules/dice-roll/DiceRollAgainType';
+import {localization, LocalizationParams} from '../RollDice.strings';
 
-export const makeDiceRollConfigForDiceRollContainer = (
+export const makeDiceRollConfig = (
   numberOfDices: number,
   rollAgainType: DiceRollAgainType,
   exceptionalSuccessAt: number,
 ): DiceRollConfig => {
-  let title =
-    'Rolled ' + numberOfDices + (numberOfDices === 1 ? ' dice' : ' dices');
+  const dicesString: string =
+    numberOfDices === 1
+      ? localization.message_dice_singular
+      : localization.message_dice_plural;
+
+  let title = localization.dice_roll_title
+    .replace(LocalizationParams.dicesNumber, numberOfDices + '')
+    .replace(LocalizationParams.dicesString, dicesString);
 
   let id = uuid.v4();
 

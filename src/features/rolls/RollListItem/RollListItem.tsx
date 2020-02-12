@@ -1,18 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
-import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
-import {Colors} from '../../layout/Colors';
+import {Colors} from '../../../layout/Colors';
+import {DiceRollOutcome} from '../../../rules/dice-roll/DiceRoll.outcome';
+import {style} from './RollListItem.style';
+import {RollListItemProps} from './RollListItem.props';
+import {View} from 'react-native';
+import {DiceRoll} from '../../../rules/dice-roll/DiceRoll';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {DiceRollOutcome} from '../../rules/dice-roll/DiceRoll.outcome';
-
-import {FontSize} from '../../layout/Font';
-import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
-
-export interface RollListItemProps {
-  item: DiceRoll;
-  onReroll: (item: DiceRollConfig) => void;
-}
+import {localization} from './RollListItem.strings';
 
 export class RollListItem extends React.PureComponent<RollListItemProps> {
   render() {
@@ -35,27 +30,27 @@ export class RollListItem extends React.PureComponent<RollListItemProps> {
     let rightSubtitle = '';
     switch (item.outcome) {
       case DiceRollOutcome.exceptionalSuccess:
-        rightSubtitle += 'Exceptional\nSuccess';
+        rightSubtitle += localization.exceptional_success;
         break;
       case DiceRollOutcome.dramaticFailure:
-        rightSubtitle += 'Dramatic\nFailure';
+        rightSubtitle += localization.dramatic_failure;
         break;
       case DiceRollOutcome.failure:
-        rightSubtitle += 'Failure';
+        rightSubtitle += localization.failure;
         break;
       case DiceRollOutcome.success:
-        rightSubtitle += 'Success';
+        rightSubtitle += localization.success;
     }
 
     let subtitle = '';
     if (item.configuration.explodeFor.includes(8)) {
-      subtitle += '8 again';
+      subtitle += localization.eightAgain;
     } else if (item.configuration.explodeFor.includes(9)) {
-      subtitle += '9 again';
+      subtitle += localization.nineAgain;
     } else if (item.configuration.explodeFor.includes(10)) {
-      subtitle += '10 again';
+      subtitle += localization.tenAgain;
     } else {
-      subtitle += 'rote quality';
+      subtitle += localization.roteQuality;
     }
 
     return (
@@ -82,7 +77,9 @@ export class RollListItem extends React.PureComponent<RollListItemProps> {
   }
 }
 
-class SkullListIcon extends React.PureComponent<{item: DiceRoll}> {
+export class SkullListIcon extends React.PureComponent<{
+  item: DiceRoll;
+}> {
   render() {
     return (
       <View style={style.skullItem}>
@@ -95,44 +92,3 @@ class SkullListIcon extends React.PureComponent<{item: DiceRoll}> {
     );
   }
 }
-
-export const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderTopColor: Colors.seperator,
-    borderTopWidth: 1,
-  },
-  infoRow: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  skullItem: {
-    backgroundColor: Colors.complementColor,
-    height: 40,
-    width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-  },
-  subtitle: {
-    marginTop: 5,
-    fontSize: FontSize.small,
-  },
-  rightSubtitle: {
-    fontSize: FontSize.small,
-    fontWeight: 'bold',
-    alignSelf: 'flex-end',
-    textAlignVertical: 'top',
-    textAlign: 'left',
-    flex: 1,
-    width: 72,
-  },
-  success: {
-    color: Colors.accentColor,
-  },
-  failure: {
-    color: Colors.complementColor,
-  },
-});

@@ -15,7 +15,7 @@ import {
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {DiceRollContext} from '../../rules/DiceRollContext';
-import {makeDiceRollConfigForDiceRollContainer} from './RollDice.helper';
+import {makeDiceRollConfig} from './helper/makeDiceRollConfig';
 
 interface OwnProps {}
 
@@ -64,7 +64,7 @@ const mergeProps: MergeProps<
     setRollAgainType: dispatchProps.setRollAgainType,
     setExceptionalSuccessAt: dispatchProps.setExceptionalSuccessAt,
     rollDice: () => {
-      const config = makeDiceRollConfigForDiceRollContainer(
+      const config = makeDiceRollConfig(
         stateProps.numberOfDices,
         stateProps.rollAgainType,
         stateProps.exceptionalSuccessAt,
