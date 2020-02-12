@@ -1,3 +1,3 @@
 export default interface StringMap<T> {
-  [id: string]: T
+  [id: string]: T;
 }
