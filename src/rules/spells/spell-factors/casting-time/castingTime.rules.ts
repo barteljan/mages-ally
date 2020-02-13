@@ -1,5 +1,5 @@
-import {SpellFactorRules} from './SpellFactor.rules';
-import {GnosisRules, RitualIntervalUnit} from '../../gnosis/GnosisRule';
+import {SpellFactorRules} from '../SpellFactor.rules';
+import {GnosisRules, RitualIntervalUnit} from '../../../gnosis/GnosisRule';
 import {
   CastingTimeStringKey,
   translateCastingTimeStrings,

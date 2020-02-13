@@ -1,5 +1,5 @@
-import {SpellFactorRules, SpellFactorRuleLevel} from './SpellFactor.rules';
-import {SpellFactorLevel} from './SpellFactor.level';
+import {SpellFactorRules, SpellFactorRuleLevel} from '../SpellFactor.rules';
+import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelDuration} from './duration.strings';
 
 export interface DurationRules extends SpellFactorRules {

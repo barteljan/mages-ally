@@ -1,4 +1,4 @@
-import {gnosisRules} from '../../gnosis/gnosisRules';
+import {gnosisRules} from '../../../gnosis/gnosisRules';
 import {makeCastingTimeRules} from './castingTime.rules';
 
 test('creates right number of spellfactor levels', () => {

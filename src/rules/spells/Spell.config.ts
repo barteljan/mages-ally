@@ -1,14 +1,15 @@
 import {PrimaryFactor} from './PrimaryFactor';
 import {ArcanaType} from './ArcanaType';
 import {SleeperWitnesses} from './SleeperWitnesses';
-import {Yantra} from './Yantra';
+import {YantraRules} from './yantra/yantra.rules';
 import {CharactersArcanum} from '../character/CharactersArcanum';
 import {CharacterSkill} from '../character/CharacterSkill';
-import {SpellFactorLevel} from './spell-factor/SpellFactor.level';
-import {SpellFactorType} from './spell-factor/SpellFactor.type';
+import {SpellFactorLevel} from './spell-factors/SpellFactor.level';
+import {SpellFactorType} from './spell-factors/SpellFactor.type';
 import moment from 'moment';
 import uuid from 'uuid';
 import StringMap from '../../data-types/StringMap';
+import {SpellFactor} from './spell-factors/SpellFactor';
 
 export interface DiceModifier {
   name: string;
@@ -41,12 +42,6 @@ export function makeDefaultSpellCaster(
     spendsWillpower: false,
     ...spellCaster,
   };
-}
-
-export interface SpellFactor {
-  type: SpellFactorType;
-  level: SpellFactorLevel;
-  value: number;
 }
 
 export function makeSpellFactor(factor?: Partial<SpellFactor>): SpellFactor {
@@ -114,7 +109,7 @@ export interface SpellSpecification {
     extraReach: number;
   };
   includeParadoxRoll: boolean;
-  yantras: Yantra[];
+  yantras: YantraRules[];
 }
 
 export function makeDefaultSpellSpecification(

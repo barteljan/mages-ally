@@ -1,6 +1,6 @@
-import {SpellFactorRules} from './SpellFactor.rules';
+import {SpellFactorRules} from '../SpellFactor.rules';
 import {spellFactorLabelRange} from './range.strings';
-import {SpellFactorLevel} from './SpellFactor.level';
+import {SpellFactorLevel} from '../SpellFactor.level';
 
 export function makeRangeRules(
   spellFactorLabel: (

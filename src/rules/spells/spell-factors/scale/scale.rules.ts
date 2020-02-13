@@ -1,6 +1,6 @@
-import {SpellFactorLevel} from './SpellFactor.level';
+import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelScale} from './scale.strings';
-import {SpellFactorRuleLevel, SpellFactorRules} from './SpellFactor.rules';
+import {SpellFactorRuleLevel, SpellFactorRules} from '../SpellFactor.rules';
 
 export interface ScaleRuleLevel extends SpellFactorRuleLevel {
   numberOfSubjects: number;

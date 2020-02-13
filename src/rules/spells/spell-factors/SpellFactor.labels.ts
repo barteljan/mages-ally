@@ -1,12 +1,12 @@
 import {SpellFactorType} from './SpellFactor.type';
 import {SpellFactorLevel} from './SpellFactor.level';
-import {spellFactorLabelPotency} from './potency.strings';
-import {spellFactorLabelDuration} from './duration.strings';
-import {spellFactorLabelScale} from './scale.strings';
+import {spellFactorLabelPotency} from './potency/potency.strings';
+import {spellFactorLabelDuration} from './duration/duration.strings';
+import {spellFactorLabelScale} from './scale/scale.strings';
 import {GnosisRules} from '../../gnosis/GnosisRule';
 import {gnosisRules as defaultGnosisRules} from '../../gnosis/gnosisRules';
-import {makeCastingTimeRules} from './castingTime.rules';
-import {spellFactorLabelRange} from './range.strings';
+import {makeCastingTimeRules} from './casting-time/castingTime.rules';
+import {spellFactorLabelRange} from './range/range.strings';
 
 export function spellFactorLabel(
   type: SpellFactorType,

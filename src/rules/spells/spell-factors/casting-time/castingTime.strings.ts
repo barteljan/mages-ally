@@ -1,5 +1,5 @@
 import LocalizedStrings from 'react-native-localization';
-import {RitualIntervalUnit} from '../../gnosis/GnosisRule';
+import {RitualIntervalUnit} from '../../../gnosis/GnosisRule';
 
 export enum CastingTimeStringKey {
   dice = 'dice',

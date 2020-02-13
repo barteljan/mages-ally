@@ -1,15 +1,8 @@
-export interface Yantra {
-  name: string;
-  desc: string;
-  minBonus: number;
-  maxBonus?: number;
-  value?: number;
-  unique: boolean;
-}
+import {YantraRules} from './yantra.rules';
 
 export interface YantraGroup {
   name: string;
-  yantras: Yantra[];
+  yantras: YantraRules[];
 }
 
 export const yantras: YantraGroup[] = [

@@ -1,5 +1,5 @@
 import LocalizedStrings from 'react-native-localization';
-import {SpellFactorLevel} from './SpellFactor.level';
+import {SpellFactorLevel} from '../SpellFactor.level';
 
 export interface SpellFactorRangeStrings {
   standard: string;
