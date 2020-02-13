@@ -3,14 +3,14 @@ import {RollDiceScreen} from './RollDice.screen';
 import {RollDiceProps} from './RollDice.props';
 import {AppState} from '../../redux/AppState';
 import {
-  setNumberOfDicesAction,
+  setNumberOfDiceAction,
   setRollAgainTypeAction,
   setExceptionalSuccessAtAction,
   rollDiceAction,
   RollDiceAction,
   SetExceptionalSuccessAtAction,
   SetRollAgainTypeAction,
-  SetNumberOfDicesAction,
+  SetNumberOfDiceAction,
 } from './RollDice.redux';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
@@ -20,13 +20,13 @@ import {makeDiceRollConfig} from './helper/makeDiceRollConfig';
 interface OwnProps {}
 
 interface StateProps {
-  numberOfDices: number;
+  numberOfDice: number;
   exceptionalSuccessAt: number;
   rollAgainType: DiceRollAgainType;
 }
 
 interface DispatchProps {
-  setNumberOfDices: (dices: number) => SetNumberOfDicesAction;
+  setNumberOfDice: (dice: number) => SetNumberOfDiceAction;
   setRollAgainType: (type: DiceRollAgainType) => SetRollAgainTypeAction;
   setExceptionalSuccessAt: (at: number) => SetExceptionalSuccessAtAction;
   rollDice: (
@@ -37,14 +37,14 @@ interface DispatchProps {
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
-    numberOfDices: state.rollDice.numberOfDices,
+    numberOfDice: state.rollDice.numberOfDice,
     rollAgainType: state.rollDice.rollAgainType,
     exceptionalSuccessAt: state.rollDice.exceptionalSuccessAt,
   };
 };
 
 const mapDispatchToProps: DispatchProps = {
-  setNumberOfDices: setNumberOfDicesAction,
+  setNumberOfDice: setNumberOfDiceAction,
   setRollAgainType: setRollAgainTypeAction,
   setExceptionalSuccessAt: setExceptionalSuccessAtAction,
   rollDice: rollDiceAction,
@@ -57,15 +57,15 @@ const mergeProps: MergeProps<
   RollDiceProps
 > = (stateProps, dispatchProps) => {
   return {
-    numberOfDices: stateProps.numberOfDices,
+    numberOfDice: stateProps.numberOfDice,
     rollAgainType: stateProps.rollAgainType,
     exceptionalSuccessAt: stateProps.exceptionalSuccessAt,
-    setNumberOfDices: dispatchProps.setNumberOfDices,
+    setNumberOfDice: dispatchProps.setNumberOfDice,
     setRollAgainType: dispatchProps.setRollAgainType,
     setExceptionalSuccessAt: dispatchProps.setExceptionalSuccessAt,
     rollDice: () => {
       const config = makeDiceRollConfig(
-        stateProps.numberOfDices,
+        stateProps.numberOfDice,
         stateProps.rollAgainType,
         stateProps.exceptionalSuccessAt,
       );

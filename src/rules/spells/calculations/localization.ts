@@ -32,7 +32,7 @@ export const localization = new LocalizedStrings<DiceModifiersStrings>({
     [ArcanaType.spirit]: 'spirit',
     [ArcanaType.time]: 'time',
     [DefaultKeys.gnosis]: 'gnosis',
-    [DefaultKeys.additionalDice]: 'additional dices',
+    [DefaultKeys.additionalDice]: 'additional dice',
     [DefaultKeys.roteSkill]: 'rote skill',
     [DefaultKeys.willpower]: 'willpower',
   },

@@ -10,18 +10,18 @@ import {DiceRollAgainType} from '../../../rules/dice-roll/DiceRollAgainType';
 import {localization, LocalizationParams} from '../RollDice.strings';
 
 export const makeDiceRollConfig = (
-  numberOfDices: number,
+  numberOfDice: number,
   rollAgainType: DiceRollAgainType,
   exceptionalSuccessAt: number,
 ): DiceRollConfig => {
-  const dicesString: string =
-    numberOfDices === 1
+  const diceString: string =
+    numberOfDice === 1
       ? localization.message_dice_singular
       : localization.message_dice_plural;
 
   let title = localization.dice_roll_title
-    .replace(LocalizationParams.dicesNumber, numberOfDices + '')
-    .replace(LocalizationParams.dicesString, dicesString);
+    .replace(LocalizationParams.diceNumber, numberOfDice + '')
+    .replace(LocalizationParams.diceString, diceString);
 
   let id = uuid.v4();
 
@@ -29,28 +29,28 @@ export const makeDiceRollConfig = (
     case DiceRollAgainType.tenAgain:
       return makeRollConfig(
         title,
-        {rolled: numberOfDices},
+        {rolled: numberOfDice},
         id,
         exceptionalSuccessAt,
       );
     case DiceRollAgainType.nineAgain:
       return make9AgainRollConfig(
         title,
-        {rolled: numberOfDices},
+        {rolled: numberOfDice},
         id,
         exceptionalSuccessAt,
       );
     case DiceRollAgainType.eightAgain:
       return make8AgainRollConfig(
         title,
-        {rolled: numberOfDices},
+        {rolled: numberOfDice},
         id,
         exceptionalSuccessAt,
       );
     case DiceRollAgainType.roteQuality:
       return makeRoteQualityRollConfig(
         title,
-        {rolled: numberOfDices},
+        {rolled: numberOfDice},
         id,
         exceptionalSuccessAt,
       );

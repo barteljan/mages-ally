@@ -1,5 +1,5 @@
 export interface SpellFactorRuleLevel {
-  description?: string;
+  description: string;
   diceModifier: number;
 }
 

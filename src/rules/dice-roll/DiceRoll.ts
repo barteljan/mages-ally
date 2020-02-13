@@ -26,9 +26,9 @@ export interface DiceRoll {
   configuration: DiceRollConfig;
 
   /**
-   * rolled dices
+   * rolled dice
    */
-  rolledDices: number[];
+  rolledDice: number[];
 
   /**
    * number of successes

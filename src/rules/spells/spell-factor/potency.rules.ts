@@ -19,11 +19,11 @@ export function makePotencyRules(
   for (let i = 0; i < numberOfLevels; i++) {
     const itemStandard: SpellFactorRuleLevel = {
       description: spellFactorLabel(SpellFactorLevel.standard, i),
-      dicePenalty: i * -2,
+      diceModifier: i * -2,
     };
     const itemAdvanced: SpellFactorRuleLevel = {
       description: spellFactorLabel(SpellFactorLevel.standard, i),
-      dicePenalty: i * -2,
+      diceModifier: i * -2,
     };
     rules.standard.push(itemStandard);
     rules.advanced.push(itemAdvanced);

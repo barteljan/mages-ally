@@ -1,10 +1,10 @@
-import {GnosisRule} from './GnosisRule';
+import {GnosisRules, RitualIntervalUnit} from './GnosisRule';
 
-export const gnosisRules: GnosisRule[] = [
+export const gnosisRules: GnosisRules[] = [
   {
     gnosis: 1,
     ritualInterval: 3,
-    ritualIntervalTimeUnit: 'hour',
+    ritualIntervalTimeUnit: RitualIntervalUnit.hour,
     manaLimit: 10,
     manaPerTurn: 1,
     traitMax: 5,
@@ -18,7 +18,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 2,
     ritualInterval: 3,
-    ritualIntervalTimeUnit: 'hour',
+    ritualIntervalTimeUnit: RitualIntervalUnit.hour,
     manaLimit: 11,
     manaPerTurn: 2,
     traitMax: 5,
@@ -32,7 +32,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 3,
     ritualInterval: 1,
-    ritualIntervalTimeUnit: 'hour',
+    ritualIntervalTimeUnit: RitualIntervalUnit.hour,
     manaLimit: 12,
     manaPerTurn: 3,
     traitMax: 5,
@@ -46,7 +46,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 4,
     ritualInterval: 1,
-    ritualIntervalTimeUnit: 'hour',
+    ritualIntervalTimeUnit: RitualIntervalUnit.hour,
     manaLimit: 13,
     manaPerTurn: 4,
     traitMax: 5,
@@ -60,7 +60,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 5,
     ritualInterval: 30,
-    ritualIntervalTimeUnit: 'minutes',
+    ritualIntervalTimeUnit: RitualIntervalUnit.minute,
     manaLimit: 15,
     manaPerTurn: 5,
     traitMax: 5,
@@ -74,7 +74,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 6,
     ritualInterval: 30,
-    ritualIntervalTimeUnit: 'minutes',
+    ritualIntervalTimeUnit: RitualIntervalUnit.minute,
     manaLimit: 20,
     manaPerTurn: 6,
     traitMax: 6,
@@ -88,7 +88,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 7,
     ritualInterval: 10,
-    ritualIntervalTimeUnit: 'minutes',
+    ritualIntervalTimeUnit: RitualIntervalUnit.minute,
     manaLimit: 25,
     manaPerTurn: 7,
     traitMax: 7,
@@ -102,7 +102,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 8,
     ritualInterval: 10,
-    ritualIntervalTimeUnit: 'minutes',
+    ritualIntervalTimeUnit: RitualIntervalUnit.minute,
     manaLimit: 30,
     manaPerTurn: 8,
     traitMax: 8,
@@ -116,7 +116,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 9,
     ritualInterval: 1,
-    ritualIntervalTimeUnit: 'minutes',
+    ritualIntervalTimeUnit: RitualIntervalUnit.minute,
     manaLimit: 50,
     manaPerTurn: 9,
     traitMax: 9,
@@ -130,7 +130,7 @@ export const gnosisRules: GnosisRule[] = [
   {
     gnosis: 10,
     ritualInterval: 1,
-    ritualIntervalTimeUnit: 'minutes',
+    ritualIntervalTimeUnit: RitualIntervalUnit.minute,
     manaLimit: 75,
     manaPerTurn: 10,
     traitMax: 10,

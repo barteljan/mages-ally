@@ -5,17 +5,17 @@ import {
   RollDiceActionTypes,
   RollDiceActions,
   RollDiceAction,
-  didRollDicesAction,
+  didRollDiceAction,
 } from './RollDice.redux';
 import {rollDice} from '../../rules/dice-roll/rollDice';
 import {showDropDownForDiceRoll} from './helper/showDropDownForDiceRoll';
 
-export const rollDicesEpic: Epic<any, RollDiceActions, AppState> = action$ =>
+export const rollDiceEpic: Epic<any, RollDiceActions, AppState> = action$ =>
   action$.pipe(
-    ofType(RollDiceActionTypes.rollDices),
+    ofType(RollDiceActionTypes.rollDice),
     map((action: RollDiceAction) => {
       const rolled = rollDice(action.payload.config);
       showDropDownForDiceRoll(rolled);
-      return didRollDicesAction(rolled);
+      return didRollDiceAction(rolled);
     }),
   );

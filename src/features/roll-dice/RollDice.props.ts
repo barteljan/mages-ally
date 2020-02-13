@@ -1,10 +1,10 @@
 import {DiceRollAgainType} from 'src/rules/dice-roll/DiceRollAgainType';
 
 export interface RollDiceProps {
-  numberOfDices: number;
+  numberOfDice: number;
   rollAgainType: DiceRollAgainType;
   exceptionalSuccessAt: number;
-  setNumberOfDices: (dices: number) => void;
+  setNumberOfDice: (dice: number) => void;
   setRollAgainType: (type: DiceRollAgainType) => void;
   setExceptionalSuccessAt: (at: number) => void;
   rollDice: () => void;

@@ -24,8 +24,8 @@ export class RollDiceScreen extends React.PureComponent<
     }
   };
 
-  onSelectNumberOfDices = (dices: number) => {
-    this.props.setNumberOfDices(dices);
+  onSelectNumberOfDice = (dice: number) => {
+    this.props.setNumberOfDice(dice);
   };
 
   onChangeRollAgainType = (index: number) => {
@@ -75,10 +75,10 @@ export class RollDiceScreen extends React.PureComponent<
 
   render() {
     //show always a 5 dice grouping and always 5 more than actually selected
-    let visibleNumberOfDices = 10;
+    let visibleNumberOfDice = 10;
 
-    if (this.props.numberOfDices > 8) {
-      visibleNumberOfDices = 20;
+    if (this.props.numberOfDice > 8) {
+      visibleNumberOfDice = 20;
     }
 
     const containerStyle =
@@ -114,21 +114,21 @@ export class RollDiceScreen extends React.PureComponent<
         alwaysBounceVertical={false}
         onLayout={this.onLayoutChange}>
         <Text style={style.title}>
-          {localization.choose_dices.toUpperCase()}
+          {localization.choose_dice.toUpperCase()}
         </Text>
         <DiceSelect
-          numberOfDices={visibleNumberOfDices}
-          value={this.props.numberOfDices}
+          numberOfDice={visibleNumberOfDice}
+          value={this.props.numberOfDice}
           selectedColor={Colors.accentColor}
           unselectedColor={Colors.disabled}
           groupStyle={groupStyle}
-          onSelect={this.onSelectNumberOfDices}
+          onSelect={this.onSelectNumberOfDice}
         />
         <Button
-          containerStyle={style.rollDicesButtonStyle}
-          title={localization.roll_dices_button_text}
+          containerStyle={style.rollDiceButtonStyle}
+          title={localization.roll_dice_button_text}
           type="clear"
-          titleStyle={style.rollDicesButtonTextStyle}
+          titleStyle={style.rollDiceButtonTextStyle}
           onPress={this.onRollDice}
         />
         <Divider />

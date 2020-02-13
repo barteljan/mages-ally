@@ -1,7 +1,7 @@
 import {ViewStyle} from 'react-native';
 
 export interface DiceSelectProps {
-  numberOfDices: number;
+  numberOfDice: number;
   value: number;
   selectedColor: string;
   unselectedColor: string;

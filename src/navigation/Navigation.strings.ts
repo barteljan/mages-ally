@@ -8,6 +8,6 @@ export interface NavigationStrings {
 export const localization = new LocalizedStrings<NavigationStrings>({
   en: {
     rolls_route_title: 'Dice Rolls',
-    add_roll_route_title: 'Roll Dices',
+    add_roll_route_title: 'Roll Dice',
   },
 });

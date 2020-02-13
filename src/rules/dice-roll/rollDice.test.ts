@@ -272,7 +272,7 @@ test('rollDice generates different dice rolls on two trys', () => {
     explodeFor: [],
     explodeOnceFor: [10],
     difficulty: 8,
-    modifiers: {numberOfDices: 50},
+    modifiers: {numberOfDice: 50},
     successesNeededForExceptionalSuccess: 5,
   };
 
@@ -280,7 +280,7 @@ test('rollDice generates different dice rolls on two trys', () => {
   const result2 = rollDice(config);
   expect(result).toBeDefined();
   expect(result2).toBeDefined();
-  expect(result.rolledDices).not.toEqual(result2.rolledDices);
+  expect(result.rolledDice).not.toEqual(result2.rolledDice);
 });
 
 test('rollDice generates correct min and max values', () => {
@@ -291,7 +291,7 @@ test('rollDice generates correct min and max values', () => {
     explodeFor: [],
     explodeOnceFor: [],
     difficulty: 8,
-    modifiers: {numberOfDices: 11},
+    modifiers: {numberOfDice: 11},
     successesNeededForExceptionalSuccess: 5,
   };
 
@@ -299,8 +299,8 @@ test('rollDice generates correct min and max values', () => {
 
   const result = rollDice(config, 4, engine);
 
-  expect(result.rolledDices.filter(dice => dice === 1).length).toBe(4);
-  expect(result.rolledDices.filter(dice => dice === 10).length).toBe(2);
+  expect(result.rolledDice.filter(dice => dice === 1).length).toBe(4);
+  expect(result.rolledDice.filter(dice => dice === 10).length).toBe(2);
 
   const config2: DiceRollConfig = {
     id: 'an_identifier',
@@ -309,19 +309,19 @@ test('rollDice generates correct min and max values', () => {
     explodeFor: [],
     explodeOnceFor: [],
     difficulty: 8,
-    modifiers: {numberOfDices: 10000},
+    modifiers: {numberOfDice: 10000},
     successesNeededForExceptionalSuccess: 5,
   };
 
   const result2 = rollDice(config2, 4);
 
-  expect(result2.rolledDices.filter(dice => dice === 1).length).toBeGreaterThan(
+  expect(result2.rolledDice.filter(dice => dice === 1).length).toBeGreaterThan(
     0,
   );
-  expect(
-    result2.rolledDices.filter(dice => dice === 10).length,
-  ).toBeGreaterThan(0);
-  expect(result2.rolledDices.filter(dice => dice === 11).length).toBe(0);
+  expect(result2.rolledDice.filter(dice => dice === 10).length).toBeGreaterThan(
+    0,
+  );
+  expect(result2.rolledDice.filter(dice => dice === 11).length).toBe(0);
 });
 
 test('rollDice rolls correct number of dice with two positive modifiers', () => {
@@ -337,7 +337,7 @@ test('rollDice rolls correct number of dice with two positive modifiers', () => 
   };
 
   const result = rollDice(config);
-  expect(result.rolledDices.length).toBe(9);
+  expect(result.rolledDice.length).toBe(9);
 });
 
 test('roll dice rolls correct number of dice with two positive modifiers and a negative modifier', () => {
@@ -353,7 +353,7 @@ test('roll dice rolls correct number of dice with two positive modifiers and a n
   };
 
   const result = rollDice(config);
-  expect(result.rolledDices.length).toBe(13);
+  expect(result.rolledDice.length).toBe(13);
 });
 
 test('rollDice rolls 1 dice when all modifiers are negative', () => {
@@ -369,7 +369,7 @@ test('rollDice rolls 1 dice when all modifiers are negative', () => {
   };
 
   const result = rollDice(config);
-  expect(result.rolledDices.length).toBe(1);
+  expect(result.rolledDice.length).toBe(1);
 });
 
 test('rollDice rolls 1 dice when sum of modifiers is negative', () => {
@@ -385,7 +385,7 @@ test('rollDice rolls 1 dice when sum of modifiers is negative', () => {
   };
 
   const result = rollDice(config);
-  expect(result.rolledDices.length).toBe(1);
+  expect(result.rolledDice.length).toBe(1);
 });
 
 test('rollDice works correct with no dice rolls containing a exploding number', () => {
@@ -402,7 +402,7 @@ test('rollDice works correct with no dice rolls containing a exploding number', 
 
   const engine = createMockRandomEngine([6, 6, 6, 6, 8, 9]);
 
-  expect(rollDice(config, 1, engine).rolledDices).toEqual([6, 6, 6, 6, 8, 9]);
+  expect(rollDice(config, 1, engine).rolledDice).toEqual([6, 6, 6, 6, 8, 9]);
 });
 
 test('rollDice works correct with a dice roll containing a exploding number', () => {
@@ -436,7 +436,7 @@ test('rollDice works correct with a dice roll containing two exploding numbers i
 
   const engine = createMockRandomEngine([6, 6, 6, 6, 8, 10, 10, 7]);
 
-  expect(rollDice(config, 1, engine).rolledDices).toEqual([
+  expect(rollDice(config, 1, engine).rolledDice).toEqual([
     6,
     6,
     6,
@@ -462,7 +462,7 @@ test('rollDice works correct with a dice roll with several exploding numbers', (
 
   const engine = createMockRandomEngine([10, 6, 10, 6, 10, 5, 5, 7, 6]);
 
-  expect(rollDice(config, 1, engine).rolledDices).toEqual([
+  expect(rollDice(config, 1, engine).rolledDice).toEqual([
     10,
     6,
     10,
@@ -489,7 +489,7 @@ test('rollDice works correct with a dice roll with 9 again', () => {
 
   const engine = createMockRandomEngine([9, 6, 10, 6, 7]);
 
-  expect(rollDice(config, 1, engine).rolledDices).toEqual([9, 6, 10, 6, 7]);
+  expect(rollDice(config, 1, engine).rolledDice).toEqual([9, 6, 10, 6, 7]);
 });
 
 test('rollDice works correct with a dice explodingOnce', () => {
@@ -506,7 +506,7 @@ test('rollDice works correct with a dice explodingOnce', () => {
 
   const engine = createMockRandomEngine([9, 6, 10, 10]);
 
-  expect(rollDice(config, 1, engine).rolledDices).toEqual([9, 6, 10, 10]);
+  expect(rollDice(config, 1, engine).rolledDice).toEqual([9, 6, 10, 10]);
 });
 
 test('rollDice works on success', () => {

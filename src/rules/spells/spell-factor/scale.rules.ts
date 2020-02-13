@@ -6,7 +6,7 @@ export interface ScaleRuleLevel extends SpellFactorRuleLevel {
   numberOfSubjects: number;
   sizeOfLargestSubject: number;
   description: string;
-  dicePenalty: number;
+  diceModifier: number;
 }
 
 export interface ScaleRules extends SpellFactorRules {
@@ -27,31 +27,31 @@ export function makeScaleRules(
         numberOfSubjects: 1,
         sizeOfLargestSubject: 5,
         description: spellFactorLabel(SpellFactorLevel.standard, 0),
-        dicePenalty: 0,
+        diceModifier: 0,
       },
       {
         numberOfSubjects: 2,
         sizeOfLargestSubject: 6,
         description: spellFactorLabel(SpellFactorLevel.standard, 1),
-        dicePenalty: -2,
+        diceModifier: -2,
       },
       {
         numberOfSubjects: 4,
         sizeOfLargestSubject: 7,
         description: spellFactorLabel(SpellFactorLevel.standard, 2),
-        dicePenalty: -4,
+        diceModifier: -4,
       },
       {
         numberOfSubjects: 8,
         sizeOfLargestSubject: 8,
         description: spellFactorLabel(SpellFactorLevel.standard, 3),
-        dicePenalty: -6,
+        diceModifier: -6,
       },
       {
         numberOfSubjects: 16,
         sizeOfLargestSubject: 9,
         description: spellFactorLabel(SpellFactorLevel.standard, 4),
-        dicePenalty: -8,
+        diceModifier: -8,
       },
     ],
     advanced: [
@@ -59,7 +59,7 @@ export function makeScaleRules(
         numberOfSubjects: 5,
         sizeOfLargestSubject: 5,
         description: spellFactorLabel(SpellFactorLevel.advanced, 0),
-        dicePenalty: 0,
+        diceModifier: 0,
       },
     ],
   };
@@ -76,7 +76,7 @@ export function makeScaleRules(
       numberOfSubjects: subjects,
       sizeOfLargestSubject: size,
       description,
-      dicePenalty: i * -2,
+      diceModifier: i * -2,
     });
   }
   return scaleRules;

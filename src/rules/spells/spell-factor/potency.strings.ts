@@ -16,6 +16,6 @@ export const potencyLocalization = new LocalizedStrings<
   SpellFactorPotencyStrings
 >({
   en: {
-    dice: 'dices',
+    dice: 'dice',
   },
 });

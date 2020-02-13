@@ -6,31 +6,31 @@ import {DiceRollContext} from '../../rules/DiceRollContext';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 
 export interface RollDiceState {
-  numberOfDices: number;
+  numberOfDice: number;
   rollAgainType: DiceRollAgainType;
   exceptionalSuccessAt: number;
   currentRollId: string | null;
 }
 
 export enum RollDiceActionTypes {
-  setNumberOfDices = 'rollDice/setNumberOfDices',
+  setNumberOfDice = 'rollDice/setNumberOfDice',
   setRollAgainType = 'rollDice/setRollAgainType',
   setExceptionalSuccessAt = 'rollDice/setExceptionalSuccessAt',
-  rollDices = 'rollDice/rollDice',
-  didRollDices = 'rollDice/didRollDices',
+  rollDice = 'rollDice/rollDice',
+  didRollDice = 'rollDice/didRollDice',
 }
 
-export interface SetNumberOfDicesAction
-  extends PayloadedAction<RollDiceActionTypes.setNumberOfDices, number> {}
+export interface SetNumberOfDiceAction
+  extends PayloadedAction<RollDiceActionTypes.setNumberOfDice, number> {}
 
-export function setNumberOfDicesAction(dices: number): SetNumberOfDicesAction {
+export function setNumberOfDiceAction(dice: number): SetNumberOfDiceAction {
   return {
-    type: RollDiceActionTypes.setNumberOfDices,
-    payload: dices,
+    type: RollDiceActionTypes.setNumberOfDice,
+    payload: dice,
   };
 }
 
-const numberOfDices = (
+const numberOfDice = (
   state: number | undefined,
   action: RollDiceActions,
 ): number => {
@@ -39,7 +39,7 @@ const numberOfDices = (
   }
 
   switch (action.type) {
-    case RollDiceActionTypes.setNumberOfDices:
+    case RollDiceActionTypes.setNumberOfDice:
       return action.payload;
     default:
       return state;
@@ -110,7 +110,7 @@ const exceptionalSuccessAt = (
 
 export interface RollDiceAction
   extends PayloadedAction<
-    RollDiceActionTypes.rollDices,
+    RollDiceActionTypes.rollDice,
     {config: DiceRollConfig; context: DiceRollContext}
   > {}
 
@@ -119,7 +119,7 @@ export function rollDiceAction(
   context: DiceRollContext,
 ): RollDiceAction {
   return {
-    type: RollDiceActionTypes.rollDices,
+    type: RollDiceActionTypes.rollDice,
     payload: {config, context},
   };
 }
@@ -133,7 +133,7 @@ const currentRollId = (
   }
 
   switch (action.type) {
-    case RollDiceActionTypes.rollDices:
+    case RollDiceActionTypes.rollDice:
       if (action.payload.context === DiceRollContext.rollDice) {
         return action.payload.config.id;
       }
@@ -143,24 +143,24 @@ const currentRollId = (
   }
 };
 
-export interface DidRollDicesAction
-  extends PayloadedAction<RollDiceActionTypes.didRollDices, DiceRoll> {}
-export function didRollDicesAction(roll: DiceRoll): DidRollDicesAction {
+export interface DidRollDiceAction
+  extends PayloadedAction<RollDiceActionTypes.didRollDice, DiceRoll> {}
+export function didRollDiceAction(roll: DiceRoll): DidRollDiceAction {
   return {
-    type: RollDiceActionTypes.didRollDices,
+    type: RollDiceActionTypes.didRollDice,
     payload: roll,
   };
 }
 
 export type RollDiceActions =
-  | SetNumberOfDicesAction
+  | SetNumberOfDiceAction
   | SetRollAgainTypeAction
   | SetExceptionalSuccessAtAction
   | RollDiceAction
-  | DidRollDicesAction;
+  | DidRollDiceAction;
 
 export const rollDiceReducer = combineReducers<RollDiceState>({
-  numberOfDices,
+  numberOfDice: numberOfDice,
   rollAgainType,
   exceptionalSuccessAt,
   currentRollId,

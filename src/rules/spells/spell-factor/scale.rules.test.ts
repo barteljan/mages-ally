@@ -12,19 +12,19 @@ test('that a correct dice penalty is calculated', () => {
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(7);
 
-  expect(rules.standard[0].dicePenalty).toBe(0);
-  expect(rules.standard[1].dicePenalty).toBe(-2);
-  expect(rules.standard[2].dicePenalty).toBe(-4);
-  expect(rules.standard[3].dicePenalty).toBe(-6);
-  expect(rules.standard[4].dicePenalty).toBe(-8);
+  expect(rules.standard[0].diceModifier).toBe(0);
+  expect(rules.standard[1].diceModifier).toBe(-2);
+  expect(rules.standard[2].diceModifier).toBe(-4);
+  expect(rules.standard[3].diceModifier).toBe(-6);
+  expect(rules.standard[4].diceModifier).toBe(-8);
 
-  expect(rules.advanced[0].dicePenalty).toBe(0);
-  expect(rules.advanced[1].dicePenalty).toBe(-2);
-  expect(rules.advanced[2].dicePenalty).toBe(-4);
-  expect(rules.advanced[3].dicePenalty).toBe(-6);
-  expect(rules.advanced[4].dicePenalty).toBe(-8);
-  expect(rules.advanced[5].dicePenalty).toBe(-10);
-  expect(rules.advanced[6].dicePenalty).toBe(-12);
+  expect(rules.advanced[0].diceModifier).toBe(0);
+  expect(rules.advanced[1].diceModifier).toBe(-2);
+  expect(rules.advanced[2].diceModifier).toBe(-4);
+  expect(rules.advanced[3].diceModifier).toBe(-6);
+  expect(rules.advanced[4].diceModifier).toBe(-8);
+  expect(rules.advanced[5].diceModifier).toBe(-10);
+  expect(rules.advanced[6].diceModifier).toBe(-12);
 });
 
 test('that a correct description is calculated', () => {

@@ -5,11 +5,11 @@ import {DiceRollOutcome} from './DiceRoll.outcome';
 import {RandomEngine, random} from '../../random/random';
 
 /**
- * Roll a number of dices - evaluate success, failure, exceptional failure and exceptional success
+ * Roll a number of dice - evaluate success, failure, exceptional failure and exceptional success
  * @param configuration Configuration of the roll
  * @param id Id added to the result of the roll
  * @param createdAt CreatedAt unix timestamp of this roll
- * @param randomGenerator A random generator to use for throwing dices (if undefined a MersenneTwister19937-Algorithm is used)
+ * @param randomGenerator A random generator to use for throwing dice (if undefined a MersenneTwister19937-Algorithm is used)
  */
 export function rollDice(
   configuration: DiceRollConfig,
@@ -20,27 +20,27 @@ export function rollDice(
     randomGenerator = random;
   }
 
-  let initialNumberOfDices = 0;
+  let initialNumberOfDice = 0;
   for (let modifier in configuration.modifiers) {
-    initialNumberOfDices += configuration.modifiers[modifier];
+    initialNumberOfDice += configuration.modifiers[modifier];
   }
-  if (initialNumberOfDices < 1) {
-    initialNumberOfDices = 1;
+  if (initialNumberOfDice < 1) {
+    initialNumberOfDice = 1;
   }
 
-  let rolledDices: number[] = rollMany(
+  let rolledDice: number[] = rollMany(
     configuration,
-    initialNumberOfDices,
+    initialNumberOfDice,
     randomGenerator,
   );
 
-  const successes = rolledDices.filter(roll => roll >= configuration.difficulty)
+  const successes = rolledDice.filter(roll => roll >= configuration.difficulty)
     .length;
 
   const outcome = calculateRollDiceOutcome(
-    rolledDices,
+    rolledDice,
     configuration,
-    initialNumberOfDices,
+    initialNumberOfDice,
   );
 
   return {
@@ -49,7 +49,7 @@ export function rollDice(
     createdAt,
     configuration,
     outcome: outcome,
-    rolledDices: rolledDices,
+    rolledDice: rolledDice,
     successes,
   };
 }
@@ -58,19 +58,19 @@ export function rollDice(
  * @hidden
  */
 export function calculateRollDiceOutcome(
-  rolledDices: number[],
+  rolledDice: number[],
   configuration: DiceRollConfig,
-  initialNumberOfDices: number,
+  initialNumberOfDice: number,
 ): DiceRollOutcome {
-  const successes = rolledDices.filter(roll => roll >= configuration.difficulty)
+  const successes = rolledDice.filter(roll => roll >= configuration.difficulty)
     .length;
 
   if (successes >= configuration.successesNeededForExceptionalSuccess) {
     return DiceRollOutcome.exceptionalSuccess;
   } else if (
     successes === 0 &&
-    initialNumberOfDices === 1 &&
-    rolledDices[0] === 1
+    initialNumberOfDice === 1 &&
+    rolledDice[0] === 1
   ) {
     return DiceRollOutcome.dramaticFailure;
   } else if (successes === 0) {
@@ -97,13 +97,13 @@ export function rollOnce(
  */
 export function rollMany(
   configuration: DiceRollConfig,
-  numberOfDices: number,
+  numberOfDice: number,
   randomGenerator: RandomEngine,
 ): number[] {
   let rolledValues: number[] = [];
 
   //roll once for each dice
-  for (let i = 0; i < numberOfDices; i++) {
+  for (let i = 0; i < numberOfDice; i++) {
     rolledValues.push(rollOnce(configuration, randomGenerator));
   }
 
@@ -117,22 +117,22 @@ export function rollMany(
   }
 
   if (configuration.explodeFor.length > 0) {
-    let reRolledDices: number[] = [];
+    let reRolledDice: number[] = [];
 
-    let dicesToReroll = rolledValues.filter(value =>
+    let diceToReroll = rolledValues.filter(value =>
       configuration.explodeFor.includes(value),
     );
 
-    while (dicesToReroll.length > 0) {
-      dicesToReroll.forEach(() =>
-        reRolledDices.push(rollOnce(configuration, randomGenerator)),
+    while (diceToReroll.length > 0) {
+      diceToReroll.forEach(() =>
+        reRolledDice.push(rollOnce(configuration, randomGenerator)),
       );
 
-      dicesToReroll = reRolledDices.filter(value =>
+      diceToReroll = reRolledDice.filter(value =>
         configuration.explodeFor.includes(value),
       );
-      rolledValues = [...rolledValues, ...reRolledDices];
-      reRolledDices = [];
+      rolledValues = [...rolledValues, ...reRolledDice];
+      reRolledDice = [];
     }
   }
 

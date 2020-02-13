@@ -9,8 +9,8 @@ interface RollDiceStyle {
   optionsTitle: TextStyle;
   selectedButtonStyle: ViewStyle;
   buttonGroupStyle: ViewStyle;
-  rollDicesButtonStyle: ViewStyle;
-  rollDicesButtonTextStyle: TextStyle;
+  rollDiceButtonStyle: ViewStyle;
+  rollDiceButtonTextStyle: TextStyle;
 }
 
 export const style = StyleSheet.create<RollDiceStyle>({
@@ -41,10 +41,10 @@ export const style = StyleSheet.create<RollDiceStyle>({
   buttonGroupStyle: {
     marginBottom: 30,
   },
-  rollDicesButtonStyle: {
+  rollDiceButtonStyle: {
     marginBottom: 15,
   },
-  rollDicesButtonTextStyle: {
+  rollDiceButtonTextStyle: {
     color: Colors.accentColor,
     fontFamily: Font.button,
     fontSize: FontSize.button,

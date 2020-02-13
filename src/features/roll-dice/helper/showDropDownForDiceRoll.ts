@@ -5,8 +5,8 @@ import {Colors} from '../../../layout/Colors';
 import {localization, LocalizationParams} from '../RollDice.strings';
 
 export function showDropDownForDiceRoll(roll: DiceRoll) {
-  const dicesString: string =
-    roll.rolledDices.length === 1
+  const diceString: string =
+    roll.rolledDice.length === 1
       ? localization.message_dice_singular
       : localization.message_dice_plural;
   switch (roll.outcome) {
@@ -14,8 +14,8 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
       showMessage({
         message: localization.message_success,
         description: localization.message_success_description
-          .replace(LocalizationParams.dicesNumber, roll.rolledDices.length + '')
-          .replace(LocalizationParams.dicesString, dicesString)
+          .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
+          .replace(LocalizationParams.diceString, diceString)
           .replace(LocalizationParams.successes, roll.successes + ''),
         type: 'success',
         backgroundColor: Colors.accentColor,
@@ -25,8 +25,8 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
       showMessage({
         message: localization.message_exceptional_success,
         description: localization.message_success_description
-          .replace(LocalizationParams.dicesNumber, roll.rolledDices.length + '')
-          .replace(LocalizationParams.dicesString, dicesString)
+          .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
+          .replace(LocalizationParams.diceString, diceString)
           .replace(LocalizationParams.successes, roll.successes + ''),
         type: 'success',
         backgroundColor: Colors.accentColor,
@@ -36,8 +36,8 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
       showMessage({
         message: localization.message_failure,
         description: localization.message_failure_description
-          .replace(LocalizationParams.dicesNumber, roll.rolledDices.length + '')
-          .replace(LocalizationParams.dicesString, dicesString),
+          .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
+          .replace(LocalizationParams.diceString, diceString),
         type: 'danger',
         backgroundColor: Colors.complementColor,
       });
@@ -46,8 +46,8 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
       showMessage({
         message: localization.message_dramatic_failure,
         description: localization.message_failure_description
-          .replace(LocalizationParams.dicesNumber, roll.rolledDices.length + '')
-          .replace(LocalizationParams.dicesString, dicesString),
+          .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
+          .replace(LocalizationParams.diceString, diceString),
         type: 'danger',
         backgroundColor: Colors.complementColor,
       });

@@ -28,10 +28,10 @@ export class DiceSelect extends React.PureComponent<
       return null;
     }
     let diceGroups: Element[] = [];
-    let dices: Element[] = [];
+    let dice: Element[] = [];
     let i = 1;
-    while (i <= this.props.numberOfDices) {
-      dices.push(
+    while (i <= this.props.numberOfDice) {
+      dice.push(
         <DiceView
           index={i}
           key={i + '_dice'}
@@ -63,10 +63,10 @@ export class DiceSelect extends React.PureComponent<
               everySecondGroupBottomMargin,
             ]}
             key={i + '_group'}>
-            {dices}
+            {dice}
           </View>,
         );
-        dices = [];
+        dice = [];
       }
       i++;
     }

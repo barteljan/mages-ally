@@ -1,7 +1,7 @@
 import StringMap from '../../data-types/StringMap';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {
-  DidRollDicesAction,
+  DidRollDiceAction,
   RollDiceActionTypes,
 } from '../roll-dice/RollDice.redux';
 import {combineReducers, AnyAction} from 'redux';
@@ -16,7 +16,7 @@ export interface RollsEntry {
   createdAt: number;
 }
 
-export type RollsActions = DidRollDicesAction;
+export type RollsActions = DidRollDiceAction;
 
 const diceRolls = (
   state: StringMap<DiceRoll> | undefined,
@@ -27,7 +27,7 @@ const diceRolls = (
   }
 
   switch (action.type) {
-    case RollDiceActionTypes.didRollDices:
+    case RollDiceActionTypes.didRollDice:
       if (action.payload && !state[action.payload.id]) {
         return {...state, [action.payload.id]: action.payload};
       }
@@ -46,7 +46,7 @@ const list = (
   }
 
   switch (action.type) {
-    case RollDiceActionTypes.didRollDices:
+    case RollDiceActionTypes.didRollDice:
       if (
         !state[0] ||
         state[0].id !== action.payload.id ||

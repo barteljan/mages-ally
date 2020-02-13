@@ -1,7 +1,12 @@
-export interface GnosisRule {
+export enum RitualIntervalUnit {
+  hour = 'hour',
+  minute = 'minute',
+}
+
+export interface GnosisRules {
   gnosis: number;
   ritualInterval: number;
-  ritualIntervalTimeUnit: 'minutes' | 'hour';
+  ritualIntervalTimeUnit: RitualIntervalUnit;
   manaLimit: number;
   manaPerTurn: number;
   traitMax: number;

@@ -74,7 +74,7 @@ test('overwriting a modifier with a rote skill is impossible', () => {
   expect(result[DefaultKeys.gnosis]).toBe(2);
 });
 
-test('sets additional dices correct', () => {
+test('sets additional dice correct', () => {
   let caster = makeDefaultSpellCaster();
 
   const name1 = 'Luck';

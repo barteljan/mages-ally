@@ -16,7 +16,7 @@ export interface DiceRollConfig {
   title: string;
 
   /**
-   * all dice providing properties mapped to a number of dices provided by them
+   * all dice providing properties mapped to a number of dice provided by them
    */
   modifiers: StringMap<number>;
   /**
@@ -48,7 +48,7 @@ export interface DiceRollConfig {
 
 /**
  * make a roll config for a default dice roll
- * @param modifiers all dice providing properties mapped to a number of dices provided by them
+ * @param modifiers all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function makeRollConfig(
@@ -74,7 +74,7 @@ export function makeRollConfig(
 
 /**
  * make a roll config for a 9 again dice roll
- * @param rollFor all dice providing properties mapped to a number of dices provided by them
+ * @param rollFor all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function make9AgainRollConfig(
@@ -100,7 +100,7 @@ export function make9AgainRollConfig(
 
 /**
  * make a roll config for a 8 again dice roll
- * @param rollFor all dice providing properties mapped to a number of dices provided by them
+ * @param rollFor all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function make8AgainRollConfig(
@@ -126,7 +126,7 @@ export function make8AgainRollConfig(
 
 /**
  * make a roll config for a rote quality dice roll
- * @param rollFor all dice providing properties mapped to a number of dices provided by them
+ * @param rollFor all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function makeRoteQualityRollConfig(
