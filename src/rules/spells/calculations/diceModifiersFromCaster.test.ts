@@ -1,5 +1,6 @@
 import {makeDefaultSpellCaster} from '../Spell.config';
-import {diceModifiersFromCaster, DefaultKeys} from './diceModifiersFromCaster';
+import {diceModifiersFromCaster} from './diceModifiersFromCaster';
+import {DefaultKeys} from './DefaultKeys';
 import {ArcanaType} from '../ArcanaType';
 
 test('sets correct gnosis value', () => {

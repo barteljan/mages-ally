@@ -1,32 +1,28 @@
 import StringMap from '../../../data-types/StringMap';
 import {SpellCaster} from '../Spell.config';
 import uuid from 'uuid';
-
-export enum DefaultKeys {
-  roteSkill = 'rote-skill',
-  additionalDice = 'additional dice',
-  willpower = 'willpower',
-  gnosis = 'gnosis',
-}
+import {localization} from './localization';
+import {DefaultKeys} from './DefaultKeys';
 
 export function diceModifiersFromCaster(
   caster: SpellCaster,
   isRote: boolean,
 ): StringMap<number> {
   let map: StringMap<number> = {
-    [DefaultKeys.gnosis]: caster.gnosis,
-    [caster.highestSpellArcanum.type]: caster.highestSpellArcanum.value,
+    [localization[DefaultKeys.gnosis]]: caster.gnosis,
+    [localization[caster.highestSpellArcanum.type]]:
+      caster.highestSpellArcanum.value,
   };
 
   if (caster.spendsWillpower) {
-    map[DefaultKeys.willpower] = 3;
+    map[localization[DefaultKeys.willpower]] = 3;
   }
 
   if (isRote) {
     let key =
       caster.roteSkill.name.length > 0
         ? caster.roteSkill.name
-        : DefaultKeys.roteSkill;
+        : localization[DefaultKeys.roteSkill];
 
     // do not overwrite a former modifier
     if (map[key]) {
@@ -42,7 +38,9 @@ export function diceModifiersFromCaster(
     i++;
 
     if (key.length === 0) {
-      key = DefaultKeys.additionalDice + (alreadyReplacedKey ? ' ' + i : '');
+      key =
+        localization[DefaultKeys.additionalDice] +
+        (alreadyReplacedKey ? ' ' + i : '');
     }
 
     // do not overwrite a former modifier

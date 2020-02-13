@@ -71,6 +71,9 @@
       "jsx",
       "json",
       "node"
+    ],
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
     ]
   }
 }
