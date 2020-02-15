@@ -1,9 +1,11 @@
-import {SpellFactorRules} from '../SpellFactor.rules';
+import {SpellFactorRules, makeSpellFactorRuleLevel} from '../SpellFactor.rules';
 import {GnosisRules, RitualIntervalUnit} from '../../../gnosis/GnosisRule';
 import {
   CastingTimeStringKey,
   translateCastingTimeStrings,
 } from './castingTime.strings';
+import {RulesType} from '../RulesType';
+import {SpellFactorLevel} from '../SpellFactor.level';
 
 type CastingTimeRules = SpellFactorRules;
 
@@ -18,10 +20,17 @@ export function makeCastingTimeRules(
   let rules: SpellFactorRules = {
     standard: [],
     advanced: [
-      {
-        description: translate(CastingTimeStringKey.advancedDescription, false),
-        diceModifier: 0,
-      },
+      makeSpellFactorRuleLevel(
+        RulesType.castingTime,
+        SpellFactorLevel.advanced,
+        0,
+        {
+          description: translate(
+            CastingTimeStringKey.advancedDescription,
+            false,
+          ),
+        },
+      ),
     ],
   };
 
@@ -46,7 +55,14 @@ export function makeCastingTimeRules(
     description += ')';
     const dice = i;
 
-    rules.standard.push({description, diceModifier: dice});
+    rules.standard.push(
+      makeSpellFactorRuleLevel(
+        RulesType.castingTime,
+        SpellFactorLevel.standard,
+        dice,
+        {description},
+      ),
+    );
   }
 
   return rules;

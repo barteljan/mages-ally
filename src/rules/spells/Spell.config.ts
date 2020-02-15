@@ -2,25 +2,26 @@ import {PrimaryFactor} from './PrimaryFactor';
 import {ArcanaType} from './ArcanaType';
 import {SleeperWitnesses} from './SleeperWitnesses';
 import {YantraRules} from './yantra/yantra.rules';
-import {CharactersArcanum} from '../character/CharactersArcanum';
-import {CharacterSkill} from '../character/CharacterSkill';
+import {
+  CharactersArcanum,
+  makeCharactersArcanum,
+} from '../character/CharactersArcanum';
+import {CharacterSkill, makeCharacterSkill} from '../character/CharacterSkill';
 import {SpellFactorLevel} from './spell-factors/SpellFactor.level';
 import {SpellFactorType} from './spell-factors/SpellFactor.type';
 import moment from 'moment';
 import uuid from 'uuid';
 import StringMap from '../../data-types/StringMap';
 import {SpellFactor} from './spell-factors/SpellFactor';
-
-export type DiceModifier = {
-  name: string;
-  value: number;
-};
+import {DiceModifier} from '../../data-types/DiceModifier';
+import {GnosisValue, makeGnosisValue} from '../character/GnosisValue';
+import {GameValueType} from '../../GameValueTypes';
 
 export type SpellCaster = {
-  gnosis: number;
+  gnosis: GnosisValue;
   highestSpellArcanum: CharactersArcanum;
   activeSpells: number;
-  additionalSpellCastingDice: StringMap<number>;
+  additionalSpellCastingDice: StringMap<DiceModifier>;
   spendsWillpower: boolean;
   roteSkill: CharacterSkill;
 };
@@ -31,23 +32,23 @@ export function makeDefaultSpellCaster(
   return {
     activeSpells: 0,
     additionalSpellCastingDice: {},
-    gnosis: 1,
-    highestSpellArcanum: {
-      highest: false,
-      rulingArcana: false,
-      type: ArcanaType.death,
-      value: 1,
-    },
-    roteSkill: {name: '', value: 0},
+    gnosis: makeGnosisValue({value: 1}),
+    highestSpellArcanum: makeCharactersArcanum(ArcanaType.death),
+    roteSkill: makeCharacterSkill('skill'),
     spendsWillpower: false,
     ...spellCaster,
   };
 }
 
-export function makeSpellFactor(factor?: Partial<SpellFactor>): SpellFactor {
+export function makeSpellFactor(
+  type: SpellFactorType,
+  factor?: Partial<SpellFactor>,
+): SpellFactor {
   return {
+    id: GameValueType.spellFactor + '_' + type,
     level: SpellFactorLevel.standard,
-    type: SpellFactorType.castingTime,
+    spellFactorType: SpellFactorType.castingTime,
+    type: GameValueType.spellFactor,
     value: 0,
     ...factor,
   };
@@ -127,21 +128,11 @@ export function makeDefaultSpellSpecification(
     primaryFactor: PrimaryFactor.potency,
     requiredArcanumValue: 1,
     spellFactors: {
-      castingTime: makeSpellFactor({
-        type: SpellFactorType.castingTime,
-      }),
-      duration: makeSpellFactor({
-        type: SpellFactorType.duration,
-      }),
-      potency: makeSpellFactor({
-        type: SpellFactorType.potency,
-      }),
-      range: makeSpellFactor({
-        type: SpellFactorType.range,
-      }),
-      scale: makeSpellFactor({
-        type: SpellFactorType.scale,
-      }),
+      castingTime: makeSpellFactor(SpellFactorType.castingTime),
+      duration: makeSpellFactor(SpellFactorType.duration),
+      potency: makeSpellFactor(SpellFactorType.potency),
+      range: makeSpellFactor(SpellFactorType.range),
+      scale: makeSpellFactor(SpellFactorType.scale),
     },
     yantras: [],
     ...specification,

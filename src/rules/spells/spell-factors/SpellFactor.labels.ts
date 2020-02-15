@@ -14,7 +14,7 @@ export function spellFactorLabel(
   value: number,
   gnosisRules: GnosisRules[] = defaultGnosisRules,
   gnosis: number = 1,
-): string {
+): string | undefined {
   switch (type) {
     case SpellFactorType.castingTime:
       const rules = makeCastingTimeRules(gnosisRules, gnosis);

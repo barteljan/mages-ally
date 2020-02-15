@@ -1,6 +1,11 @@
-import {SpellFactorRules, SpellFactorRuleLevel} from '../SpellFactor.rules';
+import {
+  SpellFactorRules,
+  SpellFactorRuleLevel,
+  makeSpellFactorRuleLevel,
+} from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelPotency} from './potency.strings';
+import {RulesType} from '../RulesType';
 
 export type PotencyRules = SpellFactorRules;
 
@@ -17,14 +22,19 @@ export function makePotencyRules(
   };
 
   for (let i = 0; i < numberOfLevels; i++) {
-    const itemStandard: SpellFactorRuleLevel = {
-      description: spellFactorLabel(SpellFactorLevel.standard, i),
-      diceModifier: i * -2,
-    };
-    const itemAdvanced: SpellFactorRuleLevel = {
-      description: spellFactorLabel(SpellFactorLevel.standard, i),
-      diceModifier: i * -2,
-    };
+    const itemStandard: SpellFactorRuleLevel = makeSpellFactorRuleLevel(
+      RulesType.potency,
+      SpellFactorLevel.standard,
+      i * -2,
+      {description: spellFactorLabel(SpellFactorLevel.standard, i)},
+    );
+
+    const itemAdvanced: SpellFactorRuleLevel = makeSpellFactorRuleLevel(
+      RulesType.potency,
+      SpellFactorLevel.advanced,
+      i * -2,
+      {description: spellFactorLabel(SpellFactorLevel.advanced, i)},
+    );
     rules.standard.push(itemStandard);
     rules.advanced.push(itemAdvanced);
   }

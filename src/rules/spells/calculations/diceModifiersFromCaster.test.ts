@@ -2,46 +2,48 @@ import {makeDefaultSpellCaster} from '../Spell.config';
 import {diceModifiersFromCaster} from './diceModifiersFromCaster';
 import {DefaultKeys} from './DefaultKeys';
 import {ArcanaType} from '../ArcanaType';
+import {makeGnosisValue} from '../../../rules/character/GnosisValue';
+import {makeDiceModifier} from '../../../data-types/DiceModifier';
 
 test('sets correct gnosis value', () => {
   let caster = makeDefaultSpellCaster();
-  caster.gnosis = 5;
+  caster.gnosis = makeGnosisValue({value: 5});
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[DefaultKeys.gnosis]).toBe(5);
+  expect(result[DefaultKeys.gnosis].value).toBe(5);
 });
 
 test('sets correct arkanum value', () => {
   let caster = makeDefaultSpellCaster();
 
-  caster.highestSpellArcanum.type = ArcanaType.life;
+  caster.highestSpellArcanum.arcanumType = ArcanaType.life;
   caster.highestSpellArcanum.value = 3;
 
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[ArcanaType.life]).toBe(3);
+  expect(result[ArcanaType.life].value).toBe(3);
 });
 
 test('sets correct rote skill value if spell is a rote', () => {
   let caster = makeDefaultSpellCaster();
 
-  const name = 'Empathy';
+  const id = 'Empathy';
 
-  caster.roteSkill.name = name;
+  caster.roteSkill.id = id;
   caster.roteSkill.value = 4;
 
   const result = diceModifiersFromCaster(caster, true);
-  expect(result[name]).toBe(4);
+  expect(result[id].value).toBe(4);
 });
 
 test('ignores rote skill value if spell is not a rote', () => {
   let caster = makeDefaultSpellCaster();
 
-  const name = 'Empathy';
+  const id = 'Empathy';
 
-  caster.roteSkill.name = name;
+  caster.roteSkill.id = id;
   caster.roteSkill.value = 4;
 
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[name]).toBeUndefined();
+  expect(result[id]).toBeUndefined();
 });
 
 test('sets correct willpower value if caster uses willpower ', () => {
@@ -50,7 +52,7 @@ test('sets correct willpower value if caster uses willpower ', () => {
   caster.spendsWillpower = true;
 
   const result = diceModifiersFromCaster(caster, true);
-  expect(result[DefaultKeys.willpower]).toBe(3);
+  expect(result[DefaultKeys.willpower].value).toBe(3);
 });
 
 test('sets no willpower value if caster does not spend willpower', () => {
@@ -64,42 +66,34 @@ test('sets no willpower value if caster does not spend willpower', () => {
 
 test('overwriting a modifier with a rote skill is impossible', () => {
   let caster = makeDefaultSpellCaster();
-  caster.gnosis = 2;
+  caster.gnosis = makeGnosisValue({value: 2});
 
-  const name = DefaultKeys.gnosis;
-  caster.roteSkill.name = name;
+  const id = DefaultKeys.gnosis;
+  caster.roteSkill.id = id;
   caster.roteSkill.value = 4;
 
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[DefaultKeys.gnosis]).toBe(2);
+  expect(result[DefaultKeys.gnosis].value).toBe(2);
 });
 
 test('sets additional dice correct', () => {
   let caster = makeDefaultSpellCaster();
 
-  const name1 = 'Luck';
-  const value1 = 3;
+  const id1 = 'Luck';
+  const addDice1 = makeDiceModifier(id1, {
+    value: 2,
+  });
 
-  const name2 = 'Demons';
-  const value2 = 4;
+  const id2 = 'Demons';
+  const addDice2 = makeDiceModifier(id2, {
+    value: 4,
+  });
 
-  caster.additionalSpellCastingDice = {[name1]: value1, [name2]: value2};
-
-  const result = diceModifiersFromCaster(caster, false);
-
-  expect(result[name1]).toBe(3);
-  expect(result[name2]).toBe(4);
-});
-
-test('overwriting a modifier with a additionalSpellCastingDice is impossible', () => {
-  let caster = makeDefaultSpellCaster();
-  caster.gnosis = 2;
-
-  const name = DefaultKeys.gnosis;
-  const value = 3;
-
-  caster.additionalSpellCastingDice = {[name]: value};
+  caster.additionalSpellCastingDice = {[id1]: addDice1, [id2]: addDice2};
 
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[DefaultKeys.gnosis]).toBe(2);
+
+  expect(result[id1]).toBe(addDice1);
+  expect(result[id1].value).toBe(2);
+  expect(result[id2].value).toBe(4);
 });

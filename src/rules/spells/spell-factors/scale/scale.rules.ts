@@ -1,13 +1,34 @@
 import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelScale} from './scale.strings';
-import {SpellFactorRuleLevel, SpellFactorRules} from '../SpellFactor.rules';
+import {
+  SpellFactorRuleLevel,
+  SpellFactorRules,
+  makeSpellFactorRuleLevel,
+} from '../SpellFactor.rules';
+import {RulesType} from '../RulesType';
 
 export type ScaleRuleLevel = SpellFactorRuleLevel & {
   numberOfSubjects: number;
   sizeOfLargestSubject: number;
-  description: string;
-  diceModifier: number;
 };
+
+export function makeScaleRuleLevel(
+  level: SpellFactorLevel,
+  value: number,
+  numberOfSubjects: number,
+  sizeOfLargestSubject: number,
+  rule?: Partial<ScaleRuleLevel>,
+) {
+  const factor = makeSpellFactorRuleLevel(RulesType.scale, level, value, {
+    ...rule,
+  });
+  const scaleRule: ScaleRuleLevel = {
+    ...factor,
+    numberOfSubjects,
+    sizeOfLargestSubject,
+  };
+  return scaleRule;
+}
 
 export type ScaleRules = SpellFactorRules & {
   standard: ScaleRuleLevel[];
@@ -23,44 +44,26 @@ export function makeScaleRules(
 ): ScaleRules {
   let scaleRules: ScaleRules = {
     standard: [
-      {
-        numberOfSubjects: 1,
-        sizeOfLargestSubject: 5,
+      makeScaleRuleLevel(SpellFactorLevel.standard, 0, 1, 5, {
         description: spellFactorLabel(SpellFactorLevel.standard, 0),
-        diceModifier: 0,
-      },
-      {
-        numberOfSubjects: 2,
-        sizeOfLargestSubject: 6,
+      }),
+      makeScaleRuleLevel(SpellFactorLevel.standard, -2, 2, 6, {
         description: spellFactorLabel(SpellFactorLevel.standard, 1),
-        diceModifier: -2,
-      },
-      {
-        numberOfSubjects: 4,
-        sizeOfLargestSubject: 7,
+      }),
+      makeScaleRuleLevel(SpellFactorLevel.standard, -4, 4, 7, {
         description: spellFactorLabel(SpellFactorLevel.standard, 2),
-        diceModifier: -4,
-      },
-      {
-        numberOfSubjects: 8,
-        sizeOfLargestSubject: 8,
+      }),
+      makeScaleRuleLevel(SpellFactorLevel.standard, -6, 8, 8, {
         description: spellFactorLabel(SpellFactorLevel.standard, 3),
-        diceModifier: -6,
-      },
-      {
-        numberOfSubjects: 16,
-        sizeOfLargestSubject: 9,
+      }),
+      makeScaleRuleLevel(SpellFactorLevel.standard, -8, 16, 9, {
         description: spellFactorLabel(SpellFactorLevel.standard, 4),
-        diceModifier: -8,
-      },
+      }),
     ],
     advanced: [
-      {
-        numberOfSubjects: 5,
-        sizeOfLargestSubject: 5,
+      makeScaleRuleLevel(SpellFactorLevel.advanced, 0, 5, 5, {
         description: spellFactorLabel(SpellFactorLevel.advanced, 0),
-        diceModifier: 0,
-      },
+      }),
     ],
   };
 
@@ -71,13 +74,11 @@ export function makeScaleRules(
     subjects = subjects * 2;
     size = size + 5;
     const description = spellFactorLabel(SpellFactorLevel.advanced, i);
-
-    scaleRules.advanced.push({
-      numberOfSubjects: subjects,
-      sizeOfLargestSubject: size,
-      description,
-      diceModifier: i * -2,
-    });
+    scaleRules.advanced.push(
+      makeScaleRuleLevel(SpellFactorLevel.advanced, i * -2, subjects, size, {
+        description,
+      }),
+    );
   }
   return scaleRules;
 }

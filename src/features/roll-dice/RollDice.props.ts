@@ -1,4 +1,4 @@
-import {DiceRollAgainType} from 'src/rules/dice-roll/DiceRollAgainType';
+import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 
 export type RollDiceProps = {
   numberOfDice: number;

@@ -6,7 +6,7 @@ import {
   rollDice,
 } from './rollDice';
 import {DiceRollOutcome} from './DiceRoll.outcome';
-import {RandomEngine} from 'src/random/random';
+import {RandomEngine} from '../../random/random';
 /**
  *  @hidden
  */

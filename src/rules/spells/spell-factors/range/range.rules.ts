@@ -1,6 +1,7 @@
-import {SpellFactorRules} from '../SpellFactor.rules';
+import {SpellFactorRules, makeSpellFactorRuleLevel} from '../SpellFactor.rules';
 import {spellFactorLabelRange} from './range.strings';
 import {SpellFactorLevel} from '../SpellFactor.level';
+import {RulesType} from '../RulesType';
 
 export function makeRangeRules(
   spellFactorLabel: (
@@ -10,16 +11,14 @@ export function makeRangeRules(
 ): SpellFactorRules {
   return {
     standard: [
-      {
+      makeSpellFactorRuleLevel(RulesType.range, SpellFactorLevel.standard, 0, {
         description: spellFactorLabel(SpellFactorLevel.standard, 0),
-        diceModifier: 0,
-      },
+      }),
     ],
     advanced: [
-      {
-        description: spellFactorLabel(SpellFactorLevel.standard, 0),
-        diceModifier: 0,
-      },
+      makeSpellFactorRuleLevel(RulesType.range, SpellFactorLevel.advanced, 0, {
+        description: spellFactorLabel(SpellFactorLevel.advanced, 0),
+      }),
     ],
   };
 }

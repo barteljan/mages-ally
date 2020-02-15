@@ -2,12 +2,10 @@ import StringMap from '../../../data-types/StringMap';
 import {SpellFactor} from '../spell-factors/SpellFactor';
 import {makePotencyRules} from '../spell-factors/potency/potency.rules';
 import {makeCastingTimeRules} from '../spell-factors/casting-time/castingTime.rules';
-import {GnosisRules} from 'src/rules/gnosis/GnosisRule';
+import {GnosisRules} from '../../gnosis/GnosisRule';
 import {makeDurationRules} from '../spell-factors/duration/duration.rules';
 import {makeRangeRules} from '../spell-factors/range/range.rules';
 import {makeScaleRules} from '../spell-factors/scale/scale.rules';
-import {SpellFactorType} from '../spell-factors/SpellFactor.type';
-import {spellFactorName} from '../spell-factors/SpellFactor.strings';
 
 export function diceModifiersFromSpellFactors(
   gnosis: number,
@@ -19,7 +17,7 @@ export function diceModifiersFromSpellFactors(
     range: SpellFactor;
     scale: SpellFactor;
   },
-  translate: (type: SpellFactorType) => string = spellFactorName,
+  //translate: (type: SpellFactorType) => string = spellFactorName,
 ): StringMap<number> {
   const {potency, castingTime, duration, range, scale} = factors;
   let modifier: StringMap<number> = {};
@@ -37,7 +35,7 @@ export function diceModifiersFromSpellFactors(
     const item = allFactors[i];
     const rulings = rules[i];
     const rule = rulings[item.level][item.value];
-    modifier[translate(item.type) + ' ' + rule.description] = rule.diceModifier;
+    modifier[rule.id] = rule.value;
   }
 
   return modifier;

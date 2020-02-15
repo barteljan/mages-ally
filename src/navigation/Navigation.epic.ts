@@ -7,7 +7,7 @@ import {
   navigateToAction,
 } from './Navigation.actions';
 import {navigate} from './Navigation.service';
-import {RootAction} from 'src/redux/rootReducer';
+import {RootAction} from '../redux/rootReducer';
 import {isActionOf} from 'typesafe-actions';
 
 export const navigationEpic: Epic<

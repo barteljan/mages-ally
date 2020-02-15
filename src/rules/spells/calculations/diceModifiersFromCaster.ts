@@ -3,32 +3,25 @@ import {SpellCaster} from '../Spell.config';
 import uuid from 'uuid';
 import {localization} from './localization';
 import {DefaultKeys} from './DefaultKeys';
+import {DiceModifier} from '../../../data-types/DiceModifier';
+import {makeWillpowerValue} from '../../../rules/character/WillpowerValue';
 
 export function diceModifiersFromCaster(
   caster: SpellCaster,
   isRote: boolean,
-): StringMap<number> {
-  let map: StringMap<number> = {
-    [localization[DefaultKeys.gnosis]]: caster.gnosis,
-    [localization[caster.highestSpellArcanum.type]]:
-      caster.highestSpellArcanum.value,
+): StringMap<DiceModifier> {
+  let map: StringMap<DiceModifier> = {
+    [caster.gnosis.id]: caster.gnosis,
+    [caster.highestSpellArcanum.arcanumType]: caster.highestSpellArcanum,
   };
 
   if (caster.spendsWillpower) {
-    map[localization[DefaultKeys.willpower]] = 3;
+    let willpower = makeWillpowerValue({value: 3});
+    map[willpower.id] = willpower;
   }
 
   if (isRote) {
-    let key =
-      caster.roteSkill.name.length > 0
-        ? caster.roteSkill.name
-        : localization[DefaultKeys.roteSkill];
-
-    // do not overwrite a former modifier
-    if (map[key]) {
-      key = key + '_' + uuid.v4();
-    }
-    map[key] = caster.roteSkill.value;
+    map[caster.roteSkill.id] = caster.roteSkill;
   }
 
   let i = 0;
