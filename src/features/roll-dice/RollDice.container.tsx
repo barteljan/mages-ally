@@ -7,33 +7,27 @@ import {
   setRollAgainTypeAction,
   setExceptionalSuccessAtAction,
   rollDiceAction,
-  RollDiceAction,
-  SetExceptionalSuccessAtAction,
-  SetRollAgainTypeAction,
-  SetNumberOfDiceAction,
 } from './RollDice.redux';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import {makeDiceRollConfig} from './helper/makeDiceRollConfig';
+import {Action} from 'typesafe-actions';
 
-interface OwnProps {}
+type OwnProps = {};
 
-interface StateProps {
+type StateProps = {
   numberOfDice: number;
   exceptionalSuccessAt: number;
   rollAgainType: DiceRollAgainType;
-}
+};
 
-interface DispatchProps {
-  setNumberOfDice: (dice: number) => SetNumberOfDiceAction;
-  setRollAgainType: (type: DiceRollAgainType) => SetRollAgainTypeAction;
-  setExceptionalSuccessAt: (at: number) => SetExceptionalSuccessAtAction;
-  rollDice: (
-    config: DiceRollConfig,
-    context: DiceRollContext,
-  ) => RollDiceAction;
-}
+type DispatchProps = {
+  setNumberOfDice: (dice: number) => Action;
+  setRollAgainType: (type: DiceRollAgainType) => Action;
+  setExceptionalSuccessAt: (at: number) => Action;
+  rollDice: (config: DiceRollConfig, context: DiceRollContext) => Action;
+};
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {

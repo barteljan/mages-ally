@@ -1,10 +1,10 @@
-import {rootReducer} from './rootReducer';
+import {rootReducer, RootAction} from './rootReducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from '@react-native-community/async-storage';
-import {AnyAction, applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import {createEpicMiddleware} from 'redux-observable';
-import {AppState} from './AppState';
+import {AppState, makeAppState} from './AppState';
 import {configureEpics} from './configureEpics';
 
 const persistConfig = {
@@ -13,12 +13,14 @@ const persistConfig = {
   version: 1,
 };
 
+//@ts-ignore
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const epicMiddleware = createEpicMiddleware<AnyAction, AnyAction, AppState>();
+const epicMiddleware = createEpicMiddleware<RootAction, RootAction, AppState>();
 
 export const store = createStore(
   persistedReducer,
+  makeAppState(),
   composeWithDevTools(applyMiddleware(epicMiddleware)),
 );
 configureEpics(epicMiddleware);

@@ -1,9 +1,9 @@
-export interface SpellFactorRuleLevel {
+export type SpellFactorRuleLevel = {
   description: string;
   diceModifier: number;
-}
+};
 
-export interface SpellFactorRules {
+export type SpellFactorRules = {
   standard: SpellFactorRuleLevel[];
   advanced: SpellFactorRuleLevel[];
-}
+};

@@ -1,8 +1,8 @@
 import {SpellFactorLevel} from './SpellFactor.level';
 import {SpellFactorType} from './SpellFactor.type';
 
-export interface SpellFactor {
+export type SpellFactor = {
   type: SpellFactorType;
   level: SpellFactorLevel;
   value: number;
-}
+};

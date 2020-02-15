@@ -2,14 +2,14 @@ import {SpellFactorRules, SpellFactorRuleLevel} from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelDuration} from './duration.strings';
 
-export interface DurationRules extends SpellFactorRules {
+export type DurationRules = SpellFactorRules & {
   standard: DurationRuleLevel[];
   advanced: DurationRuleLevel[];
-}
+};
 
-export interface DurationRuleLevel extends SpellFactorRuleLevel {
+export type DurationRuleLevel = SpellFactorRuleLevel & {
   description: string;
-}
+};
 
 export function makeDurationRules(
   spellFactorLabel: (

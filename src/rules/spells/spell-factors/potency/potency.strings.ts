@@ -1,9 +1,9 @@
 import LocalizedStrings from 'react-native-localization';
 import {SpellFactorLevel} from '../SpellFactor.level';
 
-export interface SpellFactorPotencyStrings {
+export type SpellFactorPotencyStrings = {
   dice: string;
-}
+};
 
 export function spellFactorLabelPotency(
   level: SpellFactorLevel,

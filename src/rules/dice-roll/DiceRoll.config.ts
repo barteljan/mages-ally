@@ -4,7 +4,7 @@ import uuid from 'uuid';
 /**
  * An object defining how a DiceRoll should be made
  */
-export interface DiceRollConfig {
+export type DiceRollConfig = {
   /**
    * A id identifieng this dice roll
    */
@@ -44,7 +44,7 @@ export interface DiceRollConfig {
     lowest: number;
     highest: number;
   };
-}
+};
 
 /**
  * make a roll config for a default dice roll

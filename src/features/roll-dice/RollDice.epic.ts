@@ -1,19 +1,16 @@
 import {AppState} from '../../redux/AppState';
-import {Epic, ofType} from 'redux-observable';
-import {map} from 'rxjs/operators';
-import {
-  RollDiceActionTypes,
-  RollDiceActions,
-  RollDiceAction,
-  didRollDiceAction,
-} from './RollDice.redux';
+import {Epic} from 'redux-observable';
+import {map, filter} from 'rxjs/operators';
+import {didRollDiceAction, rollDiceAction} from './RollDice.redux';
 import {rollDice} from '../../rules/dice-roll/rollDice';
 import {showDropDownForDiceRoll} from './helper/showDropDownForDiceRoll';
+import {RootAction} from 'src/redux/rootReducer';
+import {isActionOf} from 'typesafe-actions';
 
-export const rollDiceEpic: Epic<any, RollDiceActions, AppState> = action$ =>
+export const rollDiceEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
-    ofType(RollDiceActionTypes.rollDice),
-    map((action: RollDiceAction) => {
+    filter(isActionOf(rollDiceAction)),
+    map(action => {
       const rolled = rollDice(action.payload.config);
       showDropDownForDiceRoll(rolled);
       return didRollDiceAction(rolled);

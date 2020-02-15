@@ -11,19 +11,19 @@ import uuid from 'uuid';
 import StringMap from '../../data-types/StringMap';
 import {SpellFactor} from './spell-factors/SpellFactor';
 
-export interface DiceModifier {
+export type DiceModifier = {
   name: string;
   value: number;
-}
+};
 
-export interface SpellCaster {
+export type SpellCaster = {
   gnosis: number;
   highestSpellArcanum: CharactersArcanum;
   activeSpells: number;
   additionalSpellCastingDice: StringMap<number>;
   spendsWillpower: boolean;
   roteSkill: CharacterSkill;
-}
+};
 
 export function makeDefaultSpellCaster(
   spellCaster?: Partial<SpellCaster>,
@@ -53,14 +53,14 @@ export function makeSpellFactor(factor?: Partial<SpellFactor>): SpellFactor {
   };
 }
 
-export interface ParadoxCircumstances {
+export type ParadoxCircumstances = {
   inuredToSpell: boolean;
   previousParadoxRolls: number;
   sleeperWitnesses: SleeperWitnesses;
   dedicatedTool: boolean;
   additionalParadoxDice: number;
   manaSpent: number;
-}
+};
 
 export function makeParadoxCircumstances(
   paradox?: Partial<ParadoxCircumstances>,
@@ -76,11 +76,11 @@ export function makeParadoxCircumstances(
   };
 }
 
-export interface Subject {
+export type Subject = {
   resisted: boolean;
   withstandRating?: number;
   numberOfWithstandRatings?: number;
-}
+};
 
 export function makeDefaultSubject(subject?: Partial<Subject>): Subject {
   return {
@@ -91,7 +91,7 @@ export function makeDefaultSubject(subject?: Partial<Subject>): Subject {
   };
 }
 
-export interface SpellSpecification {
+export type SpellSpecification = {
   requiredArcanumValue: number;
   primaryFactor: PrimaryFactor;
   spellFactors: {
@@ -110,7 +110,7 @@ export interface SpellSpecification {
   };
   includeParadoxRoll: boolean;
   yantras: YantraRules[];
-}
+};
 
 export function makeDefaultSpellSpecification(
   specification?: Partial<SpellSpecification>,
@@ -148,14 +148,14 @@ export function makeDefaultSpellSpecification(
   };
 }
 
-export interface SpellCastingConfig {
+export type SpellCastingConfig = {
   id: string;
   createdAt: number;
   caster: SpellCaster;
   subject: Subject;
   spell: SpellSpecification;
   paradox: ParadoxCircumstances;
-}
+};
 
 export function makeDefaultCastingConfig(
   config?: Partial<SpellCastingConfig>,
@@ -173,9 +173,9 @@ export function makeDefaultCastingConfig(
   };
 }
 
-export interface Spell {
+export type Spell = {
   diceModifiers: StringMap<number>;
-}
+};
 
 export function makeSpell(spell: Partial<Spell>): Spell {
   return {

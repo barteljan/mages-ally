@@ -7,20 +7,20 @@ import {AppState} from '../../redux/AppState';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {makeAllRollsSelector} from './Rolls.selector';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
-import {rollDiceAction, RollDiceAction} from '../roll-dice/RollDice.redux';
+import {rollDiceAction} from '../roll-dice/RollDice.redux';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import uuid from 'uuid';
 
-interface OwnProps {}
+type OwnProps = {};
 
-interface StateProps {
+type StateProps = {
   rolls: DiceRoll[];
-}
+};
 
-interface DispatchProps {
+type DispatchProps = {
   addRoll: () => void;
-  onReroll: (config: DiceRollConfig) => RollDiceAction;
-}
+  onReroll: (config: DiceRollConfig) => void;
+};
 
 const allRollsSelector = makeAllRollsSelector();
 

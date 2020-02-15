@@ -4,7 +4,7 @@ import {DiceRollConfig} from './DiceRoll.config';
 /**
  * The result of a dice roll
  */
-export interface DiceRoll {
+export type DiceRoll = {
   /**
    * UUID of this dice roll
    */
@@ -39,4 +39,4 @@ export interface DiceRoll {
    * outcome (failure/success) of your roll
    */
   outcome: DiceRollOutcome;
-}
+};

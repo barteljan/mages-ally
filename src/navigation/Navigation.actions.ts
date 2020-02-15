@@ -1,31 +1,24 @@
-import {PayloadedAction} from 'src/redux/PayloadedAction';
 import {Routes} from './Routes';
+import {createAction, ActionType} from 'typesafe-actions';
 
 export enum NavigationActionTypes {
   navigateTo = 'navigateTo',
   triggeredNavigation = 'triggeredNavigation',
 }
 
-export interface NavigateToAction
-  extends PayloadedAction<NavigationActionTypes.navigateTo, Routes> {}
+export const navigateToAction = createAction(
+  NavigationActionTypes.navigateTo,
+  (route: Routes) => route,
+)();
 
-export function navigateToAction(route: Routes): NavigateToAction {
-  return {
-    type: NavigationActionTypes.navigateTo,
-    payload: route,
-  };
-}
+export const triggeredNavigationAction = createAction(
+  NavigationActionTypes.triggeredNavigation,
+  (route: Routes) => route,
+)();
 
-export interface TriggeredNavigationAction
-  extends PayloadedAction<NavigationActionTypes.triggeredNavigation, Routes> {}
+const actions = {
+  navigateToAction,
+  triggeredNavigationAction,
+};
 
-export function triggeredNavigationAction(
-  route: Routes,
-): TriggeredNavigationAction {
-  return {
-    type: NavigationActionTypes.triggeredNavigation,
-    payload: route,
-  };
-}
-
-export type NavigationAction = NavigateToAction | TriggeredNavigationAction;
+export type NavigationAction = ActionType<typeof actions>;

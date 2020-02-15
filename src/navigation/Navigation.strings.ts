@@ -1,9 +1,9 @@
 import LocalizedStrings from 'react-native-localization';
 
-export interface NavigationStrings {
+export type NavigationStrings = {
   rolls_route_title: string;
   add_roll_route_title: string;
-}
+};
 
 export const localization = new LocalizedStrings<NavigationStrings>({
   en: {

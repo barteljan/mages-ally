@@ -1,16 +1,16 @@
-import {combineReducers, AnyAction} from 'redux';
 import {AppState} from './AppState';
-import {rollDiceReducer} from '../features/roll-dice/RollDice.redux';
+import {
+  rollDiceReducer,
+  RollDiceActions,
+} from '../features/roll-dice/RollDice.redux';
 import {rollsReducer} from '../features/rolls/Rolls.redux';
 
-const combinedReducer = combineReducers<AppState>({
-  rollDice: rollDiceReducer,
-  rolls: rollsReducer,
-});
+import produce from 'immer';
+import {NavigationAction} from '../navigation/Navigation.actions';
 
-export const rootReducer = (
-  state: AppState | undefined,
-  action: AnyAction,
-): AppState => {
-  return combinedReducer(state, action);
-};
+export type RootAction = RollDiceActions | NavigationAction;
+
+export const rootReducer = produce((draft: AppState, action: RootAction) => {
+  draft.rollDice = rollDiceReducer(draft.rollDice, action as RollDiceActions);
+  draft.rolls = rollsReducer(draft.rolls, action as RollDiceActions);
+});

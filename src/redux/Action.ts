@@ -1,10 +1,6 @@
 /**
  * An action without payload.
- *
- * @export
- * @interface ActionType
- * @template ActionType
  */
-export interface Action<ActionType> {
+export type Action<ActionType> = {
   type: ActionType;
-}
+};

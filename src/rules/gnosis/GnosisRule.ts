@@ -3,7 +3,7 @@ export enum RitualIntervalUnit {
   minute = 'minute',
 }
 
-export interface GnosisRules {
+export type GnosisRules = {
   gnosis: number;
   ritualInterval: number;
   ritualIntervalTimeUnit: RitualIntervalUnit;
@@ -16,4 +16,4 @@ export interface GnosisRules {
   obsessions: number;
   highestArcanumMax: number;
   otherArcanumMax: number;
-}
+};

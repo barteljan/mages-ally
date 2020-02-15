@@ -1,3 +1,3 @@
-export interface ActionButtonProps {
+export type ActionButtonProps = {
   addRoll: () => void;
-}
+};

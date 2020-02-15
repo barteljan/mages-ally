@@ -1,13 +1,13 @@
 import {StyleSheet, ViewStyle, ImageStyle, TextStyle} from 'react-native';
 import {Colors} from '../../layout/Colors';
 
-interface ActionButtonStyle {
+type ActionButtonStyle = {
   iosIcon: ViewStyle;
   actionButtonIcon: ImageStyle;
   actionButtonIconText: TextStyle;
-}
+};
 
-export const style = StyleSheet.create({
+export const style = StyleSheet.create<ActionButtonStyle>({
   iosIcon: {
     padding: 15,
   },

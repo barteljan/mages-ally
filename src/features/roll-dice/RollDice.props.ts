@@ -1,6 +1,6 @@
 import {DiceRollAgainType} from 'src/rules/dice-roll/DiceRollAgainType';
 
-export interface RollDiceProps {
+export type RollDiceProps = {
   numberOfDice: number;
   rollAgainType: DiceRollAgainType;
   exceptionalSuccessAt: number;
@@ -8,4 +8,4 @@ export interface RollDiceProps {
   setRollAgainType: (type: DiceRollAgainType) => void;
   setExceptionalSuccessAt: (at: number) => void;
   rollDice: () => void;
-}
+};

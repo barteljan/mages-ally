@@ -1,7 +1,7 @@
 import LocalizedStrings from 'react-native-localization';
 import {SpellFactorLevel} from '../SpellFactor.level';
 
-export interface SpellFactorDurationStrings {
+export type SpellFactorDurationStrings = {
   standard1: string;
   standard2: string;
   standard3: string;
@@ -13,7 +13,7 @@ export interface SpellFactorDurationStrings {
   advanced4: string;
   advanced5: string;
   advanced6: string;
-}
+};
 
 export function spellFactorLabelDuration(
   level: SpellFactorLevel,

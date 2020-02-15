@@ -34,7 +34,7 @@ export function translateCastingTimeStrings(
   }
 }
 
-export interface SpellFactorCastingTimeStrings {
+export type SpellFactorCastingTimeStrings = {
   dice_singular: string;
   dice_plural: string;
   hour_singular: string;
@@ -42,7 +42,7 @@ export interface SpellFactorCastingTimeStrings {
   minute_singular: string;
   minute_plural: string;
   advancedDescription: string;
-}
+};
 
 export const castingTimeLocalization = new LocalizedStrings<
   SpellFactorCastingTimeStrings

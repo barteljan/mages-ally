@@ -1,14 +1,14 @@
 import {Colors} from '../../layout/Colors';
 import {StyleSheet, ViewStyle, ImageStyle, TextStyle} from 'react-native';
 
-export interface DiceViewStyles {
+export type DiceViewStyles = {
   touchable: ViewStyle;
   image: ImageStyle;
   diceText: TextStyle;
   diceTextOneDigit: TextStyle;
   diceTextTwoDigits: TextStyle;
   diceTextThreeDigits: TextStyle;
-}
+};
 
 export const diceViewStyles = StyleSheet.create<DiceViewStyles>({
   touchable: {},

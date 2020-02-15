@@ -2,7 +2,7 @@ import {DefaultKeys} from './DefaultKeys';
 import {ArcanaType} from '../ArcanaType';
 import LocalizedStrings from 'react-native-localization';
 
-export interface DiceModifiersStrings {
+export type DiceModifiersStrings = {
   [DefaultKeys.additionalDice]: string;
   [DefaultKeys.gnosis]: string;
   [DefaultKeys.roteSkill]: string;
@@ -17,7 +17,7 @@ export interface DiceModifiersStrings {
   [ArcanaType.space]: string;
   [ArcanaType.spirit]: string;
   [ArcanaType.time]: string;
-}
+};
 
 export const localization = new LocalizedStrings<DiceModifiersStrings>({
   en: {

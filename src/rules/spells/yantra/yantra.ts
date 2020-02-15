@@ -1,9 +1,9 @@
 import {YantraRules} from './yantra.rules';
 
-export interface YantraGroup {
+export type YantraGroup = {
   name: string;
   yantras: YantraRules[];
-}
+};
 
 export const yantras: YantraGroup[] = [
   {

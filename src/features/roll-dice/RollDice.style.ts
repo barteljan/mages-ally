@@ -2,7 +2,7 @@ import {StyleSheet, ViewStyle, TextStyle} from 'react-native';
 import {FontSize, Font} from '../../layout/Font';
 import {Colors} from '../../layout/Colors';
 
-interface RollDiceStyle {
+type RollDiceStyle = {
   container: ViewStyle;
   containerContent: ViewStyle;
   title: TextStyle;
@@ -11,7 +11,7 @@ interface RollDiceStyle {
   buttonGroupStyle: ViewStyle;
   rollDiceButtonStyle: ViewStyle;
   rollDiceButtonTextStyle: TextStyle;
-}
+};
 
 export const style = StyleSheet.create<RollDiceStyle>({
   container: {

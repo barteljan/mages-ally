@@ -4,13 +4,13 @@ import {ActionButtonProps} from './ActionButton.props';
 import {Routes} from '../../navigation/Routes';
 import {navigateToAction} from '../../navigation/Navigation.actions';
 
-interface OwnProps {}
+type OwnProps = {};
 
-interface StateProps {}
+type StateProps = {};
 
-interface DispatchProps {
+type DispatchProps = {
   addRoll: () => void;
-}
+};
 
 const mapStateToProps = (): StateProps => {
   return {};

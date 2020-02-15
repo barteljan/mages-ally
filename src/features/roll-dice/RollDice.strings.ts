@@ -1,6 +1,6 @@
 import LocalizedStrings from 'react-native-localization';
 
-export interface RollDiceStrings {
+export type RollDiceStrings = {
   choose_dice: string;
   tenAgain_title: string;
   tenAgain: string;
@@ -18,7 +18,7 @@ export interface RollDiceStrings {
   message_failure: string;
   message_failure_description: string;
   message_dramatic_failure: string;
-}
+};
 
 export enum LocalizationParams {
   diceNumber = '{{DICE_NUMBER}}',
