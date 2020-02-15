@@ -6,15 +6,15 @@ import {
 } from '../roll-dice/RollDice.redux';
 import {combineReducers, AnyAction} from 'redux';
 
-export interface RollsState {
+export type RollsState = {
   diceRolls: StringMap<DiceRoll>;
   list: RollsEntry[];
-}
+};
 
-export interface RollsEntry {
+export type RollsEntry = {
   id: string;
   createdAt: number;
-}
+};
 
 export type RollsActions = DidRollDiceAction;
 

@@ -2,7 +2,7 @@ import {SpellFactorRules, SpellFactorRuleLevel} from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelPotency} from './potency.strings';
 
-export interface PotencyRules extends SpellFactorRules {}
+export type PotencyRules = SpellFactorRules;
 
 export function makePotencyRules(
   numberOfLevels: number = 11,

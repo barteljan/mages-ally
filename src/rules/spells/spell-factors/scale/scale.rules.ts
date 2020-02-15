@@ -2,17 +2,17 @@ import {SpellFactorLevel} from '../SpellFactor.level';
 import {spellFactorLabelScale} from './scale.strings';
 import {SpellFactorRuleLevel, SpellFactorRules} from '../SpellFactor.rules';
 
-export interface ScaleRuleLevel extends SpellFactorRuleLevel {
+export type ScaleRuleLevel = SpellFactorRuleLevel & {
   numberOfSubjects: number;
   sizeOfLargestSubject: number;
   description: string;
   diceModifier: number;
-}
+};
 
-export interface ScaleRules extends SpellFactorRules {
+export type ScaleRules = SpellFactorRules & {
   standard: ScaleRuleLevel[];
   advanced: ScaleRuleLevel[];
-}
+};
 
 export function makeScaleRules(
   numberOfAdvancedLevels: number = 6,

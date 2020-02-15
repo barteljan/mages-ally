@@ -5,12 +5,12 @@ import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 
-export interface RollDiceState {
+export type RollDiceState = {
   numberOfDice: number;
   rollAgainType: DiceRollAgainType;
   exceptionalSuccessAt: number;
   currentRollId: string | null;
-}
+};
 
 export enum RollDiceActionTypes {
   setNumberOfDice = 'rollDice/setNumberOfDice',
@@ -20,8 +20,10 @@ export enum RollDiceActionTypes {
   didRollDice = 'rollDice/didRollDice',
 }
 
-export interface SetNumberOfDiceAction
-  extends PayloadedAction<RollDiceActionTypes.setNumberOfDice, number> {}
+export type SetNumberOfDiceAction = PayloadedAction<
+  RollDiceActionTypes.setNumberOfDice,
+  number
+>;
 
 export function setNumberOfDiceAction(dice: number): SetNumberOfDiceAction {
   return {
@@ -46,11 +48,10 @@ const numberOfDice = (
   }
 };
 
-export interface SetRollAgainTypeAction
-  extends PayloadedAction<
-    RollDiceActionTypes.setRollAgainType,
-    DiceRollAgainType
-  > {}
+export type SetRollAgainTypeAction = PayloadedAction<
+  RollDiceActionTypes.setRollAgainType,
+  DiceRollAgainType
+>;
 
 export function setRollAgainTypeAction(
   rollAgainType: DiceRollAgainType,
@@ -77,11 +78,10 @@ const rollAgainType = (
   }
 };
 
-export interface SetExceptionalSuccessAtAction
-  extends PayloadedAction<
-    RollDiceActionTypes.setExceptionalSuccessAt,
-    number
-  > {}
+export type SetExceptionalSuccessAtAction = PayloadedAction<
+  RollDiceActionTypes.setExceptionalSuccessAt,
+  number
+>;
 
 export function setExceptionalSuccessAtAction(
   at: number,
@@ -108,11 +108,10 @@ const exceptionalSuccessAt = (
   }
 };
 
-export interface RollDiceAction
-  extends PayloadedAction<
-    RollDiceActionTypes.rollDice,
-    {config: DiceRollConfig; context: DiceRollContext}
-  > {}
+export type RollDiceAction = PayloadedAction<
+  RollDiceActionTypes.rollDice,
+  {config: DiceRollConfig; context: DiceRollContext}
+>;
 
 export function rollDiceAction(
   config: DiceRollConfig,
@@ -143,8 +142,11 @@ const currentRollId = (
   }
 };
 
-export interface DidRollDiceAction
-  extends PayloadedAction<RollDiceActionTypes.didRollDice, DiceRoll> {}
+export type DidRollDiceAction = PayloadedAction<
+  RollDiceActionTypes.didRollDice,
+  DiceRoll
+>;
+
 export function didRollDiceAction(roll: DiceRoll): DidRollDiceAction {
   return {
     type: RollDiceActionTypes.didRollDice,

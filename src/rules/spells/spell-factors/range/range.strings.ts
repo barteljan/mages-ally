@@ -1,10 +1,10 @@
 import LocalizedStrings from 'react-native-localization';
 import {SpellFactorLevel} from '../SpellFactor.level';
 
-export interface SpellFactorRangeStrings {
+export type SpellFactorRangeStrings = {
   standard: string;
   advanced: string;
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function spellFactorLabelRange(level: SpellFactorLevel, value: number) {

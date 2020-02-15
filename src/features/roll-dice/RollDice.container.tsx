@@ -17,15 +17,15 @@ import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import {makeDiceRollConfig} from './helper/makeDiceRollConfig';
 
-interface OwnProps {}
+type OwnProps = {};
 
-interface StateProps {
+type StateProps = {
   numberOfDice: number;
   exceptionalSuccessAt: number;
   rollAgainType: DiceRollAgainType;
-}
+};
 
-interface DispatchProps {
+type DispatchProps = {
   setNumberOfDice: (dice: number) => SetNumberOfDiceAction;
   setRollAgainType: (type: DiceRollAgainType) => SetRollAgainTypeAction;
   setExceptionalSuccessAt: (at: number) => SetExceptionalSuccessAtAction;
@@ -33,7 +33,7 @@ interface DispatchProps {
     config: DiceRollConfig,
     context: DiceRollContext,
   ) => RollDiceAction;
-}
+};
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {

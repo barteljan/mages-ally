@@ -6,8 +6,10 @@ export enum NavigationActionTypes {
   triggeredNavigation = 'triggeredNavigation',
 }
 
-export interface NavigateToAction
-  extends PayloadedAction<NavigationActionTypes.navigateTo, Routes> {}
+export type NavigateToAction = PayloadedAction<
+  NavigationActionTypes.navigateTo,
+  Routes
+>;
 
 export function navigateToAction(route: Routes): NavigateToAction {
   return {
@@ -16,8 +18,10 @@ export function navigateToAction(route: Routes): NavigateToAction {
   };
 }
 
-export interface TriggeredNavigationAction
-  extends PayloadedAction<NavigationActionTypes.triggeredNavigation, Routes> {}
+export type TriggeredNavigationAction = PayloadedAction<
+  NavigationActionTypes.triggeredNavigation,
+  Routes
+>;
 
 export function triggeredNavigationAction(
   route: Routes,

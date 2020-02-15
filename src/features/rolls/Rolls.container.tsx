@@ -11,16 +11,16 @@ import {rollDiceAction, RollDiceAction} from '../roll-dice/RollDice.redux';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import uuid from 'uuid';
 
-interface OwnProps {}
+type OwnProps = {};
 
-interface StateProps {
+type StateProps = {
   rolls: DiceRoll[];
-}
+};
 
-interface DispatchProps {
+type DispatchProps = {
   addRoll: () => void;
   onReroll: (config: DiceRollConfig) => RollDiceAction;
-}
+};
 
 const allRollsSelector = makeAllRollsSelector();
 

@@ -1,4 +1,4 @@
-export interface PayloadedAction<ActionType, ActionPayload> {
+export type PayloadedAction<ActionType, ActionPayload> = {
   type: ActionType;
   payload: ActionPayload;
-}
+};

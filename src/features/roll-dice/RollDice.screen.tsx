@@ -10,9 +10,9 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {ButtonGroup, Button, Divider} from 'react-native-elements';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 
-interface AddRollState {
+type AddRollState = {
   size: LayoutRectangle;
-}
+};
 
 export class RollDiceScreen extends React.PureComponent<
   RollDiceProps,

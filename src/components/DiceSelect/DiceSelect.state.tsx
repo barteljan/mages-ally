@@ -1,3 +1,3 @@
-export interface DiceSelectState {
+export type DiceSelectState = {
   value: number;
-}
+};

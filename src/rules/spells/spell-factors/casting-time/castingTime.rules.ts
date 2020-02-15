@@ -5,7 +5,7 @@ import {
   translateCastingTimeStrings,
 } from './castingTime.strings';
 
-interface CastingTimeRules extends SpellFactorRules {}
+type CastingTimeRules = SpellFactorRules;
 
 export function makeCastingTimeRules(
   gnosisRules: GnosisRules[],

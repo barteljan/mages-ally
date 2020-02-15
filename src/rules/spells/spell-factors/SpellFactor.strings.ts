@@ -1,13 +1,13 @@
 import LocalizedStrings from 'react-native-localization';
 import {SpellFactorType} from './SpellFactor.type';
 
-export interface SpellFactorStrings {
+export type SpellFactorStrings = {
   castingTime: string;
   duration: string;
   potency: string;
   range: string;
   scale: string;
-}
+};
 
 export function spellFactorName(type: SpellFactorType) {
   switch (type) {
