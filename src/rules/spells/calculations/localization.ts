@@ -1,12 +1,11 @@
 import {DefaultKeys} from './DefaultKeys';
-import {ArcanaType} from '../ArcanaType';
+import {ArcanaType} from '../arcana/Arcana.type';
 import LocalizedStrings from 'react-native-localization';
 
 export type DiceModifiersStrings = {
   [DefaultKeys.additionalDice]: string;
-  [DefaultKeys.gnosis]: string;
+
   [DefaultKeys.roteSkill]: string;
-  [DefaultKeys.willpower]: string;
   [ArcanaType.death]: string;
   [ArcanaType.fate]: string;
   [ArcanaType.forces]: string;
@@ -31,9 +30,7 @@ export const localization = new LocalizedStrings<DiceModifiersStrings>({
     [ArcanaType.space]: 'space',
     [ArcanaType.spirit]: 'spirit',
     [ArcanaType.time]: 'time',
-    [DefaultKeys.gnosis]: 'gnosis',
     [DefaultKeys.additionalDice]: 'additional dice',
     [DefaultKeys.roteSkill]: 'rote skill',
-    [DefaultKeys.willpower]: 'willpower',
   },
 });

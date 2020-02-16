@@ -1,137 +1,140 @@
-import {YantraRules} from './yantra.rules';
+import {BaseDiceModifier} from '../../../data-types/BaseDiceModifier';
+import {GameValueType} from '../../../GameValueTypes';
+import StringMap from '../../../data-types/StringMap';
+import {YantraType} from './Yantra.type';
 
-export type YantraGroup = {
-  name: string;
-  yantras: YantraRules[];
+export type BaseYantra<
+  Type extends YantraType,
+  Modifier extends number,
+  Id extends string
+> = BaseDiceModifier & {
+  id: Id;
+  diceModifier: Modifier;
+  yantraType: Type;
+  type: GameValueType.yantra;
+  name?: string;
 };
 
-export const yantras: YantraGroup[] = [
-  {
-    name: 'locations',
-    yantras: [
-      {
-        name: 'Demesne',
-        desc: 'A prepared ritual space with a soul stone',
-        minBonus: 2,
-        unique: true,
-      },
-      {
-        name: 'Location',
-        desc: 'A place and time symbolically linked to the spell.',
-        minBonus: 1,
-        unique: true,
-      },
-      {
-        name: 'Supernal Verge',
-        desc: 'A place where the Supernal touches the Fallen World.',
-        minBonus: 2,
-        unique: true,
-      },
-    ],
+export type Yantra =
+  | BaseYantra<YantraType.demesne, 2, YantraType.demesne>
+  | BaseYantra<YantraType.location, 1, YantraType.location>
+  | BaseYantra<YantraType.verge, 2, YantraType.verge>
+  | BaseYantra<YantraType.concentration, 2, YantraType.concentration>
+  | BaseYantra<YantraType.highSpeech, 2, YantraType.highSpeech>
+  | BaseYantra<YantraType.runes, 2, YantraType.runes>
+  | BaseYantra<YantraType.dedicatedTool, 0, YantraType.dedicatedTool>
+  | BaseYantra<YantraType.pathTool, 1, string>
+  | BaseYantra<YantraType.orderTool, 1, string>
+  | BaseYantra<YantraType.materialSympathy, 2, string>
+  | BaseYantra<YantraType.representationalSympathy, 1, string>
+  | BaseYantra<YantraType.symbolicSympathy, 0, string>
+  | BaseYantra<YantraType.sacrament, 1, string>
+  | BaseYantra<YantraType.rareSacrament, 2, string>
+  | BaseYantra<YantraType.otherworldlySacrament, 3, string>
+  | BaseYantra<YantraType.persona, 1, YantraType.persona>
+  | BaseYantra<YantraType.persona, 2, YantraType.persona>
+  | BaseYantra<YantraType.persona, 3, YantraType.persona>
+  | BaseYantra<YantraType.persona, 4, YantraType.persona>
+  | BaseYantra<YantraType.roteSkill, 1, YantraType.roteSkill>
+  | BaseYantra<YantraType.roteSkill, 2, YantraType.roteSkill>
+  | BaseYantra<YantraType.roteSkill, 3, YantraType.roteSkill>
+  | BaseYantra<YantraType.roteSkill, 4, YantraType.roteSkill>
+  | BaseYantra<YantraType.roteSkill, 5, YantraType.roteSkill>
+  | BaseYantra<YantraType.custom, 1, string>
+  | BaseYantra<YantraType.custom, 2, string>
+  | BaseYantra<YantraType.custom, 3, string>
+  | BaseYantra<YantraType.custom, 4, string>
+  | BaseYantra<YantraType.custom, 5, string>;
+
+export const staticYantras: StringMap<Yantra> = {
+  [YantraType.demesne]: {
+    id: YantraType.demesne,
+    type: GameValueType.yantra,
+    yantraType: YantraType.demesne,
+    diceModifier: 2,
   },
-  {
-    name: 'actions',
-    yantras: [
-      {
-        name: 'Rote Skill Mudra',
-        desc:
-          'Uses skill dots as a bonus. The character must be free to make whatever mnemonic gestures are used to recall the Rote.',
-        minBonus: 0,
-        unique: true,
-      },
-      {
-        name: 'Concentration',
-        desc:
-          'Duration must be greater than a turn. If the mage is hurt or takes a non-reflexive action while the spell is active, it ends immediately.',
-        minBonus: 2,
-        unique: true,
-      },
-      {
-        name: 'High Speech',
-        desc: 'Must be spoken aloud. Cannot be used reflexively.',
-        minBonus: 2,
-        unique: true,
-      },
-      {
-        name: 'Runes',
-        desc:
-          'The subject is marked with runes. Ritual casting only. If anything damages or disrupts the runes while the spell is active, it ends immediately.',
-        minBonus: 2,
-        unique: true,
-      },
-    ],
+  [YantraType.location]: {
+    id: YantraType.location,
+    type: GameValueType.yantra,
+    yantraType: YantraType.location,
+    diceModifier: 1,
   },
-  {
-    name: 'tools',
-    yantras: [
-      {
-        name: 'Dedicated Tool',
-        desc:
-          'An item that synchronizes with her Nimbus and that feeds in to her understanding of magic. Reduces Paradox by 2 dice.',
-        minBonus: 0,
-        unique: true,
-      },
-      {
-        name: 'Path Tool',
-        desc: 'Tools which align closely to her Path. See p.121 for examples.',
-        minBonus: 1,
-        unique: false,
-      },
-      {
-        name: 'Order Tool',
-        desc:
-          'Tools which draw upon an Order’s symbols rather than those of the Supernal world directly, focusing magic in a way that matches their teachings.',
-        minBonus: 1,
-        unique: false,
-      },
-      {
-        name: 'Material Sympathy',
-        desc:
-          'An item sympathetically linked to the subject <i>as they are now</i>. At least one sympathetic tool is required for sympathetic casting. Does not grant a bonus when used with Sympathetic Range or Temporal Sympathy Attainments.',
-        minBonus: 2,
-        unique: false,
-      },
-      {
-        name: 'Representational Sympathy',
-        desc:
-          'An item sympathetically linked to the subject <i>as they were previously</i>. At least one sympathetic tool is required for sympathetic casting. Does not grant a bonus when used with Sympathetic Range or Temporal Sympathy Attainments.',
-        minBonus: 1,
-        unique: false,
-      },
-      {
-        name: 'Symbolic Sympathy',
-        desc:
-          'An indirect representation of the subject. At least one sympathetic tool is required for sympathetic casting.',
-        minBonus: 0,
-        unique: false,
-      },
-      {
-        name: 'Sacrament',
-        desc:
-          'An object symbolic of the spell that the mage destroys during casting.',
-        minBonus: 1,
-        unique: false,
-      },
-      {
-        name: 'Rare Sacrament',
-        desc: 'A sacrament which requires significant effort to acquire.',
-        minBonus: 2,
-        unique: false,
-      },
-      {
-        name: 'Otherworldly Sacrament',
-        desc: 'A sacrament from somewhere other than the material realm.',
-        minBonus: 3,
-        unique: false,
-      },
-      {
-        name: 'Persona',
-        desc:
-          'A persona Yantra keys in to the mage’s Shadow Name and Cabal Theme Merits.',
-        minBonus: 1,
-        maxBonus: 4,
-        unique: true,
-      },
-    ],
+  [YantraType.verge]: {
+    id: YantraType.verge,
+    type: GameValueType.yantra,
+    yantraType: YantraType.verge,
+    diceModifier: 2,
   },
-];
+  [YantraType.concentration]: {
+    id: YantraType.concentration,
+    type: GameValueType.yantra,
+    yantraType: YantraType.concentration,
+    diceModifier: 2,
+  },
+  [YantraType.highSpeech]: {
+    id: YantraType.highSpeech,
+    type: GameValueType.yantra,
+    yantraType: YantraType.highSpeech,
+    diceModifier: 2,
+  },
+  [YantraType.runes]: {
+    id: YantraType.runes,
+    type: GameValueType.yantra,
+    yantraType: YantraType.runes,
+    diceModifier: 2,
+  },
+  [YantraType.dedicatedTool]: {
+    id: YantraType.dedicatedTool,
+    type: GameValueType.yantra,
+    yantraType: YantraType.dedicatedTool,
+    diceModifier: 0,
+  },
+  [YantraType.pathTool]: {
+    id: YantraType.pathTool,
+    type: GameValueType.yantra,
+    yantraType: YantraType.pathTool,
+    diceModifier: 1,
+  },
+  [YantraType.orderTool]: {
+    id: YantraType.orderTool,
+    type: GameValueType.yantra,
+    yantraType: YantraType.orderTool,
+    diceModifier: 1,
+  },
+  [YantraType.materialSympathy]: {
+    id: YantraType.orderTool,
+    type: GameValueType.yantra,
+    yantraType: YantraType.materialSympathy,
+    diceModifier: 2,
+  },
+  [YantraType.representationalSympathy]: {
+    id: YantraType.representationalSympathy,
+    type: GameValueType.yantra,
+    yantraType: YantraType.representationalSympathy,
+    diceModifier: 1,
+  },
+  [YantraType.symbolicSympathy]: {
+    id: YantraType.symbolicSympathy,
+    type: GameValueType.yantra,
+    yantraType: YantraType.symbolicSympathy,
+    diceModifier: 0,
+  },
+  [YantraType.sacrament]: {
+    id: YantraType.sacrament,
+    type: GameValueType.yantra,
+    yantraType: YantraType.sacrament,
+    diceModifier: 1,
+  },
+  [YantraType.rareSacrament]: {
+    id: YantraType.rareSacrament,
+    type: GameValueType.yantra,
+    yantraType: YantraType.rareSacrament,
+    diceModifier: 2,
+  },
+  [YantraType.otherworldlySacrament]: {
+    id: YantraType.otherworldlySacrament,
+    type: GameValueType.yantra,
+    yantraType: YantraType.otherworldlySacrament,
+    diceModifier: 3,
+  },
+};

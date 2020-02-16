@@ -1,28 +1,37 @@
-import {DiceModifier} from '../../../data-types/DiceModifier';
+import {BaseDiceModifier} from '../../../data-types/BaseDiceModifier';
 import {GameValueType} from '../../../GameValueTypes';
 import {SpellFactorLevel} from './SpellFactor.level';
+import {SpellFactorType} from './SpellFactor.type';
 
-export type SpellFactorRuleLevel = DiceModifier & {
-  type: GameValueType.spellFactorRuleLevel;
-  level: SpellFactorLevel;
+export type SpellFactorRules<Type extends SpellFactorType> = {
+  standard: SpellFactorRuleLevel<Type>[];
+  advanced: SpellFactorRuleLevel<Type>[];
 };
 
-export function makeSpellFactorRuleLevel(
+export type SpellFactorRuleLevel<
+  Type extends SpellFactorType
+> = BaseDiceModifier & {
+  type: GameValueType.spellFactorRuleLevel;
+  spellFactorType: SpellFactorType;
+  level: SpellFactorLevel;
+  index: number;
+};
+
+export function makeSpellFactorRuleLevel<Type extends SpellFactorType>(
   ruleIdentifier: string,
   level: SpellFactorLevel,
-  value: number,
-  modifier?: Partial<SpellFactorRuleLevel>,
-): SpellFactorRuleLevel {
+  diceModifier: number,
+  type: SpellFactorType,
+  index: number,
+  ruleLevel?: Partial<SpellFactorRuleLevel<Type>>,
+): SpellFactorRuleLevel<Type> {
   return {
-    id: ruleIdentifier + '_' + level + '_' + value,
+    id: type,
     type: GameValueType.spellFactorRuleLevel,
     level: level,
-    diceModifier: value,
-    ...modifier,
+    diceModifier: diceModifier,
+    spellFactorType: type,
+    index,
+    ...ruleLevel,
   };
 }
-
-export type SpellFactorRules = {
-  standard: SpellFactorRuleLevel[];
-  advanced: SpellFactorRuleLevel[];
-};

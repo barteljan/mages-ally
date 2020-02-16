@@ -18,7 +18,7 @@ export type SpellFactorDurationStrings = {
 export function spellFactorLabelDuration(
   level: SpellFactorLevel,
   value: number,
-) {
+): string {
   switch (level) {
     case SpellFactorLevel.standard:
       switch (value) {

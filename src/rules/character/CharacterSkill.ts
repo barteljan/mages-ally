@@ -1,8 +1,7 @@
-import {DiceModifier} from '../../data-types/DiceModifier';
+import {BaseDiceModifier} from '../../data-types/BaseDiceModifier';
 import {GameValueType} from '../../GameValueTypes';
 
-export type CharacterSkill = DiceModifier & {
-  value: number;
+export type CharacterSkill = BaseDiceModifier & {
   type: GameValueType;
 };
 

@@ -1,9 +1,48 @@
 import LocalizedStrings from 'react-native-localization';
-import {RitualIntervalUnit} from '../../../gnosis/GnosisRule';
+import {RitualIntervalUnit, GnosisRules} from '../../../gnosis/GnosisRule';
+import {SpellFactorLevel} from '../SpellFactor.level';
 
 export enum CastingTimeStringKey {
   dice = 'dice',
   advancedDescription = 'advancedDescription',
+}
+
+export function spellFactorLabelCastingTime(
+  level: SpellFactorLevel,
+  value: number,
+  gnosis: number,
+  gnosisRules: GnosisRules[],
+  translate: (
+    key: RitualIntervalUnit | CastingTimeStringKey,
+    plural: boolean,
+  ) => string = translateCastingTimeStrings,
+): string {
+  let description = '';
+
+  if (level === SpellFactorLevel.standard) {
+    let rule = gnosisRules[gnosis];
+    let translatedTimeUnit: string;
+
+    let time = (value + 1) * rule.ritualInterval;
+
+    if (time === 1) {
+      translatedTimeUnit = translate(rule.ritualIntervalTimeUnit, false);
+    } else {
+      translatedTimeUnit = translate(rule.ritualIntervalTimeUnit, true);
+    }
+
+    description = time + ' ' + translatedTimeUnit + ' (+' + value + ' ';
+    if (value === 0) {
+      description = description + translate(CastingTimeStringKey.dice, false);
+    } else {
+      description = description + translate(CastingTimeStringKey.dice, true);
+    }
+    description += ')';
+  } else {
+    description = translate(CastingTimeStringKey.advancedDescription, false);
+  }
+
+  return description;
 }
 
 export function translateCastingTimeStrings(

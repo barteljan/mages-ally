@@ -1,13 +1,13 @@
 import {makeScaleRules} from './scale.rules';
 
 test('that a correct number of rules is calculated', () => {
-  const rules = makeScaleRules(7, () => '');
+  const rules = makeScaleRules(7);
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(7);
 });
 
 test('that a correct dice penalty is calculated', () => {
-  const rules = makeScaleRules(7, () => '');
+  const rules = makeScaleRules(7);
 
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(7);
@@ -27,29 +27,8 @@ test('that a correct dice penalty is calculated', () => {
   expect(rules.advanced[6].diceModifier).toBe(-12);
 });
 
-test('that a correct description is calculated', () => {
-  const rules = makeScaleRules(7, (level, value) => level + '_' + value);
-
-  expect(rules.standard.length).toBe(5);
-  expect(rules.advanced.length).toBe(7);
-
-  expect(rules.standard[0].description).toEqual('standard_0');
-  expect(rules.standard[1].description).toEqual('standard_1');
-  expect(rules.standard[2].description).toEqual('standard_2');
-  expect(rules.standard[3].description).toEqual('standard_3');
-  expect(rules.standard[4].description).toEqual('standard_4');
-
-  expect(rules.advanced[0].description).toEqual('advanced_0');
-  expect(rules.advanced[1].description).toEqual('advanced_1');
-  expect(rules.advanced[2].description).toEqual('advanced_2');
-  expect(rules.advanced[3].description).toEqual('advanced_3');
-  expect(rules.advanced[4].description).toEqual('advanced_4');
-  expect(rules.advanced[5].description).toEqual('advanced_5');
-  expect(rules.advanced[6].description).toEqual('advanced_6');
-});
-
 test('that a correct subject number is calculated', () => {
-  const rules = makeScaleRules(7, (level, value) => level + '_' + value);
+  const rules = makeScaleRules(7);
 
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(7);
@@ -70,7 +49,7 @@ test('that a correct subject number is calculated', () => {
 });
 
 test('that a correct max size is calculated', () => {
-  const rules = makeScaleRules(7, (level, value) => level + '_' + value);
+  const rules = makeScaleRules(7);
 
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(7);

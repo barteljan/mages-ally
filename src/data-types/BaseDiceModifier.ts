@@ -1,14 +1,14 @@
-import {GameValue} from './GameValue';
+import {BaseGameValue} from './BaseGameValue';
 import {GameValueType} from '../GameValueTypes';
 
-export type DiceModifier = GameValue & {
+export type BaseDiceModifier = BaseGameValue & {
   diceModifier: number;
 };
 
 export function makeDiceModifier(
   id: string,
-  modifier?: Partial<DiceModifier>,
-): DiceModifier {
+  modifier?: Partial<BaseDiceModifier>,
+): BaseDiceModifier {
   return {
     id: id,
     type: GameValueType.other,

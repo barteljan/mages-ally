@@ -4,36 +4,33 @@ import {
   makeSpellFactorRuleLevel,
 } from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
-import {spellFactorLabelPotency} from './potency.strings';
 import {RulesType} from '../RulesType';
+import {SpellFactorType} from '../SpellFactor.type';
 
-export type PotencyRules = SpellFactorRules;
+export type PotencyRules = SpellFactorRules<SpellFactorType.potency>;
+export type PotencyRuleLevel = SpellFactorRuleLevel<SpellFactorType.potency>;
 
-export function makePotencyRules(
-  numberOfLevels: number = 11,
-  spellFactorLabel: (
-    level: SpellFactorLevel,
-    value: number,
-  ) => string = spellFactorLabelPotency,
-): PotencyRules {
-  const rules: SpellFactorRules = {
+export function makePotencyRules(numberOfLevels: number = 11): PotencyRules {
+  const rules: PotencyRules = {
     standard: [],
     advanced: [],
   };
 
   for (let i = 0; i < numberOfLevels; i++) {
-    const itemStandard: SpellFactorRuleLevel = makeSpellFactorRuleLevel(
+    const itemStandard: PotencyRuleLevel = makeSpellFactorRuleLevel(
       RulesType.potency,
       SpellFactorLevel.standard,
       i * -2,
-      {description: spellFactorLabel(SpellFactorLevel.standard, i)},
+      SpellFactorType.potency,
+      i,
     );
 
-    const itemAdvanced: SpellFactorRuleLevel = makeSpellFactorRuleLevel(
+    const itemAdvanced: PotencyRuleLevel = makeSpellFactorRuleLevel(
       RulesType.potency,
       SpellFactorLevel.advanced,
       i * -2,
-      {description: spellFactorLabel(SpellFactorLevel.advanced, i)},
+      SpellFactorType.potency,
+      i,
     );
     rules.standard.push(itemStandard);
     rules.advanced.push(itemAdvanced);

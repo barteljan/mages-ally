@@ -5,4 +5,5 @@ export enum GameValueType {
   arcanum = 'arcanum',
   spellFactor = 'spellFactor',
   spellFactorRuleLevel = 'spellFactorRuleLevel',
+  yantra = 'yantra',
 }

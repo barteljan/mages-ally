@@ -1,17 +1,17 @@
-import {DiceModifier} from '../../data-types/DiceModifier';
+import {BaseDiceModifier} from '../../data-types/BaseDiceModifier';
 import {GameValueType} from '../../GameValueTypes';
+import {CharacterValueId} from './CharacterValue.id';
 
-export type GnosisValue = DiceModifier & {
-  id: 'gnosis';
+export type GnosisValue = BaseDiceModifier & {
+  id: CharacterValueId.gnosis;
   type: GameValueType.characterValue;
 };
 
 export function makeGnosisValue(gnosis: Partial<GnosisValue>): GnosisValue {
   return {
-    id: 'gnosis',
+    id: CharacterValueId.gnosis,
     type: GameValueType.characterValue,
     diceModifier: 0,
-    parentId: undefined,
     ...gnosis,
   };
 }

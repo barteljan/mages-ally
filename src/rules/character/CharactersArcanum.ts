@@ -1,8 +1,8 @@
-import {ArcanaType} from '../spells/ArcanaType';
-import {DiceModifier} from '../../data-types/DiceModifier';
+import {ArcanaType} from '../spells/arcana/Arcana.type';
+import {BaseDiceModifier} from '../../data-types/BaseDiceModifier';
 import {GameValueType} from '../../GameValueTypes';
 
-export type CharactersArcanum = DiceModifier & {
+export type CharactersArcanum = BaseDiceModifier & {
   arcanumType: ArcanaType;
   highest: boolean;
   rulingArcana: boolean;

@@ -4,22 +4,17 @@ import {
   makeSpellFactorRuleLevel,
 } from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
-import {spellFactorLabelDuration} from './duration.strings';
 import {RulesType} from '../RulesType';
+import {SpellFactorType} from '../SpellFactor.type';
 
-export type DurationRules = SpellFactorRules & {
+export type DurationRules = SpellFactorRules<SpellFactorType.duration> & {
   standard: DurationRuleLevel[];
   advanced: DurationRuleLevel[];
 };
 
-export type DurationRuleLevel = SpellFactorRuleLevel;
+export type DurationRuleLevel = SpellFactorRuleLevel<SpellFactorType.duration>;
 
-export function makeDurationRules(
-  spellFactorLabel: (
-    level: SpellFactorLevel,
-    value: number,
-  ) => string = spellFactorLabelDuration,
-): DurationRules {
+export function makeDurationRules(): DurationRules {
   let rules: DurationRules = {
     standard: [],
     advanced: [],
@@ -30,7 +25,8 @@ export function makeDurationRules(
       RulesType.duration,
       SpellFactorLevel.standard,
       i * -2,
-      {description: spellFactorLabel(SpellFactorLevel.standard, i)},
+      SpellFactorType.duration,
+      i,
     );
 
     rules.standard.push(itemStandard);
@@ -41,7 +37,8 @@ export function makeDurationRules(
       RulesType.duration,
       SpellFactorLevel.advanced,
       i * -2,
-      {description: spellFactorLabel(SpellFactorLevel.advanced, i)},
+      SpellFactorType.duration,
+      i,
     );
 
     rules.advanced.push(itemAdvanced);

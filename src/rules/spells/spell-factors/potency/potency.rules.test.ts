@@ -1,13 +1,13 @@
 import {makePotencyRules} from './potency.rules';
 
 test('that a correct number of rules is calculated', () => {
-  const rules = makePotencyRules(12, () => '');
+  const rules = makePotencyRules(12);
   expect(rules.standard.length).toBe(12);
   expect(rules.advanced.length).toBe(12);
 });
 
 test('that a correct dice penalty is calculated', () => {
-  const rules = makePotencyRules(4, () => '');
+  const rules = makePotencyRules(4);
 
   expect(rules.standard.length).toBe(4);
   expect(rules.advanced.length).toBe(4);

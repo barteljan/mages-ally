@@ -1,13 +1,13 @@
 import {makeDurationRules} from './duration.rules';
 
 test('that a correct number of rules is calculated', () => {
-  const rules = makeDurationRules(() => '');
+  const rules = makeDurationRules();
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(6);
 });
 
 test('that a correct dice penalty is calculated', () => {
-  const rules = makeDurationRules(() => '');
+  const rules = makeDurationRules();
 
   expect(rules.standard.length).toBe(5);
   expect(rules.advanced.length).toBe(6);
