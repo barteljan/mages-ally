@@ -19,7 +19,7 @@ export function makeCharactersArcanum(
     type: GameValueType.arcanum,
     highest: false,
     rulingArcana: false,
-    value: 0,
+    diceModifier: 0,
     ...arkanum,
   };
 }

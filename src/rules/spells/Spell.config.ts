@@ -32,7 +32,7 @@ export function makeDefaultSpellCaster(
   return {
     activeSpells: 0,
     additionalSpellCastingDice: {},
-    gnosis: makeGnosisValue({value: 1}),
+    gnosis: makeGnosisValue({diceModifier: 1}),
     highestSpellArcanum: makeCharactersArcanum(ArcanaType.death),
     roteSkill: makeCharacterSkill('skill'),
     spendsWillpower: false,
@@ -49,7 +49,7 @@ export function makeSpellFactor(
     level: SpellFactorLevel.standard,
     spellFactorType: SpellFactorType.castingTime,
     type: GameValueType.spellFactor,
-    value: 0,
+    diceModifier: 0,
     ...factor,
   };
 }

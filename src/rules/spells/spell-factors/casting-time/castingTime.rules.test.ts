@@ -15,14 +15,14 @@ test('calculates the right dice modifiers', () => {
   const castingRules = makeCastingTimeRules(theGnosisRules, 5);
 
   expect(castingRules.standard.length).toBe(6);
-  expect(castingRules.standard[0].value).toBe(0);
-  expect(castingRules.standard[1].value).toBe(1);
-  expect(castingRules.standard[2].value).toBe(2);
-  expect(castingRules.standard[3].value).toBe(3);
-  expect(castingRules.standard[4].value).toBe(4);
-  expect(castingRules.standard[5].value).toBe(5);
+  expect(castingRules.standard[0].diceModifier).toBe(0);
+  expect(castingRules.standard[1].diceModifier).toBe(1);
+  expect(castingRules.standard[2].diceModifier).toBe(2);
+  expect(castingRules.standard[3].diceModifier).toBe(3);
+  expect(castingRules.standard[4].diceModifier).toBe(4);
+  expect(castingRules.standard[5].diceModifier).toBe(5);
 
-  expect(castingRules.advanced[0].value).toBe(0);
+  expect(castingRules.advanced[0].diceModifier).toBe(0);
 
   expect(castingRules.advanced.length).toBe(1);
 });

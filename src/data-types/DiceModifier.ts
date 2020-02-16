@@ -1,7 +1,9 @@
 import {GameValue} from './GameValue';
 import {GameValueType} from '../GameValueTypes';
 
-export type DiceModifier = GameValue<number>;
+export type DiceModifier = GameValue & {
+  diceModifier: number;
+};
 
 export function makeDiceModifier(
   id: string,
@@ -10,7 +12,7 @@ export function makeDiceModifier(
   return {
     id: id,
     type: GameValueType.other,
-    value: 0,
+    diceModifier: 0,
     description: '',
     ...modifier,
   };

@@ -1,9 +1,8 @@
 import {GameValueType} from '../GameValueTypes';
 
-export type GameValue<T> = {
+export type GameValue = {
   id: string;
   description?: string;
   type: GameValueType;
-  value: T;
   parentId?: string | undefined;
 };

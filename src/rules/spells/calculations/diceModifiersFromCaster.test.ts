@@ -7,19 +7,19 @@ import {makeDiceModifier} from '../../../data-types/DiceModifier';
 
 test('sets correct gnosis value', () => {
   let caster = makeDefaultSpellCaster();
-  caster.gnosis = makeGnosisValue({value: 5});
+  caster.gnosis = makeGnosisValue({diceModifier: 5});
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[DefaultKeys.gnosis].value).toBe(5);
+  expect(result[DefaultKeys.gnosis].diceModifier).toBe(5);
 });
 
 test('sets correct arkanum value', () => {
   let caster = makeDefaultSpellCaster();
 
   caster.highestSpellArcanum.arcanumType = ArcanaType.life;
-  caster.highestSpellArcanum.value = 3;
+  caster.highestSpellArcanum.diceModifier = 3;
 
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[ArcanaType.life].value).toBe(3);
+  expect(result[ArcanaType.life].diceModifier).toBe(3);
 });
 
 test('sets correct rote skill value if spell is a rote', () => {
@@ -28,10 +28,10 @@ test('sets correct rote skill value if spell is a rote', () => {
   const id = 'Empathy';
 
   caster.roteSkill.id = id;
-  caster.roteSkill.value = 4;
+  caster.roteSkill.diceModifier = 4;
 
   const result = diceModifiersFromCaster(caster, true);
-  expect(result[id].value).toBe(4);
+  expect(result[id].diceModifier).toBe(4);
 });
 
 test('ignores rote skill value if spell is not a rote', () => {
@@ -40,7 +40,7 @@ test('ignores rote skill value if spell is not a rote', () => {
   const id = 'Empathy';
 
   caster.roteSkill.id = id;
-  caster.roteSkill.value = 4;
+  caster.roteSkill.diceModifier = 4;
 
   const result = diceModifiersFromCaster(caster, false);
   expect(result[id]).toBeUndefined();
@@ -52,7 +52,7 @@ test('sets correct willpower value if caster uses willpower ', () => {
   caster.spendsWillpower = true;
 
   const result = diceModifiersFromCaster(caster, true);
-  expect(result[DefaultKeys.willpower].value).toBe(3);
+  expect(result[DefaultKeys.willpower].diceModifier).toBe(3);
 });
 
 test('sets no willpower value if caster does not spend willpower', () => {
@@ -66,14 +66,14 @@ test('sets no willpower value if caster does not spend willpower', () => {
 
 test('overwriting a modifier with a rote skill is impossible', () => {
   let caster = makeDefaultSpellCaster();
-  caster.gnosis = makeGnosisValue({value: 2});
+  caster.gnosis = makeGnosisValue({diceModifier: 2});
 
   const id = DefaultKeys.gnosis;
   caster.roteSkill.id = id;
-  caster.roteSkill.value = 4;
+  caster.roteSkill.diceModifier = 4;
 
   const result = diceModifiersFromCaster(caster, false);
-  expect(result[DefaultKeys.gnosis].value).toBe(2);
+  expect(result[DefaultKeys.gnosis].diceModifier).toBe(2);
 });
 
 test('sets additional dice correct', () => {
@@ -81,12 +81,12 @@ test('sets additional dice correct', () => {
 
   const id1 = 'Luck';
   const addDice1 = makeDiceModifier(id1, {
-    value: 2,
+    diceModifier: 2,
   });
 
   const id2 = 'Demons';
   const addDice2 = makeDiceModifier(id2, {
-    value: 4,
+    diceModifier: 4,
   });
 
   caster.additionalSpellCastingDice = {[id1]: addDice1, [id2]: addDice2};
@@ -94,6 +94,6 @@ test('sets additional dice correct', () => {
   const result = diceModifiersFromCaster(caster, false);
 
   expect(result[id1]).toBe(addDice1);
-  expect(result[id1].value).toBe(2);
-  expect(result[id2].value).toBe(4);
+  expect(result[id1].diceModifier).toBe(2);
+  expect(result[id2].diceModifier).toBe(4);
 });

@@ -12,7 +12,7 @@ export function makeWillpowerValue(
   return {
     id: 'willpower',
     type: GameValueType.characterValue,
-    value: 0,
+    diceModifier: 0,
     ...willpower,
   };
 }

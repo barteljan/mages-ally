@@ -17,7 +17,7 @@ export function makeSpellFactorRuleLevel(
     id: ruleIdentifier + '_' + level + '_' + value,
     type: GameValueType.spellFactorRuleLevel,
     level: level,
-    value: value,
+    diceModifier: value,
     ...modifier,
   };
 }

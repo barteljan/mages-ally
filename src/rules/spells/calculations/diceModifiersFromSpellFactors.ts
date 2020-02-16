@@ -34,8 +34,8 @@ export function diceModifiersFromSpellFactors(
   for (let i = 0; i < rules.length; i++) {
     const item = allFactors[i];
     const rulings = rules[i];
-    const rule = rulings[item.level][item.value];
-    modifier[rule.id] = rule.value;
+    const rule = rulings[item.level][item.diceModifier];
+    modifier[rule.id] = rule.diceModifier;
   }
 
   return modifier;

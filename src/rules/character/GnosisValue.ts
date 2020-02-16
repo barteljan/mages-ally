@@ -10,7 +10,7 @@ export function makeGnosisValue(gnosis: Partial<GnosisValue>): GnosisValue {
   return {
     id: 'gnosis',
     type: GameValueType.characterValue,
-    value: 0,
+    diceModifier: 0,
     parentId: undefined,
     ...gnosis,
   };

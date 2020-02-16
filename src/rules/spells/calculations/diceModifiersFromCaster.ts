@@ -16,7 +16,7 @@ export function diceModifiersFromCaster(
   };
 
   if (caster.spendsWillpower) {
-    let willpower = makeWillpowerValue({value: 3});
+    let willpower = makeWillpowerValue({diceModifier: 3});
     map[willpower.id] = willpower;
   }
 
