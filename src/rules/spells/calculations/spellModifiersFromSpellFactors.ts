@@ -23,9 +23,9 @@ import {
 import {BaseDiceModifier} from 'src/data-types/BaseDiceModifier';
 import {SpellFactorType} from '../spell-factors/SpellFactor.type';
 import {CharactersArcanum} from '../../character/CharactersArcanum';
-import {SpellCastingConfig} from '../Spell.config';
+import {SpellSpecification} from '../Spell.config.specification';
 
-type SpellModifiersFromSpellFactorsReturn = {
+export type SpellModifiersFromSpellFactorsReturn = {
   [SpellFactorType.castingTime]: CastingTimeRuleLevel;
   [SpellFactorType.duration]: DurationRuleLevel;
   [SpellFactorType.potency]: PotencyRuleLevel;
@@ -36,7 +36,7 @@ type SpellModifiersFromSpellFactorsReturn = {
 export function spellModifiersFromSpellFactors(
   highestArcanum: CharactersArcanum,
   primaryFactor: SpellFactorType,
-  factors: SpellCastingConfig['spell']['spellFactors'],
+  factors: SpellSpecification['spellFactors'],
   potencyRules: PotencyRules = makePotencyRules(11),
   castingTimeRules: CastingTimeRules = makeCastingTimeRules(),
   durationRules: DurationRules = makeDurationRules(),

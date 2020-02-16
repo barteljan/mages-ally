@@ -8,7 +8,7 @@ import {SpellCaster, makeDefaultSpellCaster} from './Spell.config.caster';
 import {Subject, makeDefaultSubject} from './Spell.config.subject';
 import {
   SpellSpecification,
-  makeDefaultSpellSpecification,
+  makeSpellSpecification,
 } from './Spell.config.specification';
 
 export type SpellCastingConfig = {
@@ -30,7 +30,7 @@ export function makeDefaultCastingConfig(
     createdAt,
     id,
     paradox: makeParadoxCircumstances(),
-    spell: makeDefaultSpellSpecification({}),
+    spell: makeSpellSpecification({}),
     subject: makeDefaultSubject({}),
     ...config,
   };

@@ -23,7 +23,7 @@ export type SpellSpecification = {
   yantras: Yantra[];
 };
 
-export function makeDefaultSpellSpecification(
+export function makeSpellSpecification(
   specification?: Partial<SpellSpecification>,
 ): SpellSpecification {
   return {
