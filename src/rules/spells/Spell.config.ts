@@ -4,7 +4,7 @@ import {
   ParadoxCircumstances,
   makeParadoxCircumstances,
 } from './paradox/ParadoxCircumstances';
-import {SpellCaster, makeDefaultSpellCaster} from './Spell.config.caster';
+import {SpellCaster, makeSpellCaster} from './Spell.config.caster';
 import {Subject, makeDefaultSubject} from './Spell.config.subject';
 import {
   SpellSpecification,
@@ -20,18 +20,18 @@ export type SpellCastingConfig = {
   paradox: ParadoxCircumstances;
 };
 
-export function makeDefaultCastingConfig(
+export function makeSpellCastingConfig(
   config?: Partial<SpellCastingConfig>,
   id: string = uuid.v4(),
   createdAt: number = moment().unix(),
 ): SpellCastingConfig {
   return {
-    caster: makeDefaultSpellCaster({}),
+    caster: makeSpellCaster({}),
     createdAt,
     id,
     paradox: makeParadoxCircumstances(),
-    spell: makeSpellSpecification({}),
-    subject: makeDefaultSubject({}),
+    spell: makeSpellSpecification(),
+    subject: makeDefaultSubject(),
     ...config,
   };
 }

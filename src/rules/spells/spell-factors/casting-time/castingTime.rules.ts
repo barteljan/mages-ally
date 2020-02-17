@@ -17,7 +17,6 @@ export function makeCastingTimeRules(): CastingTimeRules {
     standard: [],
     advanced: [
       makeSpellFactorRuleLevel(
-        RulesType.castingTime,
         SpellFactorLevel.advanced,
         0,
         SpellFactorType.castingTime,
@@ -30,7 +29,6 @@ export function makeCastingTimeRules(): CastingTimeRules {
     const dice = i;
     rules.standard.push(
       makeSpellFactorRuleLevel(
-        RulesType.castingTime,
         SpellFactorLevel.standard,
         dice,
         SpellFactorType.castingTime,

@@ -2,9 +2,8 @@ import {
   CharactersArcanum,
   makeCharactersArcanum,
 } from '../character/CharactersArcanum';
-import {CharacterSkill, makeCharacterSkill} from '../character/CharacterSkill';
 import StringMap from '../../data-types/StringMap';
-import {BaseDiceModifier} from '../../data-types/BaseDiceModifier';
+import {BaseDiceModifier} from '../model/BaseDiceModifier';
 import {GnosisValue, makeGnosisValue} from '../character/GnosisValue';
 import {ArcanaType} from './arcana/Arcana.type';
 
@@ -14,10 +13,9 @@ export type SpellCaster = {
   activeSpells: number;
   additionalSpellCastingDice: StringMap<BaseDiceModifier>;
   spendsWillpower: boolean;
-  roteSkill: CharacterSkill;
 };
 
-export function makeDefaultSpellCaster(
+export function makeSpellCaster(
   spellCaster?: Partial<SpellCaster>,
 ): SpellCaster {
   return {
@@ -25,7 +23,6 @@ export function makeDefaultSpellCaster(
     additionalSpellCastingDice: {},
     gnosis: makeGnosisValue({diceModifier: 1}),
     highestSpellArcanum: makeCharactersArcanum(ArcanaType.death),
-    roteSkill: makeCharacterSkill('skill'),
     spendsWillpower: false,
     ...spellCaster,
   };

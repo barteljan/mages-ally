@@ -1,4 +1,4 @@
-import {GameValueType} from '../GameValueTypes';
+import {GameValueType} from '../../GameValueTypes';
 
 export type BaseGameValue = {
   id: string;

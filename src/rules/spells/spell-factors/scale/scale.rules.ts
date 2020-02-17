@@ -26,7 +26,6 @@ export function makeScaleRuleLevel(
   rule?: Partial<ScaleRuleLevel>,
 ) {
   const factor = makeSpellFactorRuleLevel(
-    RulesType.scale,
     level,
     value,
     SpellFactorType.scale,

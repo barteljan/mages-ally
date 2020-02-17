@@ -1,0 +1,16 @@
+export enum SpellValueIds {
+  highestArcanum = 'highestArcanum',
+  additionalDice = 'additionalDice',
+  symphaticRange = 'symphaticRange',
+  temporalSympathy = 'temporalSympathy',
+  extraReach = 'extraReach',
+  activeSpells = 'activeSpells',
+  notFromRulingArcana = 'notFromRulingArcana',
+  inuredToSpell = 'inuredToSpell',
+  numberOfPreviousParadoxRolls = 'numberOfPreviousParadoxRolls',
+  dedicatedToolUsed = 'dedicatedToolUsed',
+  additionalManaSpendForReducingParadox = 'additionalManaSpendForReducingParadox',
+  additionalParadoxDices = 'additionalParadoxDices',
+  sleeperWitnesses = 'sleeperWitnesses',
+  paradoxDiceFromReach = 'paradoxDiceFromReach',
+}

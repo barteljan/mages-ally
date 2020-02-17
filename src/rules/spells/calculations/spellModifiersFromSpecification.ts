@@ -1,6 +1,9 @@
-import {SpellSpecification} from '../Spell.config.specification';
+import {
+  SpellSpecification,
+  SpellSpecificationAdditionalSpecs,
+} from '../Spell.config.specification';
 import StringMap from '../../../data-types/StringMap';
-import {BaseDiceModifier} from '../../../data-types/BaseDiceModifier';
+import {BaseDiceModifier} from '../../model/BaseDiceModifier';
 import {
   SpellModifiersFromSpellFactorsReturn,
   spellModifiersFromSpellFactors,
@@ -10,6 +13,21 @@ import {SpellFactorType} from '../spell-factors/SpellFactor.type';
 import {YantraType} from '../yantra/Yantra.type';
 import {Yantra} from '../yantra/yantra';
 import {makeModifierIdForCustomYantra} from '../yantra/helper/makeModifierIdForCustomYantra';
+import {
+  makeExtraReachValue,
+  ExtraReachValue,
+} from '../spell-values/ExtraReachValue';
+import {SpellValueIds} from '../spell-values/SpellValueIds';
+import {BaseReachModifier} from 'src/rules/model/BaseReachModifier';
+import {
+  makeSymphaticRangeValue,
+  SymphaticRangeValue,
+} from '../spell-values/SympaticRangeValue';
+import {BaseManaModifier} from 'src/rules/model/BaseManaModifier';
+import {
+  makeTemporalSympathyValue,
+  TemporalSympathyValue,
+} from '../spell-values/TemporalSympathyValue';
 
 export function spellModifiersFromSpecification(
   highestArcanum: CharactersArcanum,
@@ -17,12 +35,16 @@ export function spellModifiersFromSpecification(
   modifiersFromFactors: (
     highestArcanum: CharactersArcanum,
     primaryFactor: SpellFactorType,
+    additionalSpecs: SpellSpecificationAdditionalSpecs,
     factors: SpellSpecification['spellFactors'],
   ) => SpellModifiersFromSpellFactorsReturn = spellModifiersFromSpellFactors,
 ): SpellModifiersFromSpecificationResult {
-  let modifier: StringMap<BaseDiceModifier> = modifiersFromFactors(
+  let modifier: StringMap<
+    BaseDiceModifier | BaseReachModifier | BaseManaModifier
+  > = modifiersFromFactors(
     highestArcanum,
     specification.primaryFactor,
+    specification.additionalSpecs,
     specification.spellFactors,
   );
 
@@ -34,6 +56,23 @@ export function spellModifiersFromSpecification(
       modifier[yantra.id] = yantra;
     }
   });
+
+  if (specification.additionalSpecs.extraReach) {
+    const extraReach = makeExtraReachValue({
+      reachModifier: specification.additionalSpecs.extraReach,
+    });
+    modifier[extraReach.id] = extraReach;
+  }
+
+  if (specification.additionalSpecs.sympatheticRange) {
+    const sympathicRange = makeSymphaticRangeValue({manaModifier: 1});
+    modifier[sympathicRange.id] = sympathicRange;
+  }
+
+  if (specification.additionalSpecs.temporalSympathy) {
+    const temporalSympathy = makeTemporalSympathyValue({manaModifier: 1});
+    modifier[temporalSympathy.id] = temporalSympathy;
+  }
 
   return (modifier as unknown) as SpellModifiersFromSpecificationResult;
 }
@@ -60,5 +99,9 @@ type YantrasModifierResult = {
   [id: string]: Yantra | undefined;
 };
 
-type SpellModifiersFromSpecificationResult = SpellModifiersFromSpellFactorsReturn &
-  YantrasModifierResult & {};
+export type SpellModifiersFromSpecificationResult = SpellModifiersFromSpellFactorsReturn &
+  YantrasModifierResult & {
+    [SpellValueIds.extraReach]: ExtraReachValue;
+    [SpellValueIds.symphaticRange]: SymphaticRangeValue;
+    [SpellValueIds.temporalSympathy]: TemporalSympathyValue;
+  };

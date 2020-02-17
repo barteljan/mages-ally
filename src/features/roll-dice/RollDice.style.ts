@@ -18,6 +18,7 @@ export const style = StyleSheet.create<RollDiceStyle>({
     flex: 1,
     paddingVertical: 15,
     paddingHorizontal: 15,
+    backgroundColor: Colors.backgroundColor,
   },
   containerContent: {
     alignItems: 'center',
