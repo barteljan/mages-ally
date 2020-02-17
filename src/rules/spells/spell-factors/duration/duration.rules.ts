@@ -4,7 +4,6 @@ import {
   makeSpellFactorRuleLevel,
 } from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
-import {RulesType} from '../RulesType';
 import {SpellFactorType} from '../SpellFactor.type';
 
 export type DurationRules = SpellFactorRules<SpellFactorType.duration> & {
@@ -22,7 +21,6 @@ export function makeDurationRules(): DurationRules {
 
   for (let i = 0; i < 5; i++) {
     const itemStandard: DurationRuleLevel = makeSpellFactorRuleLevel(
-      RulesType.duration,
       SpellFactorLevel.standard,
       i * -2,
       SpellFactorType.duration,
@@ -34,12 +32,17 @@ export function makeDurationRules(): DurationRules {
 
   for (let i = 0; i < 6; i++) {
     const itemAdvanced: DurationRuleLevel = makeSpellFactorRuleLevel(
-      RulesType.duration,
       SpellFactorLevel.advanced,
       i * -2,
       SpellFactorType.duration,
       i,
     );
+
+    //indifinite costs an additional reach and a mana
+    if (i === 5) {
+      itemAdvanced.reachModifier = 2;
+      itemAdvanced.manaModifier = 1;
+    }
 
     rules.advanced.push(itemAdvanced);
   }

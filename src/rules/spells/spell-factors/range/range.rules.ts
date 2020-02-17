@@ -14,7 +14,6 @@ export function makeRangeRules(): RangeRules {
   return {
     standard: [
       makeSpellFactorRuleLevel(
-        RulesType.range,
         SpellFactorLevel.standard,
         0,
         SpellFactorType.range,
@@ -23,7 +22,6 @@ export function makeRangeRules(): RangeRules {
     ],
     advanced: [
       makeSpellFactorRuleLevel(
-        RulesType.range,
         SpellFactorLevel.advanced,
         0,
         SpellFactorType.range,

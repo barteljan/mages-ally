@@ -20,10 +20,13 @@ import {
   ScaleRules,
   ScaleRuleLevel,
 } from '../spell-factors/scale/scale.rules';
-import {BaseDiceModifier} from 'src/data-types/BaseDiceModifier';
+import {BaseDiceModifier} from 'src/rules/model/BaseDiceModifier';
 import {SpellFactorType} from '../spell-factors/SpellFactor.type';
 import {CharactersArcanum} from '../../character/CharactersArcanum';
-import {SpellSpecification} from '../Spell.config.specification';
+import {
+  SpellSpecification,
+  SpellSpecificationAdditionalSpecs,
+} from '../Spell.config.specification';
 
 export type SpellModifiersFromSpellFactorsReturn = {
   [SpellFactorType.castingTime]: CastingTimeRuleLevel;
@@ -36,6 +39,7 @@ export type SpellModifiersFromSpellFactorsReturn = {
 export function spellModifiersFromSpellFactors(
   highestArcanum: CharactersArcanum,
   primaryFactor: SpellFactorType,
+  additionalSpecs: SpellSpecificationAdditionalSpecs,
   factors: SpellSpecification['spellFactors'],
   potencyRules: PotencyRules = makePotencyRules(11),
   castingTimeRules: CastingTimeRules = makeCastingTimeRules(),
@@ -56,14 +60,15 @@ export function spellModifiersFromSpellFactors(
   ];
 
   for (let i = 0; i < rules.length; i++) {
-    const item = allFactors[i];
+    const spellFactor = allFactors[i];
     const rulings = rules[i];
-    let rule = rulings[item.level][item.value];
+
+    let rule = rulings[spellFactor.level][spellFactor.value - 1];
 
     // primary factors dice penalty is is reduced by the level of
     // the characters highest arcanum nessecary for this spell
     if (rule.spellFactorType === primaryFactor) {
-      let newModifier = rule.diceModifier + highestArcanum.diceModifier * 2;
+      let newModifier = rule.diceModifier + highestArcanum.diceModifier * 2 - 2;
       if (newModifier > 0) {
         newModifier = 0;
       }
@@ -72,6 +77,31 @@ export function spellModifiersFromSpellFactors(
         diceModifier: newModifier,
       };
     }
+
+    // everywhere => advanced scale costs a mana instead of a reach
+    if (
+      additionalSpecs.everywhere === true &&
+      rule.spellFactorType === SpellFactorType.scale
+    ) {
+      rule = {
+        ...rule,
+        reachModifier: 0,
+        manaModifier: 1,
+      };
+    }
+
+    // time in a bottle => advanced casting time costs a mana instead of a reach
+    if (
+      additionalSpecs.timeInABottle === true &&
+      rule.spellFactorType === SpellFactorType.castingTime
+    ) {
+      rule = {
+        ...rule,
+        reachModifier: 0,
+        manaModifier: 1,
+      };
+    }
+
     modifier[rule.id] = rule;
   }
 

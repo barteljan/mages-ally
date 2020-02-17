@@ -18,7 +18,6 @@ export function makePotencyRules(numberOfLevels: number = 11): PotencyRules {
 
   for (let i = 0; i < numberOfLevels; i++) {
     const itemStandard: PotencyRuleLevel = makeSpellFactorRuleLevel(
-      RulesType.potency,
       SpellFactorLevel.standard,
       i * -2,
       SpellFactorType.potency,
@@ -26,7 +25,6 @@ export function makePotencyRules(numberOfLevels: number = 11): PotencyRules {
     );
 
     const itemAdvanced: PotencyRuleLevel = makeSpellFactorRuleLevel(
-      RulesType.potency,
       SpellFactorLevel.advanced,
       i * -2,
       SpellFactorType.potency,

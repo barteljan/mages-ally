@@ -1,5 +1,5 @@
 import {ArcanaType} from '../spells/arcana/Arcana.type';
-import {BaseDiceModifier} from '../../data-types/BaseDiceModifier';
+import {BaseDiceModifier} from '../model/BaseDiceModifier';
 import {GameValueType} from '../../GameValueTypes';
 
 export type CharactersArcanum = BaseDiceModifier & {

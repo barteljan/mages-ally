@@ -1,4 +1,4 @@
-import {BaseDiceModifier} from '../../data-types/BaseDiceModifier';
+import {BaseDiceModifier} from '../model/BaseDiceModifier';
 import {GameValueType} from '../../GameValueTypes';
 import {CharacterValueId} from './CharacterValue.id';
 
