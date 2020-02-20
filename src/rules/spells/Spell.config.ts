@@ -14,6 +14,7 @@ import {
 export type SpellCastingConfig = {
   id: string;
   createdAt: number;
+  title: string | undefined;
   caster: SpellCaster;
   subject: Subject;
   spell: SpellSpecification;
@@ -23,12 +24,14 @@ export type SpellCastingConfig = {
 export function makeSpellCastingConfig(
   config?: Partial<SpellCastingConfig>,
   id: string = uuid.v4(),
+  title: string | undefined = undefined,
   createdAt: number = moment().unix(),
 ): SpellCastingConfig {
   return {
     caster: makeSpellCaster({}),
     createdAt,
     id,
+    title,
     paradox: makeParadoxCircumstances(),
     spell: makeSpellSpecification(),
     subject: makeDefaultSubject(),

@@ -4,6 +4,7 @@ export type NavigationStrings = {
   rolls_route_title: string;
   add_roll_route_title: string;
   spells_route_title: string;
+  add_spell_route_title: string;
 };
 
 export const localization = new LocalizedStrings<NavigationStrings>({
@@ -11,5 +12,6 @@ export const localization = new LocalizedStrings<NavigationStrings>({
     rolls_route_title: 'Dice Rolls',
     add_roll_route_title: 'Roll Dice',
     spells_route_title: 'Spells',
+    add_spell_route_title: 'Add spell',
   },
 });

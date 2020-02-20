@@ -1,12 +1,12 @@
 import React from 'react';
 import FloatingButton from 'react-native-action-button';
 import {Colors} from '../../layout/Colors';
-import {ActionButtonProps} from './ActionButton.props';
+import {RollsAddButtonProps} from './RollsAddButton.props';
 import {Platform, Text, TouchableOpacity, Image, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {style} from './ActionButton.style';
+import {style} from './RollsAddButton.style';
 
-export class ActionButton extends React.PureComponent<ActionButtonProps> {
+export class RollsAddButton extends React.PureComponent<RollsAddButtonProps> {
   renderIcon = (): React.ReactElement =>
     Platform.OS === 'android' ? (
       <View>

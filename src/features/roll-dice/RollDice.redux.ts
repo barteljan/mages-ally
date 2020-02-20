@@ -62,7 +62,7 @@ const actions = {
 export type RollDiceActions = ActionType<typeof actions>;
 
 export const rollDiceReducer = produce(
-  (draft: RollDiceState, action: RollDiceActions): RollDiceState | void => {
+  (draft: RollDiceState, action: RollDiceActions): void => {
     switch (action.type) {
       case RollDiceActionTypes.didRollDice:
         break;

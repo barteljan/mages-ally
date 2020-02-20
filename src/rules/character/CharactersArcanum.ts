@@ -14,7 +14,7 @@ export function makeCharactersArcanum(
   arkanum?: Partial<CharactersArcanum>,
 ): CharactersArcanum {
   return {
-    id: 'arcanum_' + type,
+    id: type,
     arcanumType: type,
     type: GameValueType.arcanum,
     highest: false,

@@ -5,7 +5,7 @@ import RollsContainer from '../features/rolls/Rolls.container';
 import {localization} from './Navigation.strings';
 import {Colors} from '../layout/Colors';
 import {Platform} from 'react-native';
-import ActionButton from '../features/actionButton/ActionButton.container';
+import RollsAddButton from '../features/rolls-add-button/RollsAddButton.container';
 import AddRollContainer from '../features/roll-dice/RollDice.container';
 
 const RollsStack = createStackNavigator();
@@ -19,7 +19,8 @@ export function RollsStackScreen() {
         options={{
           title: localization.rolls_route_title,
           headerTintColor: Colors.accentColor,
-          headerRight: () => (Platform.OS === 'ios' ? <ActionButton /> : null),
+          headerRight: () =>
+            Platform.OS === 'ios' ? <RollsAddButton /> : null,
         }}
       />
       <RollsStack.Screen

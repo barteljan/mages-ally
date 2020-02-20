@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Platform} from 'react-native';
 import {style} from './Rolls.styles';
 import {RollsProps} from './Rolls.props';
-import ActionButton from '../actionButton/ActionButton.container';
+import RollsAddButton from '../rolls-add-button/RollsAddButton.container';
 import {FlatList} from 'react-native-gesture-handler';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {RollListItem} from './RollListItem/RollListItem';
@@ -14,7 +14,7 @@ export class RollsScreen extends React.PureComponent<RollsProps> {
   };
 
   render() {
-    const button = Platform.OS === 'android' ? <ActionButton /> : null;
+    const button = Platform.OS === 'android' ? <RollsAddButton /> : null;
     return (
       <View style={style.container}>
         <FlatList<DiceRoll>

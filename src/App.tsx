@@ -5,16 +5,30 @@ import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from './navigation/Navigation.service';
 import FlashMessage from 'react-native-flash-message';
 import {TabNavigation} from './navigation/Navigation.tabs';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {Colors} from './layout/Colors';
 
 function App() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Provider store={store}>
-        <TabNavigation />
-        <FlashMessage position="top" />
+        <PaperProvider theme={theme}>
+          <TabNavigation />
+          <FlashMessage position="top" />
+        </PaperProvider>
       </Provider>
     </NavigationContainer>
   );
 }
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#3498db',
+    accent: Colors.accentColor,
+  },
+};
 
 export default App;

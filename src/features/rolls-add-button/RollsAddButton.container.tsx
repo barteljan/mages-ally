@@ -1,6 +1,6 @@
 import {connect, MergeProps} from 'react-redux';
-import {ActionButton} from './ActionButton';
-import {ActionButtonProps} from './ActionButton.props';
+import {RollsAddButton} from './RollsAddButton';
+import {RollsAddButtonProps} from './RollsAddButton.props';
 import {Routes} from '../../navigation/Routes';
 import {navigateToAction} from '../../navigation/Navigation.actions';
 
@@ -28,7 +28,7 @@ const mergeProps: MergeProps<
   StateProps,
   DispatchProps,
   OwnProps,
-  ActionButtonProps
+  RollsAddButtonProps
 > = (stateProps, dispatchProps) => {
   return {
     addRoll: dispatchProps.addRoll,
@@ -39,4 +39,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(ActionButton);
+)(RollsAddButton);

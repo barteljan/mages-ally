@@ -68,7 +68,6 @@ test('Result has 9 dices for gnosis 5, mind 4', () => {
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -94,7 +93,6 @@ test('Result has 12 dices for gnosis 5, mind 4, spending willpower', () => {
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -131,7 +129,6 @@ test('Result has 16 dices for gnosis 5, mind 4, spending willpower as a rote wit
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -171,7 +168,6 @@ test('Result has 12 dices for gnosis 5, mind 4, spending willpower as a rote wit
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -212,7 +208,6 @@ test('Result has 14 dices for gnosis 5, mind 4, spending willpower as a rote wit
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -254,7 +249,6 @@ test('Result has 10 dices for gnosis 5, mind 4, spending willpower as a rote wit
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -298,7 +292,6 @@ test('Result has 8 dices for gnosis 5, mind 4, spending willpower as a rote with
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -324,7 +317,6 @@ test('free reach is calculated correctly for a rote', () => {
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -347,7 +339,6 @@ test('free reach is calculated correctly for a improvised spell', () => {
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);
@@ -371,7 +362,6 @@ test('paradox from reach is calculated correctly', () => {
   let config = makeSpellCastingConfig(
     {caster, spell: spellSpecification},
     'spells_id',
-    42,
   );
 
   const result = spellModifiersFromSpellConfig(config);

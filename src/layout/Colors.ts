@@ -1,10 +1,10 @@
 export enum Colors {
-  accentColor = '#0156F1',
+  accentColor = '#111111',
   backgroundColor = '#ffffff',
   secondColor = '#FFCF00',
   thirdColor = '#377EFF',
   complementColor = '#FF6C00',
-  iconColor = '#377cff',
+  iconColor = '#111111',
   header = '#666666',
   disabled = '#666666',
   textOnAccentColor = '#ffffff',
