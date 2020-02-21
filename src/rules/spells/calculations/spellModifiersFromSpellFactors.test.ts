@@ -15,6 +15,7 @@ import {
 } from '../Spell.config.specification';
 import {GameValueType} from '../../../GameValueTypes';
 
+
 test('test result has the correct structure', () => {
   const highestArcanum = makeCharactersArcanum(ArcanaType.death, {
     diceModifier: 1,
