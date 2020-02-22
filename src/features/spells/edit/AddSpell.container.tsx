@@ -8,7 +8,7 @@ import {
   setNumberValueAction,
   setStringValueAction,
   setBooleanValueAction,
-} from './Spell.redux';
+} from '../Spell.redux';
 import {Theme} from 'react-native-paper';
 
 type OwnProps = {

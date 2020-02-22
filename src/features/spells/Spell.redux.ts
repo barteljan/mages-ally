@@ -1,8 +1,8 @@
-import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
+import {SpellCastingConfig} from '../../rules/spells/Spell.config';
 import {createAction, ActionType} from 'typesafe-actions';
 import produce from 'immer';
-import {CharacterValueId} from '../../../rules/character/CharacterValue.id';
-import {SpellValueIds} from '../../../rules/spells/spell-values/SpellValueIds';
+import {CharacterValueId} from '../../rules/character/CharacterValue.id';
+import {SpellValueIds} from '../../rules/spells/spell-values/SpellValueIds';
 import {ArcanaType} from 'src/rules/spells/arcana/Arcana.type';
 import StringMap from 'src/data-types/StringMap';
 import {SpellStatus} from './Spell.status';
@@ -80,6 +80,12 @@ export const spellReducer = produce(
               action.payload.parent
             ].spellCastingConfig.caster.highestSpellArcanum.diceModifier =
               action.payload.value;
+            break;
+          case SpellValueIds.activeSpells:
+            draft.spells[
+              action.payload.parent
+            ].spellCastingConfig.caster.activeSpells = action.payload.value;
+            break;
         }
         break;
       //set number in config
@@ -103,6 +109,12 @@ export const spellReducer = produce(
             draft.spells[
               action.payload.parent
             ].spellCastingConfig.caster.highestSpellArcanum.highest =
+              action.payload.value;
+            break;
+          case SpellValueIds.isMagesRulingArcanum:
+            draft.spells[
+              action.payload.parent
+            ].spellCastingConfig.caster.highestSpellArcanum.rulingArcana =
               action.payload.value;
             break;
         }

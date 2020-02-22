@@ -8,6 +8,7 @@ export type EditSpellsStyle = {
   title: TextStyle;
   inputField: ViewStyle;
   inputContainer: ViewStyle;
+  switch: ViewStyle;
 };
 
 export const makeEditSpellStyles = (theme: Theme) =>
@@ -35,6 +36,9 @@ export const makeEditSpellStyles = (theme: Theme) =>
       marginBottom: 20,
     },
     inputContainer: {
+      marginBottom: 20,
+    },
+    switch: {
       marginBottom: 20,
     },
   });

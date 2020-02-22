@@ -1,9 +1,9 @@
 import {RollDiceState} from '../features/roll-dice/RollDice.redux';
 import {RollsState} from '../features/rolls/Rolls.redux';
 import {DiceRollAgainType} from '../rules/dice-roll/DiceRollAgainType';
-import {SpellsState, SpellState} from '../features/spells/edit/Spell.redux';
+import {SpellsState, SpellState} from '../features/spells/Spell.redux';
 import {makeSpellCastingConfig} from '../rules/spells/Spell.config';
-import {SpellStatus} from '../features/spells/edit/Spell.status';
+import {SpellStatus} from '../features/spells/Spell.status';
 
 export type AppState = {
   rollDice: RollDiceState;

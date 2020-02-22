@@ -3,6 +3,7 @@ export enum SpellValueIds {
   highestArcanum = 'highestArcanum',
   highestArcanumValue = 'highestArcanumValue',
   isMagesHighestArcanum = 'isMagesHighestArcanum',
+  isMagesRulingArcanum = 'isMagesRulingArcanum',
   additionalDice = 'additionalDice',
   symphaticRange = 'symphaticRange',
   temporalSympathy = 'temporalSympathy',

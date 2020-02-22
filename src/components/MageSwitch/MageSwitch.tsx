@@ -18,7 +18,7 @@ class _MageSwitch extends DynamiclyStyledPureComponent<
     this.props.onValueChanged(this.props.identifier, value, this.props.parent);
   render() {
     return (
-      <View style={this.state.styles.container}>
+      <View style={[this.state.styles.container, this.props.containerStyle]}>
         <Text style={this.state.styles.label}>{this.props.label}</Text>
         <Switch
           style={this.state.styles.switch}

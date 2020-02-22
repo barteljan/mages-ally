@@ -6,6 +6,10 @@ export type EditDiceStrings = {
   highest_arcanum_title: string;
   highest_arcanum_value: string;
   is_arcanum_the_highest_acranum: string;
+  is_ruling_arcanum: string;
+  number_of_active_spells: string;
+  number_of_active_spells_singular: string;
+  number_of_active_spells_plural: string;
 };
 
 export enum VariablePlaceholder {
@@ -20,8 +24,11 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     highest_arcanum_value:
       "Mage's " + VariablePlaceholder.highestArcanum + ' arcanum',
     is_arcanum_the_highest_acranum:
-      'Is ' +
-      VariablePlaceholder.highestArcanum +
-      " the Mage's Highest Arcanum?",
+      'Is ' + VariablePlaceholder.highestArcanum + ' your Highest Arcanum?',
+    is_ruling_arcanum:
+      'Is ' + VariablePlaceholder.highestArcanum + ' a Ruling Arcana?',
+    number_of_active_spells: 'Active Spells',
+    number_of_active_spells_singular: 'active spell',
+    number_of_active_spells_plural: 'active spells',
   },
 });
