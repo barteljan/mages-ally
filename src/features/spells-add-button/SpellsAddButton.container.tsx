@@ -1,37 +1,35 @@
 import {connect, MergeProps} from 'react-redux';
-import {SpellsAddButton} from './SpellsAddButton';
-import {SpellsAddButtonProps} from './SpellsAddButton.props';
+import {AddButton} from '../../components/AddButton/AddButton';
+import {AddButtonProps} from '../../components/AddButton/AddButton.props';
 import {Routes} from '../../navigation/Routes';
 import {navigateToAction} from '../../navigation/Navigation.actions';
-
-type OwnProps = {};
 
 type StateProps = {};
 
 type DispatchProps = {
-  addRoll: () => void;
+  add: () => void;
 };
 
 const mapStateToProps = (): StateProps => {
   return {};
 };
 
-const addRoll = () => {
+const add = () => {
   return navigateToAction(Routes.addSpell);
 };
 
 const mapDispatchToProps = {
-  addRoll,
+  add,
 };
 
-const mergeProps: MergeProps<
-  StateProps,
-  DispatchProps,
-  OwnProps,
-  SpellsAddButtonProps
-> = (stateProps, dispatchProps) => {
+const mergeProps: MergeProps<StateProps, DispatchProps, any, AddButtonProps> = (
+  stateProps,
+  dispatchProps,
+  ownProps,
+) => {
   return {
-    addRoll: dispatchProps.addRoll,
+    add: dispatchProps.add,
+    theme: ownProps.theme,
   };
 };
 
@@ -39,4 +37,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(SpellsAddButton);
+)(AddButton);

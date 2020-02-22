@@ -1,13 +1,12 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from './Routes';
-import {SpellsScreen} from '../features/spells/Spells.screen';
+//import {SpellsScreen} from '../features/spells/Spells.screen';
 import {localization} from './Navigation.strings';
-import {Colors} from '../layout/Colors';
-import AddSpellScreen from '../features/spells-add/AddSpell.container';
-import SpellsAddButton from '../features/spells-add-button/SpellsAddButton.container';
+import EditSpellScreen from '../features/spells/edit/AddSpell.container';
+import AddButton from '../features/spells-add-button/SpellsAddButton.container';
 import {Platform} from 'react-native';
-//import { SpellsScreen } from 'src/features/spells/Spells.screen';
+import {theme} from '../layout/Theme';
 
 const SpellsStack = createStackNavigator();
 
@@ -16,20 +15,19 @@ export function SpellsStackScreen() {
     <SpellsStack.Navigator>
       <SpellsStack.Screen
         name={Routes.spells}
-        component={SpellsScreen}
+        component={EditSpellScreen}
         options={{
           title: localization.spells_route_title,
-          headerTintColor: Colors.accentColor,
-          headerRight: () =>
-            Platform.OS === 'ios' ? <SpellsAddButton /> : null,
+          headerTintColor: theme.colors.accent,
+          headerRight: () => (Platform.OS === 'ios' ? <AddButton /> : null),
         }}
       />
       <SpellsStack.Screen
         name={Routes.addSpell}
-        component={AddSpellScreen}
+        component={EditSpellScreen}
         options={{
           title: localization.add_spell_route_title,
-          headerTintColor: Colors.accentColor,
+          headerTintColor: theme.colors.accent,
         }}
       />
     </SpellsStack.Navigator>

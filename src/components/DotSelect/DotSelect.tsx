@@ -6,7 +6,7 @@ import {DotSelectProps} from './DotSelect.props';
 export class DotSelect extends PureComponent<DotSelectProps> {
   onSelect = (value: number) => {
     if (this.props.didSelect) {
-      this.props.didSelect(this.props.identifier, value);
+      this.props.didSelect(this.props.identifier, value, this.props.parent);
     }
   };
   render() {

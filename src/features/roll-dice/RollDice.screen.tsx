@@ -1,23 +1,39 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {RollDiceProps} from './RollDice.props';
 import {Text, LayoutChangeEvent, LayoutRectangle} from 'react-native';
-import {style} from './RollDice.style';
+import {RollDiceStyle, makeRollDiceStyle} from './RollDice.style';
 import {localization} from './RollDice.strings';
-import {Colors} from '../../layout/Colors';
 import {DiceSelect} from '../../components/DiceSelect/DiceSelect';
 import {getLayoutWidth, LayoutWidth} from '../../helper/layoutWidhtClasses';
 import {ScrollView} from 'react-native-gesture-handler';
 import {ButtonGroup, Button, Divider} from 'react-native-elements';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
+import {withTheme} from 'react-native-paper';
+import {isEqual} from 'lodash';
 
 type AddRollState = {
+  styles: RollDiceStyle;
   size: LayoutRectangle;
 };
 
-export class RollDiceScreen extends React.PureComponent<
-  RollDiceProps,
-  AddRollState
-> {
+class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
+  state = {
+    styles: this.makeStyle(),
+    size: {x: 0, y: 0, width: 0, height: 0},
+  };
+
+  componentDidUpdate() {
+    const styles = this.makeStyle();
+    if (!isEqual(this.state.styles, styles)) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({styles});
+    }
+  }
+
+  makeStyle() {
+    return makeRollDiceStyle(this.props.theme);
+  }
+
   onLayoutChange = (event: LayoutChangeEvent) => {
     if (event && event.nativeEvent && event.nativeEvent.layout) {
       this.setState({size: event.nativeEvent.layout});
@@ -109,52 +125,54 @@ export class RollDiceScreen extends React.PureComponent<
 
     return (
       <ScrollView
-        style={[style.container, containerStyle]}
-        contentContainerStyle={style.containerContent}
+        style={[this.state.styles.container, containerStyle]}
+        contentContainerStyle={this.state.styles.containerContent}
         alwaysBounceVertical={false}
         onLayout={this.onLayoutChange}>
-        <Text style={style.title}>
+        <Text style={this.state.styles.title}>
           {localization.choose_dice.toUpperCase()}
         </Text>
         <DiceSelect
           numberOfDice={visibleNumberOfDice}
           value={this.props.numberOfDice}
-          selectedColor={Colors.accentColor}
-          unselectedColor={Colors.disabled}
+          selectedColor={this.props.theme.colors.accent}
+          unselectedColor={this.props.theme.colors.disabled}
           groupStyle={groupStyle}
           onSelect={this.onSelectNumberOfDice}
         />
         <Button
-          containerStyle={style.rollDiceButtonStyle}
+          containerStyle={this.state.styles.rollDiceButtonStyle}
           title={localization.roll_dice_button_text}
           type="clear"
-          titleStyle={style.rollDiceButtonTextStyle}
+          titleStyle={this.state.styles.rollDiceButtonTextStyle}
           onPress={this.onRollDice}
         />
         <Divider />
-        <Text style={style.optionsTitle}>
+        <Text style={this.state.styles.optionsTitle}>
           {localization.tenAgain_title.toUpperCase()}
         </Text>
         <ButtonGroup
           buttons={tenAgainButtons}
-          selectedButtonStyle={style.selectedButtonStyle}
+          selectedButtonStyle={this.state.styles.selectedButtonStyle}
           selectedIndex={tenAgainSelectedIndex}
           onPress={this.onChangeRollAgainType}
-          underlayColor={Colors.accentColor}
-          containerStyle={style.buttonGroupStyle}
+          underlayColor={this.props.theme.colors.accent}
+          containerStyle={this.state.styles.buttonGroupStyle}
         />
-        <Text style={style.optionsTitle}>
+        <Text style={this.state.styles.optionsTitle}>
           {localization.exceptional_sucesses_title.toUpperCase()}
         </Text>
         <ButtonGroup
           buttons={exceptionalSuccessButtons}
-          selectedButtonStyle={style.selectedButtonStyle}
+          selectedButtonStyle={this.state.styles.selectedButtonStyle}
           selectedIndex={this.props.exceptionalSuccessAt - 1}
           onPress={this.onChangeExceptionalSuccess}
-          underlayColor={Colors.accentColor}
-          containerStyle={style.buttonGroupStyle}
+          underlayColor={this.props.theme.colors.accent}
+          containerStyle={this.state.styles.buttonGroupStyle}
         />
       </ScrollView>
     );
   }
 }
+
+export const RollDiceScreen = withTheme(_RollDiceScreen);

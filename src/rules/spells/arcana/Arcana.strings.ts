@@ -16,15 +16,15 @@ export type ArkanaStrings = {
 
 export const localization = new LocalizedStrings<ArkanaStrings>({
   en: {
-    [ArcanaType.death]: 'death',
-    [ArcanaType.fate]: 'fate',
-    [ArcanaType.forces]: 'forces',
-    [ArcanaType.life]: 'life',
-    [ArcanaType.matter]: 'matter',
-    [ArcanaType.mind]: 'mind',
-    [ArcanaType.prime]: 'prime',
-    [ArcanaType.space]: 'space',
-    [ArcanaType.spirit]: 'spirit',
-    [ArcanaType.time]: 'time',
+    [ArcanaType.death]: 'Death',
+    [ArcanaType.fate]: 'Fate',
+    [ArcanaType.forces]: 'Forces',
+    [ArcanaType.life]: 'Life',
+    [ArcanaType.matter]: 'Matter',
+    [ArcanaType.mind]: 'Mind',
+    [ArcanaType.prime]: 'Prime',
+    [ArcanaType.space]: 'Space',
+    [ArcanaType.spirit]: 'Spirit',
+    [ArcanaType.time]: 'Time',
   },
 });

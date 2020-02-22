@@ -10,7 +10,7 @@ import {SpellsStackScreen} from './Navigation.stack.spells';
 import {RollsStackScreen} from './Navigation.stack.rolls';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {localization} from './Navigation.strings';
-import {Colors} from '../layout/Colors';
+import {theme} from '../layout/Theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,8 +19,9 @@ export function TabNavigation() {
     <Tab.Navigator
       screenOptions={screenOptions}
       tabBarOptions={{
-        activeTintColor: Colors.accentColor,
-        inactiveTintColor: 'gray',
+        activeTintColor: theme.colors.accent,
+        inactiveTintColor: theme.colors.disabled,
+        showLabel: false,
       }}>
       <Tab.Screen name={Routes.spellsTab} component={SpellsStackScreen} />
       <Tab.Screen name={Routes.rollsTab} component={RollsStackScreen} />

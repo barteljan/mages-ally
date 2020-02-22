@@ -10,8 +10,11 @@ import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {rollDiceAction} from '../roll-dice/RollDice.redux';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import uuid from 'uuid';
+import {Theme} from 'react-native-paper';
 
-type OwnProps = {};
+type OwnProps = {
+  theme: Theme;
+};
 
 type StateProps = {
   rolls: DiceRoll[];
@@ -43,13 +46,13 @@ const mapDispatchToProps: DispatchProps = {
   onReroll: reroll,
 };
 
-const mergeProps: MergeProps<
-  StateProps,
-  DispatchProps,
-  OwnProps,
-  RollsProps
-> = (stateProps, dispatchProps) => {
+const mergeProps: MergeProps<StateProps, DispatchProps, any, RollsProps> = (
+  stateProps,
+  dispatchProps,
+  ownProps,
+) => {
   return {
+    theme: ownProps.theme,
     addRoll: dispatchProps.addRoll,
     rolls: stateProps.rolls,
     onReroll: dispatchProps.onReroll,

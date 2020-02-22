@@ -13,8 +13,11 @@ import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import {makeDiceRollConfig} from './helper/makeDiceRollConfig';
 import {Action} from 'typesafe-actions';
+import {Theme} from 'react-native-paper';
 
-type OwnProps = {};
+type OwnProps = {
+  theme: Theme;
+};
 
 type StateProps = {
   numberOfDice: number;
@@ -49,8 +52,9 @@ const mergeProps: MergeProps<
   DispatchProps,
   OwnProps,
   RollDiceProps
-> = (stateProps, dispatchProps) => {
+> = (stateProps, dispatchProps, ownProps) => {
   return {
+    theme: ownProps.theme,
     numberOfDice: stateProps.numberOfDice,
     rollAgainType: stateProps.rollAgainType,
     exceptionalSuccessAt: stateProps.exceptionalSuccessAt,

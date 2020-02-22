@@ -1,24 +1,38 @@
 import React from 'react';
 import {Text, Image, TextStyle} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {diceViewStyles} from './DiceView.styles';
+import {DiceViewStyles, makeDiceViewStyles} from './DiceView.styles';
 import {DiceViewProps} from './DiceView.props';
+import {withTheme} from 'react-native-paper';
+import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
 
-export class DiceView extends React.PureComponent<DiceViewProps> {
+type DiceViewState = {
+  styles: DiceViewStyles;
+};
+
+class _DiceView extends DynamiclyStyledPureComponent<
+  DiceViewProps,
+  DiceViewStyles,
+  DiceViewState
+> {
+  makeStyle() {
+    return makeDiceViewStyles(this.props.theme);
+  }
+
   render() {
     let additionalStyle: TextStyle = {};
     if (this.props.index < 10) {
-      additionalStyle = diceViewStyles.diceTextOneDigit;
+      additionalStyle = this.state.styles.diceTextOneDigit;
     } else if (this.props.index < 100) {
-      additionalStyle = diceViewStyles.diceTextTwoDigits;
+      additionalStyle = this.state.styles.diceTextTwoDigits;
     } else {
-      additionalStyle = diceViewStyles.diceTextThreeDigits;
+      additionalStyle = this.state.styles.diceTextThreeDigits;
     }
 
     let text = (
       <Text
         style={[
-          diceViewStyles.diceText,
+          this.state.styles.diceText,
           additionalStyle,
           this.props.diceTextStyle,
         ]}>
@@ -28,12 +42,12 @@ export class DiceView extends React.PureComponent<DiceViewProps> {
 
     return (
       <TouchableWithoutFeedback
-        style={[diceViewStyles.touchable, this.props.containerStyle]}
+        style={[this.state.styles.touchable, this.props.containerStyle]}
         onPress={() =>
           this.props.onPress ? this.props.onPress(this.props.index) : ''
         }>
         <Image
-          style={[diceViewStyles.image, this.props.diceImageStyle]}
+          style={[this.state.styles.image, this.props.diceImageStyle]}
           source={require('../../ressources/images/d10.png')}
         />
         {text}
@@ -41,3 +55,5 @@ export class DiceView extends React.PureComponent<DiceViewProps> {
     );
   }
 }
+
+export const DiceView = withTheme(_DiceView);

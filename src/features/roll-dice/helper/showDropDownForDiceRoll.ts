@@ -1,8 +1,8 @@
 import {DiceRoll} from '../../../rules/dice-roll/DiceRoll';
 import {DiceRollOutcome} from '../../../rules/dice-roll/DiceRoll.outcome';
 import {showMessage} from 'react-native-flash-message';
-import {Colors} from '../../../layout/Colors';
 import {localization, LocalizationParams} from '../RollDice.strings';
+import {theme} from '../../../layout/Theme';
 
 export function showDropDownForDiceRoll(roll: DiceRoll) {
   const diceString: string =
@@ -18,7 +18,7 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
           .replace(LocalizationParams.diceString, diceString)
           .replace(LocalizationParams.successes, roll.successes + ''),
         type: 'success',
-        backgroundColor: Colors.accentColor,
+        backgroundColor: theme.colors.accent,
       });
       break;
     case DiceRollOutcome.exceptionalSuccess:
@@ -29,7 +29,7 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
           .replace(LocalizationParams.diceString, diceString)
           .replace(LocalizationParams.successes, roll.successes + ''),
         type: 'success',
-        backgroundColor: Colors.accentColor,
+        backgroundColor: theme.colors.accent,
       });
       break;
     case DiceRollOutcome.failure:
@@ -39,7 +39,7 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
           .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
           .replace(LocalizationParams.diceString, diceString),
         type: 'danger',
-        backgroundColor: Colors.complementColor,
+        backgroundColor: theme.colors.error,
       });
       break;
     case DiceRollOutcome.dramaticFailure:
@@ -49,7 +49,7 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
           .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
           .replace(LocalizationParams.diceString, diceString),
         type: 'danger',
-        backgroundColor: Colors.complementColor,
+        backgroundColor: theme.colors.error,
       });
       break;
   }

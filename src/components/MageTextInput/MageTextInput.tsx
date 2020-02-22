@@ -25,6 +25,7 @@ export class MageTextInput extends PureComponent<
       this.state.text && this.state.text.length > 0
         ? this.state.text
         : undefined,
+      this.props.parent,
     );
   };
 

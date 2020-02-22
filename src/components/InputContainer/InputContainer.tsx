@@ -1,12 +1,28 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
-import {style} from './InputContainer.style';
+import {
+  InputContainerStyle,
+  makeInputContainerStyle,
+} from './InputContainer.style';
 import {InputContainerProps} from './InputContainer.props';
-export class InputContainer extends PureComponent<InputContainerProps> {
+import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
+import {withTheme} from 'react-native-paper';
+
+class _InputContainer extends DynamiclyStyledPureComponent<
+  InputContainerProps,
+  InputContainerStyle,
+  {styles: InputContainerStyle}
+> {
+  makeStyle() {
+    return makeInputContainerStyle(this.props.theme);
+  }
+
   render = () => {
     return (
-      <View style={[style.container, this.props.containerStyle]}>
-        <Text style={style.label} key={'InputContainer_' + this.props.title}>
+      <View style={[this.state.styles.container, this.props.containerStyle]}>
+        <Text
+          style={this.state.styles.label}
+          key={'InputContainer_' + this.props.title}>
           {this.props.title}
         </Text>
         {this.props.children}
@@ -14,3 +30,5 @@ export class InputContainer extends PureComponent<InputContainerProps> {
     );
   };
 }
+
+export const InputContainer = withTheme(_InputContainer);

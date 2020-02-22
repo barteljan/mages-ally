@@ -1,6 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 
-export const diceSelectStyles = StyleSheet.create({
+export type DiceSelectStyles = {
+  container: ViewStyle;
+  diceGroup: ViewStyle;
+};
+
+export const diceSelectStyles = StyleSheet.create<DiceSelectStyles>({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',

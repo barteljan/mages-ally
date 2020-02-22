@@ -3,10 +3,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from './Routes';
 import RollsContainer from '../features/rolls/Rolls.container';
 import {localization} from './Navigation.strings';
-import {Colors} from '../layout/Colors';
 import {Platform} from 'react-native';
-import RollsAddButton from '../features/rolls-add-button/RollsAddButton.container';
+import RollsAddButton from '../features/rolls/RollsAddButton/RollsAddButton.container';
 import AddRollContainer from '../features/roll-dice/RollDice.container';
+import {theme} from '../layout/Theme';
 
 const RollsStack = createStackNavigator();
 
@@ -18,7 +18,7 @@ export function RollsStackScreen() {
         component={RollsContainer}
         options={{
           title: localization.rolls_route_title,
-          headerTintColor: Colors.accentColor,
+          headerTintColor: theme.colors.accent,
           headerRight: () =>
             Platform.OS === 'ios' ? <RollsAddButton /> : null,
         }}
@@ -28,7 +28,7 @@ export function RollsStackScreen() {
         component={AddRollContainer}
         options={{
           title: localization.add_roll_route_title,
-          headerTintColor: Colors.accentColor,
+          headerTintColor: theme.colors.accent,
         }}
       />
     </RollsStack.Navigator>

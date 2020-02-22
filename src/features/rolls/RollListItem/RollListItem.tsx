@@ -1,28 +1,44 @@
 import React from 'react';
 import {ListItem} from 'react-native-elements';
-import {Colors} from '../../../layout/Colors';
 import {DiceRollOutcome} from '../../../rules/dice-roll/DiceRoll.outcome';
-import {style} from './RollListItem.style';
+import {RollsItemStyle, makeRollsItemStyle} from './RollListItem.style';
 import {RollListItemProps} from './RollListItem.props';
-import {View} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 import {DiceRoll} from '../../../rules/dice-roll/DiceRoll';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {localization} from './RollListItem.strings';
+import {DynamiclyStyledPureComponent} from '../../../components/DynamiclyStyledPureComponent';
+import {withTheme} from 'react-native-paper';
 
-export class RollListItem extends React.PureComponent<RollListItemProps> {
+class _RollListItem extends DynamiclyStyledPureComponent<
+  RollListItemProps,
+  RollsItemStyle
+> {
+  makeStyle() {
+    return makeRollsItemStyle(this.props.theme);
+  }
+
   render() {
     const {item} = this.props;
 
     let avatar: any;
 
     if (item.outcome === DiceRollOutcome.dramaticFailure) {
-      avatar = <SkullListIcon item={item} />;
+      avatar = (
+        <SkullListIcon
+          style={this.state.styles.skullItem}
+          item={item}
+          iconColor={this.props.theme.colors.surface}
+        />
+      );
     } else {
       avatar = {
         title: item.successes + '',
         overlayContainerStyle: {
           backgroundColor:
-            item.successes > 0 ? Colors.accentColor : Colors.complementColor,
+            item.successes > 0
+              ? this.props.theme.colors.accent
+              : this.props.theme.colors.error,
         },
       };
     }
@@ -59,17 +75,19 @@ export class RollListItem extends React.PureComponent<RollListItemProps> {
         title={item.title}
         leftAvatar={avatar}
         subtitle={subtitle}
-        subtitleStyle={style.subtitle}
+        subtitleStyle={this.state.styles.subtitle}
         rightIcon={{
           name: 'cached',
-          color: Colors.disabled,
+          color: this.props.theme.colors.disabled,
           onPress: () => this.props.onReroll(item.configuration),
           size: 28,
         }}
         rightSubtitle={rightSubtitle}
         rightSubtitleStyle={[
-          style.rightSubtitle,
-          item.successes > 0 ? style.success : style.failure,
+          this.state.styles.rightSubtitle,
+          item.successes > 0
+            ? this.state.styles.success
+            : this.state.styles.failure,
         ]}
         bottomDivider
       />
@@ -79,16 +97,16 @@ export class RollListItem extends React.PureComponent<RollListItemProps> {
 
 export class SkullListIcon extends React.PureComponent<{
   item: DiceRoll;
+  style: ViewStyle;
+  iconColor: string;
 }> {
   render() {
     return (
-      <View style={style.skullItem}>
-        <Icon
-          name="skull-crossbones"
-          size={24}
-          color={Colors.textOnAccentColor}
-        />
+      <View style={this.props.style}>
+        <Icon name="skull-crossbones" size={24} color={this.props.iconColor} />
       </View>
     );
   }
 }
+
+export const RollListItem = withTheme(_RollListItem);

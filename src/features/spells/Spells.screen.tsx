@@ -1,11 +1,14 @@
 import React from 'react';
 import {Text, View, Platform} from 'react-native';
 import {styles} from './Spells.styles';
-import SpellsAddButton from '../spells-add-button/SpellsAddButton.container';
+import AddButton from '../spells-add-button/SpellsAddButton.container';
+import {Theme} from 'react-native-paper';
+import {withTheme} from 'react-native-paper';
 
-export class SpellsScreen extends React.PureComponent {
+class _SpellsScreen extends React.PureComponent<{theme: Theme}> {
   render() {
-    const button = Platform.OS === 'android' ? <SpellsAddButton /> : null;
+    const button =
+      Platform.OS === 'android' ? <AddButton theme={this.props.theme} /> : null;
 
     return (
       <View style={styles.container}>
@@ -15,3 +18,5 @@ export class SpellsScreen extends React.PureComponent {
     );
   }
 }
+
+export const SpellsScreen = withTheme(_SpellsScreen);

@@ -1,16 +1,22 @@
 import {RollDiceState} from '../features/roll-dice/RollDice.redux';
 import {RollsState} from '../features/rolls/Rolls.redux';
 import {DiceRollAgainType} from '../rules/dice-roll/DiceRollAgainType';
-import {AddSpellState} from '../features/spells-add/AddSpell.redux';
+import {SpellsState, SpellState} from '../features/spells/edit/Spell.redux';
 import {makeSpellCastingConfig} from '../rules/spells/Spell.config';
+import {SpellStatus} from '../features/spells/edit/Spell.status';
 
 export type AppState = {
   rollDice: RollDiceState;
   rolls: RollsState;
-  addSpell: AddSpellState;
+  spells: SpellsState;
 };
 
 export function makeAppState(): AppState {
+  const newSpell: SpellState = {
+    spellCastingConfig: makeSpellCastingConfig(),
+    status: SpellStatus.new,
+  };
+
   return {
     rollDice: {
       currentRollId: null,
@@ -22,8 +28,10 @@ export function makeAppState(): AppState {
       diceRolls: {},
       list: [],
     },
-    addSpell: {
-      spellCastingConfig: makeSpellCastingConfig(),
+    spells: {
+      spells: {
+        [newSpell.spellCastingConfig.id]: newSpell,
+      },
     },
   };
 }

@@ -1,6 +1,8 @@
 export enum SpellValueIds {
   title = 'title',
   highestArcanum = 'highestArcanum',
+  highestArcanumValue = 'highestArcanumValue',
+  isMagesHighestArcanum = 'isMagesHighestArcanum',
   additionalDice = 'additionalDice',
   symphaticRange = 'symphaticRange',
   temporalSympathy = 'temporalSympathy',
