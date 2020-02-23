@@ -7,7 +7,7 @@ import {
   spellModifiersFromSpecification,
   SpellModifiersFromSpecificationResult,
 } from './spellModifiersFromSpecification';
-import StringMap from 'src/data-types/StringMap';
+import StringMap from '../../../data-types/StringMap';
 import {BaseDiceModifier, toDiceModifier} from '../../model/BaseDiceModifier';
 import {
   BaseReachModifier,

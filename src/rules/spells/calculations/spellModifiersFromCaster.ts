@@ -13,8 +13,8 @@ import {
 } from '../spell-values/NotRulingArcanaValue';
 import {CharacterValueId} from '../../character/CharacterValue.id';
 import {CharactersArcanum} from '../../character/CharactersArcanum';
-import {BaseReachModifier} from 'src/rules/model/BaseReachModifier';
-import {BaseManaModifier} from 'src/rules/model/BaseManaModifier';
+import {BaseReachModifier} from '../../model/BaseReachModifier';
+import {BaseManaModifier} from '../../model/BaseManaModifier';
 import {
   makeActiveSpellReachModifierValue,
   ActiveSpellReachModifierValue,

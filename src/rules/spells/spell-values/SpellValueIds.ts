@@ -17,4 +17,7 @@ export enum SpellValueIds {
   additionalParadoxDices = 'additionalParadoxDices',
   sleeperWitnesses = 'sleeperWitnesses',
   paradoxDiceFromReach = 'paradoxDiceFromReach',
+  requiredArcanumValue = 'requiredArcanumValue',
+  primaryFactor = 'primaryFactor',
+  spellType = 'spellType',
 }

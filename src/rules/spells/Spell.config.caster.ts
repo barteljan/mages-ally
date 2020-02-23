@@ -6,6 +6,7 @@ import StringMap from '../../data-types/StringMap';
 import {BaseDiceModifier} from '../model/BaseDiceModifier';
 import {GnosisValue, makeGnosisValue} from '../character/GnosisValue';
 import {ArcanaType} from './arcana/Arcana.type';
+import {GameValueType} from '../../GameValueTypes';
 
 export type SpellCaster = {
   gnosis: GnosisValue;
@@ -25,5 +26,20 @@ export function makeSpellCaster(
     highestSpellArcanum: makeCharactersArcanum(ArcanaType.death),
     spendsWillpower: false,
     ...spellCaster,
+  };
+}
+
+export enum DefaultAdditionalDiceModifier {
+  default = 'default',
+}
+
+export function makeDefaultAdditionalSpellCastingDice(
+  partial?: Partial<BaseDiceModifier>,
+): BaseDiceModifier {
+  return {
+    id: DefaultAdditionalDiceModifier.default,
+    type: GameValueType.additionalDiceModifier,
+    diceModifier: 0,
+    ...partial,
   };
 }

@@ -2,6 +2,10 @@ import {BaseDiceModifier} from '../../model/BaseDiceModifier';
 import {GameValueType} from '../../../GameValueTypes';
 import StringMap from '../../../data-types/StringMap';
 import {YantraType} from './Yantra.type';
+import {
+  yantraTitleLocalization,
+  yantraDescriptionLocalization,
+} from './Yantra.strings';
 
 export type BaseYantra<
   Type extends YantraType,
@@ -35,16 +39,23 @@ export type Yantra =
   | BaseYantra<YantraType.persona, 2, YantraType.persona>
   | BaseYantra<YantraType.persona, 3, YantraType.persona>
   | BaseYantra<YantraType.persona, 4, YantraType.persona>
-  | BaseYantra<YantraType.roteSkill, 1, YantraType.roteSkill>
-  | BaseYantra<YantraType.roteSkill, 2, YantraType.roteSkill>
-  | BaseYantra<YantraType.roteSkill, 3, YantraType.roteSkill>
-  | BaseYantra<YantraType.roteSkill, 4, YantraType.roteSkill>
-  | BaseYantra<YantraType.roteSkill, 5, YantraType.roteSkill>
+  | BaseYantra<YantraType.roteSkill, number, YantraType.roteSkill>
   | BaseYantra<YantraType.custom, 1, string>
   | BaseYantra<YantraType.custom, 2, string>
   | BaseYantra<YantraType.custom, 3, string>
   | BaseYantra<YantraType.custom, 4, string>
   | BaseYantra<YantraType.custom, 5, string>;
+
+export const makeRoteYantra = (value: number): Yantra => {
+  return {
+    id: YantraType.roteSkill,
+    diceModifier: value,
+    name: yantraTitleLocalization[YantraType.roteSkill],
+    description: yantraDescriptionLocalization[YantraType.roteSkill],
+    type: GameValueType.yantra,
+    yantraType: YantraType.roteSkill,
+  };
+};
 
 export const staticYantras: StringMap<Yantra> = {
   [YantraType.demesne]: {

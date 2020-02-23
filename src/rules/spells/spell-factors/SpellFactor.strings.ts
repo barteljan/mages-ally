@@ -28,8 +28,8 @@ export const spellFactoreLocalization = new LocalizedStrings<
   SpellFactorStrings
 >({
   en: {
-    castingTime: 'Casting Time:',
-    duration: 'Duration:',
+    castingTime: 'Casting Time',
+    duration: 'Duration',
     potency: 'Potency',
     range: 'Range',
     scale: 'Scale',

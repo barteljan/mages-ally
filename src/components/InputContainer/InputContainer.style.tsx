@@ -6,12 +6,12 @@ export type InputContainerStyle = {
   label: ViewStyle;
 };
 
-export const makeInputContainerStyle = (theme: Theme) =>
+export const makeInputContainerStyle = (theme: Theme, height?: number) =>
   StyleSheet.create<InputContainerStyle>({
     container: {
       width: '100%',
       justifyContent: 'center',
-      height: 52,
+      height: height ? height : 52,
       borderStyle: 'solid',
       borderColor: theme.colors.disabled,
       borderWidth: 1,

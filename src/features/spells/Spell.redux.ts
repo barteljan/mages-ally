@@ -3,9 +3,17 @@ import {createAction, ActionType} from 'typesafe-actions';
 import produce from 'immer';
 import {CharacterValueId} from '../../rules/character/CharacterValue.id';
 import {SpellValueIds} from '../../rules/spells/spell-values/SpellValueIds';
-import {ArcanaType} from 'src/rules/spells/arcana/Arcana.type';
-import StringMap from 'src/data-types/StringMap';
+import {ArcanaType} from '../../rules/spells/arcana/Arcana.type';
+import StringMap from '../../data-types/StringMap';
 import {SpellStatus} from './Spell.status';
+import {SpellFactorType} from '../../rules/spells/spell-factors/SpellFactor.type';
+import {SpellType} from '../../rules/spells/Spell.type';
+import {YantraType} from '../../rules/spells/yantra/Yantra.type';
+import {makeRoteYantra} from '../../rules/spells/yantra/yantra';
+import {
+  DefaultAdditionalDiceModifier,
+  makeDefaultAdditionalSpellCastingDice,
+} from '../../rules/spells/Spell.config.caster';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
@@ -65,57 +73,104 @@ export type SpellActions = ActionType<typeof actions>;
 
 export const spellReducer = produce(
   (draft: SpellsState, action: SpellActions): void => {
+    if (
+      !action.payload ||
+      !action.payload.parent ||
+      !action.payload.identifier
+    ) {
+      return;
+    }
+
+    let spell = draft.spells[action.payload.parent];
+    let config = spell.spellCastingConfig;
+    let caster = config.caster;
+    let specification = config.spell;
+
     switch (action.type) {
       //set number in config
       case SpellActionTypes.setNumberValue:
         switch (action.payload.identifier) {
           case CharacterValueId.gnosis:
-            draft.spells[
-              action.payload.parent
-            ].spellCastingConfig.caster.gnosis.diceModifier =
-              action.payload.value;
+            caster.gnosis.diceModifier = action.payload.value;
             break;
           case SpellValueIds.highestArcanumValue:
-            draft.spells[
-              action.payload.parent
-            ].spellCastingConfig.caster.highestSpellArcanum.diceModifier =
-              action.payload.value;
+            caster.highestSpellArcanum.diceModifier = action.payload.value;
             break;
           case SpellValueIds.activeSpells:
-            draft.spells[
-              action.payload.parent
-            ].spellCastingConfig.caster.activeSpells = action.payload.value;
+            caster.activeSpells = action.payload.value;
             break;
+          case SpellValueIds.requiredArcanumValue:
+            specification.requiredArcanumValue = action.payload.value;
+            break;
+          case YantraType.roteSkill:
+            if (specification.type === SpellType.rote) {
+              let foundRote = false;
+
+              specification.yantras.forEach(yantra => {
+                if (yantra.yantraType === YantraType.roteSkill) {
+                  yantra.diceModifier = action.payload.value;
+                  foundRote = true;
+                }
+              });
+
+              if (!foundRote) {
+                const rote = makeRoteYantra(action.payload.value);
+                specification.yantras.push(rote);
+              }
+            }
+            break;
+          case SpellValueIds.additionalDice: {
+            const additionalDice =
+              caster.additionalSpellCastingDice[
+                DefaultAdditionalDiceModifier.default
+              ];
+            if (additionalDice) {
+              additionalDice.diceModifier = action.payload.value;
+            } else {
+              caster.additionalSpellCastingDice[
+                DefaultAdditionalDiceModifier.default
+              ] = makeDefaultAdditionalSpellCastingDice({
+                diceModifier: action.payload.value,
+              });
+            }
+            break;
+          }
         }
         break;
       //set number in config
       case SpellActionTypes.setStringValue:
         switch (action.payload.identifier) {
           case SpellValueIds.title:
-            draft.spells[action.payload.parent].spellCastingConfig.title =
-              action.payload.value;
+            config.title = action.payload.value;
             break;
           case SpellValueIds.highestArcanum:
-            draft.spells[
-              action.payload.parent
-            ].spellCastingConfig.caster.highestSpellArcanum.arcanumType = action
-              .payload.value as ArcanaType;
+            caster.highestSpellArcanum.arcanumType = action.payload
+              .value as ArcanaType;
             break;
+          case SpellValueIds.primaryFactor:
+            specification.primaryFactor = action.payload
+              .value as SpellFactorType;
+            break;
+          case SpellValueIds.spellType:
+            const type = action.payload.value as SpellType;
+            specification.type = type;
+            if (type !== SpellType.rote) {
+              specification.yantras = specification.yantras.filter(
+                yantra => yantra.yantraType !== YantraType.roteSkill,
+              );
+            }
         }
         break;
       case SpellActionTypes.setBooleanValue:
         switch (action.payload.identifier) {
           case SpellValueIds.isMagesHighestArcanum:
-            draft.spells[
-              action.payload.parent
-            ].spellCastingConfig.caster.highestSpellArcanum.highest =
-              action.payload.value;
+            caster.highestSpellArcanum.highest = action.payload.value;
             break;
           case SpellValueIds.isMagesRulingArcanum:
-            draft.spells[
-              action.payload.parent
-            ].spellCastingConfig.caster.highestSpellArcanum.rulingArcana =
-              action.payload.value;
+            caster.highestSpellArcanum.rulingArcana = action.payload.value;
+            break;
+          case CharacterValueId.willpower:
+            caster.spendsWillpower = action.payload.value;
             break;
         }
         break;

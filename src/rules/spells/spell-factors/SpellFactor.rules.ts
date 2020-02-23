@@ -2,8 +2,8 @@ import {BaseDiceModifier} from '../../model/BaseDiceModifier';
 import {GameValueType} from '../../../GameValueTypes';
 import {SpellFactorLevel} from './SpellFactor.level';
 import {SpellFactorType} from './SpellFactor.type';
-import {BaseReachModifier} from 'src/rules/model/BaseReachModifier';
-import {BaseManaModifier} from 'src/rules/model/BaseManaModifier';
+import {BaseReachModifier} from '../../../rules/model/BaseReachModifier';
+import {BaseManaModifier} from '../../../rules/model/BaseManaModifier';
 
 export type SpellFactorRules<Type extends SpellFactorType> = {
   standard: SpellFactorRuleLevel<Type>[];

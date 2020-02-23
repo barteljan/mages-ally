@@ -10,6 +10,7 @@ import {castersArkanumSummary} from '../../../../rules/spells/Spell.config.strin
 import {makeCasterSectionDescriptionStyle} from './CasterSectionDescription.style';
 import {CasterSectionDescriptionStyle} from './CasterSectionDescription.style';
 import {CasterSectionDescriptionProps} from './CasterSectionDescription.props';
+import {DefaultAdditionalDiceModifier} from '../../../../rules/spells/Spell.config.caster';
 
 export class CasterSectionDescription extends DynamiclyStyledPureComponent<
   CasterSectionDescriptionProps,
@@ -34,11 +35,35 @@ export class CasterSectionDescription extends DynamiclyStyledPureComponent<
       highestArcanum.rulingArcana,
     );
     const activeSpellsDescription =
-      caster.activeSpells > 0 ? activeSpellsSummary(caster.activeSpells) : null;
+      caster.activeSpells > 0 ? activeSpellsSummary(caster.activeSpells) : '';
     const hyphen =
-      casterArcanumSummary.length > 0 && caster.activeSpells > 0 ? ' - ' : '';
+      casterArcanumSummary.length > 0 && caster.activeSpells > 0 ? ', ' : '';
 
-    const summary = activeSpellsDescription + hyphen + casterArcanumSummary;
+    let summary = casterArcanumSummary + hyphen + activeSpellsDescription;
+
+    let additionalDice =
+      config.caster.additionalSpellCastingDice[
+        DefaultAdditionalDiceModifier.default
+      ];
+
+    if (additionalDice && additionalDice.diceModifier > 0) {
+      if (summary.length > 0) {
+        summary += ', ';
+      }
+      summary += '+' + additionalDice.diceModifier + ' ' + localization.dice;
+    } else if (additionalDice && additionalDice.diceModifier < 0) {
+      if (summary.length > 0) {
+        summary += ', ';
+      }
+      summary += additionalDice.diceModifier + ' ' + localization.dice;
+    }
+
+    if (config.caster.spendsWillpower) {
+      if (summary.length > 0) {
+        summary += ', ';
+      }
+      summary += localization.spends_willpower_description;
+    }
 
     return (
       <View style={style.container}>

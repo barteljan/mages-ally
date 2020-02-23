@@ -14,7 +14,7 @@ class _InputContainer extends DynamiclyStyledPureComponent<
   {styles: InputContainerStyle}
 > {
   makeStyle() {
-    return makeInputContainerStyle(this.props.theme);
+    return makeInputContainerStyle(this.props.theme, this.props.height);
   }
 
   render = () => {

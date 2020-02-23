@@ -20,7 +20,7 @@ import {
   ScaleRules,
   ScaleRuleLevel,
 } from '../spell-factors/scale/scale.rules';
-import {BaseDiceModifier} from 'src/rules/model/BaseDiceModifier';
+import {BaseDiceModifier} from '../../model/BaseDiceModifier';
 import {SpellFactorType} from '../spell-factors/SpellFactor.type';
 import {CharactersArcanum} from '../../character/CharactersArcanum';
 import {

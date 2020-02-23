@@ -1,4 +1,5 @@
 export enum GameValueType {
+  additionalDiceModifier = 'additionalDiceModifier',
   characterValue = 'characterValue',
   skill = 'skill',
   other = 'other',

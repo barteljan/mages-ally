@@ -6,4 +6,5 @@ export type InputContainerProps = {
   children: Element;
   theme: Theme;
   containerStyle?: ViewStyle;
+  height?: number;
 };

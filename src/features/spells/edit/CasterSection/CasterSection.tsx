@@ -12,6 +12,7 @@ import {FormSectionTitle} from '../../../../components/FormSection/FormSectionTi
 import {EditSpellSections} from '../EditSpell.sections';
 import {CasterSectionProps} from './CasterSection.props';
 import {CasterSectionDescription} from './CasterSectionDescription';
+import {DefaultAdditionalDiceModifier} from '../../../../rules/spells/Spell.config.caster';
 
 export class CasterSection extends PureComponent<CasterSectionProps> {
   render() {
@@ -23,12 +24,20 @@ export class CasterSection extends PureComponent<CasterSectionProps> {
     const chosenArkanumTitle: string =
       arkanaLocalization[caster.highestSpellArcanum.arcanumType];
 
+    let additionalDices =
+      config.caster.additionalSpellCastingDice[
+        DefaultAdditionalDiceModifier.default
+      ];
+    let numberOfAdditionalDices = additionalDices
+      ? additionalDices.diceModifier
+      : 0;
+
     return (
       <FormSection
         identifier={EditSpellSections.caster}
         title={(identifier, collapsed) => (
           <FormSectionTitle
-            title={'Caster'}
+            title={localization.caster_section_title}
             iconName="hat-wizard"
             collapsed={collapsed}
             description={
@@ -106,6 +115,29 @@ export class CasterSection extends PureComponent<CasterSectionProps> {
             pluralItemLabel={localization.number_of_active_spells_plural}
           />
         </InputContainer>
+        <InputContainer
+          title={localization.number_of_additional_dice_title}
+          containerStyle={styles.inputContainer}>
+          <NumberSwitch
+            key={SpellValueIds.additionalDice + 'select'}
+            identifier={SpellValueIds.additionalDice}
+            parent={parent}
+            selected={numberOfAdditionalDices}
+            onChangedTo={this.props.setValue}
+            minValue={-5}
+            maxValue={15}
+            singularItemLabel={localization.dice}
+            pluralItemLabel={localization.dice}
+          />
+        </InputContainer>
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={CharacterValueId.willpower}
+          value={caster.spendsWillpower}
+          label={localization.spends_willpower_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
       </FormSection>
     );
   }

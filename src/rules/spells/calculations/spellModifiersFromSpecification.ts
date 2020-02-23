@@ -8,7 +8,7 @@ import {
   SpellModifiersFromSpellFactorsReturn,
   spellModifiersFromSpellFactors,
 } from './spellModifiersFromSpellFactors';
-import {CharactersArcanum} from 'src/rules/character/CharactersArcanum';
+import {CharactersArcanum} from '../../character/CharactersArcanum';
 import {SpellFactorType} from '../spell-factors/SpellFactor.type';
 import {YantraType} from '../yantra/Yantra.type';
 import {Yantra} from '../yantra/yantra';
@@ -18,12 +18,12 @@ import {
   ExtraReachValue,
 } from '../spell-values/ExtraReachValue';
 import {SpellValueIds} from '../spell-values/SpellValueIds';
-import {BaseReachModifier} from 'src/rules/model/BaseReachModifier';
+import {BaseReachModifier} from '../../model/BaseReachModifier';
 import {
   makeSymphaticRangeValue,
   SymphaticRangeValue,
 } from '../spell-values/SympaticRangeValue';
-import {BaseManaModifier} from 'src/rules/model/BaseManaModifier';
+import {BaseManaModifier} from '../../model/BaseManaModifier';
 import {
   makeTemporalSympathyValue,
   TemporalSympathyValue,

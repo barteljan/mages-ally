@@ -3,7 +3,7 @@ import {SpellFactorType} from './SpellFactor.type';
 import {GameValueType} from '../../../GameValueTypes';
 import {BaseGameValue} from '../../model/BaseGameValue';
 import {BaseReachModifier} from '../../model/BaseReachModifier';
-import {BaseManaModifier} from 'src/rules/model/BaseManaModifier';
+import {BaseManaModifier} from '../../../rules/model/BaseManaModifier';
 
 export type SpellFactor = BaseGameValue &
   BaseReachModifier &
