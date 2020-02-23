@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import Picker from 'react-native-picker-select';
 import {NumberSwitchProps} from './NumberSwitch.props';
-import {styles} from '../../features/spells/edit/EditSpell.screen';
+import {styles} from './NumberSwitch.styles';
+
 export class NumberSwitch extends PureComponent<NumberSwitchProps> {
   onChangedTo = (type: number) => {
     this.props.onChangedTo(this.props.identifier, type, this.props.parent);

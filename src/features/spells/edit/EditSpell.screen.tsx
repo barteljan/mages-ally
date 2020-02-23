@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native';
 import {EditSpellProps} from './EditSpell.props';
 import {EditSpellsStyle, makeEditSpellStyles} from './EditSpell.styles';
 import {localization, VariablePlaceholder} from './EditSpell.strings';
@@ -131,11 +131,3 @@ class _EditSpellScreen extends DynamiclyStyledPureComponent<
 }
 
 export const EditSpellScreen = withTheme(_EditSpellScreen);
-
-export const styles = StyleSheet.create({
-  viewContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingLeft: 15,
-  },
-});
