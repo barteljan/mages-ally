@@ -1,6 +1,7 @@
 import LocalizedStrings from 'react-native-localization';
 import {RitualIntervalUnit, GnosisRules} from '../../../gnosis/GnosisRule';
 import {SpellFactorLevel} from '../SpellFactor.level';
+import {CastingTimeRules, makeCastingTimeRules} from './castingTime.rules';
 
 export enum CastingTimeStringKey {
   dice = 'dice',
@@ -12,6 +13,7 @@ export function spellFactorLabelCastingTime(
   value: number,
   gnosis: number,
   gnosisRules: GnosisRules[],
+  castingTimeRules: CastingTimeRules = makeCastingTimeRules(),
   translate: (
     key: RitualIntervalUnit | CastingTimeStringKey,
     plural: boolean,
@@ -31,7 +33,16 @@ export function spellFactorLabelCastingTime(
       translatedTimeUnit = translate(rule.ritualIntervalTimeUnit, true);
     }
 
-    description = time + ' ' + translatedTimeUnit + ' (+' + value + ' ';
+    const diceModifier = castingTimeRules.standard[value].diceModifier;
+    let sign = '';
+    if (diceModifier === 0) {
+      sign = '-';
+    } else if (diceModifier > 0) {
+      sign = '+';
+    }
+
+    description =
+      time + ' ' + translatedTimeUnit + ' (' + sign + diceModifier + ' ';
     if (value === 0) {
       description = description + translate(CastingTimeStringKey.dice, false);
     } else {

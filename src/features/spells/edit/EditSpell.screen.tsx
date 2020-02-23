@@ -13,6 +13,7 @@ import {isEqual} from 'lodash';
 import {CasterSection} from './CasterSection/CasterSection';
 import {EditSpellSections} from './EditSpell.sections';
 import {SpellSection} from './SpellSection/SpellSection';
+import {SpellFactorSection} from './SpellFactorSection/SpellFactorSection';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;
@@ -66,6 +67,8 @@ class _EditSpellScreen extends PureComponent<
 
   toggleCasterSection = () => this.toggleSection(EditSpellSections.caster);
   toggleSpellSection = () => this.toggleSection(EditSpellSections.spell);
+  toggleSpellFactorSection = () =>
+    this.toggleSection(EditSpellSections.spellFactor);
 
   render() {
     const styles = this.state.styles;
@@ -107,6 +110,12 @@ class _EditSpellScreen extends PureComponent<
           {...this.props}
           collapsed={this.state.openedSection !== EditSpellSections.spell}
           onChangeCollapse={this.toggleSpellSection}
+          styles={styles}
+        />
+        <SpellFactorSection
+          {...this.props}
+          collapsed={this.state.openedSection !== EditSpellSections.spellFactor}
+          onChangeCollapse={this.toggleSpellFactorSection}
           styles={styles}
         />
       </ScrollView>

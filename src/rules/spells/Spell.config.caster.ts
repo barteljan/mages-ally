@@ -23,7 +23,9 @@ export function makeSpellCaster(
     activeSpells: 0,
     additionalSpellCastingDice: {},
     gnosis: makeGnosisValue({diceModifier: 1}),
-    highestSpellArcanum: makeCharactersArcanum(ArcanaType.death),
+    highestSpellArcanum: makeCharactersArcanum(ArcanaType.death, {
+      diceModifier: 1,
+    }),
     spendsWillpower: false,
     ...spellCaster,
   };

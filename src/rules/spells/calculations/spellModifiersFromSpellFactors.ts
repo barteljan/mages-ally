@@ -41,9 +41,16 @@ export function spellModifiersFromSpellFactors(
   primaryFactor: SpellFactorType,
   additionalSpecs: SpellSpecificationAdditionalSpecs,
   factors: SpellSpecification['spellFactors'],
-  potencyRules: PotencyRules = makePotencyRules(11),
+  potencyRules: PotencyRules = makePotencyRules(
+    11,
+    primaryFactor,
+    highestArcanum.diceModifier,
+  ),
   castingTimeRules: CastingTimeRules = makeCastingTimeRules(),
-  durationRules: DurationRules = makeDurationRules(),
+  durationRules: DurationRules = makeDurationRules(
+    primaryFactor,
+    highestArcanum.diceModifier,
+  ),
   rangeRules: RangeRules = makeRangeRules(),
   scaleRules: ScaleRules = makeScaleRules(11),
 ): SpellModifiersFromSpellFactorsReturn {
@@ -64,24 +71,6 @@ export function spellModifiersFromSpellFactors(
     const rulings = rules[i];
 
     let rule = rulings[spellFactor.level][spellFactor.value - 1];
-
-    // primary factors dice penalty is is reduced by the level of
-    // the characters highest arcanum nessecary for this spell
-    if (rule.spellFactorType === primaryFactor) {
-      let newModifier = rule.diceModifier + highestArcanum.diceModifier * 2;
-
-      if (highestArcanum.diceModifier > 0) {
-        newModifier -= 2;
-      }
-
-      if (newModifier > 0) {
-        newModifier = 0;
-      }
-      rule = {
-        ...rule,
-        diceModifier: newModifier,
-      };
-    }
 
     // everywhere => advanced scale costs a mana instead of a reach
     if (

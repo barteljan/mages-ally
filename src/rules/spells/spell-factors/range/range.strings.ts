@@ -20,7 +20,7 @@ export const castingTimeLocalization = new LocalizedStrings<
   SpellFactorRangeStrings
 >({
   en: {
-    standard: 'Self/touch or Aimed',
-    advanced: 'Sensory',
+    standard: 'Self/touch or Aimed (-0 dice)',
+    advanced: 'Sensory (-0 dice)',
   },
 });

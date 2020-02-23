@@ -15,7 +15,6 @@ import {
 } from '../Spell.config.specification';
 import {GameValueType} from '../../../GameValueTypes';
 
-
 test('test result has the correct structure', () => {
   const highestArcanum = makeCharactersArcanum(ArcanaType.death, {
     diceModifier: 1,
@@ -527,7 +526,7 @@ test('potency is calculated correct', () => {
     type: GameValueType.arcanum,
     highest: false,
     rulingArcana: false,
-    diceModifier: 0,
+    diceModifier: 1,
   };
 
   const factors: SpellSpecificationSpellFactors = makeSpellSpecificationSpellFactors();

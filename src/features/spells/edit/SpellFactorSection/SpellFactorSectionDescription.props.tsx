@@ -1,7 +1,7 @@
 import {SpellCastingConfig} from '../../../../rules/spells/Spell.config';
 import {Theme} from 'react-native-paper';
 
-export type CasterSectionDescriptionProps = {
+export type SpellFactorSectionDescriptionProps = {
   theme: Theme;
   spellCastingConfig: SpellCastingConfig;
 };

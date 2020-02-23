@@ -13,16 +13,28 @@ export type DurationRules = SpellFactorRules<SpellFactorType.duration> & {
 
 export type DurationRuleLevel = SpellFactorRuleLevel<SpellFactorType.duration>;
 
-export function makeDurationRules(): DurationRules {
+export function makeDurationRules(
+  primaryFactor: SpellFactorType,
+  magesHighestArcanaValue: number,
+): DurationRules {
   let rules: DurationRules = {
     standard: [],
     advanced: [],
   };
 
   for (let i = 0; i < 5; i++) {
+    let adjustedModifier =
+      primaryFactor === SpellFactorType.duration
+        ? i * -2 + (magesHighestArcanaValue - 1) * 2
+        : i * -2;
+
+    if (adjustedModifier > 0) {
+      adjustedModifier = 0;
+    }
+
     const itemStandard: DurationRuleLevel = makeSpellFactorRuleLevel(
       SpellFactorLevel.standard,
-      i * -2,
+      adjustedModifier,
       SpellFactorType.duration,
       i,
     );
@@ -31,9 +43,18 @@ export function makeDurationRules(): DurationRules {
   }
 
   for (let i = 0; i < 6; i++) {
+    let adjustedModifier =
+      primaryFactor === SpellFactorType.duration
+        ? i * -2 + (magesHighestArcanaValue - 1) * 2
+        : i * -2;
+
+    if (adjustedModifier > 0) {
+      adjustedModifier = 0;
+    }
+
     const itemAdvanced: DurationRuleLevel = makeSpellFactorRuleLevel(
       SpellFactorLevel.advanced,
-      i * -2,
+      adjustedModifier,
       SpellFactorType.duration,
       i,
     );

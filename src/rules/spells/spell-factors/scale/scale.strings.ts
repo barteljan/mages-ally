@@ -1,5 +1,6 @@
 import LocalizedStrings from 'react-native-localization';
 import {SpellFactorLevel} from '../SpellFactor.level';
+import {ScaleRules, makeScaleRules} from './scale.rules';
 
 export type SpellFactorScaleStrings = {
   standard1: string;
@@ -13,37 +14,57 @@ export type SpellFactorScaleStrings = {
   advanced4: string;
   advanced5: string;
   advanced6: string;
+  dice: string;
 };
 
-export function spellFactorLabelScale(level: SpellFactorLevel, value: number) {
+export function spellFactorLabelScale(
+  level: SpellFactorLevel,
+  value: number,
+  rules: ScaleRules = makeScaleRules(10),
+) {
+  let suffix: string = ' (';
+  let diceModifier: number;
+  switch (level) {
+    case SpellFactorLevel.standard:
+      diceModifier = rules.standard[value].diceModifier;
+      break;
+    case SpellFactorLevel.advanced:
+      diceModifier = rules.advanced[value].diceModifier;
+      break;
+  }
+  suffix +=
+    diceModifier === 0
+      ? '-0 ' + scaleLocalization.dice + ')'
+      : diceModifier + ' ' + scaleLocalization.dice + ')';
+
   switch (level) {
     case SpellFactorLevel.standard:
       switch (value) {
         case 0:
-          return scaleLocalization.standard1;
+          return scaleLocalization.standard1 + suffix;
         case 1:
-          return scaleLocalization.standard2;
+          return scaleLocalization.standard2 + suffix;
         case 2:
-          return scaleLocalization.standard3;
+          return scaleLocalization.standard3 + suffix;
         case 3:
-          return scaleLocalization.standard4;
+          return scaleLocalization.standard4 + suffix;
         case 4:
-          return scaleLocalization.standard5;
+          return scaleLocalization.standard5 + suffix;
         default:
           return '';
       }
     case SpellFactorLevel.advanced:
       switch (value) {
         case 0:
-          return scaleLocalization.advanced1;
+          return scaleLocalization.advanced1 + suffix;
         case 1:
-          return scaleLocalization.advanced2;
+          return scaleLocalization.advanced2 + suffix;
         case 2:
-          return scaleLocalization.advanced3;
+          return scaleLocalization.advanced3 + suffix;
         case 3:
-          return scaleLocalization.advanced4;
+          return scaleLocalization.advanced4 + suffix;
         case 4:
-          return scaleLocalization.advanced5;
+          return scaleLocalization.advanced5 + suffix;
         case 5:
           return scaleLocalization.advanced6;
         default:
@@ -65,5 +86,6 @@ export const scaleLocalization = new LocalizedStrings<SpellFactorScaleStrings>({
     advanced4: 'A small factory, or a shopping mall',
     advanced5: 'A large factory, or a city block',
     advanced6: 'A campus, or a small neighborhood',
+    dice: 'dice',
   },
 });

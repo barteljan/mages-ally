@@ -380,8 +380,8 @@ test('no paradox dice is created with default config ', () => {
   expect(result.roll.paradox.number).toBe(0);
 });
 
-test('one spell casting dice is created with default config (gosis 1)', () => {
+test('two spell casting dice are created with default config (gnosis 1/arkanum 1)', () => {
   let config = makeSpellCastingConfig();
   const result = spellModifiersFromSpellConfig(config);
-  expect(result.roll.dices.number).toBe(1);
+  expect(result.roll.dices.number).toBe(2);
 });

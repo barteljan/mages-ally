@@ -1,37 +1,35 @@
 import LocalizedStrings from 'react-native-localization';
 import {SpellFactorType} from './SpellFactor.type';
+import {SpellFactorLevel} from './SpellFactor.level';
 
 export type SpellFactorStrings = {
-  castingTime: string;
-  duration: string;
-  potency: string;
-  range: string;
-  scale: string;
+  [SpellFactorType.castingTime]: string;
+  [SpellFactorType.duration]: string;
+  [SpellFactorType.potency]: string;
+  [SpellFactorType.range]: string;
+  [SpellFactorType.scale]: string;
+  [SpellFactorLevel.standard]: string;
+  [SpellFactorLevel.advanced]: string;
 };
 
 export function spellFactorName(type: SpellFactorType) {
-  switch (type) {
-    case SpellFactorType.castingTime:
-      return spellFactoreLocalization.castingTime;
-    case SpellFactorType.duration:
-      return spellFactoreLocalization.duration;
-    case SpellFactorType.potency:
-      return spellFactoreLocalization.potency;
-    case SpellFactorType.range:
-      return spellFactoreLocalization.range;
-    case SpellFactorType.scale:
-      return spellFactoreLocalization.scale;
-  }
+  return spellFactorLocalization[type];
 }
 
-export const spellFactoreLocalization = new LocalizedStrings<
-  SpellFactorStrings
->({
-  en: {
-    castingTime: 'Casting Time',
-    duration: 'Duration',
-    potency: 'Potency',
-    range: 'Range',
-    scale: 'Scale',
+export function spellFactorLevelName(level: SpellFactorLevel): string {
+  return spellFactorLocalization[level];
+}
+
+export const spellFactorLocalization = new LocalizedStrings<SpellFactorStrings>(
+  {
+    en: {
+      [SpellFactorType.castingTime]: 'Casting Time',
+      [SpellFactorType.duration]: 'Duration',
+      [SpellFactorType.potency]: 'Potency',
+      [SpellFactorType.range]: 'Range',
+      [SpellFactorType.scale]: 'Scale',
+      [SpellFactorLevel.standard]: 'Standard',
+      [SpellFactorLevel.advanced]: 'Advanced',
+    },
   },
-});
+);
