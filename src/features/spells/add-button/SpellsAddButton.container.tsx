@@ -1,8 +1,8 @@
 import {connect, MergeProps} from 'react-redux';
-import {AddButton} from '../../components/AddButton/AddButton';
-import {AddButtonProps} from '../../components/AddButton/AddButton.props';
-import {Routes} from '../../navigation/Routes';
-import {navigateToAction} from '../../navigation/Navigation.actions';
+import {AddButton} from '../../../components/AddButton/AddButton';
+import {AddButtonProps} from '../../../components/AddButton/AddButton.props';
+import {Routes} from '../../../navigation/Routes';
+import {navigateToAction} from '../../../navigation/Navigation.actions';
 
 type StateProps = {};
 

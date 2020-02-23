@@ -5,6 +5,9 @@ import {Theme} from 'react-native-paper';
 export type EditSpellsStyle = {
   container: ViewStyle;
   containerContent: ViewStyle;
+  section: ViewStyle;
+  accordion: ViewStyle;
+  accordionIcon: ViewStyle;
   title: TextStyle;
   inputField: ViewStyle;
   inputContainer: ViewStyle;
@@ -23,6 +26,9 @@ export const makeEditSpellStyles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'flex-start',
     },
+    section: {width: '100%', marginTop: 0},
+    accordion: {},
+    accordionIcon: {paddingRight: 10},
     title: {
       fontSize: FontSize.header,
       fontFamily: theme.fonts.regular.fontFamily,

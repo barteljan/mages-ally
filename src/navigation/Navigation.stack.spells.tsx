@@ -1,10 +1,9 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from './Routes';
-//import {SpellsScreen} from '../features/spells/Spells.screen';
 import {localization} from './Navigation.strings';
 import EditSpellScreen from '../features/spells/edit/AddSpell.container';
-import AddButton from '../features/spells-add-button/SpellsAddButton.container';
+import AddButton from '../features/spells/add-button/SpellsAddButton.container';
 import {Platform} from 'react-native';
 import {theme} from '../layout/Theme';
 

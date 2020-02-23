@@ -32,3 +32,15 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     number_of_active_spells_plural: 'active spells',
   },
 });
+
+export function activeSpellsSummary(numberOfActiveSpells: number): string {
+  if (numberOfActiveSpells !== 1) {
+    return (
+      numberOfActiveSpells + ' ' + localization.number_of_active_spells_plural
+    );
+  } else {
+    return (
+      numberOfActiveSpells + ' ' + localization.number_of_active_spells_singular
+    );
+  }
+}

@@ -15,11 +15,18 @@ export class Dot extends PureComponent<DotProps> {
     } else {
       iconProps = {light: true};
     }
+    const color = this.props.color ? this.props.color : '#000000';
+
     return (
       <TouchableWithoutFeedback
         style={this.props.containerStyle}
         onPress={this.onPress}>
-        <Icon name={'circle'} size={this.props.size} {...iconProps} />
+        <Icon
+          name={'circle'}
+          size={this.props.size}
+          {...iconProps}
+          color={color}
+        />
       </TouchableWithoutFeedback>
     );
   }

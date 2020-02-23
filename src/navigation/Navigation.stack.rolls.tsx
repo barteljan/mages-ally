@@ -4,7 +4,7 @@ import {Routes} from './Routes';
 import RollsContainer from '../features/rolls/Rolls.container';
 import {localization} from './Navigation.strings';
 import {Platform} from 'react-native';
-import RollsAddButton from '../features/rolls/RollsAddButton/RollsAddButton.container';
+import RollsAddButton from '../features/rolls/add-button/RollsAddButton.container';
 import AddRollContainer from '../features/roll-dice/RollDice.container';
 import {theme} from '../layout/Theme';
 

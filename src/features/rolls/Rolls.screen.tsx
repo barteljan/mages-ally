@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Platform} from 'react-native';
 import {RollsStyle, makeRollsStyle} from './Rolls.styles';
 import {RollsProps} from './Rolls.props';
-import RollsAddButton from './RollsAddButton/RollsAddButton.container';
+import RollsAddButton from './add-button/RollsAddButton.container';
 import {FlatList} from 'react-native-gesture-handler';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
-import {RollListItem} from './RollListItem/RollListItem';
+import {RollListItem} from './list-item/RollListItem';
 import {DynamiclyStyledPureComponent} from '../../components/DynamiclyStyledPureComponent';
 import {withTheme} from 'react-native-paper';
 

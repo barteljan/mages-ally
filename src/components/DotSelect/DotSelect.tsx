@@ -10,7 +10,8 @@ export class DotSelect extends PureComponent<DotSelectProps> {
     }
   };
   render() {
-    const dotSize = 22;
+    const dotSize = this.props.dotSize ? this.props.dotSize : 22;
+    const color = this.props.color ? this.props.color : '#000000';
     let dots: Element[] = [];
     for (let i = 0; i < this.props.numberOfDots; i++) {
       if (i % 5 === 0) {
@@ -29,6 +30,7 @@ export class DotSelect extends PureComponent<DotSelectProps> {
           containerStyle={style.dotContainer}
           onPress={this.onSelect}
           size={dotSize}
+          color={color}
         />,
       );
     }

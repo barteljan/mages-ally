@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Platform} from 'react-native';
 import {styles} from './Spells.styles';
-import AddButton from '../spells-add-button/SpellsAddButton.container';
+import AddButton from './add-button/SpellsAddButton.container';
 import {Theme} from 'react-native-paper';
 import {withTheme} from 'react-native-paper';
 

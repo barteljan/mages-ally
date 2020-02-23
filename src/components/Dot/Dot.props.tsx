@@ -5,4 +5,5 @@ export type DotProps = {
   onPress?: (value: number) => void;
   containerStyle?: ViewStyle;
   size: number;
+  color?: string;
 };
