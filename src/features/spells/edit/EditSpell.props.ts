@@ -1,5 +1,7 @@
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {Theme} from 'react-native-paper';
+import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
+import {SpellFactorLevel} from '../../../rules/spells/spell-factors/SpellFactor.level';
 
 export type EditSpellProps = {
   theme: Theme;
@@ -11,4 +13,9 @@ export type EditSpellProps = {
     parent: string,
   ) => void;
   setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
+  setSpellFactorLevel: (
+    factor: SpellFactorType,
+    level: SpellFactorLevel,
+    parent: string,
+  ) => void;
 };

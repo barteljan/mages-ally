@@ -19,6 +19,9 @@ import {
 import {SpellFactorSectionDescription} from './SpellFactorSectionDescription';
 import {SpellFactorLevel} from '../../../../rules/spells/spell-factors/SpellFactor.level';
 import {spellFactorLabel} from '../../../../rules/spells/spell-factors/SpellFactor.labels';
+import {Overlay, ButtonGroup} from 'react-native-elements';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Theme} from 'react-native-paper';
 
 export class SpellFactorSection extends DynamiclyStyledPureComponent<
   SpellFactorSectionProps,
@@ -30,6 +33,7 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
 
   render() {
     const config = this.props.spellCastingConfig;
+    const parent = config.id;
     const styles = this.props.styles;
     const gnosis = config.caster.gnosis.diceModifier;
     const primaryFactor = config.spell.primaryFactor;
@@ -57,61 +61,71 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
         <InputContainer
           title={spellFactorName(SpellFactorType.potency)}
           containerStyle={styles.inputContainer}>
-          <SpellFactorText
+          <SpellFactorRow
             gnosis={gnosis}
             level={factors.potency.level}
             type={SpellFactorType.potency}
             value={factors.potency.value}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
+            parent={parent}
+            {...this.props}
           />
         </InputContainer>
         <InputContainer
           title={spellFactorName(SpellFactorType.castingTime)}
           containerStyle={styles.inputContainer}>
-          <SpellFactorText
+          <SpellFactorRow
             gnosis={gnosis}
             level={factors.castingTime.level}
             type={SpellFactorType.castingTime}
             value={factors.castingTime.value}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
+            parent={parent}
+            {...this.props}
           />
         </InputContainer>
         <InputContainer
           title={spellFactorName(SpellFactorType.duration)}
           containerStyle={styles.inputContainer}>
-          <SpellFactorText
+          <SpellFactorRow
             gnosis={gnosis}
             level={factors.duration.level}
             type={SpellFactorType.duration}
             value={factors.duration.value}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
+            parent={parent}
+            {...this.props}
           />
         </InputContainer>
         <InputContainer
           title={spellFactorName(SpellFactorType.range)}
           containerStyle={styles.inputContainer}>
-          <SpellFactorText
+          <SpellFactorRow
             gnosis={gnosis}
             level={factors.range.level}
             type={SpellFactorType.range}
             value={factors.range.value}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
+            parent={parent}
+            {...this.props}
           />
         </InputContainer>
         <InputContainer
           title={spellFactorName(SpellFactorType.scale)}
           containerStyle={styles.inputContainer}>
-          <SpellFactorText
+          <SpellFactorRow
             gnosis={gnosis}
             level={factors.scale.level}
             type={SpellFactorType.scale}
             value={factors.scale.value}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
+            parent={parent}
+            {...this.props}
           />
         </InputContainer>
       </FormSection>
@@ -119,7 +133,7 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
   }
 }
 
-type SpellFactorTextProps = {
+type SpellFactorRowProps = {
   type: SpellFactorType;
   value: number;
   level: SpellFactorLevel;
@@ -127,9 +141,35 @@ type SpellFactorTextProps = {
   primaryFactor: SpellFactorType;
   highestArcanumValue: number;
   containerStyle?: ViewStyle;
+  theme: Theme;
+  parent: string;
+  setSpellFactorLevel: (
+    factor: SpellFactorType,
+    level: SpellFactorLevel,
+    parent: string,
+  ) => void;
 };
 
-class SpellFactorText extends PureComponent<SpellFactorTextProps> {
+type SpellFactorRowState = {
+  showOverlay: boolean;
+};
+
+class SpellFactorRow extends PureComponent<
+  SpellFactorRowProps,
+  SpellFactorRowState
+> {
+  state = {
+    showOverlay: false,
+  };
+
+  onPress = () => {
+    this.setState({showOverlay: true});
+  };
+
+  hideOverlay = () => {
+    this.setState({showOverlay: false});
+  };
+
   render() {
     let label = spellFactorLabel(
       this.props.type,
@@ -140,18 +180,31 @@ class SpellFactorText extends PureComponent<SpellFactorTextProps> {
       this.props.highestArcanumValue,
     );
     return (
-      <View style={[style.container, this.props.containerStyle]}>
-        <Text>{label}</Text>
-        <View>
+      <TouchableWithoutFeedback
+        style={[style.container, this.props.containerStyle]}
+        onPress={this.onPress}>
+        <Text style={style.label}>{label}</Text>
+        <View style={style.level}>
           <Text>{spellFactorLevelName(this.props.level)}</Text>
         </View>
-      </View>
+        <SpellFactorOverlay
+          theme={this.props.theme}
+          isVisible={this.state.showOverlay}
+          factor={this.props.type}
+          level={this.props.level}
+          identifier={this.props.type}
+          onBackdropPress={this.hideOverlay}
+          {...this.props}
+        />
+      </TouchableWithoutFeedback>
     );
   }
 }
 
 type SpellFactorStyle = {
   container: ViewStyle;
+  label: ViewStyle;
+  level: ViewStyle;
 };
 
 let style = StyleSheet.create<SpellFactorStyle>({
@@ -160,5 +213,83 @@ let style = StyleSheet.create<SpellFactorStyle>({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: '100%',
+  },
+  label: {
+    maxWidth: '80%',
+  },
+  level: {
+    minWidth: 60,
   },
 });
+
+type SpellfactorOverlayProps = {
+  isVisible: boolean;
+  theme: Theme;
+  factor: SpellFactorType;
+  level: SpellFactorLevel;
+  identifier: string;
+  parent: string;
+  onBackdropPress: () => void;
+  setSpellFactorLevel: (
+    factor: SpellFactorType,
+    level: SpellFactorLevel,
+    parent: string,
+  ) => void;
+};
+
+class SpellFactorOverlay extends DynamiclyStyledPureComponent<
+  SpellfactorOverlayProps,
+  SpellFactorOverlayStyle
+> {
+  makeStyle() {
+    return makeSpellFactorOverlayStyle(this.props.theme);
+  }
+  buttons = [
+    spellFactorLevelName(SpellFactorLevel.standard),
+    spellFactorLevelName(SpellFactorLevel.advanced),
+  ];
+
+  indexFromLevel(level: SpellFactorLevel) {
+    switch (level) {
+      case SpellFactorLevel.standard:
+        return 0;
+      case SpellFactorLevel.advanced:
+        return 1;
+    }
+  }
+
+  switchTabs = (index: number) => {
+    let level = SpellFactorLevel.standard;
+    if (index === 1) {
+      level = SpellFactorLevel.advanced;
+    }
+    this.props.setSpellFactorLevel(this.props.factor, level, this.props.parent);
+  };
+
+  render() {
+    return (
+      <Overlay
+        isVisible={this.props.isVisible}
+        onBackdropPress={this.props.onBackdropPress}>
+        <ButtonGroup
+          buttons={this.buttons}
+          selectedIndex={this.indexFromLevel(this.props.level)}
+          onPress={this.switchTabs}
+          selectedButtonStyle={this.state.styles.selectedButton}
+        />
+      </Overlay>
+    );
+  }
+}
+
+type SpellFactorOverlayStyle = {
+  selectedButton: ViewStyle;
+};
+
+const makeSpellFactorOverlayStyle = (theme: Theme): SpellFactorOverlayStyle =>
+  StyleSheet.create<SpellFactorOverlayStyle>({
+    selectedButton: {
+      backgroundColor: theme.colors.accent,
+    },
+  });

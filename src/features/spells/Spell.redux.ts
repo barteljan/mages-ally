@@ -14,6 +14,7 @@ import {
   DefaultAdditionalDiceModifier,
   makeDefaultAdditionalSpellCastingDice,
 } from '../../rules/spells/Spell.config.caster';
+import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.level';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
@@ -28,6 +29,7 @@ export enum SpellActionTypes {
   setNumberValue = 'spell/edit/setNumberValue',
   setStringValue = 'spell/edit/setStringValue',
   setBooleanValue = 'spell/edit/setBooleanValue',
+  setSpellFactorLevel = 'spell/edit/setSpellFactorLevel',
 }
 
 export const setNumberValueAction = createAction(
@@ -63,21 +65,29 @@ export const setBooleanValueAction = createAction(
   },
 )();
 
+export const setSpellFactorLevelAction = createAction(
+  SpellActionTypes.setSpellFactorLevel,
+  (factor: SpellFactorType, level: SpellFactorLevel, parent: string) => {
+    return {
+      factor,
+      level,
+      parent,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
   setBooleanValueAction,
+  setSpellFactorLevelAction,
 };
 
 export type SpellActions = ActionType<typeof actions>;
 
 export const spellReducer = produce(
   (draft: SpellsState, action: SpellActions): void => {
-    if (
-      !action.payload ||
-      !action.payload.parent ||
-      !action.payload.identifier
-    ) {
+    if (!Object.values(SpellActionTypes).includes(action.type)) {
       return;
     }
 
@@ -173,6 +183,11 @@ export const spellReducer = produce(
             caster.spendsWillpower = action.payload.value;
             break;
         }
+        break;
+      case SpellActionTypes.setSpellFactorLevel:
+        let spellFactor =
+          spell.spellCastingConfig.spell.spellFactors[action.payload.factor];
+        spellFactor.level = action.payload.level;
         break;
     }
   },

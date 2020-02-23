@@ -8,8 +8,11 @@ import {
   setNumberValueAction,
   setStringValueAction,
   setBooleanValueAction,
+  setSpellFactorLevelAction,
 } from '../Spell.redux';
 import {Theme} from 'react-native-paper';
+import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
+import {SpellFactorLevel} from '../../../rules/spells/spell-factors/SpellFactor.level';
 
 type OwnProps = {
   theme: Theme;
@@ -27,6 +30,11 @@ type DispatchProps = {
     parent: string,
   ) => void;
   setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
+  setSpellFactorLevel: (
+    factor: SpellFactorType,
+    level: SpellFactorLevel,
+    parent: string,
+  ) => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -41,6 +49,7 @@ const mapDispatchToProps: DispatchProps = {
   setValue: setNumberValueAction,
   setStringValue: setStringValueAction,
   setBooleanValue: setBooleanValueAction,
+  setSpellFactorLevel: setSpellFactorLevelAction,
 };
 
 const mergeProps: MergeProps<
@@ -54,6 +63,7 @@ const mergeProps: MergeProps<
     setValue: dispatchProps.setValue,
     setStringValue: dispatchProps.setStringValue,
     setBooleanValue: dispatchProps.setBooleanValue,
+    setSpellFactorLevel: dispatchProps.setSpellFactorLevel,
     theme: ownProps.theme,
   };
 };

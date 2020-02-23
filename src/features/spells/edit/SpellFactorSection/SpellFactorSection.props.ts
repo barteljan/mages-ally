@@ -1,6 +1,8 @@
 import {EditSpellsStyle} from '../EditSpell.styles';
 import {Theme} from 'react-native-paper';
 import {SpellCastingConfig} from '../../../../rules/spells/Spell.config';
+import {SpellFactorType} from '../../../../rules/spells/spell-factors/SpellFactor.type';
+import {SpellFactorLevel} from '../../../../rules/spells/spell-factors/SpellFactor.level';
 
 export type SpellFactorSectionProps = {
   theme: Theme;
@@ -13,6 +15,11 @@ export type SpellFactorSectionProps = {
   ) => void;
   setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
   onChangeCollapse: (collapse: boolean) => void;
+  setSpellFactorLevel: (
+    factor: SpellFactorType,
+    level: SpellFactorLevel,
+    parent: string,
+  ) => void;
   collapsed: boolean;
   styles: EditSpellsStyle;
 };
