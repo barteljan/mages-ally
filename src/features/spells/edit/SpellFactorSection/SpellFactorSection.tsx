@@ -60,31 +60,9 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
           containerStyle={styles.inputContainer}>
           <SpellFactorRow
             gnosis={gnosis}
-            level={factors.potency.level}
-            type={SpellFactorType.potency}
-            value={factors.potency.value}
+            factor={factors.potency}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
-            standardComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.potency}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
-            advancedComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.potency}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
             parent={parent}
             {...this.props}
           />
@@ -94,32 +72,10 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
           containerStyle={styles.inputContainer}>
           <SpellFactorRow
             gnosis={gnosis}
-            level={factors.castingTime.level}
-            type={SpellFactorType.castingTime}
-            value={factors.castingTime.value}
+            factor={factors.castingTime}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
             parent={parent}
-            standardComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.castingTime}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
-            advancedComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.castingTime}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
             {...this.props}
           />
         </InputContainer>
@@ -128,32 +84,10 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
           containerStyle={styles.inputContainer}>
           <SpellFactorRow
             gnosis={gnosis}
-            level={factors.duration.level}
-            type={SpellFactorType.duration}
-            value={factors.duration.value}
+            factor={factors.duration}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
             parent={parent}
-            standardComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.duration}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
-            advancedComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.duration}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
             {...this.props}
           />
         </InputContainer>
@@ -162,32 +96,10 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
           containerStyle={styles.inputContainer}>
           <SpellFactorRow
             gnosis={gnosis}
-            level={factors.range.level}
-            type={SpellFactorType.range}
-            value={factors.range.value}
+            factor={factors.range}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
             parent={parent}
-            standardComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.range}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
-            advancedComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.range}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
             {...this.props}
           />
         </InputContainer>
@@ -196,32 +108,10 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
           containerStyle={styles.inputContainer}>
           <SpellFactorRow
             gnosis={gnosis}
-            level={factors.scale.level}
-            type={SpellFactorType.scale}
-            value={factors.scale.value}
+            factor={factors.scale}
             primaryFactor={primaryFactor}
             highestArcanumValue={highesArcanumValue}
             parent={parent}
-            standardComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.scale}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
-            advancedComponent={
-              <SpellFactorSelectionList
-                spellFactor={factors.scale}
-                primaryFactor={primaryFactor}
-                highestArcanumValue={highesArcanumValue}
-                gnosis={gnosis}
-                parent={parent}
-                setSpellFactorValue={this.props.setSpellFactorValue}
-              />
-            }
             {...this.props}
           />
         </InputContainer>
@@ -236,6 +126,7 @@ export type SpellFactorSelectionListProps = {
   highestArcanumValue: number;
   primaryFactor: SpellFactorType;
   gnosis: number;
+  close: () => void;
   setSpellFactorValue: (
     factor: SpellFactorType,
     value: number,
@@ -259,6 +150,7 @@ export class SpellFactorSelectionList extends PureComponent<
       value,
       this.props.parent,
     );
+    this.props.close();
   };
 
   render() {

@@ -21,9 +21,12 @@ export function spellFactorLabelCastingTime(
 ): string {
   let description = '';
 
-  if (level === SpellFactorLevel.standard) {
-    let rule = gnosisRules[gnosis];
+  if (level === SpellFactorLevel.standard && gnosis > 0) {
+    let rule = gnosisRules[gnosis - 1];
     let translatedTimeUnit: string;
+
+    console.log('gnosis:' + gnosis, rule);
+    console.log(new Error().stack);
 
     let time = (value + 1) * rule.ritualInterval;
 
@@ -49,7 +52,7 @@ export function spellFactorLabelCastingTime(
       description = description + translate(CastingTimeStringKey.dice, true);
     }
     description += ')';
-  } else {
+  } else if (level === SpellFactorLevel.advanced) {
     description = translate(CastingTimeStringKey.advancedDescription, false);
   }
 

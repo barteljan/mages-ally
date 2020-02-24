@@ -6,6 +6,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SpellFactorRowProps} from './SpellFactorRow.props';
 import {SpellFactorOverlay} from '../overlay/SpellFactorOverlay';
 import {style} from './SpellFactorRow.styles';
+import {SpellFactorSelectionList} from '../SpellFactorSection';
 
 export type SpellFactorRowState = {
   showOverlay: boolean;
@@ -18,17 +19,19 @@ export class SpellFactorRow extends PureComponent<
   state = {
     showOverlay: false,
   };
+
   onPress = () => {
     this.setState({showOverlay: true});
   };
   hideOverlay = () => {
     this.setState({showOverlay: false});
   };
+
   render() {
     let label = spellFactorLabel(
-      this.props.type,
-      this.props.level,
-      this.props.value,
+      this.props.factor.spellFactorType,
+      this.props.factor.level,
+      this.props.factor.value,
       this.props.gnosis,
       this.props.primaryFactor,
       this.props.highestArcanumValue,
@@ -39,16 +42,39 @@ export class SpellFactorRow extends PureComponent<
         onPress={this.onPress}>
         <Text style={style.label}>{label}</Text>
         <View style={style.level}>
-          <Text>{spellFactorLevelName(this.props.level)}</Text>
+          <Text>{spellFactorLevelName(this.props.factor.level)}</Text>
         </View>
         <SpellFactorOverlay
           theme={this.props.theme}
           isVisible={this.state.showOverlay}
-          factor={this.props.type}
-          level={this.props.level}
-          identifier={this.props.type}
+          factor={this.props.factor.spellFactorType}
+          level={this.props.factor.level}
+          identifier={this.props.factor.spellFactorType}
           onBackdropPress={this.hideOverlay}
-          {...this.props}
+          standardComponent={
+            <SpellFactorSelectionList
+              spellFactor={this.props.factor}
+              primaryFactor={this.props.primaryFactor}
+              highestArcanumValue={this.props.highestArcanumValue}
+              gnosis={this.props.gnosis}
+              parent={this.props.parent}
+              close={this.hideOverlay}
+              setSpellFactorValue={this.props.setSpellFactorValue}
+            />
+          }
+          advancedComponent={
+            <SpellFactorSelectionList
+              spellFactor={this.props.factor}
+              primaryFactor={this.props.primaryFactor}
+              highestArcanumValue={this.props.highestArcanumValue}
+              gnosis={this.props.gnosis}
+              parent={this.props.parent}
+              close={this.hideOverlay}
+              setSpellFactorValue={this.props.setSpellFactorValue}
+            />
+          }
+          parent={this.props.parent}
+          setSpellFactorLevel={this.props.setSpellFactorLevel}
         />
       </TouchableWithoutFeedback>
     );

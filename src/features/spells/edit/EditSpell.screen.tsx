@@ -77,8 +77,6 @@ class _EditSpellScreen extends PureComponent<
     const parent = config.id;
     const caster = config.caster;
 
-    //const chosenArkanumTitle: string = arkanaLocalization[caster.highestSpellArcanum.arcanumType];
-
     return (
       <ScrollView
         style={[styles.container]}
@@ -123,4 +121,5 @@ class _EditSpellScreen extends PureComponent<
   }
 }
 
+//@ts-ignore
 export const EditSpellScreen = withTheme(_EditSpellScreen);
