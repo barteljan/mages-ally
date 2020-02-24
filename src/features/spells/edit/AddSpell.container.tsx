@@ -9,6 +9,7 @@ import {
   setStringValueAction,
   setBooleanValueAction,
   setSpellFactorLevelAction,
+  setSpellFactorValueAction,
 } from '../Spell.redux';
 import {Theme} from 'react-native-paper';
 import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
@@ -35,6 +36,11 @@ type DispatchProps = {
     level: SpellFactorLevel,
     parent: string,
   ) => void;
+  setSpellFactorValue: (
+    factor: SpellFactorType,
+    value: number,
+    parent: string,
+  ) => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -50,6 +56,7 @@ const mapDispatchToProps: DispatchProps = {
   setStringValue: setStringValueAction,
   setBooleanValue: setBooleanValueAction,
   setSpellFactorLevel: setSpellFactorLevelAction,
+  setSpellFactorValue: setSpellFactorValueAction,
 };
 
 const mergeProps: MergeProps<
@@ -64,6 +71,7 @@ const mergeProps: MergeProps<
     setStringValue: dispatchProps.setStringValue,
     setBooleanValue: dispatchProps.setBooleanValue,
     setSpellFactorLevel: dispatchProps.setSpellFactorLevel,
+    setSpellFactorValue: dispatchProps.setSpellFactorValue,
     theme: ownProps.theme,
   };
 };

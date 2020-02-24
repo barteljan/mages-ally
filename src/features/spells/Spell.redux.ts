@@ -30,6 +30,7 @@ export enum SpellActionTypes {
   setStringValue = 'spell/edit/setStringValue',
   setBooleanValue = 'spell/edit/setBooleanValue',
   setSpellFactorLevel = 'spell/edit/setSpellFactorLevel',
+  setSpellFactorValue = 'spell/edit/setSpellFactorValue',
 }
 
 export const setNumberValueAction = createAction(
@@ -76,11 +77,23 @@ export const setSpellFactorLevelAction = createAction(
   },
 )();
 
+export const setSpellFactorValueAction = createAction(
+  SpellActionTypes.setSpellFactorValue,
+  (factor: SpellFactorType, value: number, parent: string) => {
+    return {
+      factor,
+      value,
+      parent,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
   setBooleanValueAction,
   setSpellFactorLevelAction,
+  setSpellFactorValueAction,
 };
 
 export type SpellActions = ActionType<typeof actions>;
@@ -184,11 +197,34 @@ export const spellReducer = produce(
             break;
         }
         break;
-      case SpellActionTypes.setSpellFactorLevel:
+      case SpellActionTypes.setSpellFactorLevel: {
         let spellFactor =
           spell.spellCastingConfig.spell.spellFactors[action.payload.factor];
-        spellFactor.level = action.payload.level;
+        if (spellFactor.level !== action.payload.level) {
+          spellFactor.level = action.payload.level;
+          spellFactor.value = 1;
+        }
         break;
+      }
+      case SpellActionTypes.setSpellFactorValue: {
+        let spellFactor =
+          spell.spellCastingConfig.spell.spellFactors[action.payload.factor];
+
+        switch (spellFactor.level) {
+          case SpellFactorLevel.standard:
+            if (spellFactor.maxStandardValue >= action.payload.value) {
+              spellFactor.value = action.payload.value;
+            }
+            break;
+          case SpellFactorLevel.advanced:
+            if (spellFactor.maxAdvancedValue >= action.payload.value) {
+              spellFactor.value = action.payload.value;
+            }
+            break;
+        }
+
+        break;
+      }
     }
   },
 );

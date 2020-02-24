@@ -15,7 +15,7 @@ export const makeInputContainerStyle = (theme: Theme, height?: number) =>
       borderStyle: 'solid',
       borderColor: theme.colors.disabled,
       borderWidth: 1,
-      borderRadius: 2,
+      borderRadius: theme.roundness,
       backgroundColor: theme.colors.background,
     },
     label: {

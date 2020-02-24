@@ -42,7 +42,7 @@ export function makeScaleRuleLevel(
   return scaleRule;
 }
 
-export function makeScaleRules(numberOfAdvancedLevels: number = 6): ScaleRules {
+export function makeScaleRules(numberOfAdvancedLevels: number = 9): ScaleRules {
   let scaleRules: ScaleRules = {
     standard: [
       makeScaleRuleLevel(SpellFactorLevel.standard, 0, 1, 5, 0),

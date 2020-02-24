@@ -20,6 +20,11 @@ export type SpellFactorSectionProps = {
     level: SpellFactorLevel,
     parent: string,
   ) => void;
+  setSpellFactorValue: (
+    factor: SpellFactorType,
+    value: number,
+    parent: string,
+  ) => void;
   collapsed: boolean;
   styles: EditSpellsStyle;
 };

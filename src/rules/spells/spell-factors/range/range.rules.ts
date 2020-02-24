@@ -4,7 +4,6 @@ import {
   SpellFactorRuleLevel,
 } from '../SpellFactor.rules';
 import {SpellFactorLevel} from '../SpellFactor.level';
-import {RulesType} from '../RulesType';
 import {SpellFactorType} from '../SpellFactor.type';
 
 export type RangeRules = SpellFactorRules<SpellFactorType.range>;

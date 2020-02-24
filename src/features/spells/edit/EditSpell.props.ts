@@ -18,4 +18,9 @@ export type EditSpellProps = {
     level: SpellFactorLevel,
     parent: string,
   ) => void;
+  setSpellFactorValue: (
+    factor: SpellFactorType,
+    value: number,
+    parent: string,
+  ) => void;
 };

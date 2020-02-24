@@ -3,7 +3,6 @@ import {
   makeSpellFactorRuleLevel,
   SpellFactorRuleLevel,
 } from '../SpellFactor.rules';
-import {RulesType} from '../RulesType';
 import {SpellFactorLevel} from '../SpellFactor.level';
 import {SpellFactorType} from '../SpellFactor.type';
 
