@@ -1,15 +1,16 @@
 import React, {PureComponent} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, LayoutRectangle} from 'react-native';
 import {spellFactorLevelName} from '../../../../../rules/spells/spell-factors/SpellFactor.strings';
 import {spellFactorLabel} from '../../../../../rules/spells/spell-factors/SpellFactor.labels';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SpellFactorRowProps} from './SpellFactorRow.props';
 import {SpellFactorOverlay} from '../overlay/SpellFactorOverlay';
 import {style} from './SpellFactorRow.styles';
-import {SpellFactorSelectionList} from '../SpellFactorSection';
+import {SpellFactorSelectionList} from '../selection-list/SpellFactorSelectionList';
 
 export type SpellFactorRowState = {
   showOverlay: boolean;
+  listHeight: number;
 };
 
 export class SpellFactorRow extends PureComponent<
@@ -18,13 +19,19 @@ export class SpellFactorRow extends PureComponent<
 > {
   state = {
     showOverlay: false,
+    listHeight: 0,
   };
 
   onPress = () => {
     this.setState({showOverlay: true});
   };
+
   hideOverlay = () => {
     this.setState({showOverlay: false});
+  };
+
+  setListHeight = (rect: LayoutRectangle) => {
+    this.setState({listHeight: rect.height});
   };
 
   render() {
@@ -46,6 +53,7 @@ export class SpellFactorRow extends PureComponent<
         </View>
         <SpellFactorOverlay
           theme={this.props.theme}
+          height={this.state.listHeight + 100}
           isVisible={this.state.showOverlay}
           factor={this.props.factor.spellFactorType}
           level={this.props.factor.level}
@@ -53,6 +61,7 @@ export class SpellFactorRow extends PureComponent<
           onBackdropPress={this.hideOverlay}
           standardComponent={
             <SpellFactorSelectionList
+              onLayout={this.setListHeight}
               spellFactor={this.props.factor}
               primaryFactor={this.props.primaryFactor}
               highestArcanumValue={this.props.highestArcanumValue}
@@ -64,6 +73,7 @@ export class SpellFactorRow extends PureComponent<
           }
           advancedComponent={
             <SpellFactorSelectionList
+              onLayout={this.setListHeight}
               spellFactor={this.props.factor}
               primaryFactor={this.props.primaryFactor}
               highestArcanumValue={this.props.highestArcanumValue}

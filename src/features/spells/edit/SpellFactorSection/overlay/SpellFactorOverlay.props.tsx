@@ -9,6 +9,7 @@ export type SpellfactorOverlayProps = {
   level: SpellFactorLevel;
   identifier: string;
   parent: string;
+  height: number;
   standardComponent?: Element;
   advancedComponent?: Element;
   onBackdropPress: () => void;
