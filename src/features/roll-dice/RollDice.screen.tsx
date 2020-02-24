@@ -136,6 +136,8 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
           numberOfDice={visibleNumberOfDice}
           value={this.props.numberOfDice}
           selectedColor={this.props.theme.colors.accent}
+          selectedTextColor={this.props.theme.colors.background}
+          unselectedTextColor={this.props.theme.colors.background}
           unselectedColor={this.props.theme.colors.disabled}
           groupStyle={groupStyle}
           onSelect={this.onSelectNumberOfDice}

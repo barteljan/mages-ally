@@ -37,8 +37,8 @@ export class DiceSelect extends React.PureComponent<
           key={i + '_dice'}
           diceTextStyle={
             this.state.value && this.state.value >= i
-              ? {color: this.props.selectedColor}
-              : {color: this.props.unselectedColor}
+              ? {color: this.props.selectedTextColor}
+              : {color: this.props.unselectedTextColor}
           }
           diceImageStyle={
             this.state.value && this.state.value >= i

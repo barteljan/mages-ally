@@ -48,7 +48,7 @@ class _DiceView extends DynamiclyStyledPureComponent<
         }>
         <Image
           style={[this.state.styles.image, this.props.diceImageStyle]}
-          source={require('../../ressources/images/d10.png')}
+          source={require('../../ressources/images/d10_dark.png')}
         />
         {text}
       </TouchableWithoutFeedback>

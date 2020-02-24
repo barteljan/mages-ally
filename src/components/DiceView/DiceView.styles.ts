@@ -17,16 +17,16 @@ export const makeDiceViewStyles = (theme: Theme) =>
       width: 64,
       height: 64,
       resizeMode: 'contain',
-      tintColor: theme.colors.disabled,
+      tintColor: theme.colors.accent,
     },
     diceText: {
       position: 'absolute',
-      top: 26,
-      fontSize: 18,
+
+      fontSize: 16,
       fontFamily: 'Arial',
-      color: theme.colors.disabled,
+      color: theme.colors.background,
     },
-    diceTextOneDigit: {left: 26},
-    diceTextTwoDigits: {left: 22},
+    diceTextOneDigit: {left: 27, top: 18},
+    diceTextTwoDigits: {left: 24, fontSize: 13, top: 20.5},
     diceTextThreeDigits: {left: 22, fontSize: 12, top: 32},
   });
