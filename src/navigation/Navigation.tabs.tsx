@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import {
   createBottomTabNavigator,
   BottomTabNavigationOptions,
@@ -65,7 +65,15 @@ function screenOptions(nav: Route): BottomTabNavigationOptions {
         default:
           return (
             <View style={styles.iconContainer}>
-              <Icon name="dice" size={props.size - 3} color={props.color} />
+              <Image
+                source={require('../ressources/images/d10_dark.png')}
+                style={{
+                  width: props.size + 9,
+                  height: props.size + 9,
+                  resizeMode: 'contain',
+                  tintColor: props.color,
+                }}
+              />
             </View>
           );
       }
