@@ -1,6 +1,6 @@
 import {makeSpellCastingConfig} from '../Spell.config';
 import {makeSpellCaster} from '../Spell.config.caster';
-import {spellModifiersFromSpellConfig} from './spellModifiersFromSpellConfig';
+import {spellFromConfig} from './spellFromConfig';
 import * as ModifiersFromCaster from './spellModifiersFromCaster';
 import * as ModifiersFromSpecification from './spellModifiersFromSpecification';
 import * as ModifiersFromParadoxCircumstances from './spellModifiersFromParadoxCircumstances';
@@ -24,7 +24,7 @@ test('calls spellModifiersFromCaster', () => {
 
   const spy = jest.spyOn(ModifiersFromCaster, 'spellModifiersFromCaster');
 
-  spellModifiersFromSpellConfig(config);
+  spellFromConfig(config);
   expect(spy).toBeCalled();
 });
 
@@ -36,7 +36,7 @@ test('calls spellModifiersFromSpecification', () => {
     'spellModifiersFromSpecification',
   );
 
-  spellModifiersFromSpellConfig(config);
+  spellFromConfig(config);
   expect(spy).toBeCalled();
 });
 
@@ -48,7 +48,7 @@ test('calls spellModifiersFromParadoxCircumstances', () => {
     'spellModifiersFromParadoxCircumstances',
   );
 
-  spellModifiersFromSpellConfig(config);
+  spellFromConfig(config);
   expect(spy).toBeCalled();
 });
 
@@ -70,7 +70,7 @@ test('Result has 9 dices for gnosis 5, mind 4', () => {
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -95,7 +95,7 @@ test('Result has 12 dices for gnosis 5, mind 4, spending willpower', () => {
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -131,7 +131,7 @@ test('Result has 16 dices for gnosis 5, mind 4, spending willpower as a rote wit
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -170,7 +170,7 @@ test('Result has 12 dices for gnosis 5, mind 4, spending willpower as a rote wit
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -210,7 +210,7 @@ test('Result has 14 dices for gnosis 5, mind 4, spending willpower as a rote wit
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -251,7 +251,7 @@ test('Result has 10 dices for gnosis 5, mind 4, spending willpower as a rote wit
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -294,7 +294,7 @@ test('Result has 8 dices for gnosis 5, mind 4, spending willpower as a rote with
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
 
   let dices = result.roll.dices.number;
 
@@ -319,7 +319,7 @@ test('free reach is calculated correctly for a rote', () => {
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
   expect(result.reaches.free).toBe(5);
 });
 
@@ -341,7 +341,7 @@ test('free reach is calculated correctly for a improvised spell', () => {
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
   expect(result.reaches.free).toBe(3);
 });
 
@@ -364,24 +364,24 @@ test('paradox from reach is calculated correctly', () => {
     'spells_id',
   );
 
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
   expect(result.roll.paradox.number).toBe(2);
 });
 
 test('no reach is created with default config', () => {
   let config = makeSpellCastingConfig();
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
   expect(result.reaches.needed).toBe(0);
 });
 
 test('no paradox dice is created with default config ', () => {
   let config = makeSpellCastingConfig();
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
   expect(result.roll.paradox.number).toBe(0);
 });
 
 test('two spell casting dice are created with default config (gnosis 1/arkanum 1)', () => {
   let config = makeSpellCastingConfig();
-  const result = spellModifiersFromSpellConfig(config);
+  const result = spellFromConfig(config);
   expect(result.roll.dices.number).toBe(2);
 });

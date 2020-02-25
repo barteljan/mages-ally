@@ -3,7 +3,7 @@ import {EditSpellScreen} from './EditSpell.screen';
 import {EditSpellProps} from './EditSpell.props';
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {AppState} from '../../../redux/AppState';
-import {addedSpellCastingConfig} from './AddSpell.selectors';
+import {addedSpellCastingConfig, addedSpell} from './AddSpell.selectors';
 import {
   setNumberValueAction,
   setStringValueAction,
@@ -14,6 +14,7 @@ import {
 import {Theme} from 'react-native-paper';
 import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
 import {SpellFactorLevel} from '../../../rules/spells/spell-factors/SpellFactor.level';
+import {Spell} from '../../../rules/spells/Spell';
 
 type OwnProps = {
   theme: Theme;
@@ -21,6 +22,7 @@ type OwnProps = {
 
 type StateProps = {
   spellCastingConfig: SpellCastingConfig;
+  spell: Spell;
 };
 
 type DispatchProps = {
@@ -45,9 +47,10 @@ type DispatchProps = {
 
 const mapStateToProps = (state: AppState): StateProps => {
   const config = addedSpellCastingConfig(state);
-
+  const spell = addedSpell(state);
   return {
     spellCastingConfig: config!,
+    spell: spell!,
   };
 };
 
@@ -67,6 +70,7 @@ const mergeProps: MergeProps<
 > = (stateProps, dispatchProps, ownProps) => {
   return {
     spellCastingConfig: stateProps.spellCastingConfig,
+    spell: stateProps.spell,
     setValue: dispatchProps.setValue,
     setStringValue: dispatchProps.setStringValue,
     setBooleanValue: dispatchProps.setBooleanValue,

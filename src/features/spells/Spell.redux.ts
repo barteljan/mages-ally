@@ -15,6 +15,8 @@ import {
   makeDefaultAdditionalSpellCastingDice,
 } from '../../rules/spells/Spell.config.caster';
 import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.level';
+import {Spell} from '../../rules/spells/Spell';
+import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
@@ -23,6 +25,7 @@ export type SpellsState = {
 export type SpellState = {
   spellCastingConfig: SpellCastingConfig;
   status: SpellStatus;
+  spell: Spell;
 };
 
 export enum SpellActionTypes {
@@ -226,5 +229,7 @@ export const spellReducer = produce(
         break;
       }
     }
+
+    spell.spell = spellFromConfig(spell.spellCastingConfig);
   },
 );

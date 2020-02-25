@@ -1,12 +1,6 @@
 import {SpellCastingConfig} from '../Spell.config';
-import {
-  spellModifiersFromCaster,
-  SpellModifiersFromCasterResult,
-} from './spellModifiersFromCaster';
-import {
-  spellModifiersFromSpecification,
-  SpellModifiersFromSpecificationResult,
-} from './spellModifiersFromSpecification';
+import {spellModifiersFromCaster} from './spellModifiersFromCaster';
+import {spellModifiersFromSpecification} from './spellModifiersFromSpecification';
 import StringMap from '../../../data-types/StringMap';
 import {BaseDiceModifier, toDiceModifier} from '../../model/BaseDiceModifier';
 import {
@@ -14,10 +8,7 @@ import {
   toReachModifier,
 } from '../../model/BaseReachModifier';
 import {BaseManaModifier, toManaModifier} from '../../model/BaseManaModifier';
-import {
-  SpellModifiersFromParadoxCircumstances,
-  spellModifiersFromParadoxCircumstances,
-} from './spellModifiersFromParadoxCircumstances';
+import {spellModifiersFromParadoxCircumstances} from './spellModifiersFromParadoxCircumstances';
 import {
   BaseParadoxModifier,
   toParadoxModifier,
@@ -25,43 +16,13 @@ import {
 import {
   DiceRollAgainType,
   bestRollAgainType,
-} from '../../../rules/dice-roll/DiceRollAgainType';
-import {
-  makeParadoxDiceFromReachValue,
-  ParadoxDiceFromReachValue,
-} from '../spell-values/ParadoxDiceFromReachValue';
-import {SpellValueIds} from '../spell-values/SpellValueIds';
+} from '../../dice-roll/DiceRollAgainType';
+import {makeParadoxDiceFromReachValue} from '../spell-values/ParadoxDiceFromReachValue';
 import {SpellType} from '../Spell.type';
+import {gnosisRules} from '../../gnosis/gnosisRules';
+import {Spell} from '../Spell';
 
-export type SpellRoll = {
-  dices: {
-    number: number;
-    type: DiceRollAgainType;
-  };
-  paradox: {
-    number: number;
-    type: DiceRollAgainType;
-  };
-};
-
-export type SpellModifiersFromSpellConfigResult = {
-  modifiers:
-    | SpellModifiersFromCasterResult
-    | SpellModifiersFromSpecificationResult
-    | (SpellModifiersFromParadoxCircumstances & {
-        [SpellValueIds.paradoxDiceFromReach]?: ParadoxDiceFromReachValue;
-      });
-  roll: SpellRoll;
-  reaches: {
-    free: number;
-    needed: number;
-  };
-  mana: number;
-};
-
-export function spellModifiersFromSpellConfig(
-  config: SpellCastingConfig,
-): SpellModifiersFromSpellConfigResult {
+export function spellFromConfig(config: SpellCastingConfig): Spell {
   let modifiers: StringMap<
     | BaseDiceModifier
     | BaseReachModifier
@@ -148,16 +109,24 @@ export function spellModifiersFromSpellConfig(
     paradoxDice = 1;
   }
 
+  const rollSuccessesForExceptionalSuccess =
+    config.spell.type === SpellType.praxis ? 3 : 5;
+
+  const gnosis = config.caster.gnosis.diceModifier;
+  const yantrasMax = gnosis === 0 ? 0 : gnosisRules[gnosis - 1].yantrasMax;
+
   return {
-    modifiers: modifiers as SpellModifiersFromSpellConfigResult['modifiers'],
+    modifiers: modifiers as Spell['modifiers'],
     roll: {
       dices: {
         number: numberOfDices,
         type: DiceRollAgainType.tenAgain,
+        successesForExceptionalSuccess: rollSuccessesForExceptionalSuccess,
       },
       paradox: {
         number: paradoxDice,
         type: paradoxDiceType,
+        successesForExceptionalSuccess: 5,
       },
     },
     reaches: {
@@ -165,5 +134,6 @@ export function spellModifiersFromSpellConfig(
       free: freeReaches,
     },
     mana: neededMana,
+    maxYantras: yantrasMax,
   };
 }

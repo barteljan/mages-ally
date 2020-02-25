@@ -21,6 +21,7 @@ export type EditDiceStrings = {
   spell_type_title: string;
   rote_skill_title: string;
   spell_factor_section_title: string;
+  yantra_section_title: string;
 };
 
 export enum VariablePlaceholder {
@@ -53,6 +54,7 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     spell_type_title: 'Type',
     rote_skill_title: 'Rote Skill',
     spell_factor_section_title: 'Spell Factors',
+    yantra_section_title: 'Yantras',
   },
 });
 

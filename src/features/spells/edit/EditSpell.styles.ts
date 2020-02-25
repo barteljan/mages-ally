@@ -6,6 +6,7 @@ export type EditSpellsStyle = {
   container: ViewStyle;
   containerContent: ViewStyle;
   section: ViewStyle;
+  scrollView: ViewStyle;
   accordion: ViewStyle;
   accordionIcon: ViewStyle;
   title: TextStyle;
@@ -18,9 +19,11 @@ export const makeEditSpellStyles = (theme: Theme) =>
   StyleSheet.create<EditSpellsStyle>({
     container: {
       flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    scrollView: {
       paddingVertical: 15,
       paddingHorizontal: 15,
-      backgroundColor: theme.colors.background,
     },
     containerContent: {
       alignItems: 'center',
