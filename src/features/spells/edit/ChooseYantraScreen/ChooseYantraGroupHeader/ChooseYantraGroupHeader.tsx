@@ -1,18 +1,9 @@
 import React from 'react';
 import {DynamiclyStyledPureComponent} from '../../../../../components/DynamiclyStyledPureComponent';
 import {Theme} from 'react-native-paper';
-import {Text, StyleSheet, View, TextStyle, ViewStyle} from 'react-native';
-
-export type ChooseYantraGroupHeaderProps = {
-  theme: Theme;
-  title: string;
-};
-
-export type ChooseYantraGroupHeaderStyle = {
-  container: ViewStyle;
-  contentContainer: ViewStyle;
-  label: TextStyle;
-};
+import {Text, StyleSheet, View} from 'react-native';
+import {ChooseYantraGroupHeaderStyle} from './ChooseYantraGroupHeader.style';
+import {ChooseYantraGroupHeaderProps} from './ChooseYantraGroupHeader.props';
 
 export const makeChooseYantraGroupHeaderStyle = (theme: Theme) =>
   StyleSheet.create<ChooseYantraGroupHeaderStyle>({

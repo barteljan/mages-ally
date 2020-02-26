@@ -12,6 +12,7 @@ import {
 import {AddYantraButton} from './AddYantraButton/AddYantraButton';
 import {LayoutAnimation} from 'react-native';
 import {YantraRow} from './YantraRow/YantraRow';
+import {YantraDescription} from './YantraDescription/YantraDescription';
 
 export class YantraSection extends DynamiclyStyledPureComponent<
   YantraSectionProps,
@@ -74,6 +75,12 @@ export class YantraSection extends DynamiclyStyledPureComponent<
             title={localization.yantra_section_title}
             iconName="flask"
             collapsed={collapsed}
+            description={
+              <YantraDescription
+                spellCastingConfig={this.props.spellCastingConfig}
+                theme={this.props.theme}
+              />
+            }
           />
         )}
         containerStyles={styles.section}

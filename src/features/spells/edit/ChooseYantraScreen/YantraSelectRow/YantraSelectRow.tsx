@@ -3,9 +3,9 @@ import {Text, View} from 'react-native';
 import {DynamiclyStyledPureComponent} from '../../../../../components/DynamiclyStyledPureComponent';
 import {DotSelect} from '../../../../../components/DotSelect/DotSelect';
 import {yantraLabel} from '../../../../../rules/spells/yantra/Yantra.strings';
-import {makeYantraSelectRowStyle} from './YantraSelectRowStyle';
-import {YantraSelectRowProps} from './YantraSelectRowProps';
-import {YantraSelectRowStyle} from './YantraSelectRowStyle';
+import {makeYantraSelectRowStyle} from './YantraSelectRow.style';
+import {YantraSelectRowProps} from './YantraSelectRow.props';
+import {YantraSelectRowStyle} from './YantraSelectRow.style';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export class YantraSelectRow extends DynamiclyStyledPureComponent<
