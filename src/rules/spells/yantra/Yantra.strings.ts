@@ -1,5 +1,6 @@
 import {YantraType} from './Yantra.type';
 import LocalizedStrings from 'react-native-localization';
+import {YantraGroups} from './Yantra.group';
 
 export type YantraTitleStrings = {
   [YantraType.demesne]: string;
@@ -42,6 +43,26 @@ export type YantraDescriptionStrings = {
   [YantraType.persona]: string;
   [YantraType.custom]: string;
 };
+
+export type YantraGroupStrings = {
+  [YantraGroups.actions]: string;
+  [YantraGroups.location]: string;
+  [YantraGroups.tools]: string;
+};
+
+export function yantraLabel(identifier: string): string | undefined {
+  return yantraTitleLocalization[identifier as YantraType];
+}
+
+export const yantraGroupLocalization = new LocalizedStrings<YantraGroupStrings>(
+  {
+    en: {
+      [YantraGroups.actions]: 'Actions',
+      [YantraGroups.location]: 'Locations',
+      [YantraGroups.tools]: 'Tools',
+    },
+  },
+);
 
 export const yantraTitleLocalization = new LocalizedStrings<YantraTitleStrings>(
   {
@@ -90,9 +111,9 @@ export const yantraDescriptionLocalization = new LocalizedStrings<
     [YantraType.orderTool]:
       'Tools which draw upon an Order’s symbols rather than those of the Supernal world directly, focusing magic in a way that matches their teachings.',
     [YantraType.materialSympathy]:
-      'An item sympathetically linked to the subject <i>as they are now</i>. At least one sympathetic tool is required for sympathetic casting. Does not grant a bonus when used with Sympathetic Range or Temporal Sympathy Attainments.',
+      'An item sympathetically linked to the subject as they are now. At least one sympathetic tool is required for sympathetic casting. Does not grant a bonus when used with Sympathetic Range or Temporal Sympathy Attainments.',
     [YantraType.representationalSympathy]:
-      'An item sympathetically linked to the subject <i>as they were previously</i>. At least one sympathetic tool is required for sympathetic casting. Does not grant a bonus when used with Sympathetic Range or Temporal Sympathy Attainments.',
+      'An item sympathetically linked to the subject as they were previously. At least one sympathetic tool is required for sympathetic casting. Does not grant a bonus when used with Sympathetic Range or Temporal Sympathy Attainments.',
     [YantraType.symbolicSympathy]:
       'An indirect representation of the subject. At least one sympathetic tool is required for sympathetic casting.',
     [YantraType.sacrament]:

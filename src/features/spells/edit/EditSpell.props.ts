@@ -25,4 +25,7 @@ export type EditSpellProps = {
     value: number,
     parent: string,
   ) => void;
+  deleteYantra: (id: string, parent: string) => void;
+  setYantraValue: (identifier: string, value: number, parent: string) => void;
+  chooseYantra: (parent: string) => void;
 };

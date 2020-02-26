@@ -19,7 +19,7 @@ export function TabNavigation() {
     <Tab.Navigator
       screenOptions={screenOptions}
       tabBarOptions={{
-        activeTintColor: theme.colors.accent,
+        activeTintColor: theme.colors.primary,
         inactiveTintColor: theme.colors.disabled,
         showLabel: false,
       }}>

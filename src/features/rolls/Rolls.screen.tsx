@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Platform} from 'react-native';
+import {View, Platform, Text} from 'react-native';
 import {RollsStyle, makeRollsStyle} from './Rolls.styles';
 import {RollsProps} from './Rolls.props';
 import RollsAddButton from './add-button/RollsAddButton.container';
@@ -33,6 +33,12 @@ class _RollsScreen extends DynamiclyStyledPureComponent<
           style={this.state.styles.list}
           data={this.props.rolls}
           renderItem={this.renderItem}
+          contentContainerStyle={this.state.styles.contentContainerStyle}
+          ListEmptyComponent={
+            <View style={this.state.styles.emptyComponentContainer}>
+              <Text>No rolls found!</Text>
+            </View>
+          }
         />
         {button}
       </View>

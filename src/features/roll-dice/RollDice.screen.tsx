@@ -135,7 +135,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
         <DiceSelect
           numberOfDice={visibleNumberOfDice}
           value={this.props.numberOfDice}
-          selectedColor={this.props.theme.colors.accent}
+          selectedColor={this.props.theme.colors.primary}
           selectedTextColor={this.props.theme.colors.background}
           unselectedTextColor={this.props.theme.colors.background}
           unselectedColor={this.props.theme.colors.disabled}
@@ -158,7 +158,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
           selectedButtonStyle={this.state.styles.selectedButtonStyle}
           selectedIndex={tenAgainSelectedIndex}
           onPress={this.onChangeRollAgainType}
-          underlayColor={this.props.theme.colors.accent}
+          underlayColor={this.props.theme.colors.primary}
           containerStyle={this.state.styles.buttonGroupStyle}
         />
         <Text style={this.state.styles.optionsTitle}>
@@ -169,7 +169,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
           selectedButtonStyle={this.state.styles.selectedButtonStyle}
           selectedIndex={this.props.exceptionalSuccessAt - 1}
           onPress={this.onChangeExceptionalSuccess}
-          underlayColor={this.props.theme.colors.accent}
+          underlayColor={this.props.theme.colors.primary}
           containerStyle={this.state.styles.buttonGroupStyle}
         />
       </ScrollView>

@@ -1,4 +1,11 @@
 import {YantraType} from './Yantra.type';
+import {
+  yantraGroupLocalization,
+  yantraDescriptionLocalization,
+  yantraTitleLocalization,
+} from './Yantra.strings';
+import {SectionListData} from 'react-native';
+import {staticYantras, BaseYantra} from './yantra';
 
 export enum YantraGroups {
   location = 'location',
@@ -6,38 +13,57 @@ export enum YantraGroups {
   tools = 'tools',
 }
 
-export type YantraGroup = {
-  id: string;
-  ids: string[];
+export const decorateWithNameAndDescription = (
+  yantra: any,
+): BaseYantra<YantraType, number, string> => {
+  if (!yantra.name) {
+    yantra.name = yantraTitleLocalization[yantra.yantraType as YantraType];
+  }
+
+  if (!yantra.description) {
+    yantra.description =
+      yantraDescriptionLocalization[yantra.yantraType as YantraType];
+  }
+
+  return yantra;
 };
 
-export const yantraGroups: YantraGroup[] = [
-  {
-    id: YantraGroups.location,
-    ids: [YantraType.demesne, YantraType.location, YantraType.verge],
-  },
-  {
-    id: YantraGroups.actions,
-    ids: [
-      YantraType.roteSkill,
-      YantraType.concentration,
-      YantraType.highSpeech,
-      YantraType.runes,
-    ],
-  },
-  {
-    id: YantraGroups.tools,
-    ids: [
-      YantraType.dedicatedTool,
-      YantraType.pathTool,
-      YantraType.orderTool,
-      YantraType.materialSympathy,
-      YantraType.representationalSympathy,
-      YantraType.symbolicSympathy,
-      YantraType.sacrament,
-      YantraType.rareSacrament,
-      YantraType.otherworldlySacrament,
-      YantraType.persona,
-    ],
-  },
-];
+export const makeChoosableYantras = () => {
+  const choosableYantras: SectionListData<
+    BaseYantra<YantraType, number, string>
+  >[] = [
+    {
+      title: yantraGroupLocalization.location,
+      data: [
+        decorateWithNameAndDescription(staticYantras.demesne),
+        decorateWithNameAndDescription(staticYantras.location),
+        decorateWithNameAndDescription(staticYantras.verge),
+      ],
+    },
+    {
+      title: yantraGroupLocalization.actions,
+      data: [
+        decorateWithNameAndDescription(staticYantras.roteSkill),
+        decorateWithNameAndDescription(staticYantras.concentration),
+        decorateWithNameAndDescription(staticYantras.highSpeech),
+        decorateWithNameAndDescription(staticYantras.runes),
+      ],
+    },
+    {
+      title: yantraGroupLocalization.tools,
+      data: [
+        decorateWithNameAndDescription(staticYantras.dedicatedTool),
+        decorateWithNameAndDescription(staticYantras.pathTool),
+        decorateWithNameAndDescription(staticYantras.orderTool),
+        decorateWithNameAndDescription(staticYantras.materialSympathy),
+        decorateWithNameAndDescription(staticYantras.representationalSympathy),
+        decorateWithNameAndDescription(staticYantras.symbolicSympathy),
+        decorateWithNameAndDescription(staticYantras.sacrament),
+        decorateWithNameAndDescription(staticYantras.rareSacrament),
+        decorateWithNameAndDescription(staticYantras.otherworldlySacrament),
+        decorateWithNameAndDescription(staticYantras.persona),
+      ],
+    },
+  ];
+  return choosableYantras;
+};

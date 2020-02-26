@@ -48,7 +48,7 @@ export class SpellFactorOverlay extends DynamiclyStyledPureComponent<
         isVisible={this.props.isVisible}
         onBackdropPress={this.props.onBackdropPress}
         supportedOrientations={['portrait', 'landscape']}
-        fullScreen={false}
+        animationType={'fade'}
         height={this.props.height}>
         <View style={this.state.styles.container}>
           <ButtonGroup

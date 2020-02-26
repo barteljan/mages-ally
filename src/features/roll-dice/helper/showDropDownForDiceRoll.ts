@@ -18,7 +18,7 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
           .replace(LocalizationParams.diceString, diceString)
           .replace(LocalizationParams.successes, roll.successes + ''),
         type: 'success',
-        backgroundColor: theme.colors.accent,
+        backgroundColor: theme.colors.primary,
       });
       break;
     case DiceRollOutcome.exceptionalSuccess:
@@ -29,7 +29,7 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
           .replace(LocalizationParams.diceString, diceString)
           .replace(LocalizationParams.successes, roll.successes + ''),
         type: 'success',
-        backgroundColor: theme.colors.accent,
+        backgroundColor: theme.colors.primary,
       });
       break;
     case DiceRollOutcome.failure:

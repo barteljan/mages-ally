@@ -4,6 +4,7 @@ import {Routes} from './Routes';
 import {localization} from './Navigation.strings';
 import EditSpellScreen from '../features/spells/edit/AddSpell.container';
 import AddButton from '../features/spells/add-button/SpellsAddButton.container';
+import ChooseYantrasScreen from '../features/spells/edit/ChooseYantraScreen/ChooseYantra.container';
 import {Platform} from 'react-native';
 import {theme} from '../layout/Theme';
 
@@ -17,7 +18,7 @@ export function SpellsStackScreen() {
         component={EditSpellScreen}
         options={{
           title: localization.spells_route_title,
-          headerTintColor: theme.colors.accent,
+          headerTintColor: theme.colors.primary,
           headerRight: () => (Platform.OS === 'ios' ? <AddButton /> : null),
         }}
       />
@@ -26,7 +27,15 @@ export function SpellsStackScreen() {
         component={EditSpellScreen}
         options={{
           title: localization.add_spell_route_title,
-          headerTintColor: theme.colors.accent,
+          headerTintColor: theme.colors.primary,
+        }}
+      />
+      <SpellsStack.Screen
+        name={Routes.chooseYantras}
+        component={ChooseYantrasScreen}
+        options={{
+          title: localization.choose_yantras_route_title,
+          headerTintColor: theme.colors.primary,
         }}
       />
     </SpellsStack.Navigator>

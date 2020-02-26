@@ -21,7 +21,7 @@ class _InputContainer extends DynamiclyStyledPureComponent<
     return (
       <View style={[this.state.styles.container, this.props.containerStyle]}>
         <Text
-          style={this.state.styles.label}
+          style={[this.state.styles.label, this.props.titleStyle]}
           key={'InputContainer_' + this.props.title}>
           {this.props.title}
         </Text>

@@ -1,24 +1,38 @@
 import {AppState} from '../redux/AppState';
-import {Epic} from 'redux-observable';
+import {Epic, combineEpics} from 'redux-observable';
 import {map, filter} from 'rxjs/operators';
 import {
   triggeredNavigationAction,
   NavigationAction,
   navigateToAction,
+  popAction,
+  poppedAction,
 } from './Navigation.actions';
-import {navigate} from './Navigation.service';
+import {navigate, pop} from './Navigation.service';
 import {RootAction} from '../redux/rootReducer';
 import {isActionOf} from 'typesafe-actions';
 
-export const navigationEpic: Epic<
-  RootAction,
-  NavigationAction,
-  AppState
-> = action$ =>
+const navEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
     filter(isActionOf(navigateToAction)),
     map(action => {
-      navigate(action.payload);
-      return triggeredNavigationAction(action.payload);
+      console.log('navigate:', action);
+      navigate(action.payload.route, action.payload.parameters);
+      return triggeredNavigationAction(
+        action.payload.route,
+        action.payload.parameters,
+      );
     }),
   );
+
+export const popEpic: Epic<RootAction, NavigationAction, AppState> = action$ =>
+  action$.pipe(
+    filter(isActionOf(popAction)),
+    map(action => {
+      console.log('pop:', action);
+      pop();
+      return poppedAction();
+    }),
+  );
+
+export const navigationEpic = combineEpics(navEpic, popEpic);

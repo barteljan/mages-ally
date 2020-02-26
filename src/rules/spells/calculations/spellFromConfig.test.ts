@@ -1,4 +1,4 @@
-import {makeSpellCastingConfig} from '../Spell.config';
+import {makeSpellCastingConfig, SpellCastingConfig} from '../Spell.config';
 import {makeSpellCaster} from '../Spell.config.caster';
 import {spellFromConfig} from './spellFromConfig';
 import * as ModifiersFromCaster from './spellModifiersFromCaster';
@@ -18,6 +18,11 @@ import {makeCharacterSkill} from '../../character/CharacterSkill';
 import {makeSpellFactor} from '../spell-factors/SpellFactor';
 import {YantraType} from '../yantra/Yantra.type';
 import {GameValueType} from '../../../GameValueTypes';
+import {
+  GnosisRules,
+  RitualIntervalUnit,
+} from '../../../rules/gnosis/GnosisRule';
+import {makeRoteYantra} from '../yantra/yantra';
 
 test('calls spellModifiersFromCaster', () => {
   let config = makeSpellCastingConfig();
@@ -116,14 +121,7 @@ test('Result has 16 dices for gnosis 5, mind 4, spending willpower as a rote wit
   const spellSpecification = makeSpellSpecification({
     type: SpellType.rote,
     roteSkill: makeCharacterSkill('empathy', {diceModifier: 4}),
-    yantras: [
-      {
-        id: YantraType.roteSkill,
-        diceModifier: 4,
-        type: GameValueType.yantra,
-        yantraType: YantraType.roteSkill,
-      },
-    ],
+    yantras: [makeRoteYantra(4)],
   });
 
   let config = makeSpellCastingConfig(
@@ -155,14 +153,7 @@ test('Result has 12 dices for gnosis 5, mind 4, spending willpower as a rote wit
     spellFactors: makeSpellSpecificationSpellFactors({
       potency: makeSpellFactor(SpellFactorType.potency, {value: 6}),
     }),
-    yantras: [
-      {
-        id: YantraType.roteSkill,
-        diceModifier: 4,
-        type: GameValueType.yantra,
-        yantraType: YantraType.roteSkill,
-      },
-    ],
+    yantras: [makeRoteYantra(4)],
   });
 
   let config = makeSpellCastingConfig(
@@ -195,14 +186,7 @@ test('Result has 14 dices for gnosis 5, mind 4, spending willpower as a rote wit
       potency: makeSpellFactor(SpellFactorType.potency, {value: 6}),
       castingTime: makeSpellFactor(SpellFactorType.castingTime, {value: 3}),
     }),
-    yantras: [
-      {
-        id: YantraType.roteSkill,
-        diceModifier: 4,
-        type: GameValueType.yantra,
-        yantraType: YantraType.roteSkill,
-      },
-    ],
+    yantras: [makeRoteYantra(4)],
   });
 
   let config = makeSpellCastingConfig(
@@ -236,14 +220,7 @@ test('Result has 10 dices for gnosis 5, mind 4, spending willpower as a rote wit
       castingTime: makeSpellFactor(SpellFactorType.castingTime, {value: 3}),
       duration: makeSpellFactor(SpellFactorType.duration, {value: 3}),
     }),
-    yantras: [
-      {
-        id: YantraType.roteSkill,
-        diceModifier: 4,
-        type: GameValueType.yantra,
-        yantraType: YantraType.roteSkill,
-      },
-    ],
+    yantras: [makeRoteYantra(4)],
   });
 
   let config = makeSpellCastingConfig(
@@ -279,14 +256,7 @@ test('Result has 8 dices for gnosis 5, mind 4, spending willpower as a rote with
       range: makeSpellFactor(SpellFactorType.range, {value: 1}),
       scale: makeSpellFactor(SpellFactorType.scale, {value: 2}),
     }),
-    yantras: [
-      {
-        id: YantraType.roteSkill,
-        diceModifier: 4,
-        type: GameValueType.yantra,
-        yantraType: YantraType.roteSkill,
-      },
-    ],
+    yantras: [makeRoteYantra(4)],
   });
 
   let config = makeSpellCastingConfig(
@@ -384,4 +354,253 @@ test('two spell casting dice are created with default config (gnosis 1/arkanum 1
   let config = makeSpellCastingConfig();
   const result = spellFromConfig(config);
   expect(result.roll.dices.number).toBe(2);
+});
+
+const configForArcanumAndReach = (params: {
+  gnosis: number;
+  highestArcanumValue: number;
+  requiredArcanumValue: number;
+  reaches: number;
+}): SpellCastingConfig =>
+  makeSpellCastingConfig(
+    {
+      caster: makeSpellCaster({
+        highestSpellArcanum: makeCharactersArcanum(ArcanaType.mind, {
+          diceModifier: params.highestArcanumValue,
+        }),
+        gnosis: makeGnosisValue({diceModifier: params.gnosis}),
+      }),
+      spell: makeSpellSpecification({
+        requiredArcanumValue: params.requiredArcanumValue,
+        type: SpellType.improvised,
+        roteSkill: makeCharacterSkill('empathy', {diceModifier: 4}),
+        additionalSpecs: makeSpellSpecificationAdditionalSpecs({
+          extraReach: params.reaches,
+        }),
+      }),
+    },
+    'spells_id',
+  );
+
+test('paradox is correctly calculated from reaches and gnosis 1', () => {
+  const spell1 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 1,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 2,
+    }),
+  );
+
+  expect(spell1.reaches.free).toBe(1);
+  expect(spell1.reaches.needed).toBe(2);
+  expect(spell1.roll.paradox.number).toBe(1);
+
+  const spell2 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 1,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 3,
+    }),
+  );
+
+  expect(spell2.reaches.free).toBe(1);
+  expect(spell2.reaches.needed).toBe(3);
+  expect(spell2.roll.paradox.number).toBe(2);
+});
+
+test('paradox is correctly calculated from reaches and gnosis 3', () => {
+  const spell1 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 3,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 2,
+    }),
+  );
+
+  expect(spell1.reaches.free).toBe(1);
+  expect(spell1.reaches.needed).toBe(2);
+  expect(spell1.roll.paradox.number).toBe(2);
+
+  const spell2 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 3,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 3,
+    }),
+  );
+
+  expect(spell2.reaches.free).toBe(1);
+  expect(spell2.reaches.needed).toBe(3);
+  expect(spell2.roll.paradox.number).toBe(4);
+});
+
+test('paradox is correctly calculated from reaches and gnosis 5', () => {
+  const spell1 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 5,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 2,
+    }),
+  );
+
+  expect(spell1.reaches.free).toBe(1);
+  expect(spell1.reaches.needed).toBe(2);
+  expect(spell1.roll.paradox.number).toBe(3);
+
+  const spell2 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 5,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 3,
+    }),
+  );
+
+  expect(spell2.reaches.free).toBe(1);
+  expect(spell2.reaches.needed).toBe(3);
+  expect(spell2.roll.paradox.number).toBe(6);
+});
+
+test('paradox is correctly calculated from reaches and gnosis 7', () => {
+  const spell1 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 7,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 2,
+    }),
+  );
+
+  expect(spell1.reaches.free).toBe(1);
+  expect(spell1.reaches.needed).toBe(2);
+  expect(spell1.roll.paradox.number).toBe(4);
+
+  const spell2 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 7,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 3,
+    }),
+  );
+
+  expect(spell2.reaches.free).toBe(1);
+  expect(spell2.reaches.needed).toBe(3);
+  expect(spell2.roll.paradox.number).toBe(8);
+});
+
+test('paradox is correctly calculated from reaches and gnosis 9', () => {
+  const spell1 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 9,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 2,
+    }),
+  );
+
+  expect(spell1.reaches.free).toBe(1);
+  expect(spell1.reaches.needed).toBe(2);
+  expect(spell1.roll.paradox.number).toBe(5);
+
+  const spell2 = spellFromConfig(
+    configForArcanumAndReach({
+      gnosis: 9,
+      highestArcanumValue: 1,
+      requiredArcanumValue: 1,
+      reaches: 3,
+    }),
+  );
+
+  expect(spell2.reaches.free).toBe(1);
+  expect(spell2.reaches.needed).toBe(3);
+  expect(spell2.roll.paradox.number).toBe(10);
+});
+
+test('successesForExceptionalSuccesses is calculated correctly for rote spell', () => {
+  const spell = spellFromConfig(
+    makeSpellCastingConfig({
+      spell: makeSpellSpecification({type: SpellType.rote}),
+    }),
+  );
+
+  expect(spell.roll.dices.successesForExceptionalSuccess).toBe(5);
+  expect(spell.roll.paradox.successesForExceptionalSuccess).toBe(5);
+});
+
+test('successesForExceptionalSuccesses is calculated correctly for praxis spell', () => {
+  const spell = spellFromConfig(
+    makeSpellCastingConfig({
+      spell: makeSpellSpecification({type: SpellType.praxis}),
+    }),
+  );
+
+  expect(spell.roll.dices.successesForExceptionalSuccess).toBe(3);
+  expect(spell.roll.paradox.successesForExceptionalSuccess).toBe(5);
+});
+
+test('successesForExceptionalSuccesses is calculated correctly for improvised spell', () => {
+  const spell = spellFromConfig(
+    makeSpellCastingConfig({
+      spell: makeSpellSpecification({type: SpellType.improvised}),
+    }),
+  );
+
+  expect(spell.roll.dices.successesForExceptionalSuccess).toBe(5);
+  expect(spell.roll.paradox.successesForExceptionalSuccess).toBe(5);
+});
+
+const makeMaxYantrasGnosisRule = (maxYantras: number): GnosisRules => {
+  return {
+    gnosis: 42,
+    ritualInterval: 42,
+    ritualIntervalTimeUnit: RitualIntervalUnit.hour,
+    manaLimit: 42,
+    manaPerTurn: 42,
+    traitMax: 42,
+    yantrasMax: maxYantras,
+    paradoxCreated: 42,
+    combinedSpells: 42,
+    obsessions: 42,
+    highestArcanumMax: 42,
+    otherArcanumMax: 42,
+  };
+};
+
+test('number of yantra is calculated correctly from gnosis rules for gnosis 1', () => {
+  const gnosisRules: GnosisRules[] = [makeMaxYantrasGnosisRule(11)];
+
+  const spell = spellFromConfig(
+    makeSpellCastingConfig({
+      caster: makeSpellCaster({
+        gnosis: makeGnosisValue({diceModifier: 1}),
+      }),
+    }),
+    gnosisRules,
+  );
+
+  expect(spell.maxYantras).toBe(11);
+});
+
+test('number of yantra is calculated correctly from gnosis rules for gnosis 2', () => {
+  const gnosisRules: GnosisRules[] = [
+    makeMaxYantrasGnosisRule(1),
+    makeMaxYantrasGnosisRule(22),
+  ];
+
+  const spell = spellFromConfig(
+    makeSpellCastingConfig({
+      caster: makeSpellCaster({
+        gnosis: makeGnosisValue({diceModifier: 2}),
+      }),
+    }),
+    gnosisRules,
+  );
+
+  expect(spell.maxYantras).toBe(22);
 });

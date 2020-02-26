@@ -15,7 +15,7 @@ import {EditSpellSections} from './EditSpell.sections';
 import {SpellSection} from './SpellSection/SpellSection';
 import {SpellFactorSection} from './SpellFactorSection/SpellFactorSection';
 import {YantraSection} from './YantraSection/YantraSection';
-import {SpellInformation} from './SpellInformation';
+import {SpellInformation} from './SpellInformation/SpellInformation';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;
@@ -78,7 +78,6 @@ class _EditSpellScreen extends PureComponent<
 
     const config = this.props.spellCastingConfig;
     const spell = this.props.spell;
-    console.log('spell', spell);
     const parent = config.id;
     const caster = config.caster;
 

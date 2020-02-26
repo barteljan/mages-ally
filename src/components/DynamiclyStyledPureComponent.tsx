@@ -13,7 +13,8 @@ export abstract class DynamiclyStyledPureComponent<
 
   abstract makeStyle(): Style;
 
-  componentDidUpdate() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidUpdate(prevProps: Props) {
     const styles = this.makeStyle();
     if (!isEqual(this.state.styles, styles)) {
       //@ts-ignore

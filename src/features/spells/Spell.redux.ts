@@ -9,7 +9,7 @@ import {SpellStatus} from './Spell.status';
 import {SpellFactorType} from '../../rules/spells/spell-factors/SpellFactor.type';
 import {SpellType} from '../../rules/spells/Spell.type';
 import {YantraType} from '../../rules/spells/yantra/Yantra.type';
-import {makeRoteYantra} from '../../rules/spells/yantra/yantra';
+import {makeRoteYantra, Yantra} from '../../rules/spells/yantra/yantra';
 import {
   DefaultAdditionalDiceModifier,
   makeDefaultAdditionalSpellCastingDice,
@@ -17,6 +17,7 @@ import {
 import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.level';
 import {Spell} from '../../rules/spells/Spell';
 import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
+import uuid from 'uuid';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
@@ -34,6 +35,9 @@ export enum SpellActionTypes {
   setBooleanValue = 'spell/edit/setBooleanValue',
   setSpellFactorLevel = 'spell/edit/setSpellFactorLevel',
   setSpellFactorValue = 'spell/edit/setSpellFactorValue',
+  deleteYantra = 'spell/edit/deleteYantra',
+  selectedYantra = 'spell/edit/selectedYantra',
+  setYantraValue = 'spell/edit/setYantraValue',
 }
 
 export const setNumberValueAction = createAction(
@@ -91,12 +95,46 @@ export const setSpellFactorValueAction = createAction(
   },
 )();
 
+export const deleteYantraAction = createAction(
+  SpellActionTypes.deleteYantra,
+  (id: string, parent: string) => {
+    return {
+      id,
+      parent,
+    };
+  },
+)();
+
+export const selectedYantraAction = createAction(
+  SpellActionTypes.selectedYantra,
+  (yantra: Yantra, parent: string) => {
+    return {
+      yantra,
+      parent,
+    };
+  },
+)();
+
+export const setYantraValueAction = createAction(
+  SpellActionTypes.setYantraValue,
+  (identifier: string, value: number, parent: string) => {
+    return {
+      identifier,
+      value,
+      parent,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
   setBooleanValueAction,
   setSpellFactorLevelAction,
   setSpellFactorValueAction,
+  deleteYantraAction,
+  selectedYantraAction,
+  setYantraValueAction,
 };
 
 export type SpellActions = ActionType<typeof actions>;
@@ -225,8 +263,41 @@ export const spellReducer = produce(
             }
             break;
         }
+        break;
+      }
+      case SpellActionTypes.deleteYantra: {
+        const id = action.payload.id;
+
+        spell.spellCastingConfig.spell.yantras = spell.spellCastingConfig.spell.yantras.filter(
+          yantra => yantra.id !== id,
+        );
 
         break;
+      }
+      case SpellActionTypes.selectedYantra: {
+        let yantra = action.payload.yantra;
+
+        if (yantra.unique) {
+          const currentYantraIds = spell.spellCastingConfig.spell.yantras.map(
+            item => item.id,
+          );
+          if (!currentYantraIds.includes(yantra.id)) {
+            spell.spellCastingConfig.spell.yantras.unshift(yantra);
+          }
+        } else {
+          const newYantra = {...yantra, id: uuid.v4()} as Yantra;
+          spell.spellCastingConfig.spell.yantras.unshift(newYantra);
+        }
+        break;
+      }
+      case SpellActionTypes.setYantraValue: {
+        let yantra = spell.spellCastingConfig.spell.yantras.filter(
+          yan => yan.id === action.payload.identifier,
+        );
+
+        if (yantra && yantra.length > 0) {
+          yantra[0].diceModifier = action.payload.value;
+        }
       }
     }
 

@@ -17,7 +17,7 @@ export const makeDiceViewStyles = (theme: Theme) =>
       width: 64,
       height: 64,
       resizeMode: 'contain',
-      tintColor: theme.colors.accent,
+      tintColor: theme.colors.primary,
     },
     diceText: {
       position: 'absolute',

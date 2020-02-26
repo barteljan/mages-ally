@@ -8,6 +8,6 @@ export type SpellFactorSectionStyle = {
 export const makeSpellFaktorSectionStyle = (theme: Theme) =>
   StyleSheet.create<SpellFactorSectionStyle>({
     selectedButton: {
-      backgroundColor: theme.colors.accent,
+      backgroundColor: theme.colors.primary,
     },
   });

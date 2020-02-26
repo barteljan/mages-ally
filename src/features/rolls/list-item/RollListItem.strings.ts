@@ -18,8 +18,8 @@ export const localization = new LocalizedStrings<RollListItemsString>({
     eightAgain: '8 again',
     roteQuality: 'rote quality',
     success: 'Success',
-    exceptional_success: 'Exceptional\nSuccess!',
+    exceptional_success: 'Exceptional Success!',
     failure: 'Failure',
-    dramatic_failure: 'Dramatic\nFailure!',
+    dramatic_failure: 'Dramatic Failure!',
   },
 });

@@ -8,6 +8,6 @@ export type YantraSectionStyle = {
 export const makeYantraSectionStyle = (theme: Theme) =>
   StyleSheet.create({
     selectedButton: {
-      backgroundColor: theme.colors.accent,
+      backgroundColor: theme.colors.primary,
     },
   });

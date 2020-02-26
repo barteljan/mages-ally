@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
-import {Switch} from 'react-native-paper';
+import {Switch, withTheme} from 'react-native-paper';
 import {makeMageSwitchStyle} from './MageSwitch.style';
 import {MageSwitchStyle} from './MageSwitch.style';
 import {MageSwitchProps} from './MageSwitch.props';
-import {withTheme} from 'react-native-paper';
 
 class _MageSwitch extends DynamiclyStyledPureComponent<
   MageSwitchProps,
@@ -23,6 +22,7 @@ class _MageSwitch extends DynamiclyStyledPureComponent<
         <Switch
           style={this.state.styles.switch}
           value={this.props.value}
+          color={this.props.theme.colors.primary}
           onValueChange={this.onValueChange}
         />
       </View>

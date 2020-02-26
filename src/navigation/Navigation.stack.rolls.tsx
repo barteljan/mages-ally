@@ -18,7 +18,7 @@ export function RollsStackScreen() {
         component={RollsContainer}
         options={{
           title: localization.rolls_route_title,
-          headerTintColor: theme.colors.accent,
+          headerTintColor: theme.colors.primary,
           headerRight: () =>
             Platform.OS === 'ios' ? <RollsAddButton /> : null,
         }}
@@ -28,7 +28,7 @@ export function RollsStackScreen() {
         component={AddRollContainer}
         options={{
           title: localization.add_roll_route_title,
-          headerTintColor: theme.colors.accent,
+          headerTintColor: theme.colors.primary,
         }}
       />
     </RollsStack.Navigator>

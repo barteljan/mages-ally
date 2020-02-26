@@ -40,7 +40,7 @@ export const makeRollDiceStyle = (theme: Theme) =>
       marginBottom: 15,
     },
     selectedButtonStyle: {
-      backgroundColor: theme.colors.accent,
+      backgroundColor: theme.colors.primary,
     },
     buttonGroupStyle: {
       marginBottom: 30,
@@ -49,7 +49,7 @@ export const makeRollDiceStyle = (theme: Theme) =>
       marginBottom: 15,
     },
     rollDiceButtonTextStyle: {
-      color: theme.colors.accent,
+      color: theme.colors.primary,
       fontFamily: theme.fonts.medium.fontFamily,
       fontSize: FontSize.button,
       fontWeight: 'bold',

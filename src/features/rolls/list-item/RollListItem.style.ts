@@ -5,7 +5,9 @@ import {Theme} from 'react-native-paper';
 export type RollsItemStyle = {
   container: ViewStyle;
   infoRow: ViewStyle;
-  skullItem: ViewStyle;
+  titleContainer: ViewStyle;
+  title: TextStyle;
+  subtitleWrapper: ViewStyle;
   subtitle: TextStyle;
   rightSubtitle: TextStyle;
   success: ViewStyle;
@@ -25,29 +27,27 @@ export const makeRollsItemStyle = (theme: Theme) =>
       flex: 1,
       flexDirection: 'row',
     },
-    skullItem: {
-      backgroundColor: theme.colors.error,
-      height: 40,
-      width: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 20,
+    titleContainer: {
+      flexDirection: 'row',
+      flexWrap: 'nowrap',
+    },
+    title: {fontSize: 18, maxWidth: '68%'},
+    subtitleWrapper: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     subtitle: {
       marginTop: 5,
+      marginRight: 5,
       fontSize: FontSize.small,
     },
     rightSubtitle: {
+      marginTop: 5,
       fontSize: FontSize.small,
       fontWeight: 'bold',
-      alignSelf: 'flex-end',
-      textAlignVertical: 'top',
-      textAlign: 'left',
-      flex: 1,
-      width: 72,
     },
     success: {
-      color: theme.colors.accent,
+      color: theme.colors.primary,
     },
     failure: {
       color: theme.colors.error,

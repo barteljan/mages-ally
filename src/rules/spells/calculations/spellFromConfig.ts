@@ -19,10 +19,16 @@ import {
 } from '../../dice-roll/DiceRollAgainType';
 import {makeParadoxDiceFromReachValue} from '../spell-values/ParadoxDiceFromReachValue';
 import {SpellType} from '../Spell.type';
-import {gnosisRules} from '../../gnosis/gnosisRules';
+import {gnosisRules as defaultGnosisRules} from '../../gnosis/gnosisRules';
 import {Spell} from '../Spell';
+import {GnosisRules} from '../../gnosis/GnosisRule';
+import {GameValueType} from '../../../GameValueTypes';
+import {min} from 'lodash';
 
-export function spellFromConfig(config: SpellCastingConfig): Spell {
+export function spellFromConfig(
+  config: SpellCastingConfig,
+  gnosisRules: GnosisRules[] = defaultGnosisRules,
+): Spell {
   let modifiers: StringMap<
     | BaseDiceModifier
     | BaseReachModifier
@@ -48,13 +54,30 @@ export function spellFromConfig(config: SpellCastingConfig): Spell {
   let neededReaches = 0;
   let neededMana = 0;
 
+  let negativeModifiers: BaseDiceModifier[] = [];
+  let yantraModifiers: BaseDiceModifier[] = [];
+  let otherPositiveModifiers: BaseDiceModifier[] = [];
+
+  let yantraDice = 0;
+  let negativeDice = 0;
+  let otherPositiveDice = 0;
+
   //calculate dices, mana and reach for this config
   for (let key in modifiers) {
     const modifier = modifiers[key];
 
     const diceModifier = toDiceModifier(modifier);
     if (diceModifier) {
-      numberOfDices += diceModifier.diceModifier;
+      if (diceModifier.type === GameValueType.yantra) {
+        yantraModifiers.push(diceModifier);
+        yantraDice += diceModifier.diceModifier;
+      } else if (diceModifier.diceModifier > 0) {
+        otherPositiveModifiers.push(diceModifier);
+        otherPositiveDice += diceModifier.diceModifier;
+      } else if (diceModifier.diceModifier < -0) {
+        negativeModifiers.push(diceModifier);
+        negativeDice += diceModifier.diceModifier;
+      }
     }
 
     const reachModifier = toReachModifier(modifier);
@@ -68,6 +91,14 @@ export function spellFromConfig(config: SpellCastingConfig): Spell {
     }
   }
 
+  //yantras can add only 5 dice after substracting all negative dice
+  let correctedYantraDice = min([yantraDice + negativeDice, 5]) as number;
+
+  numberOfDices = correctedYantraDice + otherPositiveDice;
+  if (numberOfDices < 0) {
+    numberOfDices = 0;
+  }
+
   const freeReaches =
     config.spell.type === SpellType.rote
       ? 5
@@ -78,7 +109,9 @@ export function spellFromConfig(config: SpellCastingConfig): Spell {
   //calculate paradox for this config
   if (neededReaches - freeReaches > 0) {
     const paradoxFromReaches = makeParadoxDiceFromReachValue({
-      paradoxModifier: neededReaches - freeReaches,
+      paradoxModifier:
+        (neededReaches - freeReaches) *
+        gnosisRules[config.caster.gnosis.diceModifier - 1].paradoxCreated,
     });
     modifiers[paradoxFromReaches.id] = paradoxFromReaches;
   }

@@ -10,11 +10,15 @@ import {
   setBooleanValueAction,
   setSpellFactorLevelAction,
   setSpellFactorValueAction,
+  deleteYantraAction,
+  setYantraValueAction,
 } from '../Spell.redux';
 import {Theme} from 'react-native-paper';
 import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
 import {SpellFactorLevel} from '../../../rules/spells/spell-factors/SpellFactor.level';
 import {Spell} from '../../../rules/spells/Spell';
+import {navigateToAction} from '../../../navigation/Navigation.actions';
+import {Routes} from '../../../navigation/Routes';
 
 type OwnProps = {
   theme: Theme;
@@ -43,6 +47,9 @@ type DispatchProps = {
     value: number,
     parent: string,
   ) => void;
+  deleteYantra: (id: string, parent: string) => void;
+  chooseYantra: (parent: string) => void;
+  setYantraValue: (identifier: string, value: number, parent: string) => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -54,12 +61,18 @@ const mapStateToProps = (state: AppState): StateProps => {
   };
 };
 
+const chooseYantra = (parent: string) =>
+  navigateToAction(Routes.chooseYantras, {parent});
+
 const mapDispatchToProps: DispatchProps = {
   setValue: setNumberValueAction,
   setStringValue: setStringValueAction,
   setBooleanValue: setBooleanValueAction,
   setSpellFactorLevel: setSpellFactorLevelAction,
   setSpellFactorValue: setSpellFactorValueAction,
+  deleteYantra: deleteYantraAction,
+  chooseYantra,
+  setYantraValue: setYantraValueAction,
 };
 
 const mergeProps: MergeProps<
@@ -76,6 +89,9 @@ const mergeProps: MergeProps<
     setBooleanValue: dispatchProps.setBooleanValue,
     setSpellFactorLevel: dispatchProps.setSpellFactorLevel,
     setSpellFactorValue: dispatchProps.setSpellFactorValue,
+    deleteYantra: dispatchProps.deleteYantra,
+    chooseYantra: dispatchProps.chooseYantra,
+    setYantraValue: dispatchProps.setYantraValue,
     theme: ownProps.theme,
   };
 };

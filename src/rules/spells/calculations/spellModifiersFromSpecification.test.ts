@@ -21,6 +21,9 @@ test('yantras are correcly extracted', () => {
     type: GameValueType.yantra,
     diceModifier: 2,
     yantraType: YantraType.demesne,
+    fixedDice: true,
+    unique: true,
+    maxDice: 2,
   };
 
   const customYantra: Yantra = {
@@ -28,6 +31,9 @@ test('yantras are correcly extracted', () => {
     type: GameValueType.yantra,
     diceModifier: 3,
     yantraType: YantraType.custom,
+    fixedDice: false,
+    unique: false,
+    maxDice: 10,
   };
 
   const customYantraId = makeModifierIdForCustomYantra(customYantra);

@@ -25,9 +25,6 @@ export function spellFactorLabelCastingTime(
     let rule = gnosisRules[gnosis - 1];
     let translatedTimeUnit: string;
 
-    console.log('gnosis:' + gnosis, rule);
-    console.log(new Error().stack);
-
     let time = (value + 1) * rule.ritualInterval;
 
     if (time === 1) {

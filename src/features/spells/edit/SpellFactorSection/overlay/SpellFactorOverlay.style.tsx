@@ -14,6 +14,6 @@ export const makeSpellFactorOverlayStyle = (
     container: {paddingVertical: 20},
     content: {marginHorizontal: 20},
     selectedButton: {
-      backgroundColor: theme.colors.accent,
+      backgroundColor: theme.colors.primary,
     },
   });

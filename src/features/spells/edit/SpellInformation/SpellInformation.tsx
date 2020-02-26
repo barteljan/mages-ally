@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {DynamiclyStyledPureComponent} from '../../../components/DynamiclyStyledPureComponent';
+import {DynamiclyStyledPureComponent} from '../../../../components/DynamiclyStyledPureComponent';
 import {SpellInformationProps} from './SpellInformation.props';
 import {
   SpellInformationStyle,
@@ -36,7 +36,7 @@ export class _SpellInformation extends DynamiclyStyledPureComponent<
         </View>
         <View style={this.state.styles.infoContainer}>
           <Text style={this.state.styles.text}>
-            {'Paradox-Dice: ' + roll.paradox.number}
+            {'Paradox: ' + roll.paradox.number}
           </Text>
         </View>
       </View>
