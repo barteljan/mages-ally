@@ -43,6 +43,8 @@ export function rollDice(
     initialNumberOfDice,
   );
 
+  const numberOfRerolls = rolledDice.length - initialNumberOfDice;
+
   return {
     id: configuration.id,
     title: configuration.title,
@@ -50,6 +52,8 @@ export function rollDice(
     configuration,
     outcome: outcome,
     rolledDice: rolledDice,
+    numberOfRerolls: numberOfRerolls,
+    numberWithoutRerolls: initialNumberOfDice,
     successes,
   };
 }

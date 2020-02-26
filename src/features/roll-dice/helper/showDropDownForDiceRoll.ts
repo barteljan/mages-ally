@@ -9,14 +9,28 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
     roll.rolledDice.length === 1
       ? localization.message_dice_singular
       : localization.message_dice_plural;
+
+  const rerolls =
+    roll.numberOfRerolls > 0
+      ? localization.message_rerolls.replace(
+          LocalizationParams.rerolled,
+          roll.numberOfRerolls + '',
+        )
+      : '';
+
   switch (roll.outcome) {
     case DiceRollOutcome.success:
       showMessage({
         message: localization.message_success,
-        description: localization.message_success_description
-          .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
-          .replace(LocalizationParams.diceString, diceString)
-          .replace(LocalizationParams.successes, roll.successes + ''),
+        description:
+          localization.message_success_description
+            .replace(
+              LocalizationParams.diceNumber,
+              roll.numberWithoutRerolls + '',
+            )
+            .replace(LocalizationParams.diceString, diceString)
+            .replace(LocalizationParams.successes, roll.successes + '') +
+          rerolls,
         type: 'success',
         backgroundColor: theme.colors.primary,
       });
@@ -24,10 +38,15 @@ export function showDropDownForDiceRoll(roll: DiceRoll) {
     case DiceRollOutcome.exceptionalSuccess:
       showMessage({
         message: localization.message_exceptional_success,
-        description: localization.message_success_description
-          .replace(LocalizationParams.diceNumber, roll.rolledDice.length + '')
-          .replace(LocalizationParams.diceString, diceString)
-          .replace(LocalizationParams.successes, roll.successes + ''),
+        description:
+          localization.message_success_description
+            .replace(
+              LocalizationParams.diceNumber,
+              roll.numberWithoutRerolls + '',
+            )
+            .replace(LocalizationParams.diceString, diceString)
+            .replace(LocalizationParams.successes, roll.successes + '') +
+          rerolls,
         type: 'success',
         backgroundColor: theme.colors.primary,
       });

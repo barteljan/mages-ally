@@ -31,6 +31,16 @@ export type DiceRoll = {
   rolledDice: number[];
 
   /**
+   * number of dice rerolled
+   */
+  numberOfRerolls: number;
+
+  /**
+   * number of dice without rerolled dices
+   */
+  numberWithoutRerolls: number;
+
+  /**
    * number of successes
    */
   successes: number;

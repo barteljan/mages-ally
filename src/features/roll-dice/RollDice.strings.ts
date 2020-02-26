@@ -18,12 +18,14 @@ export type RollDiceStrings = {
   message_failure: string;
   message_failure_description: string;
   message_dramatic_failure: string;
+  message_rerolls: string;
 };
 
 export enum LocalizationParams {
   diceNumber = '{{DICE_NUMBER}}',
   diceString = '{{DICE_STRING}}',
   successes = '{{SUCESSES}}',
+  rerolled = '{{REROLLED}}',
 }
 
 export const localization = new LocalizedStrings<RollDiceStrings>({
@@ -51,7 +53,7 @@ export const localization = new LocalizedStrings<RollDiceStrings>({
       LocalizationParams.diceString +
       ' with ' +
       LocalizationParams.successes +
-      ' successes.',
+      ' successes',
     message_exceptional_success: 'Exceptional Success!',
     message_failure: 'Failure',
     message_failure_description:
@@ -59,7 +61,8 @@ export const localization = new LocalizedStrings<RollDiceStrings>({
       LocalizationParams.diceNumber +
       ' ' +
       LocalizationParams.diceString +
-      ' with no successes.',
+      ' with no successes',
     message_dramatic_failure: 'Dramatic Failure!',
+    message_rerolls: ' (' + LocalizationParams.rerolled + ' dice rolled again)',
   },
 });
