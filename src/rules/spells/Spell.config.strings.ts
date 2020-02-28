@@ -11,6 +11,7 @@ export type SpellConfigStrings = {
   [SpellType.praxis]: string;
   [SpellType.rote]: string;
   spell_summary: string;
+  short_spell_summary: string;
 };
 
 export enum VariablePlaceholder {
@@ -40,6 +41,13 @@ export const localization = new LocalizedStrings<SpellConfigStrings>({
       VariablePlaceholder.spellType +
       ') with primary factor ' +
       VariablePlaceholder.primaryFactor,
+    short_spell_summary:
+      VariablePlaceholder.highestArcanum +
+      ' ' +
+      VariablePlaceholder.value +
+      ' spell (' +
+      VariablePlaceholder.spellType +
+      ')',
   },
 });
 

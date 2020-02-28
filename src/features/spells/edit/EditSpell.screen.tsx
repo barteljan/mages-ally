@@ -117,6 +117,7 @@ class _EditSpellScreen extends PureComponent<
             parent={parent}
             value={config.title}
             label={localization.spell_title}
+            onChangeText={this.props.setStringValue}
             onBlur={this.props.setStringValue}
           />
           <InputContainer

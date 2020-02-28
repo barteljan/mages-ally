@@ -13,7 +13,10 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
   SpellFactorSectionDescriptionStyle
 > {
   makeStyle() {
-    return makeSpellFactorSectionDescriptionStyle(this.props.theme);
+    return makeSpellFactorSectionDescriptionStyle(
+      this.props.theme,
+      this.props.labelStyle,
+    );
   }
 
   render = () => {

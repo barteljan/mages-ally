@@ -29,7 +29,12 @@ export class MageTextInput extends PureComponent<
     );
   };
 
-  onChange = (text: string) => this.setState({text});
+  onChange = (text: string) => {
+    this.setState({text});
+    if (this.props.onChangeText) {
+      this.props.onChangeText(this.props.identifier, text, this.props.parent);
+    }
+  };
 
   render = () => {
     return (

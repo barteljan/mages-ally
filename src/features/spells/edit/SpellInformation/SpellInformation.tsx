@@ -20,22 +20,24 @@ export class _SpellInformation extends DynamiclyStyledPureComponent<
     const spell = this.props.spell;
     const roll = spell.roll;
     return (
-      <View style={this.state.styles.container}>
+      <View style={[this.state.styles.container, this.props.containerStyle]}>
         <View style={this.state.styles.infoContainer}>
-          <Text style={this.state.styles.text}>
+          <Text style={[this.state.styles.text, this.props.textStyle]}>
             {'Dice: ' + roll.dices.number}
           </Text>
         </View>
         <View style={this.state.styles.infoContainer}>
-          <Text style={this.state.styles.text}>
+          <Text style={[this.state.styles.text, this.props.textStyle]}>
             {'Reach: ' + spell.reaches.needed + '/' + spell.reaches.free}
           </Text>
         </View>
         <View style={this.state.styles.infoContainer}>
-          <Text style={this.state.styles.text}>{'Mana: ' + spell.mana}</Text>
+          <Text style={[this.state.styles.text, this.props.textStyle]}>
+            {'Mana: ' + spell.mana}
+          </Text>
         </View>
         <View style={this.state.styles.infoContainer}>
-          <Text style={this.state.styles.text}>
+          <Text style={[this.state.styles.text, this.props.textStyle]}>
             {'Paradox: ' + roll.paradox.number}
           </Text>
         </View>

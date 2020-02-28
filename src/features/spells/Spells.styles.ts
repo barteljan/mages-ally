@@ -15,7 +15,7 @@ export const makeSpellsStyle = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    contentContainerStyle: {flex: 1},
+    contentContainerStyle: {minHeight: '50%'},
     list: {
       flex: 1,
       backgroundColor: theme.colors.background,

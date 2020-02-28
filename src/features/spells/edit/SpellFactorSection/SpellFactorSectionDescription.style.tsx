@@ -7,12 +7,15 @@ export type SpellFactorSectionDescriptionStyle = {
   label: TextStyle;
 };
 
-export const makeSpellFactorSectionDescriptionStyle = (theme: Theme) =>
+export const makeSpellFactorSectionDescriptionStyle = (
+  theme: Theme,
+  labelStyle: TextStyle | undefined,
+) =>
   StyleSheet.create<SpellFactorSectionDescriptionStyle>({
     container: {
       width: '100%',
       paddingHorizontal: 15,
-      flexDirection: 'row',
+      flexDirection: 'column',
       flexWrap: 'wrap',
     },
     infoContainer: {
@@ -26,5 +29,6 @@ export const makeSpellFactorSectionDescriptionStyle = (theme: Theme) =>
       fontSize: 10,
       color: theme.colors.disabled,
       flexWrap: 'wrap',
+      ...labelStyle,
     },
   });

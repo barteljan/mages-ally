@@ -14,6 +14,9 @@ import {DynamiclyStyledPureComponent} from '../../components/DynamiclyStyledPure
 import {SpellsProps} from './Spells.props';
 import {SpellState} from './Spell.redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {SpellFactorSectionDescription} from './edit/SpellFactorSection/SpellFactorSectionDescription';
+import {spellShortSummary} from '../../rules/spells/spellSummary';
+import {SpellInformation} from './edit/SpellInformation/SpellInformation';
 
 class _SpellsScreen extends DynamiclyStyledPureComponent<
   SpellsProps,
@@ -61,20 +64,49 @@ type SpellListItemProps = {
   showSpell: (id: string) => void;
 };
 
-type SpellListItemStyles = {container: ViewStyle; title: TextStyle};
+type SpellListItemStyles = {
+  wrapper: ViewStyle;
+  container: ViewStyle;
+  titleContainer: ViewStyle;
+  title: TextStyle;
+  subTitle: TextStyle;
+  spellFactorContainer: ViewStyle;
+};
 
 const makeSpellListItemStyles = (theme: Theme): SpellListItemStyles => {
   return {
-    container: {
+    wrapper: {
       paddingHorizontal: 15,
       paddingVertical: 10,
-      borderBottomWidth: 0.5,
-      borderColor: '#cccccc',
+    },
+    container: {
+      borderWidth: 1,
+      borderColor: theme.colors.disabled,
+      borderRadius: 3,
+    },
+    titleContainer: {
+      paddingTop: 15,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      marginBottom: 2,
+      backgroundColor: theme.colors.background,
+      flexWrap: 'wrap',
+      paddingHorizontal: 15,
     },
     title: {
       color: theme.colors.primary,
       fontSize: 18,
       fontWeight: 'bold',
+    },
+    subTitle: {
+      marginTop: 3,
+      fontSize: 12,
+      color: theme.colors.disabled,
+    },
+    spellFactorContainer: {
+      backgroundColor: theme.colors.background,
+      paddingBottom: 20,
     },
   };
 };
@@ -91,13 +123,31 @@ class _SpellListItem extends DynamiclyStyledPureComponent<
 
   render() {
     const config = this.props.item.spellCastingConfig;
+    const labelText = spellShortSummary(config);
     return (
-      <TouchableOpacity
-        style={this.state.styles.container}
-        key={config.id + '_spell'}
-        onPress={this.onPress}>
-        <Text style={this.state.styles.title}>{config.title}</Text>
-      </TouchableOpacity>
+      <View style={this.state.styles.wrapper}>
+        <TouchableOpacity
+          style={this.state.styles.container}
+          key={config.id + '_spell'}
+          onPress={this.onPress}>
+          <View style={this.state.styles.titleContainer}>
+            <Text style={this.state.styles.title}>{config.title}</Text>
+            <Text style={this.state.styles.subTitle}> - {labelText}</Text>
+          </View>
+          <View style={this.state.styles.spellFactorContainer}>
+            <SpellFactorSectionDescription
+              spellCastingConfig={config}
+              theme={this.props.theme}
+              labelStyle={{fontSize: 14}}
+            />
+          </View>
+          <SpellInformation
+            spell={this.props.item.spell}
+            containerStyle={{paddingVertical: 5}}
+            textStyle={{fontSize: 11}}
+          />
+        </TouchableOpacity>
+      </View>
     );
   }
 }

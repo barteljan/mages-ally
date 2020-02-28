@@ -5,6 +5,11 @@ export type MageTextInputProps = {
   parent: string;
   value: string | undefined;
   style?: ViewStyle;
+  onChangeText?: (
+    identifier: string,
+    text: string | undefined,
+    parent: string,
+  ) => void;
   onBlur: (
     identifier: string,
     text: string | undefined,

@@ -20,6 +20,6 @@ export const makeSpellInformationStyle = (
       justifyContent: 'space-between',
     },
     infoContainer: {marginRight: 10},
-    text: {color: theme.colors.background},
+    text: {color: theme.colors.background, fontSize: 13},
   });
 };
