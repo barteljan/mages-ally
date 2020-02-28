@@ -3,7 +3,12 @@ import {EditSpellScreen} from './EditSpell.screen';
 import {EditSpellProps} from './EditSpell.props';
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {AppState} from '../../../redux/AppState';
-import {addedSpellCastingConfig, addedSpell} from './AddSpell.selectors';
+import {
+  addedSpellCastingConfig,
+  addedSpell,
+  spellCastingConfigFor,
+  spellFor,
+} from './AddSpell.selectors';
 import {
   setNumberValueAction,
   setStringValueAction,
@@ -12,6 +17,7 @@ import {
   setSpellFactorValueAction,
   deleteYantraAction,
   setYantraValueAction,
+  saveSpellAction,
 } from '../Spell.redux';
 import {Theme} from 'react-native-paper';
 import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
@@ -22,6 +28,8 @@ import {Routes} from '../../../navigation/Routes';
 
 type OwnProps = {
   theme: Theme;
+  navigation: any;
+  route: {params: {id?: string}};
 };
 
 type StateProps = {
@@ -47,14 +55,26 @@ type DispatchProps = {
     value: number,
     parent: string,
   ) => void;
+  save: (id: string) => void;
   deleteYantra: (id: string, parent: string) => void;
   chooseYantra: (parent: string) => void;
   setYantraValue: (identifier: string, value: number, parent: string) => void;
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
-  const config = addedSpellCastingConfig(state);
-  const spell = addedSpell(state);
+const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
+  let config: SpellCastingConfig | undefined;
+  let spell: Spell | undefined;
+
+  let id: string | undefined = ownProps.route.params.id;
+
+  if (!id) {
+    config = addedSpellCastingConfig(state);
+    spell = addedSpell(state);
+  } else {
+    config = spellCastingConfigFor(state, id);
+    spell = spellFor(state, id);
+  }
+
   return {
     spellCastingConfig: config!,
     spell: spell!,
@@ -73,6 +93,7 @@ const mapDispatchToProps: DispatchProps = {
   deleteYantra: deleteYantraAction,
   chooseYantra,
   setYantraValue: setYantraValueAction,
+  save: saveSpellAction,
 };
 
 const mergeProps: MergeProps<
@@ -92,7 +113,9 @@ const mergeProps: MergeProps<
     deleteYantra: dispatchProps.deleteYantra,
     chooseYantra: dispatchProps.chooseYantra,
     setYantraValue: dispatchProps.setYantraValue,
+    save: dispatchProps.save,
     theme: ownProps.theme,
+    navigation: ownProps.navigation,
   };
 };
 

@@ -16,6 +16,9 @@ import {SpellSection} from './SpellSection/SpellSection';
 import {SpellFactorSection} from './SpellFactorSection/SpellFactorSection';
 import {YantraSection} from './YantraSection/YantraSection';
 import {SpellInformation} from './SpellInformation/SpellInformation';
+import {ParadoxSection} from './ParadoxSection/ParadoxSection';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;
@@ -46,6 +49,25 @@ class _EditSpellScreen extends PureComponent<
     }
   }
 
+  save = () => this.props.save(this.props.spellCastingConfig.id);
+
+  componentDidMount() {
+    this.props.navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          style={this.state.styles.saveButtonContainer}
+          onPress={this.save}>
+          <Icon
+            name="save"
+            size={28}
+            color={this.props.theme.colors.primary}
+            onPress={this.save}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }
+
   makeStyle() {
     return makeEditSpellStyles(this.props.theme);
   }
@@ -72,6 +94,7 @@ class _EditSpellScreen extends PureComponent<
   toggleSpellFactorSection = () =>
     this.toggleSection(EditSpellSections.spellFactor);
   toggleYantraSection = () => this.toggleSection(EditSpellSections.yantras);
+  toggleParadoxSection = () => this.toggleSection(EditSpellSections.paradox);
 
   render() {
     const styles = this.state.styles;
@@ -128,6 +151,12 @@ class _EditSpellScreen extends PureComponent<
             {...this.props}
             collapsed={this.state.openedSection !== EditSpellSections.yantras}
             onChangeCollapse={this.toggleYantraSection}
+            styles={styles}
+          />
+          <ParadoxSection
+            {...this.props}
+            collapsed={this.state.openedSection !== EditSpellSections.paradox}
+            onChangeCollapse={this.toggleParadoxSection}
             styles={styles}
           />
         </ScrollView>

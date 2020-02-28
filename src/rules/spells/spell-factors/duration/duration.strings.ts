@@ -90,7 +90,7 @@ export const durationLocalization = new LocalizedStrings<
     advanced3: '1 week',
     advanced4: '1 month',
     advanced5: '1 year',
-    advanced6: 'Indefinite (requires A Reach and a Mana)',
+    advanced6: 'Indefinite (requires a reach and a mana)',
     dice: 'dice',
   },
 });

@@ -3,4 +3,5 @@ export enum EditSpellSections {
   spell = 'spell',
   spellFactor = 'spellFactor',
   yantras = 'yantras',
+  paradox = 'paradox',
 }

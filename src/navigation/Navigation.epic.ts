@@ -16,7 +16,6 @@ const navEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
     filter(isActionOf(navigateToAction)),
     map(action => {
-      console.log('navigate:', action);
       navigate(action.payload.route, action.payload.parameters);
       return triggeredNavigationAction(
         action.payload.route,
@@ -28,8 +27,7 @@ const navEpic: Epic<RootAction, RootAction, AppState> = action$ =>
 export const popEpic: Epic<RootAction, NavigationAction, AppState> = action$ =>
   action$.pipe(
     filter(isActionOf(popAction)),
-    map(action => {
-      console.log('pop:', action);
+    map(_ => {
       pop();
       return poppedAction();
     }),

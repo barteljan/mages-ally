@@ -6,6 +6,7 @@ import {Spell} from '../../../rules/spells/Spell';
 
 export type EditSpellProps = {
   theme: Theme;
+  navigation: any;
   spellCastingConfig: SpellCastingConfig;
   spell: Spell;
   setValue: (identifier: string, value: number, parent: string) => void;
@@ -28,4 +29,5 @@ export type EditSpellProps = {
   deleteYantra: (id: string, parent: string) => void;
   setYantraValue: (identifier: string, value: number, parent: string) => void;
   chooseYantra: (parent: string) => void;
+  save: (id: string) => void;
 };

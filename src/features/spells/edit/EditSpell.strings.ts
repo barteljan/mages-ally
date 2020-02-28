@@ -23,6 +23,17 @@ export type EditDiceStrings = {
   spell_factor_section_title: string;
   yantra_section_title: string;
   yantra_add_button_title: string;
+  paradox_section_title: string;
+  inured_spell_title: string;
+  mage_is_inured_to_spell: string;
+  previous_paradox_rolls_title: string;
+  previous_paradox_rolls_singular: string;
+  previous_paradox_rolls_plural: string;
+  additional_mana_spend_title: string;
+  additional_mana_spend_singular: string;
+  additional_mana_spend_plural: string;
+  witnesses_title: string;
+  warning_enter_title_for_this_spell: string;
 };
 
 export enum VariablePlaceholder {
@@ -57,6 +68,18 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     spell_factor_section_title: 'Spell Factors',
     yantra_section_title: 'Yantras',
     yantra_add_button_title: 'Add Yantra',
+    paradox_section_title: 'Paradox',
+    inured_spell_title: "Is the Mage's Inured to this Spell? (+2 dice)",
+    mage_is_inured_to_spell: 'Mage is inured to this spell',
+    previous_paradox_rolls_title:
+      'Previous Paradox Rolls in this Scene (+1 dice per roll)',
+    previous_paradox_rolls_singular: 'previous roll',
+    previous_paradox_rolls_plural: 'previous rolls',
+    additional_mana_spend_title: 'Additional Mana spent to reduce paradox',
+    additional_mana_spend_singular: 'Point',
+    additional_mana_spend_plural: 'Points',
+    witnesses_title: 'Sleeper witnesses recognizing your spell',
+    warning_enter_title_for_this_spell: 'Please enter a title for this spell',
   },
 });
 

@@ -23,11 +23,7 @@ class _AddButton extends DynamiclyStyledPureComponent<
         />
       </View>
     ) : (
-      <Icon
-        name={'plus'}
-        color={this.props.theme.colors.onBackground}
-        size={16}
-      />
+      <Icon name={'plus'} color={this.props.theme.colors.primary} size={16} />
     );
 
   render() {

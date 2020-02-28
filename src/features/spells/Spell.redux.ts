@@ -1,4 +1,7 @@
-import {SpellCastingConfig} from '../../rules/spells/Spell.config';
+import {
+  SpellCastingConfig,
+  makeSpellCastingConfig,
+} from '../../rules/spells/Spell.config';
 import {createAction, ActionType} from 'typesafe-actions';
 import produce from 'immer';
 import {CharacterValueId} from '../../rules/character/CharacterValue.id';
@@ -18,6 +21,7 @@ import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.lev
 import {Spell} from '../../rules/spells/Spell';
 import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
 import uuid from 'uuid';
+import {SleeperWitnesses} from 'src/rules/spells/paradox/SleeperWitnesses';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
@@ -38,6 +42,8 @@ export enum SpellActionTypes {
   deleteYantra = 'spell/edit/deleteYantra',
   selectedYantra = 'spell/edit/selectedYantra',
   setYantraValue = 'spell/edit/setYantraValue',
+  saveSpell = 'spell/edit/saveSpell',
+  saveSpellError = 'spell/edit/saveSpellError',
 }
 
 export const setNumberValueAction = createAction(
@@ -126,6 +132,25 @@ export const setYantraValueAction = createAction(
   },
 )();
 
+export const saveSpellAction = createAction(
+  SpellActionTypes.saveSpell,
+  (parent: string) => {
+    return {
+      parent,
+    };
+  },
+)();
+
+export const saveSpellError = createAction(
+  SpellActionTypes.saveSpellError,
+  (parent: string, errorMessage: string) => {
+    return {
+      parent,
+      error: errorMessage,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
@@ -135,6 +160,8 @@ const actions = {
   deleteYantraAction,
   selectedYantraAction,
   setYantraValueAction,
+  saveSpellAction,
+  saveSpellError,
 };
 
 export type SpellActions = ActionType<typeof actions>;
@@ -149,6 +176,7 @@ export const spellReducer = produce(
     let config = spell.spellCastingConfig;
     let caster = config.caster;
     let specification = config.spell;
+    let paradox = config.paradox;
 
     switch (action.type) {
       //set number in config
@@ -199,6 +227,14 @@ export const spellReducer = produce(
             }
             break;
           }
+          case SpellValueIds.numberOfPreviousParadoxRolls: {
+            paradox.previousParadoxRolls = action.payload.value;
+            break;
+          }
+          case SpellValueIds.additionalManaSpendForReducingParadox: {
+            paradox.manaSpent = action.payload.value;
+            break;
+          }
         }
         break;
       //set number in config
@@ -223,6 +259,10 @@ export const spellReducer = produce(
                 yantra => yantra.yantraType !== YantraType.roteSkill,
               );
             }
+            break;
+          case SpellValueIds.sleeperWitnesses:
+            paradox.sleeperWitnesses = action.payload.value as SleeperWitnesses;
+            break;
         }
         break;
       case SpellActionTypes.setBooleanValue:
@@ -235,6 +275,9 @@ export const spellReducer = produce(
             break;
           case CharacterValueId.willpower:
             caster.spendsWillpower = action.payload.value;
+            break;
+          case SpellValueIds.inuredToSpell:
+            paradox.inuredToSpell = action.payload.value;
             break;
         }
         break;
@@ -297,6 +340,23 @@ export const spellReducer = produce(
 
         if (yantra && yantra.length > 0) {
           yantra[0].diceModifier = action.payload.value;
+        }
+        break;
+      }
+      case SpellActionTypes.saveSpell: {
+        if (
+          spell.spellCastingConfig.title &&
+          spell.spellCastingConfig.title.length > 0
+        ) {
+          spell.status = SpellStatus.saved;
+          const newConfig = makeSpellCastingConfig();
+          const newSpell = spellFromConfig(newConfig);
+          const newSpellState: SpellState = {
+            spell: newSpell,
+            spellCastingConfig: newConfig,
+            status: SpellStatus.new,
+          };
+          draft.spells[newConfig.id] = newSpellState;
         }
       }
     }

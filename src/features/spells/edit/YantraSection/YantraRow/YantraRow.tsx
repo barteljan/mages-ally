@@ -22,7 +22,6 @@ export class YantraRow extends DynamiclyStyledPureComponent<
   };
 
   changedValue = (identifier: string, value: number) => {
-    console.log('changedValue', this.props);
     if (this.props.yantra.fixedDice === false) {
       this.props.setYantraValue(this.props.yantra.id, value, this.props.parent);
     }

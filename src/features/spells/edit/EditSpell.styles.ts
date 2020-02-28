@@ -13,6 +13,7 @@ export type EditSpellsStyle = {
   inputField: ViewStyle;
   inputContainer: ViewStyle;
   switch: ViewStyle;
+  saveButtonContainer: ViewStyle;
 };
 
 export const makeEditSpellStyles = (theme: Theme) =>
@@ -50,4 +51,5 @@ export const makeEditSpellStyles = (theme: Theme) =>
     switch: {
       marginBottom: 20,
     },
+    saveButtonContainer: {paddingHorizontal: 10},
   });
