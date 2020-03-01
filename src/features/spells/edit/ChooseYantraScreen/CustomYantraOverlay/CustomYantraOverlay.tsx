@@ -65,6 +65,7 @@ export class CustomYantraOverlay extends PureComponent<
       <Overlay
         isVisible={this.props.isVisible}
         height={this.props.height}
+        supportedOrientations={['portrait', 'landscape']}
         onBackdropPress={this.props.cancle}>
         <View style={this.state.styles.container} onLayout={this.onLayout}>
           <Text style={this.state.styles.viewTitle}>
