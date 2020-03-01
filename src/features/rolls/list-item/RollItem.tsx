@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
-import {Theme, withTheme, Surface} from 'react-native-paper';
-import {StyleSheet, View, TouchableWithoutFeedback, Text} from 'react-native';
+import {withTheme, Surface} from 'react-native-paper';
+import {View, TouchableWithoutFeedback, Text} from 'react-native';
 import {DynamiclyStyledPureComponent} from '../../../components/DynamiclyStyledPureComponent';
 import {MultipleDiceView} from '../../../components/MultipleDiceView/MultipleDiceView';
 import {RollInformationView} from './RollInformationView/RollInformationView';

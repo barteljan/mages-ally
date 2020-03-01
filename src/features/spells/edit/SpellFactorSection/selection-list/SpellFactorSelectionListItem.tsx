@@ -22,6 +22,7 @@ export class SpellFactorSelectionListItem extends PureComponent<
       props.gnosis,
       props.primaryFactor,
       props.highestArcanumValue,
+      true,
     );
     return (
       <TouchableOpacity style={style.optionContainer} onPress={this.onSelect}>

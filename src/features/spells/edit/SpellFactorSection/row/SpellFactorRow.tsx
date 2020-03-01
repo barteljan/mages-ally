@@ -42,6 +42,7 @@ export class SpellFactorRow extends PureComponent<
       this.props.gnosis,
       this.props.primaryFactor,
       this.props.highestArcanumValue,
+      true,
     );
     return (
       <TouchableWithoutFeedback
