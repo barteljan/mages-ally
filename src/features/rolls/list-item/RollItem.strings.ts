@@ -1,6 +1,6 @@
 import LocalizedStrings from 'react-native-localization';
 
-export type RollListItemsString = {
+export type RollItemString = {
   tenAgain: string;
   nineAgain: string;
   eightAgain: string;
@@ -11,7 +11,7 @@ export type RollListItemsString = {
   dramatic_failure: string;
 };
 
-export const localization = new LocalizedStrings<RollListItemsString>({
+export const localization = new LocalizedStrings<RollItemString>({
   en: {
     tenAgain: '10 again',
     nineAgain: '9 again',
