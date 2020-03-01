@@ -1,12 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
 import {
   InputContainerStyle,
   makeInputContainerStyle,
 } from './InputContainer.style';
 import {InputContainerProps} from './InputContainer.props';
 import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
-import {withTheme} from 'react-native-paper';
+import {withTheme, Surface} from 'react-native-paper';
 
 class _InputContainer extends DynamiclyStyledPureComponent<
   InputContainerProps,
@@ -19,14 +19,14 @@ class _InputContainer extends DynamiclyStyledPureComponent<
 
   render = () => {
     return (
-      <View style={[this.state.styles.container, this.props.containerStyle]}>
+      <Surface style={[this.state.styles.container, this.props.containerStyle]}>
         <Text
           style={[this.state.styles.label, this.props.titleStyle]}
           key={'InputContainer_' + this.props.title}>
           {this.props.title}
         </Text>
         {this.props.children}
-      </View>
+      </Surface>
     );
   };
 }

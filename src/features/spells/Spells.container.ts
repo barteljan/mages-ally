@@ -42,7 +42,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 const showSpell = (id: string) => {
-  return navigateToAction(Routes.addSpell, {id});
+  return navigateToAction(Routes.editSpell, {id});
 };
 
 const mapDispatchToProps: DispatchProps = {

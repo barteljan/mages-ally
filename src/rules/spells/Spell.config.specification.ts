@@ -31,6 +31,7 @@ export type SpellSpecificationAdditionalSpecs = {
   timeInABottle: boolean;
   everywhere: boolean;
   extraReach: number;
+  changePrimarySpellFactor: boolean;
 };
 
 export function makeSpellSpecificationAdditionalSpecs(
@@ -42,6 +43,7 @@ export function makeSpellSpecificationAdditionalSpecs(
     sympatheticRange: false,
     temporalSympathy: false,
     timeInABottle: false,
+    changePrimarySpellFactor: false,
     ...specs,
   };
 }

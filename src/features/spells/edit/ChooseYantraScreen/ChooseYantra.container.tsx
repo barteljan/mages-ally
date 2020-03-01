@@ -7,7 +7,7 @@ import {AppState} from '../../../../redux/AppState';
 import {SectionListData} from 'react-native';
 import {makeChoosableYantras} from '../../../../rules/spells/yantra/Yantra.group';
 import {YantraType} from '../../../../rules/spells/yantra/Yantra.type';
-import {selectedYantraAction} from '../../Spell.redux';
+import {selectedYantraAction, addCustomYantra} from '../../Spell.redux';
 
 type OwnProps = {
   theme: Theme;
@@ -20,6 +20,7 @@ type StateProps = {
 
 type DispatchProps = {
   didSelectYantra: (yantra: Yantra, parent: string) => void;
+  addCustomYantra: (title: string, value: number, parent: string) => void;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,6 +32,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const mapDispatchToProps: DispatchProps = {
   didSelectYantra: selectedYantraAction,
+  addCustomYantra: addCustomYantra,
 };
 
 const mergeProps: MergeProps<
@@ -44,6 +46,7 @@ const mergeProps: MergeProps<
     yantras: stateProps.yantras,
     parent: ownProps.route.params.parent,
     didSelectYantra: dispatchProps.didSelectYantra,
+    addCustomYantra: dispatchProps.addCustomYantra,
   };
 };
 

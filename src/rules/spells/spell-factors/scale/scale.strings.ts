@@ -20,6 +20,7 @@ export type SpellFactorScaleStrings = {
 export function spellFactorLabelScale(
   level: SpellFactorLevel,
   value: number,
+  addDices: boolean,
   rules: ScaleRules = makeScaleRules(10),
 ) {
   let suffix: string = ' (';
@@ -36,6 +37,10 @@ export function spellFactorLabelScale(
     diceModifier === 0
       ? '-0 ' + scaleLocalization.dice + ')'
       : diceModifier + ' ' + scaleLocalization.dice + ')';
+
+  if (!addDices) {
+    suffix = '';
+  }
 
   switch (level) {
     case SpellFactorLevel.standard:

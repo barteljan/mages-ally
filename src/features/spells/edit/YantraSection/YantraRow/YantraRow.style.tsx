@@ -1,14 +1,14 @@
-import {ViewStyle} from 'react-native';
+import {ViewStyle, TextStyle} from 'react-native';
 import {Theme} from 'react-native-paper';
 import {Yantra} from '../../../../../rules/spells/yantra/yantra';
 
 export type YantraRowStyle = {
   yantraContainer: ViewStyle;
   deleteButton: ViewStyle;
+  titleStyle: TextStyle;
 };
 
 export const makeYantraRowStyle = (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   theme: Theme,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   yantra: Yantra,
@@ -24,6 +24,10 @@ export const makeYantraRowStyle = (
     },
     deleteButton: {
       padding: 7,
+    },
+    titleStyle: {
+      paddingLeft: 15,
+      color: theme.colors.text,
     },
   };
 };

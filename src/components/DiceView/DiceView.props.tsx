@@ -6,5 +6,6 @@ export type DiceViewProps = {
   diceTextStyle?: TextStyle;
   containerStyle?: ViewStyle;
   theme: Theme;
+  scale?: number;
   onPress?: (index: number) => void;
 };

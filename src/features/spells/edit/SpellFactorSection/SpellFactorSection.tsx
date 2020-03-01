@@ -43,6 +43,7 @@ export class SpellFactorSection extends DynamiclyStyledPureComponent<
               <SpellFactorSectionDescription
                 spellCastingConfig={config}
                 theme={this.props.theme}
+                showDices={true}
               />
             }
           />

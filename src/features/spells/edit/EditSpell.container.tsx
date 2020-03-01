@@ -8,7 +8,7 @@ import {
   addedSpell,
   spellCastingConfigFor,
   spellFor,
-} from './AddSpell.selectors';
+} from './EditSpell.selectors';
 import {
   setNumberValueAction,
   setStringValueAction,
@@ -35,6 +35,7 @@ type OwnProps = {
 type StateProps = {
   spellCastingConfig: SpellCastingConfig;
   spell: Spell;
+  showSave: boolean;
 };
 
 type DispatchProps = {
@@ -78,6 +79,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
   return {
     spellCastingConfig: config!,
     spell: spell!,
+    showSave: !id,
   };
 };
 
@@ -116,6 +118,7 @@ const mergeProps: MergeProps<
     save: dispatchProps.save,
     theme: ownProps.theme,
     navigation: ownProps.navigation,
+    showSave: stateProps.showSave,
   };
 };
 

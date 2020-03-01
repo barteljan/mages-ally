@@ -15,14 +15,14 @@ export const makeSpellsStyle = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    contentContainerStyle: {minHeight: '50%'},
+    contentContainerStyle: {minHeight: '50%', paddingTop: 10},
     list: {
       flex: 1,
       backgroundColor: theme.colors.background,
     },
     emptyComponentContainer: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-end',
       alignItems: 'center',
     },
     emptyComponentText: {

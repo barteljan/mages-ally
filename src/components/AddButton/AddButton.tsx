@@ -32,7 +32,6 @@ class _AddButton extends DynamiclyStyledPureComponent<
         <FAB
           style={this.state.styles.FAB}
           icon={this.renderIcon}
-          color={this.props.theme.colors.primary}
           onPress={this.props.add}
         />
       );

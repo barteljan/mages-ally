@@ -1,11 +1,23 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {ArcanaType} from '../../rules/spells/arcana/Arcana.type';
 import {localization as arkanaLocalization} from '../../rules/spells/arcana/Arcana.strings';
 import Picker from 'react-native-picker-select';
 import {ArcanaSwitchProps} from './ArcanaSwitch.props';
-import {styles} from './ArcanaSwitch.styles';
+import {
+  ArcanaSwitchStyles,
+  makeArcanaSwitchStyles,
+} from './ArcanaSwitch.styles';
+import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
+import {withTheme} from 'react-native-paper';
 
-export class ArcanaSwitch extends PureComponent<ArcanaSwitchProps> {
+class _ArcanaSwitch extends DynamiclyStyledPureComponent<
+  ArcanaSwitchProps,
+  ArcanaSwitchStyles
+> {
+  makeStyle() {
+    return makeArcanaSwitchStyles(this.props.theme);
+  }
+
   onChangedTo = (type: ArcanaType) => {
     this.props.onChangedTo(type);
   };
@@ -27,9 +39,12 @@ export class ArcanaSwitch extends PureComponent<ArcanaSwitchProps> {
         value={this.props.selected}
         onValueChange={value => this.onChangedTo(value as ArcanaType)}
         style={{
-          viewContainer: styles.viewContainer,
+          inputIOS: this.state.styles.inputIOS,
+          viewContainer: this.state.styles.viewContainer,
         }}
       />
     );
   }
 }
+
+export const ArcanaSwitch = withTheme(_ArcanaSwitch);

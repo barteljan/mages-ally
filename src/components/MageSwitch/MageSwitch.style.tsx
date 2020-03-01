@@ -18,8 +18,15 @@ export const makeMageSwitchStyle = (theme: Theme) =>
       paddingHorizontal: 10,
       borderColor: theme.colors.disabled,
       borderWidth: 1,
-      borderRadius: 2,
+      borderRadius: theme.roundness,
+      backgroundColor: theme.colors.surface,
+      elevation: 3,
     },
-    label: {color: theme.colors.onBackground, fontSize: 14, maxWidth: '80%'},
+    label: {
+      color: theme.colors.text,
+      fontSize: 14,
+      maxWidth: '80%',
+      fontFamily: theme.fonts.regular.fontFamily,
+    },
     switch: {},
   });

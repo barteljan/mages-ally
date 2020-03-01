@@ -18,6 +18,8 @@ import {spellTypeName} from '../../../../rules/spells/Spell.config.strings';
 import {YantraType} from '../../../../rules/spells/yantra/Yantra.type';
 import {SpellCastingConfig} from '../../../../rules/spells/Spell.config';
 import {SpellSectionDescription} from './SpellSectionDescription';
+import {NumberSwitch} from '../../../../components/NumberSwitch/NumberSwitch';
+import {MageSwitch} from '../../../../components/MageSwitch/MageSwitch';
 
 export class SpellSection extends DynamiclyStyledPureComponent<
   SpellSectionProps,
@@ -194,6 +196,61 @@ export class SpellSection extends DynamiclyStyledPureComponent<
           />
         </InputContainer>
         {roteSkillSelect}
+        <InputContainer
+          title={localization.extra_reach_title}
+          containerStyle={styles.inputContainer}>
+          <NumberSwitch
+            key={SpellValueIds.extraReach + 'select'}
+            identifier={SpellValueIds.extraReach}
+            parent={parent}
+            selected={spell.additionalSpecs.extraReach}
+            onChangedTo={this.props.setValue}
+            minValue={0}
+            maxValue={20}
+            singularItemLabel={localization.extra_reach_singular}
+            pluralItemLabel={localization.extra_reach_plural}
+          />
+        </InputContainer>
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={SpellValueIds.changePrimarySpellFactor}
+          value={spell.additionalSpecs.changePrimarySpellFactor}
+          label={localization.changed_primary_factor_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={SpellValueIds.timeInABottle}
+          value={spell.additionalSpecs.timeInABottle}
+          label={localization.time_in_a_bottle_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={SpellValueIds.everywhere}
+          value={spell.additionalSpecs.everywhere}
+          label={localization.everywhere_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={SpellValueIds.symphaticRange}
+          value={spell.additionalSpecs.sympatheticRange}
+          label={localization.sympathetic_range_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={SpellValueIds.temporalSympathy}
+          value={spell.additionalSpecs.temporalSympathy}
+          label={localization.temporal_sympathy_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
       </FormSection>
     );
   }

@@ -1,13 +1,13 @@
-import {StyleSheet, ViewStyle, ImageStyle, TextStyle} from 'react-native';
+import {StyleSheet, ViewStyle, TextStyle} from 'react-native';
 import {Theme} from 'react-native-paper';
 
 export type AddButtonStyle = {
   iosIcon: ViewStyle;
-  actionButtonIcon: ImageStyle;
   actionButtonIconContainer: TextStyle;
   FAB: ViewStyle;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const makeAddButtonStyle = (theme: Theme) =>
   StyleSheet.create<AddButtonStyle>({
     iosIcon: {
@@ -16,12 +16,6 @@ export const makeAddButtonStyle = (theme: Theme) =>
     actionButtonIconContainer: {
       paddingLeft: 5,
       paddingTop: 4,
-    },
-    actionButtonIcon: {
-      width: 40,
-      height: 40,
-      resizeMode: 'contain',
-      tintColor: theme.colors.background,
     },
     FAB: {
       position: 'absolute',

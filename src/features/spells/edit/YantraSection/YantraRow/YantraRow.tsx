@@ -1,6 +1,6 @@
 import React from 'react';
 import {DynamiclyStyledPureComponent} from '../../../../../components/DynamiclyStyledPureComponent';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {InputContainer} from '../../../../../components/InputContainer/InputContainer';
 import {DotSelect} from '../../../../../components/DotSelect/DotSelect';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -33,25 +33,33 @@ export class YantraRow extends DynamiclyStyledPureComponent<
     const deleteIcon = this.props.deleteYantra ? (
       <Icon name="minus" size={18} color={theme.colors.primary} />
     ) : null;
+
+    const selectOrTitle =
+      yantra.fixedDice === true && yantra.diceModifier === 0 ? (
+        <Text style={this.state.styles.titleStyle}>{yantra.name}</Text>
+      ) : (
+        <DotSelect
+          parent={this.props.parent}
+          numberOfDots={yantra.maxDice}
+          identifier={yantra.id}
+          value={yantra.diceModifier}
+          dotSize={18}
+          didSelect={this.changedValue}
+          color={
+            yantra.fixedDice === false
+              ? theme.colors.onBackground
+              : theme.colors.disabled
+          }
+        />
+      );
+
     return (
       <View>
         <InputContainer
           title={yantra.name ? yantra.name : 'empty'}
           containerStyle={this.props.containerStyle}>
           <View style={this.state.styles.yantraContainer}>
-            <DotSelect
-              parent={this.props.parent}
-              numberOfDots={yantra.maxDice}
-              identifier={yantra.id}
-              value={yantra.diceModifier}
-              dotSize={18}
-              didSelect={this.changedValue}
-              color={
-                yantra.fixedDice === false
-                  ? theme.colors.onBackground
-                  : theme.colors.disabled
-              }
-            />
+            {selectOrTitle}
             <TouchableOpacity
               style={this.state.styles.deleteButton}
               onPress={this.delete}>

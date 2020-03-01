@@ -13,6 +13,7 @@ export function spellFactorLabelCastingTime(
   value: number,
   gnosis: number,
   gnosisRules: GnosisRules[],
+  addDices: boolean,
   castingTimeRules: CastingTimeRules = makeCastingTimeRules(),
   translate: (
     key: RitualIntervalUnit | CastingTimeStringKey,
@@ -41,14 +42,16 @@ export function spellFactorLabelCastingTime(
       sign = '+';
     }
 
-    description =
-      time + ' ' + translatedTimeUnit + ' (' + sign + diceModifier + ' ';
-    if (value === 0) {
-      description = description + translate(CastingTimeStringKey.dice, false);
-    } else {
-      description = description + translate(CastingTimeStringKey.dice, true);
+    description = time + ' ' + translatedTimeUnit;
+    if (addDices) {
+      description += ' (' + sign + diceModifier + ' ';
+      if (value === 0) {
+        description = description + translate(CastingTimeStringKey.dice, false);
+      } else {
+        description = description + translate(CastingTimeStringKey.dice, true);
+      }
+      description += ')';
     }
-    description += ')';
   } else if (level === SpellFactorLevel.advanced) {
     description = translate(CastingTimeStringKey.advancedDescription, false);
   }

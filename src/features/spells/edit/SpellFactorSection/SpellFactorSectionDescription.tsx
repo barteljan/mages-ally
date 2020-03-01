@@ -31,6 +31,7 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
     const duration = factors.duration;
     const range = factors.range;
     const scale = factors.scale;
+    const showDices = this.props.showDices;
 
     return (
       <View style={style.container}>
@@ -45,6 +46,7 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
                 gnosis,
                 primaryFactor,
                 highesArcanumValue,
+                showDices,
               )}
           </Text>
         </View>
@@ -59,6 +61,7 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
                 gnosis,
                 primaryFactor,
                 highesArcanumValue,
+                showDices,
               )}
           </Text>
         </View>
@@ -73,6 +76,7 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
                 gnosis,
                 primaryFactor,
                 highesArcanumValue,
+                showDices,
               )}
           </Text>
         </View>
@@ -87,6 +91,7 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
                 gnosis,
                 primaryFactor,
                 highesArcanumValue,
+                showDices,
               )}
           </Text>
         </View>
@@ -101,6 +106,7 @@ export class SpellFactorSectionDescription extends DynamiclyStyledPureComponent<
                 gnosis,
                 primaryFactor,
                 highesArcanumValue,
+                showDices,
               )}
           </Text>
         </View>

@@ -6,4 +6,5 @@ export type SpellFactorSectionDescriptionProps = {
   theme: Theme;
   spellCastingConfig: SpellCastingConfig;
   labelStyle?: TextStyle;
+  showDices: boolean;
 };

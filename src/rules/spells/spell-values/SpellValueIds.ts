@@ -20,4 +20,7 @@ export enum SpellValueIds {
   requiredArcanumValue = 'requiredArcanumValue',
   primaryFactor = 'primaryFactor',
   spellType = 'spellType',
+  everywhere = 'everywhere',
+  timeInABottle = 'timeInABottle',
+  changePrimarySpellFactor = 'changePrimarySpellFactor',
 }

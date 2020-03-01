@@ -7,4 +7,5 @@ export type ChooseYantraScreenProps = {
   parent: string;
   yantras: SectionListData<BaseYantra<YantraType, number, string>>;
   didSelectYantra: (yantra: Yantra, parent: string) => void;
+  addCustomYantra: (title: string, value: number, parent: string) => void;
 };

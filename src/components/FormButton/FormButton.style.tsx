@@ -1,21 +1,23 @@
 import {ViewStyle, TextStyle} from 'react-native';
 import {Theme} from 'react-native-paper';
 
-export type AddYantraButtonStyle = {
+export type FormButtonStyle = {
   containerStyle: ViewStyle;
   containerTitle: TextStyle;
   buttonStyle: ViewStyle;
   buttonText: TextStyle;
 };
 
-export const makeAddYantraButtonStyle = (
+export const makeFormButtonStyle = (
   theme: Theme,
-  containerStyle: ViewStyle,
-): AddYantraButtonStyle => {
+  containerStyle?: ViewStyle,
+  buttonStyle?: ViewStyle,
+  buttonTextStyle?: TextStyle,
+): FormButtonStyle => {
   return {
     containerStyle: {
-      ...containerStyle,
       borderColor: theme.colors.primary,
+      ...containerStyle,
     },
     containerTitle: {
       color: theme.colors.primary,
@@ -25,9 +27,13 @@ export const makeAddYantraButtonStyle = (
       flexDirection: 'row',
       width: '100%',
       justifyContent: 'space-between',
+      height: '100%',
+      alignItems: 'center',
+      ...buttonStyle,
     },
     buttonText: {
       color: theme.colors.primary,
+      ...buttonTextStyle,
     },
   };
 };

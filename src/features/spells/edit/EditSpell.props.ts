@@ -30,4 +30,5 @@ export type EditSpellProps = {
   setYantraValue: (identifier: string, value: number, parent: string) => void;
   chooseYantra: (parent: string) => void;
   save: (id: string) => void;
+  showSave: boolean;
 };

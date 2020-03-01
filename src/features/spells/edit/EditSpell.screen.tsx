@@ -53,18 +53,19 @@ class _EditSpellScreen extends PureComponent<
 
   componentDidMount() {
     this.props.navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          style={this.state.styles.saveButtonContainer}
-          onPress={this.save}>
-          <Icon
-            name="save"
-            size={28}
-            color={this.props.theme.colors.primary}
-            onPress={this.save}
-          />
-        </TouchableOpacity>
-      ),
+      headerRight: () =>
+        this.props.showSave ? (
+          <TouchableOpacity
+            style={this.state.styles.saveButtonContainer}
+            onPress={this.save}>
+            <Icon
+              name="save"
+              size={28}
+              color={this.props.theme.colors.primary}
+              onPress={this.save}
+            />
+          </TouchableOpacity>
+        ) : null,
     });
   }
 

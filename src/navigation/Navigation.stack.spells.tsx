@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from './Routes';
 import {localization} from './Navigation.strings';
-import EditSpellScreen from '../features/spells/edit/AddSpell.container';
+import EditSpellScreen from '../features/spells/edit/EditSpell.container';
 import AddButton from '../features/spells/add-button/SpellsAddButton.container';
 import ChooseYantrasScreen from '../features/spells/edit/ChooseYantraScreen/ChooseYantra.container';
 import {Platform} from 'react-native';
@@ -28,6 +28,14 @@ export function SpellsStackScreen() {
         component={EditSpellScreen}
         options={{
           title: localization.add_spell_route_title,
+          headerTintColor: theme.colors.primary,
+        }}
+      />
+      <SpellsStack.Screen
+        name={Routes.editSpell}
+        component={EditSpellScreen}
+        options={{
+          title: localization.edit_spell_route_title,
           headerTintColor: theme.colors.primary,
         }}
       />

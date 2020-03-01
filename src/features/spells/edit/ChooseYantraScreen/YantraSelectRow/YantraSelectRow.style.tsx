@@ -7,6 +7,8 @@ export type YantraSelectRowStyle = {
   title: TextStyle;
   titleRow: ViewStyle;
   description: TextStyle;
+  notLastRow: ViewStyle;
+  lastRow: ViewStyle;
 };
 
 export const makeYantraSelectRowStyle = (theme: Theme) =>
@@ -16,28 +18,35 @@ export const makeYantraSelectRowStyle = (theme: Theme) =>
       paddingHorizontal: 15,
     },
     itemContainer: {
-      borderLeftColor: theme.colors.disabled,
+      borderColor: theme.colors.primary,
+      //borderBottomWidth: 1,
       borderLeftWidth: 1,
-      borderRightColor: theme.colors.disabled,
       borderRightWidth: 1,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.colors.disabled,
+      backgroundColor: theme.colors.surface,
     },
     titleRow: {
       paddingHorizontal: 15,
-      height: 44,
+      paddingVertical: 10,
       alignItems: 'center',
       justifyContent: 'space-between',
       flexDirection: 'row',
-      backgroundColor: theme.colors.background,
     },
     title: {
       maxWidth: '70%',
       fontSize: 16,
+      color: theme.colors.primary,
     },
     description: {
+      maxWidth: '80%',
       paddingHorizontal: 15,
-      paddingVertical: 15,
-      backgroundColor: theme.colors.background,
+      paddingTop: 2,
+      paddingBottom: 10,
+      color: theme.colors.text,
+    },
+    notLastRow: {},
+    lastRow: {
+      borderBottomWidth: 1,
+      borderBottomLeftRadius: theme.roundness,
+      borderBottomRightRadius: theme.roundness,
     },
   });

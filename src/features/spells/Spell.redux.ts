@@ -12,7 +12,11 @@ import {SpellStatus} from './Spell.status';
 import {SpellFactorType} from '../../rules/spells/spell-factors/SpellFactor.type';
 import {SpellType} from '../../rules/spells/Spell.type';
 import {YantraType} from '../../rules/spells/yantra/Yantra.type';
-import {makeRoteYantra, Yantra} from '../../rules/spells/yantra/yantra';
+import {
+  makeRoteYantra,
+  Yantra,
+  makeCustomYantra,
+} from '../../rules/spells/yantra/yantra';
 import {
   DefaultAdditionalDiceModifier,
   makeDefaultAdditionalSpellCastingDice,
@@ -44,6 +48,8 @@ export enum SpellActionTypes {
   setYantraValue = 'spell/edit/setYantraValue',
   saveSpell = 'spell/edit/saveSpell',
   saveSpellError = 'spell/edit/saveSpellError',
+  addCustomYantra = 'spell/edit/addCustomYantra',
+  addCustomYantraError = 'spell/edit/addCustomYantraError',
 }
 
 export const setNumberValueAction = createAction(
@@ -151,6 +157,29 @@ export const saveSpellError = createAction(
   },
 )();
 
+export const addCustomYantra = createAction(
+  SpellActionTypes.addCustomYantra,
+  (title: string | undefined, value: number, parent: string) => {
+    return {
+      parent,
+      title,
+      value,
+    };
+  },
+)();
+
+export const addCustomYantraError = createAction(
+  SpellActionTypes.addCustomYantraError,
+  (title: string | undefined, value: number, parent: string, error: string) => {
+    return {
+      parent,
+      title,
+      value,
+      error,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
@@ -162,6 +191,8 @@ const actions = {
   setYantraValueAction,
   saveSpellAction,
   saveSpellError,
+  addCustomYantra,
+  addCustomYantraError,
 };
 
 export type SpellActions = ActionType<typeof actions>;
@@ -235,6 +266,10 @@ export const spellReducer = produce(
             paradox.manaSpent = action.payload.value;
             break;
           }
+          case SpellValueIds.extraReach: {
+            specification.additionalSpecs.extraReach = action.payload.value;
+            break;
+          }
         }
         break;
       //set number in config
@@ -278,6 +313,24 @@ export const spellReducer = produce(
             break;
           case SpellValueIds.inuredToSpell:
             paradox.inuredToSpell = action.payload.value;
+            break;
+          case SpellValueIds.everywhere:
+            specification.additionalSpecs.everywhere = action.payload.value;
+            break;
+          case SpellValueIds.symphaticRange:
+            specification.additionalSpecs.sympatheticRange =
+              action.payload.value;
+            break;
+          case SpellValueIds.temporalSympathy:
+            specification.additionalSpecs.temporalSympathy =
+              action.payload.value;
+            break;
+          case SpellValueIds.timeInABottle:
+            specification.additionalSpecs.timeInABottle = action.payload.value;
+            break;
+          case SpellValueIds.changePrimarySpellFactor:
+            specification.additionalSpecs.changePrimarySpellFactor =
+              action.payload.value;
             break;
         }
         break;
@@ -358,7 +411,17 @@ export const spellReducer = produce(
           };
           draft.spells[newConfig.id] = newSpellState;
         }
+        break;
       }
+      case SpellActionTypes.addCustomYantra:
+        if (action.payload.title && action.payload.title.length > 0) {
+          const yantra = makeCustomYantra(
+            action.payload.title,
+            action.payload.value,
+          );
+          specification.yantras.unshift(yantra);
+        }
+        break;
     }
 
     spell.spell = spellFromConfig(spell.spellCastingConfig);

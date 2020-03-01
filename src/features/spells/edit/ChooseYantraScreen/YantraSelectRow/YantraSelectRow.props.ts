@@ -4,4 +4,5 @@ export type YantraSelectRowProps = {
   theme: Theme;
   yantra: Yantra;
   didSelectYantra: (yantra: Yantra) => void;
+  lastRowInSection: boolean;
 };

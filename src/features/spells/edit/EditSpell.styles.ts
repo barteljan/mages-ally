@@ -35,16 +35,12 @@ export const makeEditSpellStyles = (theme: Theme) =>
     accordionIcon: {paddingRight: 10},
     title: {
       fontSize: FontSize.header,
-      fontFamily: theme.fonts.regular.fontFamily,
-      fontWeight: theme.fonts.regular.fontWeight,
+      fontFamily: theme.fonts.light.fontFamily,
+      fontWeight: theme.fonts.light.fontWeight,
       color: theme.colors.disabled,
       marginBottom: 15,
     },
-    inputField: {
-      height: 52,
-      width: '100%',
-      marginBottom: 20,
-    },
+    inputField: {},
     inputContainer: {
       marginBottom: 20,
     },

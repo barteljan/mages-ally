@@ -15,19 +15,27 @@ export function spellFactorLabel(
   gnosis: number,
   primaryFactor: SpellFactorType,
   highestArcanumValue: number,
+  addDices: boolean = false,
   gnosisRules: GnosisRules[] = defaultGnosisRules,
 ): string | undefined {
   const index = value - 1;
 
   switch (type) {
     case SpellFactorType.castingTime:
-      return spellFactorLabelCastingTime(level, index, gnosis, gnosisRules);
+      return spellFactorLabelCastingTime(
+        level,
+        index,
+        gnosis,
+        gnosisRules,
+        addDices,
+      );
     case SpellFactorType.duration:
       return spellFactorLabelDuration(
         level,
         index,
         primaryFactor,
         highestArcanumValue,
+        addDices,
       );
     case SpellFactorType.potency:
       return spellFactorLabelPotency(
@@ -35,11 +43,12 @@ export function spellFactorLabel(
         index,
         primaryFactor,
         highestArcanumValue,
+        addDices,
       );
     case SpellFactorType.range:
-      return spellFactorLabelRange(level, index);
+      return spellFactorLabelRange(level, addDices);
     case SpellFactorType.scale:
-      return spellFactorLabelScale(level, index);
+      return spellFactorLabelScale(level, index, addDices);
   }
   return '';
 }

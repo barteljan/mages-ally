@@ -7,6 +7,7 @@ import {makeYantraSelectRowStyle} from './YantraSelectRow.style';
 import {YantraSelectRowProps} from './YantraSelectRow.props';
 import {YantraSelectRowStyle} from './YantraSelectRow.style';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Surface} from 'react-native-paper';
 
 export class YantraSelectRow extends DynamiclyStyledPureComponent<
   YantraSelectRowProps,
@@ -29,28 +30,35 @@ export class YantraSelectRow extends DynamiclyStyledPureComponent<
     }
     return (
       <View style={this.state.styles.yantraContainer}>
-        <TouchableOpacity
-          style={this.state.styles.itemContainer}
-          onPress={this.onPress}>
-          <View style={this.state.styles.titleRow}>
-            <Text style={this.state.styles.title}>{title}</Text>
-            <DotSelect
-              parent={''}
-              numberOfDots={yantra.fixedDice ? yantra.maxDice : 0}
-              identifier={yantra.id}
-              value={yantra.diceModifier}
-              dotSize={18}
-              color={
-                yantra.fixedDice === false
-                  ? theme.colors.onBackground
-                  : theme.colors.disabled
-              }
-            />
-          </View>
-          <Text style={this.state.styles.description}>
-            {yantra.description}
-          </Text>
-        </TouchableOpacity>
+        <Surface>
+          <TouchableOpacity
+            style={[
+              this.state.styles.itemContainer,
+              this.props.lastRowInSection
+                ? this.state.styles.lastRow
+                : this.state.styles.notLastRow,
+            ]}
+            onPress={this.onPress}>
+            <View style={this.state.styles.titleRow}>
+              <Text style={this.state.styles.title}>{title}</Text>
+              <DotSelect
+                parent={''}
+                numberOfDots={yantra.fixedDice ? yantra.maxDice : 0}
+                identifier={yantra.id}
+                value={yantra.diceModifier}
+                dotSize={18}
+                color={
+                  yantra.fixedDice === false
+                    ? theme.colors.onBackground
+                    : theme.colors.disabled
+                }
+              />
+            </View>
+            <Text style={this.state.styles.description}>
+              {yantra.description}
+            </Text>
+          </TouchableOpacity>
+        </Surface>
       </View>
     );
   }

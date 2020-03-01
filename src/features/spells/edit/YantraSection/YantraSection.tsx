@@ -9,7 +9,7 @@ import {
   YantraSectionStyle,
   makeYantraSectionStyle,
 } from './YantraSection.style';
-import {AddYantraButton} from './AddYantraButton/AddYantraButton';
+import {FormButton} from '../../../../components/FormButton/FormButton';
 import {LayoutAnimation} from 'react-native';
 import {YantraRow} from './YantraRow/YantraRow';
 import {YantraDescription} from './YantraDescription/YantraDescription';
@@ -58,12 +58,13 @@ export class YantraSection extends DynamiclyStyledPureComponent<
 
     let yantraButton =
       spell.maxYantras > spellSpec.yantras.length ? (
-        <AddYantraButton
+        <FormButton
           key={'AddYantraButton'}
           theme={this.props.theme}
           containerStyle={styles.inputContainer}
           parent={parent}
-          addYantra={this.props.chooseYantra}
+          title={localization.yantra_add_button_title}
+          onPress={this.props.chooseYantra}
         />
       ) : null;
 

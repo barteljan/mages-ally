@@ -12,6 +12,7 @@ export function spellFactorLabelPotency(
   value: number,
   primaryFactor: SpellFactorType,
   highestArcanumValue: number,
+  addDices: boolean,
   rules: PotencyRules = makePotencyRules(
     11,
     primaryFactor,
@@ -32,6 +33,10 @@ export function spellFactorLabelPotency(
     diceModifier === 0
       ? '-0 ' + potencyLocalization.dice + ')'
       : diceModifier + ' ' + potencyLocalization.dice + ')';
+
+  if (!addDices) {
+    suffix = '';
+  }
 
   return spellFactorName(SpellFactorType.potency) + ' ' + (value + 1) + suffix;
 }

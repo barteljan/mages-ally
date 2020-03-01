@@ -23,6 +23,7 @@ export function spellFactorLabelDuration(
   value: number,
   primaryFactor: SpellFactorType,
   highestArcanumValue: number,
+  addDices: boolean,
   rules: DurationRules = makeDurationRules(primaryFactor, highestArcanumValue),
 ): string {
   let suffix: string = ' (';
@@ -39,6 +40,10 @@ export function spellFactorLabelDuration(
     diceModifier === 0
       ? '-0 ' + durationLocalization.dice + ')'
       : diceModifier + ' ' + durationLocalization.dice + ')';
+
+  if (!addDices) {
+    suffix = '';
+  }
 
   switch (level) {
     case SpellFactorLevel.standard:

@@ -10,6 +10,8 @@ import {ButtonGroup, Button, Divider} from 'react-native-elements';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {withTheme} from 'react-native-paper';
 import {isEqual} from 'lodash';
+import {InputContainer} from '../../components/InputContainer/InputContainer';
+import {FormButton} from '../../components/FormButton/FormButton';
 
 type AddRollState = {
   styles: RollDiceStyle;
@@ -101,8 +103,15 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
       this.state &&
       this.state.size &&
       getLayoutWidth(this.state.size) === LayoutWidth.small
-        ? {paddingHorizontal: 0}
+        ? {} //{paddingHorizontal: 0}
         : {};
+
+    const scale =
+      this.state &&
+      this.state.size &&
+      getLayoutWidth(this.state.size) === LayoutWidth.small
+        ? 0.75
+        : 1.0;
 
     const groupStyle =
       this.state &&
@@ -123,55 +132,61 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
 
     const exceptionalSuccessButtons = ['1', '2', '3', '4', '5'];
 
+    const buttonContainerHeight = 52 * 1.5;
+
     return (
       <ScrollView
         style={[this.state.styles.container, containerStyle]}
         contentContainerStyle={this.state.styles.containerContent}
         alwaysBounceVertical={false}
         onLayout={this.onLayoutChange}>
-        <Text style={this.state.styles.title}>
-          {localization.choose_dice.toUpperCase()}
-        </Text>
-        <DiceSelect
-          numberOfDice={visibleNumberOfDice}
-          value={this.props.numberOfDice}
-          selectedColor={this.props.theme.colors.primary}
-          selectedTextColor={this.props.theme.colors.background}
-          unselectedTextColor={this.props.theme.colors.background}
-          unselectedColor={this.props.theme.colors.disabled}
-          groupStyle={groupStyle}
-          onSelect={this.onSelectNumberOfDice}
-        />
-        <Button
-          containerStyle={this.state.styles.rollDiceButtonStyle}
+        <InputContainer
+          title={localization.choose_dice}
+          height="auto"
+          containerStyle={this.state.styles.diceSelectContainer}>
+          <DiceSelect
+            numberOfDice={visibleNumberOfDice}
+            value={this.props.numberOfDice}
+            selectedColor={this.props.theme.colors.primary}
+            selectedTextColor={this.props.theme.colors.background}
+            unselectedTextColor={this.props.theme.colors.background}
+            unselectedColor={this.props.theme.colors.disabled}
+            groupStyle={groupStyle}
+            onSelect={this.onSelectNumberOfDice}
+            scale={scale}
+          />
+        </InputContainer>
+        <FormButton
+          parent={'no_parent'}
+          theme={this.props.theme}
           title={localization.roll_dice_button_text}
-          type="clear"
-          titleStyle={this.state.styles.rollDiceButtonTextStyle}
           onPress={this.onRollDice}
+          containerStyle={this.state.styles.rollDiceButtonStyle}
         />
-        <Divider />
-        <Text style={this.state.styles.optionsTitle}>
-          {localization.tenAgain_title.toUpperCase()}
-        </Text>
-        <ButtonGroup
-          buttons={tenAgainButtons}
-          selectedButtonStyle={this.state.styles.selectedButtonStyle}
-          selectedIndex={tenAgainSelectedIndex}
-          onPress={this.onChangeRollAgainType}
-          underlayColor={this.props.theme.colors.primary}
-          containerStyle={this.state.styles.buttonGroupStyle}
-        />
-        <Text style={this.state.styles.optionsTitle}>
-          {localization.exceptional_sucesses_title.toUpperCase()}
-        </Text>
-        <ButtonGroup
-          buttons={exceptionalSuccessButtons}
-          selectedButtonStyle={this.state.styles.selectedButtonStyle}
-          selectedIndex={this.props.exceptionalSuccessAt - 1}
-          onPress={this.onChangeExceptionalSuccess}
-          underlayColor={this.props.theme.colors.primary}
-          containerStyle={this.state.styles.buttonGroupStyle}
-        />
+        <InputContainer
+          title={localization.tenAgain_title}
+          height={buttonContainerHeight}
+          containerStyle={this.state.styles.inputContainer}>
+          <ButtonGroup
+            buttons={tenAgainButtons}
+            selectedButtonStyle={this.state.styles.selectedButtonStyle}
+            selectedIndex={tenAgainSelectedIndex}
+            onPress={this.onChangeRollAgainType}
+            underlayColor={this.props.theme.colors.primary}
+          />
+        </InputContainer>
+        <InputContainer
+          title={localization.exceptional_sucesses_title}
+          height={buttonContainerHeight}
+          containerStyle={this.state.styles.inputContainer}>
+          <ButtonGroup
+            buttons={exceptionalSuccessButtons}
+            selectedButtonStyle={this.state.styles.selectedButtonStyle}
+            selectedIndex={this.props.exceptionalSuccessAt - 1}
+            onPress={this.onChangeExceptionalSuccess}
+            underlayColor={this.props.theme.colors.primary}
+          />
+        </InputContainer>
       </ScrollView>
     );
   }

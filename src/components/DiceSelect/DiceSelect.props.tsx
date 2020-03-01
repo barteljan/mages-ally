@@ -7,6 +7,7 @@ export type DiceSelectProps = {
   selectedTextColor: string;
   unselectedColor: string;
   unselectedTextColor: string;
+  scale?: number;
   style?: ViewStyle;
   groupStyle?: ViewStyle;
   onSelect: (index: number) => void;

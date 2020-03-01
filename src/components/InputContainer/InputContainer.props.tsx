@@ -7,5 +7,5 @@ export type InputContainerProps = {
   theme: Theme;
   containerStyle?: ViewStyle;
   titleStyle?: TextStyle;
-  height?: number;
+  height?: number | 'auto';
 };

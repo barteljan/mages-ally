@@ -30,6 +30,7 @@ export class DiceSelect extends React.PureComponent<
     let diceGroups: Element[] = [];
     let dice: Element[] = [];
     let i = 1;
+    const scale = this.props.scale ? this.props.scale : 1;
     while (i <= this.props.numberOfDice) {
       dice.push(
         <DiceView
@@ -49,6 +50,7 @@ export class DiceSelect extends React.PureComponent<
             this.props.onSelect(index);
             this.setState({value: index});
           }}
+          scale={scale}
         />,
       );
       if (i % 5 === 0) {

@@ -1,9 +1,20 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import Picker from 'react-native-picker-select';
 import {NumberSwitchProps} from './NumberSwitch.props';
-import {styles} from './NumberSwitch.styles';
+import {
+  NumberSwitchStyles,
+  makeNumberSwitchStyles,
+} from './NumberSwitch.styles';
+import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
+import {withTheme} from 'react-native-paper';
 
-export class NumberSwitch extends PureComponent<NumberSwitchProps> {
+class _NumberSwitch extends DynamiclyStyledPureComponent<
+  NumberSwitchProps,
+  NumberSwitchStyles
+> {
+  makeStyle() {
+    return makeNumberSwitchStyles(this.props.theme);
+  }
   onChangedTo = (type: number) => {
     this.props.onChangedTo(this.props.identifier, type, this.props.parent);
   };
@@ -25,9 +36,12 @@ export class NumberSwitch extends PureComponent<NumberSwitchProps> {
         value={this.props.selected}
         onValueChange={value => this.onChangedTo(value)}
         style={{
-          viewContainer: styles.viewContainer,
+          inputIOS: this.state.styles.inputIOS,
+          viewContainer: this.state.styles.viewContainer,
         }}
       />
     );
   }
 }
+
+export const NumberSwitch = withTheme(_NumberSwitch);

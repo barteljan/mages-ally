@@ -5,10 +5,10 @@ import {Theme} from 'react-native-paper';
 export type RollDiceStyle = {
   container: ViewStyle;
   containerContent: ViewStyle;
-  title: TextStyle;
+  diceSelectContainer: ViewStyle;
+  inputContainer: ViewStyle;
   optionsTitle: TextStyle;
   selectedButtonStyle: ViewStyle;
-  buttonGroupStyle: ViewStyle;
   rollDiceButtonStyle: ViewStyle;
   rollDiceButtonTextStyle: TextStyle;
 };
@@ -22,31 +22,29 @@ export const makeRollDiceStyle = (theme: Theme) =>
       backgroundColor: theme.colors.background,
     },
     containerContent: {
-      alignItems: 'center',
-      justifyContent: 'flex-start',
+      //alignItems: 'center',
+      //justifyContent: 'flex-start',
     },
-    title: {
-      fontSize: FontSize.header,
-      fontFamily: theme.fonts.regular.fontFamily,
-      fontWeight: theme.fonts.regular.fontWeight,
-      color: theme.colors.disabled,
-      marginBottom: 15,
+    diceSelectContainer: {
+      paddingTop: 20,
+    },
+    inputContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 20,
     },
     optionsTitle: {
       fontSize: FontSize.header,
       fontFamily: theme.fonts.regular.fontFamily,
       fontWeight: theme.fonts.regular.fontWeight,
       color: theme.colors.disabled,
-      marginBottom: 15,
+      marginBottom: 20,
     },
     selectedButtonStyle: {
       backgroundColor: theme.colors.primary,
     },
-    buttonGroupStyle: {
-      marginBottom: 30,
-    },
     rollDiceButtonStyle: {
-      marginBottom: 15,
+      marginVertical: 20,
     },
     rollDiceButtonTextStyle: {
       color: theme.colors.primary,

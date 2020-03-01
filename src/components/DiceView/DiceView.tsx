@@ -16,7 +16,8 @@ class _DiceView extends DynamiclyStyledPureComponent<
   DiceViewState
 > {
   makeStyle() {
-    return makeDiceViewStyles(this.props.theme);
+    const scale = this.props.scale ? this.props.scale : 1;
+    return makeDiceViewStyles(this.props.theme, scale);
   }
 
   render() {

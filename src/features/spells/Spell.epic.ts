@@ -7,9 +7,11 @@ import {
   selectedYantraAction,
   saveSpellAction,
   saveSpellError,
+  addCustomYantra,
+  addCustomYantraError,
 } from './Spell.redux';
 import {AppState} from '../../redux/AppState';
-import {spellState} from './edit/AddSpell.selectors';
+import {spellState} from './edit/EditSpell.selectors';
 import {showMessage} from 'react-native-flash-message';
 import {localization} from './edit/EditSpell.strings';
 import {theme} from '../../layout/Theme';
@@ -19,6 +21,26 @@ const setYantraEpic: Epic<RootAction, RootAction, AppState> = action$ =>
     filter(isActionOf(selectedYantraAction)),
     map(_ => {
       return popAction();
+    }),
+  );
+
+const addCustomYantraEpic: Epic<RootAction, RootAction, AppState> = action$ =>
+  action$.pipe(
+    filter(isActionOf(addCustomYantra)),
+    map(action => {
+      if (action.payload.title && action.payload.title.length > 0) {
+        return popAction();
+      }
+      showMessage({
+        message: localization.warning_enter_title_for_yantra,
+        backgroundColor: theme.colors.error,
+      });
+      return addCustomYantraError(
+        action.payload.title,
+        action.payload.value,
+        action.payload.parent,
+        localization.warning_enter_title_for_yantra,
+      );
     }),
   );
 
@@ -48,4 +70,8 @@ const saveSpellEpic: Epic<RootAction, RootAction, AppState> = (
     }),
   );
 
-export const spellsEpic = combineEpics(setYantraEpic, saveSpellEpic);
+export const spellsEpic = combineEpics(
+  setYantraEpic,
+  addCustomYantraEpic,
+  saveSpellEpic,
+);

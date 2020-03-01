@@ -1,34 +1,28 @@
 import React, {PureComponent} from 'react';
-import {localization} from '../../EditSpell.strings';
 import {Text} from 'react-native';
-import {InputContainer} from '../../../../../components/InputContainer/InputContainer';
+import {InputContainer} from '../InputContainer/InputContainer';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {AddYantraButtonProps} from './AddYantraButton.props';
-import {
-  AddYantraButtonStyle,
-  makeAddYantraButtonStyle,
-} from './AddYantraButton.style';
+import {FormButtonProps} from './FormButton.props';
+import {FormButtonStyle, makeFormButtonStyle} from './FormButton.style';
 import {isEqual} from 'lodash';
 
-export type AddYantraButtonState = {
-  showOverlay: boolean;
+export type FormButtonState = {
   listHeight: number;
-  styles: AddYantraButtonStyle;
+  styles: FormButtonStyle;
 };
 
-export class AddYantraButton extends PureComponent<
-  AddYantraButtonProps,
-  AddYantraButtonState
+export class FormButton extends PureComponent<
+  FormButtonProps,
+  FormButtonState
 > {
   state = {
-    showOverlay: false,
     listHeight: 0,
     styles: this.makeStyle(),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidUpdate(prevProps: AddYantraButtonProps) {
+  componentDidUpdate(prevProps: FormButtonProps) {
     const styles = this.makeStyle();
     if (!isEqual(this.state.styles, styles)) {
       //@ts-ignore
@@ -37,29 +31,29 @@ export class AddYantraButton extends PureComponent<
     }
   }
 
-  makeStyle(): AddYantraButtonStyle {
-    return makeAddYantraButtonStyle(
+  makeStyle(): FormButtonStyle {
+    return makeFormButtonStyle(
       this.props.theme,
       this.props.containerStyle,
+      this.props.buttonStyle,
+      this.props.buttonTextStyle,
     );
   }
 
   onPress = () => {
-    this.props.addYantra(this.props.parent);
+    this.props.onPress(this.props.parent);
   };
 
   render() {
     return (
       <InputContainer
-        title={localization.yantra_add_button_title}
+        title={this.props.title}
         containerStyle={this.state.styles.containerStyle}
         titleStyle={this.state.styles.containerTitle}>
         <TouchableOpacity
           style={this.state.styles.buttonStyle}
           onPress={this.onPress}>
-          <Text style={this.state.styles.buttonText}>
-            {localization.yantra_add_button_title}
-          </Text>
+          <Text style={this.state.styles.buttonText}>{this.props.title}</Text>
           <Icon name="plus" size={18} color={this.props.theme.colors.primary} />
         </TouchableOpacity>
       </InputContainer>

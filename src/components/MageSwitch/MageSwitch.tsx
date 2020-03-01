@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
-import {Switch, withTheme} from 'react-native-paper';
+import {Switch, withTheme, Surface} from 'react-native-paper';
 import {makeMageSwitchStyle} from './MageSwitch.style';
 import {MageSwitchStyle} from './MageSwitch.style';
 import {MageSwitchProps} from './MageSwitch.props';
@@ -17,7 +17,7 @@ class _MageSwitch extends DynamiclyStyledPureComponent<
     this.props.onValueChanged(this.props.identifier, value, this.props.parent);
   render() {
     return (
-      <View style={[this.state.styles.container, this.props.containerStyle]}>
+      <Surface style={[this.state.styles.container, this.props.containerStyle]}>
         <Text style={this.state.styles.label}>{this.props.label}</Text>
         <Switch
           style={this.state.styles.switch}
@@ -25,7 +25,7 @@ class _MageSwitch extends DynamiclyStyledPureComponent<
           color={this.props.theme.colors.primary}
           onValueChange={this.onValueChange}
         />
-      </View>
+      </Surface>
     );
   }
 }
