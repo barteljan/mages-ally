@@ -24,7 +24,7 @@ import {YantraSection} from './YantraSection/YantraSection';
 import {SpellInformation} from './SpellInformation/SpellInformation';
 import {ParadoxSection} from './ParadoxSection/ParadoxSection';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;

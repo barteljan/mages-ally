@@ -22,6 +22,7 @@ export const makeCustomYantraOverlayStyle = (
       fontSize: FontSize.header,
       fontFamily: theme.fonts.medium.fontFamily,
       fontWeight: theme.fonts.medium.fontWeight,
+      color: theme.colors.primary,
       marginBottom: 20,
     },
     valueContainer: {marginBottom: 20},

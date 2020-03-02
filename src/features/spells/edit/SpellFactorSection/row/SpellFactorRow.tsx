@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
-import {Text, View, LayoutRectangle} from 'react-native';
+import {Text, View, LayoutRectangle, TouchableOpacity} from 'react-native';
 import {spellFactorLevelName} from '../../../../../rules/spells/spell-factors/SpellFactor.strings';
 import {spellFactorLabel} from '../../../../../rules/spells/spell-factors/SpellFactor.labels';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SpellFactorRowProps} from './SpellFactorRow.props';
 import {SpellFactorOverlay} from '../overlay/SpellFactorOverlay';
 import {style} from './SpellFactorRow.styles';
@@ -45,7 +44,8 @@ export class SpellFactorRow extends PureComponent<
       true,
     );
     return (
-      <TouchableWithoutFeedback
+      <TouchableOpacity
+        activeOpacity={1}
         style={[style.container, this.props.containerStyle]}
         onPress={this.onPress}>
         <Text style={style.label}>{label}</Text>
@@ -87,7 +87,7 @@ export class SpellFactorRow extends PureComponent<
           parent={this.props.parent}
           setSpellFactorLevel={this.props.setSpellFactorLevel}
         />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }

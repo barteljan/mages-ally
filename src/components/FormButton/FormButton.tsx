@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Text} from 'react-native';
 import {InputContainer} from '../InputContainer/InputContainer';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {FormButtonProps} from './FormButton.props';
 import {FormButtonStyle, makeFormButtonStyle} from './FormButton.style';

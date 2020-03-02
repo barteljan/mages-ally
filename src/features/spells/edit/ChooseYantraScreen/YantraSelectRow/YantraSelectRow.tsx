@@ -6,7 +6,7 @@ import {yantraLabel} from '../../../../../rules/spells/yantra/Yantra.strings';
 import {makeYantraSelectRowStyle} from './YantraSelectRow.style';
 import {YantraSelectRowProps} from './YantraSelectRow.props';
 import {YantraSelectRowStyle} from './YantraSelectRow.style';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import {Surface} from 'react-native-paper';
 
 export class YantraSelectRow extends DynamiclyStyledPureComponent<

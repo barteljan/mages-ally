@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 import {InputContainer} from '../../../../../components/InputContainer/InputContainer';
 import {DotSelect} from '../../../../../components/DotSelect/DotSelect';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import {makeYantraRowStyle} from './YantraRow.style';
 import {YantraRowProps} from './YantraRow.props';
 import {YantraRowStyle} from './YantraRow.style';

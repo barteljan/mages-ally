@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react';
-import {View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {View, TouchableOpacity} from 'react-native';
 import {FormSectionProps} from './FormSection.props';
 import {withTheme, Surface} from 'react-native-paper';
 import {DynamiclyStyledPureComponent} from '../DynamiclyStyledPureComponent';
@@ -25,11 +24,12 @@ class _FormSection extends DynamiclyStyledPureComponent<
 
     const children = (
       <Fragment>
-        <TouchableWithoutFeedback
+        <TouchableOpacity
+          activeOpacity={1}
           onPress={this.onChangeCollapse}
           style={props.titleContainerStyle}>
           {title}
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
         <View style={props.contentContainerStyle}>{content}</View>
       </Fragment>
     );

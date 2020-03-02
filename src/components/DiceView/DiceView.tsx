@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, Image, TextStyle} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Text, Image, TextStyle, TouchableOpacity} from 'react-native';
 import {DiceViewStyles, makeDiceViewStyles} from './DiceView.styles';
 import {DiceViewProps} from './DiceView.props';
 import {withTheme} from 'react-native-paper';
@@ -42,7 +41,8 @@ class _DiceView extends DynamiclyStyledPureComponent<
     );
 
     return (
-      <TouchableWithoutFeedback
+      <TouchableOpacity
+        activeOpacity={1}
         style={[this.state.styles.touchable, this.props.containerStyle]}
         onPress={() =>
           this.props.onPress ? this.props.onPress(this.props.index) : ''
@@ -52,7 +52,7 @@ class _DiceView extends DynamiclyStyledPureComponent<
           source={require('../../ressources/images/d10_dark.png')}
         />
         {text}
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }

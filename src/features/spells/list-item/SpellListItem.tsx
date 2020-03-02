@@ -1,8 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {Surface, withTheme} from 'react-native-paper';
 import {DynamiclyStyledPureComponent} from '../../../components/DynamiclyStyledPureComponent';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SpellFactorSectionDescription} from '../edit/SpellFactorSection/SpellFactorSectionDescription';
 import {spellShortSummary} from '../../../rules/spells/spellSummary';
 import {SpellInformation} from '../edit/SpellInformation/SpellInformation';
@@ -28,7 +27,8 @@ export class _SpellListItem extends DynamiclyStyledPureComponent<
     return (
       <View style={this.state.styles.wrapper}>
         <Surface style={this.state.styles.surface}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
+            activeOpacity={1}
             style={this.state.styles.container}
             key={config.id + '_spell'}
             onPress={this.onPress}>
@@ -51,7 +51,7 @@ export class _SpellListItem extends DynamiclyStyledPureComponent<
               containerStyle={this.state.styles.spellInformationContainer}
               textStyle={this.state.styles.spellInformationText}
             />
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </Surface>
       </View>
     );

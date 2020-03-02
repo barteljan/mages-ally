@@ -1,16 +1,9 @@
 import React, {Ref} from 'react';
-import {
-  View,
-  Platform,
-  Text,
-  LayoutAnimation,
-  ScrollView,
-  UIManager,
-} from 'react-native';
+import {View, Platform, Text, LayoutAnimation, UIManager} from 'react-native';
 import {RollsStyle, makeRollsStyle} from './Rolls.styles';
 import {RollsProps} from './Rolls.props';
 import RollsAddButton from './add-button/RollsAddButton.container';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList} from 'react-native';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {DynamiclyStyledPureComponent} from '../../components/DynamiclyStyledPureComponent';
 import {withTheme} from 'react-native-paper';

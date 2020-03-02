@@ -66,7 +66,8 @@ export class CustomYantraOverlay extends PureComponent<
         isVisible={this.props.isVisible}
         height={this.props.height}
         supportedOrientations={['portrait', 'landscape']}
-        onBackdropPress={this.props.cancle}>
+        onBackdropPress={this.props.cancle}
+        width={300}>
         <View style={this.state.styles.container} onLayout={this.onLayout}>
           <Text style={this.state.styles.viewTitle}>
             {localization.add_custom_yantra_overlay_title}
@@ -89,6 +90,7 @@ export class CustomYantraOverlay extends PureComponent<
               identifier={'customYantra'}
               didSelect={this.onSetValue}
               numberOfDots={10}
+              dotSize={18.5}
             />
           </InputContainer>
           <View style={this.state.styles.buttonContainer}>

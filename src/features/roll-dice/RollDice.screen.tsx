@@ -12,7 +12,7 @@ import {RollDiceStyle, makeRollDiceStyle} from './RollDice.style';
 import {localization} from './RollDice.strings';
 import {DiceSelect} from '../../components/DiceSelect/DiceSelect';
 import {getLayoutWidth, LayoutWidth} from '../../helper/layoutWidhtClasses';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native';
 import {ButtonGroup} from 'react-native-elements';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {withTheme} from 'react-native-paper';

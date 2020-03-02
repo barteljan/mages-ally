@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {DotProps} from './Dot.props';
+import {TouchableOpacity} from 'react-native';
 export class Dot extends PureComponent<DotProps> {
   onPress = () => {
     if (this.props.onPress) {
@@ -18,7 +18,8 @@ export class Dot extends PureComponent<DotProps> {
     const color = this.props.color ? this.props.color : '#000000';
 
     return (
-      <TouchableWithoutFeedback
+      <TouchableOpacity
+        activeOpacity={1}
         style={this.props.containerStyle}
         onPress={this.onPress}>
         <Icon
@@ -27,7 +28,7 @@ export class Dot extends PureComponent<DotProps> {
           {...iconProps}
           color={color}
         />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }

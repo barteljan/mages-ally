@@ -6,6 +6,7 @@ export const style = StyleSheet.create({
   },
   dotContainer: {
     padding: 2,
+    flexWrap: 'wrap',
   },
   spacer: {
     width: 8,
