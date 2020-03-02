@@ -6,6 +6,8 @@ export type FormButtonProps = {
   parent: string;
   title: string;
   onPress: (parent: string) => void;
+  actionComponent?: Element;
+  actionIconName?: string;
   containerStyle?: ViewStyle;
   buttonStyle?: ViewStyle;
   buttonTextStyle?: TextStyle;

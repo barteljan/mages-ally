@@ -52,6 +52,7 @@ export const makeRollItemStyle = (theme: Theme) =>
     },
     iconContainer: {
       paddingVertical: 10,
-      paddingHorizontal: 15,
+      paddingLeft: 15,
+      paddingRight: 20,
     },
   });

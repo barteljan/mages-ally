@@ -11,22 +11,24 @@ export type RollDiceStyle = {
   selectedButtonStyle: ViewStyle;
   rollDiceButtonStyle: ViewStyle;
   rollDiceButtonTextStyle: TextStyle;
+  diceRollWrapper: ViewStyle;
+  diceRollTitle: ViewStyle;
 };
 
 export const makeRollDiceStyle = (theme: Theme) =>
   StyleSheet.create<RollDiceStyle>({
     container: {
       flex: 1,
-      paddingVertical: 15,
-      paddingHorizontal: 15,
       backgroundColor: theme.colors.background,
     },
     containerContent: {
-      //alignItems: 'center',
-      //justifyContent: 'flex-start',
+      paddingHorizontal: 15,
+      paddingBottom: 15,
     },
     diceSelectContainer: {
+      marginTop: 20,
       paddingTop: 20,
+      paddingHorizontal: 15,
     },
     inputContainer: {
       alignItems: 'center',
@@ -53,4 +55,6 @@ export const makeRollDiceStyle = (theme: Theme) =>
       fontWeight: 'bold',
       marginBottom: 20,
     },
+    diceRollWrapper: {paddingTop: 0, paddingBottom: 15},
+    diceRollTitle: {fontSize: 16},
   });

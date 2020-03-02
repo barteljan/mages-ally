@@ -6,4 +6,6 @@ export type MultipleDiceViewProps = {
   dices: number[];
   difficulty: number;
   containerStyle?: ViewStyle;
+  scaleDice?: number;
+  onPress?: () => void;
 };

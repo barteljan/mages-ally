@@ -1,18 +1,40 @@
 import {AppState} from '../../redux/AppState';
-import {Epic} from 'redux-observable';
-import {map, filter} from 'rxjs/operators';
-import {didRollDiceAction, rollDiceAction} from './RollDice.redux';
+import {Epic, combineEpics} from 'redux-observable';
+import {map, filter, mergeMap} from 'rxjs/operators';
+import {
+  didRollDiceAction,
+  rollDiceAction,
+  setCurrentRoll,
+} from './RollDice.redux';
 import {rollDice} from '../../rules/dice-roll/rollDice';
-import {showDropDownForDiceRoll} from './helper/showDropDownForDiceRoll';
 import {RootAction} from '../../redux/rootReducer';
 import {isActionOf} from 'typesafe-actions';
+import {DiceRollContext} from '../../rules/DiceRollContext';
+import {navigateToAction} from '../../navigation/Navigation.actions';
+import {Routes} from '../../navigation/Routes';
 
-export const rollDiceEpic: Epic<RootAction, RootAction, AppState> = action$ =>
+const rollDicesEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
     filter(isActionOf(rollDiceAction)),
     map(action => {
       const rolled = rollDice(action.payload.config);
-      showDropDownForDiceRoll(rolled);
+      /*
+      if (action.payload.context === DiceRollContext.rollDice) {
+        showDropDownForDiceRoll(rolled);
+      }
+      */
       return didRollDiceAction(rolled);
     }),
   );
+const openDicesViewEpic: Epic<RootAction, RootAction, AppState> = action$ =>
+  action$.pipe(
+    filter(isActionOf(setCurrentRoll)),
+    mergeMap(action => {
+      if (action.payload.context === DiceRollContext.rollsList) {
+        return [navigateToAction(Routes.addRoll)];
+      }
+      return [];
+    }),
+  );
+
+export const rollDiceEpic = combineEpics(rollDicesEpic, openDicesViewEpic);

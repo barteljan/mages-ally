@@ -7,7 +7,7 @@ import {AppState} from '../../redux/AppState';
 import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {makeAllRollsSelector} from './Rolls.selector';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
-import {rollDiceAction} from '../roll-dice/RollDice.redux';
+import {rollDiceAction, setCurrentRoll} from '../roll-dice/RollDice.redux';
 import {DiceRollContext} from '../../rules/DiceRollContext';
 import uuid from 'uuid';
 import {Theme} from 'react-native-paper';
@@ -23,6 +23,7 @@ type StateProps = {
 type DispatchProps = {
   addRoll: () => void;
   onReroll: (config: DiceRollConfig) => void;
+  itemSelected: (item: DiceRoll) => void;
 };
 
 const allRollsSelector = makeAllRollsSelector();
@@ -41,9 +42,14 @@ const reroll = (config: DiceRollConfig) => {
   return rollDiceAction(newConfig, DiceRollContext.rollsList);
 };
 
+const itemSelected = (item: DiceRoll) => {
+  return setCurrentRoll(item, DiceRollContext.rollsList);
+};
+
 const mapDispatchToProps: DispatchProps = {
   addRoll,
   onReroll: reroll,
+  itemSelected,
 };
 
 const mergeProps: MergeProps<StateProps, DispatchProps, any, RollsProps> = (
@@ -56,6 +62,7 @@ const mergeProps: MergeProps<StateProps, DispatchProps, any, RollsProps> = (
     addRoll: dispatchProps.addRoll,
     rolls: stateProps.rolls,
     onReroll: dispatchProps.onReroll,
+    itemSelected: dispatchProps.itemSelected,
   };
 };
 

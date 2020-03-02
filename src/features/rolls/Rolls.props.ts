@@ -7,4 +7,5 @@ export type RollsProps = {
   rolls: DiceRoll[];
   addRoll: () => void;
   onReroll: (item: DiceRollConfig) => void;
+  itemSelected: (item: DiceRoll) => void;
 };

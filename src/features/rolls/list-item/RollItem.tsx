@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {withTheme, Surface} from 'react-native-paper';
 import {View, TouchableWithoutFeedback, Text} from 'react-native';
 import {DynamiclyStyledPureComponent} from '../../../components/DynamiclyStyledPureComponent';
@@ -18,29 +18,38 @@ class _RollItem extends DynamiclyStyledPureComponent<
   }
 
   onReroll = () => {
-    this.props.onReroll(this.props.item.configuration);
+    this.props.onAction(this.props.item.configuration);
+  };
+
+  onPress = () => {
+    if (this.props.onPress) {
+      this.props.onPress(this.props.item);
+    }
   };
 
   render() {
     const roll = this.props.item;
 
     const subtitle = roll.successes + ' Successes';
-
     return (
-      <View style={this.state.styles.wrapper}>
+      <View style={[this.state.styles.wrapper, this.props.wrapperStyle]}>
         <Surface style={this.state.styles.surface}>
           <TouchableWithoutFeedback
             style={this.state.styles.container}
-            key={roll.id + '_spell'}>
-            <Fragment>
+            key={roll.id + '_spell'}
+            onPress={this.onPress}>
+            <View>
               <View style={this.state.styles.headerRow}>
                 <View style={this.state.styles.titleContainer}>
-                  <Text style={this.state.styles.title}>{roll.title}</Text>
+                  <Text
+                    style={[this.state.styles.title, this.props.titleStyle]}>
+                    {roll.title}
+                  </Text>
                   <Text style={this.state.styles.subTitle}> - {subtitle}</Text>
                 </View>
                 <TouchableOpacity onPress={this.onReroll}>
                   <Icon
-                    name="redo"
+                    name={this.props.iconName ? this.props.iconName : 'redo'}
                     size={20}
                     color={this.props.theme.colors.primary}
                   />
@@ -52,12 +61,14 @@ class _RollItem extends DynamiclyStyledPureComponent<
                 dices={roll.rolledDice}
                 containerStyle={this.state.styles.dices}
                 difficulty={roll.configuration.difficulty}
+                scaleDice={this.props.scaleDice}
+                onPress={this.onPress}
               />
               <RollInformationView
                 theme={this.props.theme}
                 roll={this.props.item}
               />
-            </Fragment>
+            </View>
           </TouchableWithoutFeedback>
         </Surface>
       </View>

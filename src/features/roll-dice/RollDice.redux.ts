@@ -17,6 +17,8 @@ export enum RollDiceActionTypes {
   setExceptionalSuccessAt = 'rollDice/setExceptionalSuccessAt',
   rollDice = 'rollDice/rollDice',
   didRollDice = 'rollDice/didRollDice',
+  clearCurrentRoll = 'rollDice/clearCurrentRoll',
+  setCurrentRoll = 'rollDice/setCurrentRoll',
 }
 
 export const setNumberOfDiceAction = createAction(
@@ -46,6 +48,18 @@ export const didRollDiceAction = createAction(
   (roll: DiceRoll) => roll,
 )();
 
+export const clearCurrentRoll = createAction(
+  RollDiceActionTypes.clearCurrentRoll,
+  (roll: DiceRoll) => roll,
+)();
+
+export const setCurrentRoll = createAction(
+  RollDiceActionTypes.setCurrentRoll,
+  (roll: DiceRoll, context: DiceRollContext) => {
+    return {roll, context};
+  },
+)();
+
 export type DidRollDiceAction = PayloadAction<
   RollDiceActionTypes.didRollDice,
   DiceRoll
@@ -57,7 +71,10 @@ const actions = {
   setExceptionalSuccessAtAction,
   rollDiceAction,
   didRollDiceAction,
+  clearCurrentRoll,
+  setCurrentRoll,
 };
+import {isEqual} from 'lodash';
 
 export type RollDiceActions = ActionType<typeof actions>;
 
@@ -80,6 +97,31 @@ export const rollDiceReducer = produce(
       case RollDiceActionTypes.setRollAgainType:
         draft.rollAgainType = action.payload;
         break;
+      case RollDiceActionTypes.clearCurrentRoll:
+        draft.currentRollId = null;
+        break;
+      case RollDiceActionTypes.setCurrentRoll:
+        const roll = action.payload.roll;
+        const config = roll.configuration;
+        draft.currentRollId = roll.id;
+        draft.exceptionalSuccessAt =
+          config.successesNeededForExceptionalSuccess;
+
+        let numberOfDices = 0;
+        for (let key in config.modifiers) {
+          numberOfDices += config.modifiers[key];
+        }
+        draft.numberOfDice = numberOfDices;
+
+        if (isEqual(config.explodeFor, [8, 9, 10])) {
+          draft.rollAgainType = DiceRollAgainType.eightAgain;
+        } else if (isEqual(config.explodeFor, [9, 10])) {
+          draft.rollAgainType = DiceRollAgainType.nineAgain;
+        } else if (isEqual(config.explodeFor, [10])) {
+          draft.rollAgainType = DiceRollAgainType.tenAgain;
+        } else if (isEqual(config.explodeOnceFor, [1, 2, 3, 4, 5, 6, 7])) {
+          draft.rollAgainType = DiceRollAgainType.roteQuality;
+        }
     }
   },
 );

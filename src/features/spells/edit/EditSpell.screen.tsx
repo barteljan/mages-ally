@@ -1,5 +1,11 @@
 import React, {PureComponent} from 'react';
-import {ScrollView, LayoutAnimation, View} from 'react-native';
+import {
+  ScrollView,
+  LayoutAnimation,
+  View,
+  Platform,
+  UIManager,
+} from 'react-native';
 import {EditSpellProps} from './EditSpell.props';
 import {EditSpellsStyle, makeEditSpellStyles} from './EditSpell.styles';
 import {localization} from './EditSpell.strings';
@@ -33,6 +39,13 @@ class _EditSpellScreen extends PureComponent<
     styles: this.makeStyle(),
     openedSection: null,
   };
+
+  constructor(props: EditSpellProps) {
+    super(props);
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
 
   componentDidUpdate(
     prevProps: EditSpellProps,

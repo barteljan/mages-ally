@@ -7,6 +7,7 @@ import {
   setRollAgainTypeAction,
   setExceptionalSuccessAtAction,
   rollDiceAction,
+  clearCurrentRoll,
 } from './RollDice.redux';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
@@ -14,12 +15,15 @@ import {DiceRollContext} from '../../rules/DiceRollContext';
 import {makeDiceRollConfig} from './helper/makeDiceRollConfig';
 import {Action} from 'typesafe-actions';
 import {Theme} from 'react-native-paper';
+import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
+import {currentRoll} from './RollDice.selector';
 
 type OwnProps = {
   theme: Theme;
 };
 
 type StateProps = {
+  currentRoll?: DiceRoll;
   numberOfDice: number;
   exceptionalSuccessAt: number;
   rollAgainType: DiceRollAgainType;
@@ -30,10 +34,12 @@ type DispatchProps = {
   setRollAgainType: (type: DiceRollAgainType) => Action;
   setExceptionalSuccessAt: (at: number) => Action;
   rollDice: (config: DiceRollConfig, context: DiceRollContext) => Action;
+  clearCurrentRoll: (roll: DiceRoll) => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
+    currentRoll: currentRoll(state),
     numberOfDice: state.rollDice.numberOfDice,
     rollAgainType: state.rollDice.rollAgainType,
     exceptionalSuccessAt: state.rollDice.exceptionalSuccessAt,
@@ -45,6 +51,7 @@ const mapDispatchToProps: DispatchProps = {
   setRollAgainType: setRollAgainTypeAction,
   setExceptionalSuccessAt: setExceptionalSuccessAtAction,
   rollDice: rollDiceAction,
+  clearCurrentRoll: clearCurrentRoll,
 };
 
 const mergeProps: MergeProps<
@@ -61,6 +68,8 @@ const mergeProps: MergeProps<
     setNumberOfDice: dispatchProps.setNumberOfDice,
     setRollAgainType: dispatchProps.setRollAgainType,
     setExceptionalSuccessAt: dispatchProps.setExceptionalSuccessAt,
+    currentRoll: stateProps.currentRoll,
+    clearCurrentRoll: dispatchProps.clearCurrentRoll,
     rollDice: () => {
       const config = makeDiceRollConfig(
         stateProps.numberOfDice,

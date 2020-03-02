@@ -5,7 +5,7 @@ import {ChooseYantraScreenProps} from './ChooseYantra.props';
 import {Theme} from 'react-native-paper';
 import {AppState} from '../../../../redux/AppState';
 import {SectionListData} from 'react-native';
-import {makeChoosableYantras} from '../../../../rules/spells/yantra/Yantra.group';
+import {makeChoosableYantras} from '../../../../rules/spells/yantra/helper/makeChoosableYantras';
 import {YantraType} from '../../../../rules/spells/yantra/Yantra.type';
 import {selectedYantraAction, addCustomYantra} from '../../Spell.redux';
 

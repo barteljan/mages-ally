@@ -1,5 +1,12 @@
 import React, {Ref} from 'react';
-import {View, Platform, Text, LayoutAnimation, ScrollView} from 'react-native';
+import {
+  View,
+  Platform,
+  Text,
+  LayoutAnimation,
+  ScrollView,
+  UIManager,
+} from 'react-native';
 import {RollsStyle, makeRollsStyle} from './Rolls.styles';
 import {RollsProps} from './Rolls.props';
 import RollsAddButton from './add-button/RollsAddButton.container';
@@ -16,6 +23,13 @@ class _RollsScreen extends DynamiclyStyledPureComponent<
 > {
   flatList: Ref<FlatList<DiceRoll>> | undefined;
 
+  constructor(props: RollsProps) {
+    super(props);
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+
   makeStyle() {
     return makeRollsStyle(this.props.theme);
   }
@@ -28,9 +42,19 @@ class _RollsScreen extends DynamiclyStyledPureComponent<
     }
   };
 
+  itemSelected = (item: DiceRoll) => {
+    this.props.itemSelected(item);
+  };
+
   renderItem = (item: {item: DiceRoll}) => {
     const entry: DiceRoll = item.item as DiceRoll;
-    return <RollItem item={entry} onReroll={this.onReroll} />;
+    return (
+      <RollItem
+        item={entry}
+        onAction={this.onReroll}
+        onPress={this.itemSelected}
+      />
+    );
   };
 
   componentDidUpdate(prevProps: RollsProps) {

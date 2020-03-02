@@ -45,6 +45,15 @@ export class FormButton extends PureComponent<
   };
 
   render() {
+    const iconName = this.props.actionIconName
+      ? this.props.actionIconName
+      : 'plus';
+    const actionComponent = this.props.actionComponent ? (
+      this.props.actionComponent
+    ) : (
+      <Icon name={iconName} size={18} color={this.props.theme.colors.primary} />
+    );
+
     return (
       <InputContainer
         title={this.props.title}
@@ -54,7 +63,7 @@ export class FormButton extends PureComponent<
           style={this.state.styles.buttonStyle}
           onPress={this.onPress}>
           <Text style={this.state.styles.buttonText}>{this.props.title}</Text>
-          <Icon name="plus" size={18} color={this.props.theme.colors.primary} />
+          {actionComponent}
         </TouchableOpacity>
       </InputContainer>
     );

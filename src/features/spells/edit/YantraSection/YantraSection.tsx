@@ -10,7 +10,7 @@ import {
   makeYantraSectionStyle,
 } from './YantraSection.style';
 import {FormButton} from '../../../../components/FormButton/FormButton';
-import {LayoutAnimation} from 'react-native';
+import {LayoutAnimation, Platform, UIManager} from 'react-native';
 import {YantraRow} from './YantraRow/YantraRow';
 import {YantraDescription} from './YantraDescription/YantraDescription';
 
@@ -20,6 +20,14 @@ export class YantraSection extends DynamiclyStyledPureComponent<
 > {
   makeStyle(): YantraSectionStyle {
     return makeYantraSectionStyle(this.props.theme);
+  }
+
+  constructor(props: YantraSectionProps) {
+    super(props);
+
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
   }
 
   componentDidUpdate(prevProps: YantraSectionProps) {
