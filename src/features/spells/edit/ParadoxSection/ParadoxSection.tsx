@@ -2,7 +2,7 @@ import React from 'react';
 import {FormSection} from '../../../../components/FormSection/FormSection';
 import {FormSectionTitle} from '../../../../components/FormSection/FormSectionTitle/FormSectionTitle';
 import {ParadoxSectionProps} from './ParadoxSection.props';
-import {localization} from '../EditSpell.strings';
+import {localization} from '../../Spell.strings';
 import {EditSpellSections} from '../EditSpell.sections';
 import {InputContainer} from '../../../../components/InputContainer/InputContainer';
 import {SpellValueIds} from '../../../../rules/spells/spell-values/SpellValueIds';
@@ -98,7 +98,7 @@ export class ParadoxSection extends DynamiclyStyledPureComponent<
 
     return (
       <FormSection
-        identifier={EditSpellSections.spell}
+        identifier={EditSpellSections.paradox}
         title={(identifier, collapsed) => (
           <FormSectionTitle
             title={localization.paradox_section_title}

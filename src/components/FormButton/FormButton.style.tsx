@@ -6,6 +6,7 @@ export type FormButtonStyle = {
   containerTitle: TextStyle;
   buttonStyle: ViewStyle;
   buttonText: TextStyle;
+  iconContainer: ViewStyle;
 };
 
 export const makeFormButtonStyle = (
@@ -17,10 +18,16 @@ export const makeFormButtonStyle = (
   return {
     containerStyle: {
       borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.surface,
+      opacity: 0.9,
+      borderRadius: 15,
+      elevation: 10,
+      borderWidth: 2,
       ...containerStyle,
     },
     containerTitle: {
-      color: theme.colors.primary,
+      color: 'transparent',
+      backgroundColor: 'transparent',
     },
     buttonStyle: {
       paddingHorizontal: 15,
@@ -33,7 +40,9 @@ export const makeFormButtonStyle = (
     },
     buttonText: {
       color: theme.colors.primary,
+      fontWeight: 'bold',
       ...buttonTextStyle,
     },
+    iconContainer: {},
   };
 };

@@ -8,6 +8,7 @@ import ChooseYantrasScreen from '../features/spells/edit/ChooseYantraScreen/Choo
 import {Platform} from 'react-native';
 import {theme} from '../layout/Theme';
 import SpellsScreen from '../features/spells/Spells.container';
+import SpellRollScreen from '../features/spells/roll/SpellRoll.container';
 
 const SpellsStack = createStackNavigator();
 
@@ -44,6 +45,14 @@ export function SpellsStackScreen() {
         component={ChooseYantrasScreen}
         options={{
           title: localization.choose_yantras_route_title,
+          headerTintColor: theme.colors.primary,
+        }}
+      />
+      <SpellsStack.Screen
+        name={Routes.rollSpellDice}
+        component={SpellRollScreen}
+        options={{
+          title: localization.roll_spell_route_title,
           headerTintColor: theme.colors.primary,
         }}
       />

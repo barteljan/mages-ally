@@ -16,7 +16,7 @@ import {
 import {Yantra} from '../../../../rules/spells/yantra/yantra';
 import {ChooseYantraGroupHeader} from './ChooseYantraGroupHeader/ChooseYantraGroupHeader';
 import {FormButton} from '../../../../components/FormButton/FormButton';
-import {localization} from '../EditSpell.strings';
+import {localization} from '../../Spell.strings';
 import {CustomYantraOverlay} from './CustomYantraOverlay/CustomYantraOverlay';
 import {isEqual} from 'lodash';
 

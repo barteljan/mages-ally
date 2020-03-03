@@ -8,4 +8,5 @@ export type DiceViewProps = {
   theme: Theme;
   scale?: number;
   onPress?: (index: number) => void;
+  activeOpacity?: number;
 };

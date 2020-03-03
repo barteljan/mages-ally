@@ -2,7 +2,7 @@ import React from 'react';
 import {FormSection} from '../../../../components/FormSection/FormSection';
 import {FormSectionTitle} from '../../../../components/FormSection/FormSectionTitle/FormSectionTitle';
 import {SpellSectionProps} from './SpellSection.props';
-import {localization, VariablePlaceholder} from '../EditSpell.strings';
+import {localization, VariablePlaceholder} from '../../Spell.strings';
 import {EditSpellSections} from '../EditSpell.sections';
 import {localization as arkanaLocalization} from '../../../../rules/spells/arcana/Arcana.strings';
 import {InputContainer} from '../../../../components/InputContainer/InputContainer';

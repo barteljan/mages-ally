@@ -42,6 +42,22 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
     }
   }
 
+  componentDidMount() {
+    this.props.navigation.setOptions({
+      headerRight: () => (
+        <View style={this.state.styles.headerIconContainer}>
+          <DiceView
+            theme={this.props.theme}
+            index={1}
+            onPress={this.onRollDice}
+            scale={0.5}
+            activeOpacity={0.5}
+          />
+        </View>
+      ),
+    });
+  }
+
   componentDidUpdate(prevProps: RollDiceProps) {
     const styles = this.makeStyle();
     if (!isEqual(this.state.styles, styles)) {
@@ -52,6 +68,10 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
     if (prevProps.currentRoll !== this.props.currentRoll) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
     }
+  }
+
+  componentWillUnmount() {
+    this.onHideRoll();
   }
 
   makeStyle() {
@@ -211,7 +231,14 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
             onPress={this.onRollDice}
             containerStyle={this.state.styles.rollDiceButtonStyle}
             actionComponent={
-              <DiceView theme={this.props.theme} index={1} scale={0.5} />
+              <DiceView
+                theme={this.props.theme}
+                index={1}
+                scale={0.5}
+                activeOpacity={0.5}
+                onPress={this.onRollDice}
+                diceImageStyle={{tintColor: this.props.theme.colors.primary}}
+              />
             }
           />
           <InputContainer

@@ -49,6 +49,11 @@ export type EditDiceStrings = {
   add_custom_yantra_overlay_value_field_title: string;
   add_custom_yantra_overlay_add_button_text: string;
   add_custom_yantra_overlay_cancle_button_text: string;
+  roll_dice_button_text: string;
+  spell_roll_roll_paradox_first_title: string;
+  spell_roll_successes_on_paradox_roll_title: string;
+  spell_roll_successes_on_paradox_roll_singular: string;
+  spell_roll_successes_on_paradox_roll_plural: string;
 };
 
 export enum VariablePlaceholder {
@@ -111,6 +116,11 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     add_custom_yantra_overlay_value_field_title: 'Value',
     add_custom_yantra_overlay_add_button_text: 'Add',
     add_custom_yantra_overlay_cancle_button_text: 'Cancle',
+    roll_dice_button_text: 'Roll dice!',
+    spell_roll_roll_paradox_first_title: 'Roll paradox first?',
+    spell_roll_successes_on_paradox_roll_title: 'Successes on paradox roll',
+    spell_roll_successes_on_paradox_roll_singular: 'Success',
+    spell_roll_successes_on_paradox_roll_plural: 'Successes',
   },
 });
 

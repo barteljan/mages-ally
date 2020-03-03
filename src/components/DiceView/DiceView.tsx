@@ -42,7 +42,7 @@ class _DiceView extends DynamiclyStyledPureComponent<
 
     return (
       <TouchableOpacity
-        activeOpacity={1}
+        activeOpacity={this.props.activeOpacity ? this.props.activeOpacity : 1}
         style={[this.state.styles.touchable, this.props.containerStyle]}
         onPress={() =>
           this.props.onPress ? this.props.onPress(this.props.index) : ''

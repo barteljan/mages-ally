@@ -25,15 +25,34 @@ import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.lev
 import {Spell} from '../../rules/spells/Spell';
 import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
 import uuid from 'uuid';
-import {SleeperWitnesses} from 'src/rules/spells/paradox/SleeperWitnesses';
+import {SleeperWitnesses} from '../../rules/spells/paradox/SleeperWitnesses';
+import {SpellLogicValueIdentifier} from './Spell.identifiers';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
 };
 
+export type SpellRolls = {
+  rollParadox: boolean;
+  successesOnParadoxRoll: number;
+  paradoxRollId: string | undefined;
+  spellRollId: string | undefined;
+};
+
+export const makeSpellRoll = (roll?: Partial<SpellRolls>) => {
+  return {
+    rollParadox: true,
+    successesOnParadoxRoll: 0,
+    paradoxRollId: undefined,
+    spellRollId: undefined,
+    ...roll,
+  };
+};
+
 export type SpellState = {
   spellCastingConfig: SpellCastingConfig;
   status: SpellStatus;
+  roll: SpellRolls;
   spell: Spell;
 };
 
@@ -270,6 +289,10 @@ export const spellReducer = produce(
             specification.additionalSpecs.extraReach = action.payload.value;
             break;
           }
+          case SpellLogicValueIdentifier.paradoxRollSuccesses: {
+            spell.roll.successesOnParadoxRoll = action.payload.value;
+            break;
+          }
         }
         break;
       //set number in config
@@ -331,6 +354,9 @@ export const spellReducer = produce(
           case SpellValueIds.changePrimarySpellFactor:
             specification.additionalSpecs.changePrimarySpellFactor =
               action.payload.value;
+            break;
+          case SpellLogicValueIdentifier.rollParadoxFirst:
+            spell.roll.rollParadox = action.payload.value;
             break;
         }
         break;
@@ -407,6 +433,7 @@ export const spellReducer = produce(
           const newSpellState: SpellState = {
             spell: newSpell,
             spellCastingConfig: newConfig,
+            roll: makeSpellRoll(),
             status: SpellStatus.new,
           };
           draft.spells[newConfig.id] = newSpellState;

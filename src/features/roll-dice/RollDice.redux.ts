@@ -48,9 +48,9 @@ export const didRollDiceAction = createAction(
   (roll: DiceRoll) => roll,
 )();
 
-export const clearCurrentRoll = createAction(
+export const clearCurrentRollAction = createAction(
   RollDiceActionTypes.clearCurrentRoll,
-  (roll: DiceRoll) => roll,
+  () => {},
 )();
 
 export const setCurrentRoll = createAction(
@@ -71,7 +71,7 @@ const actions = {
   setExceptionalSuccessAtAction,
   rollDiceAction,
   didRollDiceAction,
-  clearCurrentRoll,
+  clearCurrentRoll: clearCurrentRollAction,
   setCurrentRoll,
 };
 import {isEqual} from 'lodash';

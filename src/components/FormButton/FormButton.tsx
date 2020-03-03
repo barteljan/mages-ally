@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {InputContainer} from '../InputContainer/InputContainer';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -51,7 +51,11 @@ export class FormButton extends PureComponent<
     const actionComponent = this.props.actionComponent ? (
       this.props.actionComponent
     ) : (
-      <Icon name={iconName} size={18} color={this.props.theme.colors.primary} />
+      <Icon
+        name={iconName}
+        size={18}
+        color={this.props.theme.colors.background}
+      />
     );
 
     return (
@@ -63,7 +67,7 @@ export class FormButton extends PureComponent<
           style={this.state.styles.buttonStyle}
           onPress={this.onPress}>
           <Text style={this.state.styles.buttonText}>{this.props.title}</Text>
-          {actionComponent}
+          <View style={this.state.styles.iconContainer}>{actionComponent}</View>
         </TouchableOpacity>
       </InputContainer>
     );

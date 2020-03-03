@@ -18,8 +18,17 @@ class _SpellsScreen extends DynamiclyStyledPureComponent<
 
   keyExtractor = (item: SpellState) => item.spellCastingConfig.id;
 
+  rollDice = (id: string) => {
+    this.props.rollDice(id);
+  };
+
   renderItem = (elem: {item: SpellState}) => (
-    <SpellListItem item={elem.item} showSpell={this.props.showSpell} />
+    <SpellListItem
+      config={elem.item.spellCastingConfig}
+      spell={elem.item.spell}
+      showSpell={this.props.showSpell}
+      onAction={this.rollDice}
+    />
   );
 
   render() {

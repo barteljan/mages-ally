@@ -8,7 +8,7 @@ import {
   addedSpell,
   spellCastingConfigFor,
   spellFor,
-} from './EditSpell.selectors';
+} from '../Spell.selectors';
 import {
   setNumberValueAction,
   setStringValueAction,

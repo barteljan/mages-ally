@@ -20,6 +20,7 @@ type StateProps = {
 
 type DispatchProps = {
   showSpell: (id: string) => void;
+  rollDice: (id: string) => void;
 };
 
 const spellsSelector = (state: AppState) => state.spells.spells;
@@ -45,8 +46,13 @@ const showSpell = (id: string) => {
   return navigateToAction(Routes.editSpell, {id});
 };
 
+const rollDice = (id: string) => {
+  return navigateToAction(Routes.rollSpellDice, {id});
+};
+
 const mapDispatchToProps: DispatchProps = {
   showSpell,
+  rollDice,
 };
 
 const mergeProps: MergeProps<
@@ -59,6 +65,7 @@ const mergeProps: MergeProps<
     theme: ownProps.theme,
     spells: stateProps.spells,
     showSpell: dispatchProps.showSpell,
+    rollDice: dispatchProps.rollDice,
   };
 };
 

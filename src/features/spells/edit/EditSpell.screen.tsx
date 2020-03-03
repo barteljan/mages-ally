@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {EditSpellProps} from './EditSpell.props';
 import {EditSpellsStyle, makeEditSpellStyles} from './EditSpell.styles';
-import {localization} from './EditSpell.strings';
+import {localization} from '../Spell.strings';
 import {SpellValueIds} from '../../../rules/spells/spell-values/SpellValueIds';
 import {InputContainer} from '../../../components/InputContainer/InputContainer';
 import {MageTextInput} from '../../../components/MageTextInput/MageTextInput';

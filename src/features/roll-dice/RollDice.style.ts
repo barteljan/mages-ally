@@ -13,6 +13,7 @@ export type RollDiceStyle = {
   rollDiceButtonTextStyle: TextStyle;
   diceRollWrapper: ViewStyle;
   diceRollTitle: ViewStyle;
+  headerIconContainer: ViewStyle;
 };
 
 export const makeRollDiceStyle = (theme: Theme) =>
@@ -57,4 +58,5 @@ export const makeRollDiceStyle = (theme: Theme) =>
     },
     diceRollWrapper: {paddingTop: 0, paddingBottom: 15},
     diceRollTitle: {fontSize: 16},
+    headerIconContainer: {paddingRight: 15},
   });

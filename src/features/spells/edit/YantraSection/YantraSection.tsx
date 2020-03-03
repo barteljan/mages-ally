@@ -2,7 +2,7 @@ import React from 'react';
 import {FormSection} from '../../../../components/FormSection/FormSection';
 import {FormSectionTitle} from '../../../../components/FormSection/FormSectionTitle/FormSectionTitle';
 import {YantraSectionProps} from './YantraSection.props';
-import {localization} from '../EditSpell.strings';
+import {localization} from '../../Spell.strings';
 import {EditSpellSections} from '../EditSpell.sections';
 import {DynamiclyStyledPureComponent} from '../../../../components/DynamiclyStyledPureComponent';
 import {

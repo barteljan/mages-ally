@@ -7,7 +7,7 @@ import {
   setRollAgainTypeAction,
   setExceptionalSuccessAtAction,
   rollDiceAction,
-  clearCurrentRoll,
+  clearCurrentRollAction,
 } from './RollDice.redux';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
@@ -20,6 +20,7 @@ import {currentRoll} from './RollDice.selector';
 
 type OwnProps = {
   theme: Theme;
+  navigation: any;
 };
 
 type StateProps = {
@@ -34,7 +35,7 @@ type DispatchProps = {
   setRollAgainType: (type: DiceRollAgainType) => Action;
   setExceptionalSuccessAt: (at: number) => Action;
   rollDice: (config: DiceRollConfig, context: DiceRollContext) => Action;
-  clearCurrentRoll: (roll: DiceRoll) => void;
+  clearCurrentRoll: () => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -51,7 +52,7 @@ const mapDispatchToProps: DispatchProps = {
   setRollAgainType: setRollAgainTypeAction,
   setExceptionalSuccessAt: setExceptionalSuccessAtAction,
   rollDice: rollDiceAction,
-  clearCurrentRoll: clearCurrentRoll,
+  clearCurrentRoll: clearCurrentRollAction,
 };
 
 const mergeProps: MergeProps<
@@ -70,6 +71,7 @@ const mergeProps: MergeProps<
     setExceptionalSuccessAt: dispatchProps.setExceptionalSuccessAt,
     currentRoll: stateProps.currentRoll,
     clearCurrentRoll: dispatchProps.clearCurrentRoll,
+    navigation: ownProps.navigation,
     rollDice: () => {
       const config = makeDiceRollConfig(
         stateProps.numberOfDice,

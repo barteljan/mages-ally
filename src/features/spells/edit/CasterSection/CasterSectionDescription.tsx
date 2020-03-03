@@ -1,5 +1,5 @@
 import React from 'react';
-import {localization, activeSpellsSummary} from '../EditSpell.strings';
+import {localization, activeSpellsSummary} from '../../Spell.strings';
 import {CharacterValueId} from '../../../../rules/character/CharacterValue.id';
 import {DotSelect} from '../../../../components/DotSelect/DotSelect';
 import {SpellValueIds} from '../../../../rules/spells/spell-values/SpellValueIds';

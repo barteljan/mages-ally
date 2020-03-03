@@ -1,16 +1,18 @@
 import {rootReducer, RootAction} from './rootReducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {persistReducer, persistStore} from 'redux-persist';
+import {persistReducer, persistStore, createMigrate} from 'redux-persist';
 import storage from '@react-native-community/async-storage';
 import {applyMiddleware, createStore} from 'redux';
 import {createEpicMiddleware} from 'redux-observable';
 import {AppState, makeAppState} from './AppState';
 import {configureEpics} from './configureEpics';
+import {migrations} from './migrations';
 
 const persistConfig = {
   key: 'mage',
   storage,
-  version: 1,
+  version: 2,
+  migrate: createMigrate(migrations, {debug: false}),
 };
 
 //@ts-ignore

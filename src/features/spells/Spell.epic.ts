@@ -11,9 +11,9 @@ import {
   addCustomYantraError,
 } from './Spell.redux';
 import {AppState} from '../../redux/AppState';
-import {spellState} from './edit/EditSpell.selectors';
+import {spellStateFor} from './Spell.selectors';
 import {showMessage} from 'react-native-flash-message';
-import {localization} from './edit/EditSpell.strings';
+import {localization} from './Spell.strings';
 import {theme} from '../../layout/Theme';
 
 const setYantraEpic: Epic<RootAction, RootAction, AppState> = action$ =>
@@ -51,7 +51,7 @@ const saveSpellEpic: Epic<RootAction, RootAction, AppState> = (
   action$.pipe(
     filter(isActionOf(saveSpellAction)),
     map(action => {
-      const state = spellState(state$.value, action.payload.parent);
+      const state = spellStateFor(state$.value, action.payload.parent);
       if (
         state &&
         state.spellCastingConfig.title &&

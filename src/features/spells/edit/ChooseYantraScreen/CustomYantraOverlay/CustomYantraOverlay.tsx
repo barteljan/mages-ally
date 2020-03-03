@@ -7,7 +7,7 @@ import {InputContainer} from '../../../../../components/InputContainer/InputCont
 import {DotSelect} from '../../../../../components/DotSelect/DotSelect';
 
 import {isEqual} from 'lodash';
-import {localization} from '../../EditSpell.strings';
+import {localization} from '../../../Spell.strings';
 import {
   CustomYantraOverlayStyle,
   makeCustomYantraOverlayStyle,

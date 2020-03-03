@@ -6,5 +6,6 @@ export enum Routes {
   spells = 'spells',
   addSpell = 'addSpell',
   editSpell = 'editSpell',
+  rollSpellDice = 'rollSpellDice',
   chooseYantras = 'chooseYantras',
 }

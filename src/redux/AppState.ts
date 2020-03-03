@@ -1,7 +1,11 @@
 import {RollDiceState} from '../features/roll-dice/RollDice.redux';
 import {RollsState} from '../features/rolls/Rolls.redux';
 import {DiceRollAgainType} from '../rules/dice-roll/DiceRollAgainType';
-import {SpellsState, SpellState} from '../features/spells/Spell.redux';
+import {
+  SpellsState,
+  SpellState,
+  makeSpellRoll,
+} from '../features/spells/Spell.redux';
 import {makeSpellCastingConfig} from '../rules/spells/Spell.config';
 import {SpellStatus} from '../features/spells/Spell.status';
 import {spellFromConfig} from '../rules/spells/calculations/spellFromConfig';
@@ -19,6 +23,7 @@ export function makeAppState(): AppState {
   const newSpell: SpellState = {
     spellCastingConfig,
     status: SpellStatus.new,
+    roll: makeSpellRoll(),
     spell,
   };
 
