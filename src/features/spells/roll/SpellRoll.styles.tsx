@@ -31,7 +31,7 @@ export const makeSpellRollScreenStyle = (theme: Theme) =>
     },
     formContainer: {
       paddingHorizontal: 15,
-      paddingVertical: 10,
+      paddingVertical: 20,
     },
     inputContainer: {
       marginBottom: 20,
@@ -40,8 +40,7 @@ export const makeSpellRollScreenStyle = (theme: Theme) =>
       backgroundColor: theme.colors.primary,
     },
     rollDiceButtonStyle: {
-      marginTop: 10,
-      marginBottom: 20,
+      marginTop: 0,
     },
     spellFactorStyle: {fontSize: 10},
     headerIconContainer: {paddingRight: 15},

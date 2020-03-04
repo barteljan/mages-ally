@@ -5,6 +5,7 @@ import {
 import StringMap from '../../data-types/StringMap';
 import {BaseDiceModifier} from '../model/BaseDiceModifier';
 import {GnosisValue, makeGnosisValue} from '../character/GnosisValue';
+import {WisdomValue, makeWisdomValue} from '../character/WisdomValue';
 import {ArcanaType} from './arcana/Arcana.type';
 import {GameValueType} from '../../GameValueTypes';
 
@@ -14,6 +15,7 @@ export type SpellCaster = {
   activeSpells: number;
   additionalSpellCastingDice: StringMap<BaseDiceModifier>;
   spendsWillpower: boolean;
+  wisdom: WisdomValue;
 };
 
 export function makeSpellCaster(
@@ -27,6 +29,7 @@ export function makeSpellCaster(
       diceModifier: 1,
     }),
     spendsWillpower: false,
+    wisdom: makeWisdomValue(),
     ...spellCaster,
   };
 }

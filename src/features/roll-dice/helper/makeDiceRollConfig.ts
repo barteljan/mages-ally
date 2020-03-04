@@ -13,15 +13,18 @@ export const makeDiceRollConfig = (
   numberOfDice: number,
   rollAgainType: DiceRollAgainType,
   exceptionalSuccessAt: number,
+  titleString?: string,
 ): DiceRollConfig => {
   const diceString: string =
     numberOfDice === 1
       ? localization.message_dice_singular
       : localization.message_dice_plural;
 
-  let title = localization.dice_roll_title
-    .replace(LocalizationParams.diceNumber, numberOfDice + '')
-    .replace(LocalizationParams.diceString, diceString);
+  let title = titleString
+    ? titleString
+    : localization.dice_roll_title
+        .replace(LocalizationParams.diceNumber, numberOfDice + '')
+        .replace(LocalizationParams.diceString, diceString);
 
   let id = uuid.v4();
 

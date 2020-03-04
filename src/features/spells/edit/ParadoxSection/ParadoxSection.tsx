@@ -15,7 +15,7 @@ import {
 import {ParadoxSectionDescription} from './ParadoxSectionDescription';
 import {MageSwitch} from '../../../../components/MageSwitch/MageSwitch';
 import {NumberSwitch} from '../../../../components/NumberSwitch/NumberSwitch';
-import {labelForSleeperWittness} from '../../../../rules/spells/paradox/SleeperWittnesses.strings';
+import {labelForSleeperWittness} from '../../../../rules/spells/paradox/Paradox.strings';
 import {SleeperWitnesses} from '../../../../rules/spells/paradox/SleeperWitnesses';
 
 export class ParadoxSection extends DynamiclyStyledPureComponent<

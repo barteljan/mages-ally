@@ -4,8 +4,10 @@ import {SpellModifiersFromParadoxCircumstances} from './calculations/spellModifi
 import {ParadoxDiceFromReachValue} from './spell-values/ParadoxDiceFromReachValue';
 import {SpellValueIds} from './spell-values/SpellValueIds';
 import {DiceRollAgainType} from '../dice-roll/DiceRollAgainType';
+import {SpellCastingConfig} from './Spell.config';
 
 export type Spell = {
+  config: SpellCastingConfig;
   modifiers:
     | SpellModifiersFromCasterResult
     | SpellModifiersFromSpecificationResult

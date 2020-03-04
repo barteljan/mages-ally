@@ -51,11 +51,7 @@ export class FormButton extends PureComponent<
     const actionComponent = this.props.actionComponent ? (
       this.props.actionComponent
     ) : (
-      <Icon
-        name={iconName}
-        size={18}
-        color={this.props.theme.colors.background}
-      />
+      <Icon name={iconName} size={18} color={this.props.theme.colors.primary} />
     );
 
     return (

@@ -10,7 +10,7 @@ import {ArcanaType} from '../arcana/Arcana.type';
 import {spellModifiersFromSpecification} from '../calculations/spellModifiersFromSpecification';
 import {makeModifierIdForCustomYantra} from '../yantra/helper/makeModifierIdForCustomYantra';
 import * as SpellModifiersFromSpellFactors from './spellModifiersFromSpellFactors';
-import {DiceRollAgainType} from 'src/rules/dice-roll/DiceRollAgainType';
+import {DiceRollAgainType} from '../../../rules/dice-roll/DiceRollAgainType';
 
 test('yantras are correcly extracted', () => {
   const highestArcanum = makeCharactersArcanum(ArcanaType.death, {

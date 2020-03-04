@@ -1,13 +1,13 @@
 import {Theme} from 'react-native-paper';
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {Spell} from '../../../rules/spells/Spell';
-import {SpellRolls} from '../Spell.redux';
+import {SpellRollState} from '../Spell.redux';
 export type SpellRollScreenProps = {
   navigation: any;
   theme: Theme;
   config: SpellCastingConfig;
   spell: Spell;
-  roll: SpellRolls;
+  roll: SpellRollState;
   showSpell: (id: string) => void;
   setValue: (identifier: string, value: number, parent: string) => void;
   setStringValue: (
@@ -16,4 +16,5 @@ export type SpellRollScreenProps = {
     parent: string,
   ) => void;
   setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
+  rollDice: (spellId: string) => void;
 };

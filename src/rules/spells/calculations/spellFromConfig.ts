@@ -147,13 +147,15 @@ export function spellFromConfig(
 
   const gnosis = config.caster.gnosis.diceModifier;
   const yantrasMax = gnosis === 0 ? 0 : gnosisRules[gnosis - 1].yantrasMax;
+  const diceRollAgainType = config.spell.rollAgainType;
 
   return {
+    config: config,
     modifiers: modifiers as Spell['modifiers'],
     roll: {
       dices: {
         number: numberOfDices,
-        type: DiceRollAgainType.tenAgain,
+        type: diceRollAgainType,
         successesForExceptionalSuccess: rollSuccessesForExceptionalSuccess,
       },
       paradox: {

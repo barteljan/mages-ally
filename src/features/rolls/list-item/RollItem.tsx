@@ -45,7 +45,9 @@ class _RollItem extends DynamiclyStyledPureComponent<
                 </Text>
                 <Text style={this.state.styles.subTitle}> - {subtitle}</Text>
               </View>
-              <TouchableOpacity onPress={this.onReroll}>
+              <TouchableOpacity
+                onPress={this.onReroll}
+                style={this.state.styles.iconContainer}>
                 <Icon
                   name={this.props.iconName ? this.props.iconName : 'redo'}
                   size={20}

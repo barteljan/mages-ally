@@ -3,6 +3,7 @@ import {SpellFactor, makeSpellFactor} from './spell-factors/SpellFactor';
 import {Yantra} from './yantra/yantra';
 import {SpellType} from './Spell.type';
 import {CharacterSkill} from '../character/CharacterSkill';
+import {DiceRollAgainType} from '../dice-roll/DiceRollAgainType';
 
 export type SpellSpecificationSpellFactors = {
   potency: SpellFactor;
@@ -55,7 +56,7 @@ export type SpellSpecification = {
   primaryFactor: SpellFactorType;
   spellFactors: SpellSpecificationSpellFactors;
   additionalSpecs: SpellSpecificationAdditionalSpecs;
-  includeParadoxRoll: boolean;
+  rollAgainType: DiceRollAgainType;
   yantras: Yantra[];
 };
 
@@ -65,10 +66,10 @@ export function makeSpellSpecification(
   return {
     type: SpellType.improvised,
     additionalSpecs: makeSpellSpecificationAdditionalSpecs(),
-    includeParadoxRoll: false,
     primaryFactor: SpellFactorType.potency,
     requiredArcanumValue: 1,
     spellFactors: makeSpellSpecificationSpellFactors(),
+    rollAgainType: DiceRollAgainType.tenAgain,
     yantras: [],
     ...specification,
   };

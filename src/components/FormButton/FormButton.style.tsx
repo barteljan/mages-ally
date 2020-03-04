@@ -21,7 +21,7 @@ export const makeFormButtonStyle = (
       backgroundColor: theme.colors.surface,
       opacity: 0.9,
       borderRadius: 15,
-      elevation: 10,
+      elevation: 4,
       borderWidth: 2,
       ...containerStyle,
     },

@@ -1,5 +1,5 @@
 import {Theme} from 'react-native-paper';
-import {SpellCastingConfig} from 'src/rules/spells/Spell.config';
+import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {Spell} from '../../../rules/spells/Spell';
 import {ViewStyle, TextStyle} from 'react-native';
 export type SpellListItemProps = {

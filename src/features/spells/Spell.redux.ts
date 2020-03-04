@@ -27,22 +27,29 @@ import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
 import uuid from 'uuid';
 import {SleeperWitnesses} from '../../rules/spells/paradox/SleeperWitnesses';
 import {SpellLogicValueIdentifier} from './Spell.identifiers';
+import {
+  SpellRollConfiguration,
+  makeSpellRollConfiguration,
+} from '../../rules/spells/roll/SpellRollConfiguration';
+import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
+import {ParadoxResolution} from '../../rules/spells/paradox/ParadoxResolution';
+import {RollForSpellResult} from '../../rules/spells/roll/rollForSpell';
 
 export type SpellsState = {
   spells: StringMap<SpellState>;
 };
 
-export type SpellRolls = {
-  rollParadox: boolean;
-  successesOnParadoxRoll: number;
+export type SpellRollState = {
+  config: SpellRollConfiguration;
   paradoxRollId: string | undefined;
   spellRollId: string | undefined;
 };
 
-export const makeSpellRoll = (roll?: Partial<SpellRolls>) => {
+export const makeSpellRollState = (
+  roll?: Partial<SpellRollState>,
+): SpellRollState => {
   return {
-    rollParadox: true,
-    successesOnParadoxRoll: 0,
+    config: makeSpellRollConfiguration(),
     paradoxRollId: undefined,
     spellRollId: undefined,
     ...roll,
@@ -52,7 +59,7 @@ export const makeSpellRoll = (roll?: Partial<SpellRolls>) => {
 export type SpellState = {
   spellCastingConfig: SpellCastingConfig;
   status: SpellStatus;
-  roll: SpellRolls;
+  roll: SpellRollState;
   spell: Spell;
 };
 
@@ -69,6 +76,8 @@ export enum SpellActionTypes {
   saveSpellError = 'spell/edit/saveSpellError',
   addCustomYantra = 'spell/edit/addCustomYantra',
   addCustomYantraError = 'spell/edit/addCustomYantraError',
+  rollSpellDice = 'spell/rollDice',
+  didRollSpellDice = 'spell/didRollSpellDice',
 }
 
 export const setNumberValueAction = createAction(
@@ -199,6 +208,25 @@ export const addCustomYantraError = createAction(
   },
 )();
 
+export const rollSpellDiceAction = createAction(
+  SpellActionTypes.rollSpellDice,
+  (parent: string) => {
+    return {
+      parent,
+    };
+  },
+)();
+
+export const didRollSpellDiceAction = createAction(
+  SpellActionTypes.didRollSpellDice,
+  (parent: string, result: RollForSpellResult) => {
+    return {
+      parent,
+      result,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
@@ -212,6 +240,8 @@ const actions = {
   saveSpellError,
   addCustomYantra,
   addCustomYantraError,
+  rollSpellDiceAction,
+  didRollSpellDiceAction,
 };
 
 export type SpellActions = ActionType<typeof actions>;
@@ -234,6 +264,9 @@ export const spellReducer = produce(
         switch (action.payload.identifier) {
           case CharacterValueId.gnosis:
             caster.gnosis.diceModifier = action.payload.value;
+            break;
+          case CharacterValueId.wisdom:
+            caster.wisdom.diceModifier = action.payload.value;
             break;
           case SpellValueIds.highestArcanumValue:
             caster.highestSpellArcanum.diceModifier = action.payload.value;
@@ -290,7 +323,7 @@ export const spellReducer = produce(
             break;
           }
           case SpellLogicValueIdentifier.paradoxRollSuccesses: {
-            spell.roll.successesOnParadoxRoll = action.payload.value;
+            spell.roll.config.successesOnParadoxRoll = action.payload.value;
             break;
           }
         }
@@ -309,6 +342,10 @@ export const spellReducer = produce(
             specification.primaryFactor = action.payload
               .value as SpellFactorType;
             break;
+          case SpellValueIds.rollAgainType:
+            specification.rollAgainType = action.payload
+              .value as DiceRollAgainType;
+            break;
           case SpellValueIds.spellType:
             const type = action.payload.value as SpellType;
             specification.type = type;
@@ -320,6 +357,10 @@ export const spellReducer = produce(
             break;
           case SpellValueIds.sleeperWitnesses:
             paradox.sleeperWitnesses = action.payload.value as SleeperWitnesses;
+            break;
+          case SpellLogicValueIdentifier.paradoxResolution:
+            spell.roll.config.paradoxResolution = action.payload
+              .value as ParadoxResolution;
             break;
         }
         break;
@@ -356,7 +397,10 @@ export const spellReducer = produce(
               action.payload.value;
             break;
           case SpellLogicValueIdentifier.rollParadoxFirst:
-            spell.roll.rollParadox = action.payload.value;
+            spell.roll.config.rollParadox = action.payload.value;
+            break;
+          case SpellLogicValueIdentifier.rollWisdomToContainParadox:
+            spell.roll.config.rollWisdomToContainParadox = action.payload.value;
             break;
         }
         break;
@@ -433,7 +477,7 @@ export const spellReducer = produce(
           const newSpellState: SpellState = {
             spell: newSpell,
             spellCastingConfig: newConfig,
-            roll: makeSpellRoll(),
+            roll: makeSpellRollState(),
             status: SpellStatus.new,
           };
           draft.spells[newConfig.id] = newSpellState;

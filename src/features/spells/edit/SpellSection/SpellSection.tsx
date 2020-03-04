@@ -20,6 +20,7 @@ import {SpellCastingConfig} from '../../../../rules/spells/Spell.config';
 import {SpellSectionDescription} from './SpellSectionDescription';
 import {NumberSwitch} from '../../../../components/NumberSwitch/NumberSwitch';
 import {MageSwitch} from '../../../../components/MageSwitch/MageSwitch';
+import {DiceRollAgainType} from '../../../../rules/dice-roll/DiceRollAgainType';
 
 export class SpellSection extends DynamiclyStyledPureComponent<
   SpellSectionProps,
@@ -123,6 +124,54 @@ export class SpellSection extends DynamiclyStyledPureComponent<
     return roteSkillSelect;
   };
 
+  tenAgainButtons = [
+    localization.tenAgain,
+    localization.nineAgain,
+    localization.eightAgain,
+    localization.roteQuality,
+  ];
+
+  indexForRollAgainType = (type: DiceRollAgainType): number => {
+    switch (type) {
+      case DiceRollAgainType.tenAgain:
+        return 0;
+      case DiceRollAgainType.nineAgain:
+        return 1;
+      case DiceRollAgainType.eightAgain:
+        return 2;
+      case DiceRollAgainType.roteQuality:
+        return 3;
+    }
+  };
+
+  onChangeRollAgainType = (index: number) => {
+    let type: DiceRollAgainType;
+
+    switch (index) {
+      case 0:
+        type = DiceRollAgainType.tenAgain;
+        break;
+      case 1:
+        type = DiceRollAgainType.nineAgain;
+        break;
+      case 2:
+        type = DiceRollAgainType.eightAgain;
+        break;
+      case 3:
+        type = DiceRollAgainType.roteQuality;
+        break;
+      default:
+        type = DiceRollAgainType.tenAgain;
+        break;
+    }
+
+    this.props.setStringValue(
+      SpellValueIds.rollAgainType,
+      type,
+      this.props.spellCastingConfig.id,
+    );
+  };
+
   render() {
     const config = this.props.spellCastingConfig;
     const parent = config.id;
@@ -184,6 +233,14 @@ export class SpellSection extends DynamiclyStyledPureComponent<
             selectedButtonStyle={this.state.styles.selectedButton}
           />
         </InputContainer>
+        <MageSwitch
+          parent={parent}
+          containerStyle={styles.switch}
+          identifier={SpellValueIds.changePrimarySpellFactor}
+          value={spell.additionalSpecs.changePrimarySpellFactor}
+          label={localization.changed_primary_factor_title}
+          onValueChanged={this.props.setBooleanValue}
+        />
         <InputContainer
           title={localization.spell_type_title}
           containerStyle={styles.inputContainer}
@@ -211,46 +268,20 @@ export class SpellSection extends DynamiclyStyledPureComponent<
             pluralItemLabel={localization.extra_reach_plural}
           />
         </InputContainer>
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.changePrimarySpellFactor}
-          value={spell.additionalSpecs.changePrimarySpellFactor}
-          label={localization.changed_primary_factor_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.timeInABottle}
-          value={spell.additionalSpecs.timeInABottle}
-          label={localization.time_in_a_bottle_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.everywhere}
-          value={spell.additionalSpecs.everywhere}
-          label={localization.everywhere_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.symphaticRange}
-          value={spell.additionalSpecs.sympatheticRange}
-          label={localization.sympathetic_range_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.temporalSympathy}
-          value={spell.additionalSpecs.temporalSympathy}
-          label={localization.temporal_sympathy_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
+        <InputContainer
+          title={localization.tenAgain_title}
+          height={buttonGroupContainerHeight}
+          containerStyle={styles.inputContainer}>
+          <ButtonGroup
+            buttons={this.tenAgainButtons}
+            selectedButtonStyle={this.state.styles.selectedButton}
+            selectedIndex={this.indexForRollAgainType(
+              this.props.spellCastingConfig.spell.rollAgainType,
+            )}
+            onPress={this.onChangeRollAgainType}
+            underlayColor={this.props.theme.colors.primary}
+          />
+        </InputContainer>
       </FormSection>
     );
   }

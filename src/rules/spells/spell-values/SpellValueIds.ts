@@ -23,4 +23,5 @@ export enum SpellValueIds {
   everywhere = 'everywhere',
   timeInABottle = 'timeInABottle',
   changePrimarySpellFactor = 'changePrimarySpellFactor',
+  rollAgainType = 'rollAgainType',
 }

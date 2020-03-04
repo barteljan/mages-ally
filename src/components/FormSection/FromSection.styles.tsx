@@ -16,7 +16,7 @@ export function makeFormSectionStyles(
       borderBottomWidth: collapsed ? 1 : 0,
       borderLeftWidth: collapsed ? 1 : 0,
       borderRightWidth: collapsed ? 1 : 0,
-      marginBottom: 20,
+      marginBottom: collapsed ? 20 : 0,
       elevation: collapsed ? 3 : 0,
     },
   });

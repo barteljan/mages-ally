@@ -80,12 +80,24 @@ export class CasterSectionDescription extends DynamiclyStyledPureComponent<
           />
         </View>
         <View style={style.infoContainer}>
+          <Text style={style.label}>{localization.wisdom_title}</Text>
+          <DotSelect
+            key={CharacterValueId.wisdom + 'select'}
+            parent={parent}
+            value={caster.wisdom.diceModifier}
+            identifier={CharacterValueId.wisdom}
+            numberOfDots={caster.wisdom.diceModifier}
+            dotSize={dotSize}
+            color={this.props.theme.colors.disabled}
+          />
+        </View>
+        <View style={style.infoContainer}>
           <Text style={style.label}>{chosenArkanumTitle}</Text>
           <DotSelect
             key={SpellValueIds.highestArcanumValue + 'select'}
             parent={parent}
             value={caster.highestSpellArcanum.diceModifier}
-            identifier={CharacterValueId.gnosis}
+            identifier={SpellValueIds.highestArcanum}
             numberOfDots={caster.highestSpellArcanum.diceModifier}
             dotSize={dotSize}
             color={this.props.theme.colors.disabled}

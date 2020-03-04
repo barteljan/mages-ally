@@ -28,13 +28,14 @@ export const makeRollItemStyle = (theme: Theme) =>
       paddingHorizontal: 15,
       paddingVertical: 10,
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     titleContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
       alignItems: 'center',
       flexWrap: 'wrap',
+      maxWidth: '90%',
     },
     title: {
       color: theme.colors.primary,
@@ -51,8 +52,9 @@ export const makeRollItemStyle = (theme: Theme) =>
       paddingBottom: 15,
     },
     iconContainer: {
-      paddingVertical: 10,
+      paddingBottom: 15,
       paddingLeft: 15,
-      paddingRight: 20,
+      paddingRight: 5,
+      //backgroundColor: 'green',
     },
   });

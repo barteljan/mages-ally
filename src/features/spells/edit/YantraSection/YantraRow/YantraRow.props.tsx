@@ -1,4 +1,4 @@
-import {Yantra} from 'src/rules/spells/yantra/yantra';
+import {Yantra} from '../../../../../rules/spells/yantra/yantra';
 import {ViewStyle} from 'react-native';
 import {Theme} from 'react-native-paper';
 export type YantraRowProps = {

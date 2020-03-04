@@ -25,6 +25,8 @@ import {SpellInformation} from './SpellInformation/SpellInformation';
 import {ParadoxSection} from './ParadoxSection/ParadoxSection';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
+import {AttainmentsSection} from './AttainmentsSection/AttainmentsSection';
+import {DiceView} from '../../../components/DiceView/DiceView';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;
@@ -64,6 +66,8 @@ class _EditSpellScreen extends PureComponent<
 
   save = () => this.props.save(this.props.spellCastingConfig.id);
 
+  onRollDice = () => this.props.rollDice(this.props.spellCastingConfig.id);
+
   componentDidMount() {
     this.props.navigation.setOptions({
       headerRight: () =>
@@ -78,7 +82,17 @@ class _EditSpellScreen extends PureComponent<
               onPress={this.save}
             />
           </TouchableOpacity>
-        ) : null,
+        ) : (
+          <View style={this.state.styles.saveButtonContainer}>
+            <DiceView
+              theme={this.props.theme}
+              index={1}
+              onPress={this.onRollDice}
+              scale={0.5}
+              activeOpacity={0.5}
+            />
+          </View>
+        ),
     });
   }
 
@@ -109,6 +123,8 @@ class _EditSpellScreen extends PureComponent<
     this.toggleSection(EditSpellSections.spellFactor);
   toggleYantraSection = () => this.toggleSection(EditSpellSections.yantras);
   toggleParadoxSection = () => this.toggleSection(EditSpellSections.paradox);
+  toggleAttainmentsSection = () =>
+    this.toggleSection(EditSpellSections.attainments);
 
   render() {
     const styles = this.state.styles;
@@ -166,6 +182,14 @@ class _EditSpellScreen extends PureComponent<
             {...this.props}
             collapsed={this.state.openedSection !== EditSpellSections.yantras}
             onChangeCollapse={this.toggleYantraSection}
+            styles={styles}
+          />
+          <AttainmentsSection
+            {...this.props}
+            collapsed={
+              this.state.openedSection !== EditSpellSections.attainments
+            }
+            onChangeCollapse={this.toggleAttainmentsSection}
             styles={styles}
           />
           <ParadoxSection

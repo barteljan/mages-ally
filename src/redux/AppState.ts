@@ -4,7 +4,7 @@ import {DiceRollAgainType} from '../rules/dice-roll/DiceRollAgainType';
 import {
   SpellsState,
   SpellState,
-  makeSpellRoll,
+  makeSpellRollState,
 } from '../features/spells/Spell.redux';
 import {makeSpellCastingConfig} from '../rules/spells/Spell.config';
 import {SpellStatus} from '../features/spells/Spell.status';
@@ -23,7 +23,7 @@ export function makeAppState(): AppState {
   const newSpell: SpellState = {
     spellCastingConfig,
     status: SpellStatus.new,
-    roll: makeSpellRoll(),
+    roll: makeSpellRollState(),
     spell,
   };
 

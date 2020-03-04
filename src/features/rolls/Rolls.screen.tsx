@@ -8,7 +8,7 @@ import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {DynamiclyStyledPureComponent} from '../../components/DynamiclyStyledPureComponent';
 import {withTheme} from 'react-native-paper';
 import {RollItem} from './list-item/RollItem';
-import {DiceRollConfig} from 'src/rules/dice-roll/DiceRoll.config';
+import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 
 class _RollsScreen extends DynamiclyStyledPureComponent<
   RollsProps,

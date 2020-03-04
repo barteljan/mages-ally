@@ -16,13 +16,12 @@ import {SpellFactorType} from '../spell-factors/SpellFactor.type';
 import {SpellType} from '../Spell.type';
 import {makeCharacterSkill} from '../../character/CharacterSkill';
 import {makeSpellFactor} from '../spell-factors/SpellFactor';
-import {YantraType} from '../yantra/Yantra.type';
-import {GameValueType} from '../../../GameValueTypes';
 import {
   GnosisRules,
   RitualIntervalUnit,
 } from '../../../rules/gnosis/GnosisRule';
 import {makeRoteYantra} from '../yantra/yantra';
+import {DiceRollAgainType} from '../../../rules/dice-roll/DiceRollAgainType';
 
 test('calls spellModifiersFromCaster', () => {
   let config = makeSpellCastingConfig();
@@ -603,4 +602,20 @@ test('number of yantra is calculated correctly from gnosis rules for gnosis 2', 
   );
 
   expect(spell.maxYantras).toBe(22);
+});
+
+test('roll again type is used correctly', () => {
+  const spell = spellFromConfig(
+    makeSpellCastingConfig({
+      spell: makeSpellSpecification({
+        rollAgainType: DiceRollAgainType.eightAgain,
+      }),
+    }),
+  );
+
+  expect(spell.roll.dices.type).toBe(DiceRollAgainType.eightAgain);
+
+  const spell2 = spellFromConfig(makeSpellCastingConfig());
+
+  expect(spell2.roll.dices.type).toBe(DiceRollAgainType.tenAgain);
 });

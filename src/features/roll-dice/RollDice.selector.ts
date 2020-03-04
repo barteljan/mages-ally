@@ -1,4 +1,4 @@
-import {AppState} from 'src/redux/AppState';
+import {AppState} from '../../redux/AppState';
 import {createSelector} from 'reselect';
 
 export const currentRollId = (state: AppState) => state.rollDice.currentRollId;

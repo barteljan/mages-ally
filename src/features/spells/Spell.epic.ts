@@ -1,6 +1,6 @@
 import {RootAction} from '../../redux/rootReducer';
 import {popAction} from '../../navigation/Navigation.actions';
-import {filter, map} from 'rxjs/operators';
+import {filter, map, mergeMap} from 'rxjs/operators';
 import {isActionOf} from 'typesafe-actions';
 import {Epic, combineEpics} from 'redux-observable';
 import {
@@ -9,12 +9,16 @@ import {
   saveSpellError,
   addCustomYantra,
   addCustomYantraError,
+  rollSpellDiceAction,
+  didRollSpellDiceAction,
 } from './Spell.redux';
 import {AppState} from '../../redux/AppState';
 import {spellStateFor} from './Spell.selectors';
 import {showMessage} from 'react-native-flash-message';
 import {localization} from './Spell.strings';
 import {theme} from '../../layout/Theme';
+import {rollForSpell} from '../../rules/spells/roll/rollForSpell';
+import {didRollDiceAction} from '../roll-dice/RollDice.redux';
 
 const setYantraEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
@@ -70,8 +74,46 @@ const saveSpellEpic: Epic<RootAction, RootAction, AppState> = (
     }),
   );
 
+const rollDicesEpic: Epic<RootAction, RootAction, AppState> = (
+  action$,
+  state$,
+) =>
+  action$.pipe(
+    filter(isActionOf(rollSpellDiceAction)),
+    map(action => {
+      const spellState = spellStateFor(state$.value, action.payload.parent)!;
+      const rolled = rollForSpell(spellState.spell, spellState.roll.config);
+      return didRollSpellDiceAction(action.payload.parent, rolled);
+    }),
+  );
+
+const didRollDicesEpic: Epic<RootAction, RootAction, AppState> = action$ =>
+  action$.pipe(
+    filter(isActionOf(didRollSpellDiceAction)),
+    mergeMap(action => {
+      const result = action.payload.result;
+      let actions: any[] = [];
+
+      if (result.spellRoll) {
+        actions.push(didRollDiceAction(result.spellRoll));
+      }
+
+      if (result.containParadoxRoll) {
+        actions.push(didRollDiceAction(result.containParadoxRoll));
+      }
+
+      if (result.paradoxRoll) {
+        actions.push(didRollDiceAction(result.paradoxRoll));
+      }
+
+      return actions;
+    }),
+  );
+
 export const spellsEpic = combineEpics(
   setYantraEpic,
   addCustomYantraEpic,
   saveSpellEpic,
+  rollDicesEpic,
+  didRollDicesEpic,
 );

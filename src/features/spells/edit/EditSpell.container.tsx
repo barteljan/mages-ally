@@ -60,6 +60,7 @@ type DispatchProps = {
   deleteYantra: (id: string, parent: string) => void;
   chooseYantra: (parent: string) => void;
   setYantraValue: (identifier: string, value: number, parent: string) => void;
+  rollDice: (id: string) => void;
 };
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
@@ -86,6 +87,10 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
 const chooseYantra = (parent: string) =>
   navigateToAction(Routes.chooseYantras, {parent});
 
+const rollDice = (id: string) => {
+  return navigateToAction(Routes.rollSpellDice, {id});
+};
+
 const mapDispatchToProps: DispatchProps = {
   setValue: setNumberValueAction,
   setStringValue: setStringValueAction,
@@ -96,6 +101,7 @@ const mapDispatchToProps: DispatchProps = {
   chooseYantra,
   setYantraValue: setYantraValueAction,
   save: saveSpellAction,
+  rollDice,
 };
 
 const mergeProps: MergeProps<
@@ -119,6 +125,7 @@ const mergeProps: MergeProps<
     theme: ownProps.theme,
     navigation: ownProps.navigation,
     showSave: stateProps.showSave,
+    rollDice: dispatchProps.rollDice,
   };
 };
 

@@ -1,8 +1,8 @@
 import {AppState} from '../../redux/AppState';
 import {SpellCastingConfig} from '../../rules/spells/Spell.config';
 import {SpellStatus} from './Spell.status';
-import {Spell} from 'src/rules/spells/Spell';
-import {SpellState, SpellRolls} from './Spell.redux';
+import {Spell} from '../../rules/spells/Spell';
+import {SpellState, SpellRollState} from './Spell.redux';
 
 export const addedSpellCastingConfig = (
   state: AppState,
@@ -77,6 +77,6 @@ export const spellStateFor = (
 export const spellRollsFor = (
   state: AppState,
   id: string,
-): SpellRolls | undefined => {
+): SpellRollState | undefined => {
   return state.spells.spells[id].roll;
 };

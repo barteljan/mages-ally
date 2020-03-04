@@ -64,6 +64,18 @@ export class CasterSection extends PureComponent<CasterSectionProps> {
           />
         </InputContainer>
         <InputContainer
+          title={localization.wisdom_title}
+          containerStyle={styles.inputContainer}>
+          <DotSelect
+            key={CharacterValueId.wisdom + 'select'}
+            parent={parent}
+            value={caster.wisdom.diceModifier}
+            identifier={CharacterValueId.wisdom}
+            didSelect={this.props.setValue}
+            numberOfDots={10}
+          />
+        </InputContainer>
+        <InputContainer
           title={localization.highest_arcanum_value.replace(
             VariablePlaceholder.highestArcanum,
             chosenArkanumTitle,

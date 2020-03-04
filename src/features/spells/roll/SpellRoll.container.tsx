@@ -1,5 +1,5 @@
 import {Theme} from 'react-native-paper';
-import {AppState} from 'src/redux/AppState';
+import {AppState} from '../../../redux/AppState';
 import {MergeProps, connect} from 'react-redux';
 import {SpellRollScreenProps} from './SpellRoll.props';
 import {SpellRollScreen} from './SpellRoll.screen';
@@ -15,8 +15,9 @@ import {Routes} from '../../../navigation/Routes';
 import {
   setStringValueAction,
   setNumberValueAction,
-  SpellRolls,
+  SpellRollState,
   setBooleanValueAction,
+  rollSpellDiceAction,
 } from '../Spell.redux';
 
 type OwnProps = {
@@ -28,7 +29,7 @@ type OwnProps = {
 type StateProps = {
   config: SpellCastingConfig;
   spell: Spell;
-  roll: SpellRolls;
+  roll: SpellRollState;
 };
 
 type DispatchProps = {
@@ -40,6 +41,7 @@ type DispatchProps = {
     parent: string,
   ) => void;
   setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
+  rollDice: (spellId: string) => void;
 };
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
@@ -47,7 +49,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
 
   const config: SpellCastingConfig = spellCastingConfigFor(state, id)!;
   const spell: Spell = spellFor(state, id)!;
-  const roll: SpellRolls = spellRollsFor(state, id)!;
+  const roll: SpellRollState = spellRollsFor(state, id)!;
 
   return {config, spell, roll};
 };
@@ -61,6 +63,7 @@ const mapDispatchToProps: DispatchProps = {
   setValue: setNumberValueAction,
   setStringValue: setStringValueAction,
   setBooleanValue: setBooleanValueAction,
+  rollDice: rollSpellDiceAction,
 };
 
 const mergeProps: MergeProps<
@@ -79,6 +82,7 @@ const mergeProps: MergeProps<
     showSpell: dispatchProps.showSpell,
     roll: stateProps.roll,
     navigation: ownProps.navigation,
+    rollDice: dispatchProps.rollDice,
   };
 };
 

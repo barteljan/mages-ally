@@ -34,7 +34,7 @@ export const makeRollDiceStyle = (theme: Theme) =>
     inputContainer: {
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: 20,
+      marginTop: 20,
     },
     optionsTitle: {
       fontSize: FontSize.header,

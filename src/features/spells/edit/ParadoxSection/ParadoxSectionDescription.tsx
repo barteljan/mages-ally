@@ -7,7 +7,7 @@ import {
 } from './ParadoxSectionDescription.styles';
 import {ParadoxSectionDescriptionProps} from './ParadoxSectionDescription.props';
 import {localization} from '../../Spell.strings';
-import {labelForSleeperWittness} from '../../../../rules/spells/paradox/SleeperWittnesses.strings';
+import {labelForSleeperWittness} from '../../../../rules/spells/paradox/Paradox.strings';
 
 export class ParadoxSectionDescription extends DynamiclyStyledPureComponent<
   ParadoxSectionDescriptionProps,

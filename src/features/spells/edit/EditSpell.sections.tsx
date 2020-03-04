@@ -3,5 +3,6 @@ export enum EditSpellSections {
   spell = 'spell',
   spellFactor = 'spellFactor',
   yantras = 'yantras',
+  attainments = 'attainments',
   paradox = 'paradox',
 }

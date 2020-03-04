@@ -2,7 +2,7 @@ import {SpellFactorType} from '../../../../../rules/spells/spell-factors/SpellFa
 import {ViewStyle} from 'react-native';
 import {SpellFactorLevel} from '../../../../../rules/spells/spell-factors/SpellFactor.level';
 import {Theme} from 'react-native-paper';
-import {SpellFactor} from 'src/rules/spells/spell-factors/SpellFactor';
+import {SpellFactor} from '../../../../../rules/spells/spell-factors/SpellFactor';
 export type SpellFactorRowProps = {
   factor: SpellFactor;
   gnosis: number;

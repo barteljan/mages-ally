@@ -224,23 +224,6 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
               scale={scale}
             />
           </InputContainer>
-          <FormButton
-            parent={'no_parent'}
-            theme={this.props.theme}
-            title={localization.roll_dice_button_text}
-            onPress={this.onRollDice}
-            containerStyle={this.state.styles.rollDiceButtonStyle}
-            actionComponent={
-              <DiceView
-                theme={this.props.theme}
-                index={1}
-                scale={0.5}
-                activeOpacity={0.5}
-                onPress={this.onRollDice}
-                diceImageStyle={{tintColor: this.props.theme.colors.primary}}
-              />
-            }
-          />
           <InputContainer
             title={localization.tenAgain_title}
             height={buttonContainerHeight}
@@ -265,6 +248,23 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
               underlayColor={this.props.theme.colors.primary}
             />
           </InputContainer>
+          <FormButton
+            parent={'no_parent'}
+            theme={this.props.theme}
+            title={localization.roll_dice_button_text}
+            onPress={this.onRollDice}
+            containerStyle={this.state.styles.rollDiceButtonStyle}
+            actionComponent={
+              <DiceView
+                theme={this.props.theme}
+                index={1}
+                scale={0.5}
+                activeOpacity={0.5}
+                onPress={this.onRollDice}
+                diceImageStyle={{tintColor: this.props.theme.colors.primary}}
+              />
+            }
+          />
         </View>
       </ScrollView>
     );

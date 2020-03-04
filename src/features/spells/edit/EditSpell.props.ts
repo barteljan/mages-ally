@@ -31,4 +31,5 @@ export type EditSpellProps = {
   chooseYantra: (parent: string) => void;
   save: (id: string) => void;
   showSave: boolean;
+  rollDice: (id: string) => void;
 };

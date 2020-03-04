@@ -3,6 +3,7 @@ import LocalizedStrings from 'react-native-localization';
 export type EditDiceStrings = {
   spell_title: string;
   gnosis_title: string;
+  wisdom_title: string;
   caster_section_title: string;
   highest_arcanum_title: string;
   highest_arcanum_value: string;
@@ -26,6 +27,7 @@ export type EditDiceStrings = {
   spell_factor_section_title: string;
   yantra_section_title: string;
   yantra_add_button_title: string;
+  attainment_section_title: string;
   paradox_section_title: string;
   inured_spell_title: string;
   mage_is_inured_to_spell: string;
@@ -51,9 +53,16 @@ export type EditDiceStrings = {
   add_custom_yantra_overlay_cancle_button_text: string;
   roll_dice_button_text: string;
   spell_roll_roll_paradox_first_title: string;
+  spell_roll_roll_contain_paradox_title: string;
   spell_roll_successes_on_paradox_roll_title: string;
   spell_roll_successes_on_paradox_roll_singular: string;
   spell_roll_successes_on_paradox_roll_plural: string;
+  tenAgain_title: string;
+  tenAgain: string;
+  nineAgain: string;
+  eightAgain: string;
+  roteQuality: string;
+  paradox_resolution_title: string;
 };
 
 export enum VariablePlaceholder {
@@ -64,6 +73,7 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
   en: {
     spell_title: 'Title',
     gnosis_title: 'Gnosis',
+    wisdom_title: 'Wisdom',
     caster_section_title: 'Caster',
     highest_arcanum_title: 'Highest Arcanum Used in the Spell',
     highest_arcanum_value:
@@ -91,6 +101,7 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     spell_factor_section_title: 'Spell Factors',
     yantra_section_title: 'Yantras',
     yantra_add_button_title: 'Add Yantra',
+    attainment_section_title: 'Attainments',
     paradox_section_title: 'Paradox',
     inured_spell_title: "Is the Mage's Inured to this Spell? (+2 dice)",
     mage_is_inured_to_spell: 'Mage is inured to this spell',
@@ -103,11 +114,11 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     additional_mana_spend_plural: 'Points',
     witnesses_title: 'Sleeper witnesses recognizing your spell',
     warning_enter_title_for_this_spell: 'Please enter a title for this spell',
-    everywhere_title: 'Everywhere: Switch reach for mana (needs scale 4)',
-    sympathetic_range_title: 'Sympathetic Range (needs space 2)',
-    temporal_sympathy_title: 'Temporal Sympathy (needs time 2)',
+    everywhere_title: 'Everywhere: Switch scale reach for mana (Space 4)',
+    sympathetic_range_title: 'Sympathetic Range (Space 2)',
+    temporal_sympathy_title: 'Temporal Sympathy (Time 2)',
     time_in_a_bottle_title:
-      'Time in a Bottle: Switch reach for mana (needs time 4)',
+      'Time in a Bottle: Switch casting time reach for mana (Time 4)',
     changed_primary_factor_title: 'Changed primary spell factor?',
     add_custom_yantra_title: 'Add Custom Yantra',
     warning_enter_title_for_yantra: 'Please add a title for your yantra',
@@ -117,10 +128,17 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     add_custom_yantra_overlay_add_button_text: 'Add',
     add_custom_yantra_overlay_cancle_button_text: 'Cancle',
     roll_dice_button_text: 'Roll dice!',
-    spell_roll_roll_paradox_first_title: 'Roll paradox first?',
+    spell_roll_roll_paradox_first_title: 'Roll paradox?',
+    spell_roll_roll_contain_paradox_title: 'Roll to contain paradox?',
     spell_roll_successes_on_paradox_roll_title: 'Successes on paradox roll',
     spell_roll_successes_on_paradox_roll_singular: 'Success',
     spell_roll_successes_on_paradox_roll_plural: 'Successes',
+    tenAgain_title: 'Dice to reroll',
+    tenAgain: '10 again',
+    nineAgain: '9 again',
+    eightAgain: '8 again',
+    roteQuality: 'rote quality',
+    paradox_resolution_title: 'How do you handle paradox?',
   },
 });
 
