@@ -2,7 +2,7 @@ import {AppState} from '../../redux/AppState';
 import {SpellCastingConfig} from '../../rules/spells/Spell.config';
 import {SpellStatus} from './Spell.status';
 import {Spell} from '../../rules/spells/Spell';
-import {SpellState, SpellRollState} from './Spell.redux';
+import {SpellState, SpellRollState} from './Spell.state';
 
 export const addedSpellCastingConfig = (
   state: AppState,

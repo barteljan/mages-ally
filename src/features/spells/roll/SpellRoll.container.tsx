@@ -15,10 +15,10 @@ import {Routes} from '../../../navigation/Routes';
 import {
   setStringValueAction,
   setNumberValueAction,
-  SpellRollState,
   setBooleanValueAction,
   rollSpellDiceAction,
-} from '../Spell.redux';
+} from '../Spell.actions';
+import {SpellRollState} from '../Spell.state';
 
 type OwnProps = {
   theme: Theme;

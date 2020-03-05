@@ -23,7 +23,7 @@ const rollDicesEpic: Epic<RootAction, RootAction, AppState> = action$ =>
         showDropDownForDiceRoll(rolled);
       }
       */
-      return didRollDiceAction(rolled);
+      return didRollDiceAction(rolled, action.payload.context);
     }),
   );
 const openDicesViewEpic: Epic<RootAction, RootAction, AppState> = action$ =>

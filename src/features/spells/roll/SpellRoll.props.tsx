@@ -1,7 +1,8 @@
 import {Theme} from 'react-native-paper';
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {Spell} from '../../../rules/spells/Spell';
-import {SpellRollState} from '../Spell.redux';
+import {SpellRollState} from '../Spell.state';
+
 export type SpellRollScreenProps = {
   navigation: any;
   theme: Theme;

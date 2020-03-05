@@ -7,7 +7,8 @@ import {rollsReducer} from '../features/rolls/Rolls.redux';
 
 import produce from 'immer';
 import {NavigationAction} from '../navigation/Navigation.actions';
-import {spellReducer, SpellActions} from '../features/spells/Spell.redux';
+import {SpellActions} from '../features/spells/Spell.actions';
+import {spellReducer} from '../features/spells/Spell.reducer';
 
 export type RootAction = RollDiceActions | NavigationAction | SpellActions;
 

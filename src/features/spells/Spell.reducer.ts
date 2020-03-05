@@ -1,17 +1,10 @@
-import {
-  SpellCastingConfig,
-  makeSpellCastingConfig,
-} from '../../rules/spells/Spell.config';
-import {createAction, ActionType} from 'typesafe-actions';
 import produce from 'immer';
+import {SpellActionTypes, SpellActions} from './Spell.actions';
+import {SpellsState, SpellState, makeSpellRollState} from './Spell.state';
 import {CharacterValueId} from '../../rules/character/CharacterValue.id';
 import {SpellValueIds} from '../../rules/spells/spell-values/SpellValueIds';
-import {ArcanaType} from '../../rules/spells/arcana/Arcana.type';
-import StringMap from '../../data-types/StringMap';
-import {SpellStatus} from './Spell.status';
-import {SpellFactorType} from '../../rules/spells/spell-factors/SpellFactor.type';
-import {SpellType} from '../../rules/spells/Spell.type';
 import {YantraType} from '../../rules/spells/yantra/Yantra.type';
+import {SpellType} from '../../rules/spells/Spell.type';
 import {
   makeRoteYantra,
   Yantra,
@@ -21,230 +14,17 @@ import {
   DefaultAdditionalDiceModifier,
   makeDefaultAdditionalSpellCastingDice,
 } from '../../rules/spells/Spell.config.caster';
-import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.level';
-import {Spell} from '../../rules/spells/Spell';
-import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
-import uuid from 'uuid';
-import {SleeperWitnesses} from '../../rules/spells/paradox/SleeperWitnesses';
 import {SpellLogicValueIdentifier} from './Spell.identifiers';
-import {
-  SpellRollConfiguration,
-  makeSpellRollConfiguration,
-} from '../../rules/spells/roll/SpellRollConfiguration';
+import {ArcanaType} from '../../rules/spells/arcana/Arcana.type';
+import {SpellFactorType} from '../../rules/spells/spell-factors/SpellFactor.type';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
+import {SleeperWitnesses} from '../../rules/spells/paradox/SleeperWitnesses';
 import {ParadoxResolution} from '../../rules/spells/paradox/ParadoxResolution';
-import {RollForSpellResult} from '../../rules/spells/roll/rollForSpell';
-
-export type SpellsState = {
-  spells: StringMap<SpellState>;
-};
-
-export type SpellRollState = {
-  config: SpellRollConfiguration;
-  paradoxRollId: string | undefined;
-  spellRollId: string | undefined;
-};
-
-export const makeSpellRollState = (
-  roll?: Partial<SpellRollState>,
-): SpellRollState => {
-  return {
-    config: makeSpellRollConfiguration(),
-    paradoxRollId: undefined,
-    spellRollId: undefined,
-    ...roll,
-  };
-};
-
-export type SpellState = {
-  spellCastingConfig: SpellCastingConfig;
-  status: SpellStatus;
-  roll: SpellRollState;
-  spell: Spell;
-};
-
-export enum SpellActionTypes {
-  setNumberValue = 'spell/edit/setNumberValue',
-  setStringValue = 'spell/edit/setStringValue',
-  setBooleanValue = 'spell/edit/setBooleanValue',
-  setSpellFactorLevel = 'spell/edit/setSpellFactorLevel',
-  setSpellFactorValue = 'spell/edit/setSpellFactorValue',
-  deleteYantra = 'spell/edit/deleteYantra',
-  selectedYantra = 'spell/edit/selectedYantra',
-  setYantraValue = 'spell/edit/setYantraValue',
-  saveSpell = 'spell/edit/saveSpell',
-  saveSpellError = 'spell/edit/saveSpellError',
-  addCustomYantra = 'spell/edit/addCustomYantra',
-  addCustomYantraError = 'spell/edit/addCustomYantraError',
-  rollSpellDice = 'spell/rollDice',
-  didRollSpellDice = 'spell/didRollSpellDice',
-}
-
-export const setNumberValueAction = createAction(
-  SpellActionTypes.setNumberValue,
-  (identifier: string, value: number, parent: string) => {
-    return {
-      identifier,
-      value,
-      parent,
-    };
-  },
-)();
-
-export const setStringValueAction = createAction(
-  SpellActionTypes.setStringValue,
-  (identifier: string, value: string | undefined, parent: string) => {
-    return {
-      identifier,
-      value,
-      parent,
-    };
-  },
-)();
-
-export const setBooleanValueAction = createAction(
-  SpellActionTypes.setBooleanValue,
-  (identifier: string, value: boolean, parent: string) => {
-    return {
-      identifier,
-      value,
-      parent,
-    };
-  },
-)();
-
-export const setSpellFactorLevelAction = createAction(
-  SpellActionTypes.setSpellFactorLevel,
-  (factor: SpellFactorType, level: SpellFactorLevel, parent: string) => {
-    return {
-      factor,
-      level,
-      parent,
-    };
-  },
-)();
-
-export const setSpellFactorValueAction = createAction(
-  SpellActionTypes.setSpellFactorValue,
-  (factor: SpellFactorType, value: number, parent: string) => {
-    return {
-      factor,
-      value,
-      parent,
-    };
-  },
-)();
-
-export const deleteYantraAction = createAction(
-  SpellActionTypes.deleteYantra,
-  (id: string, parent: string) => {
-    return {
-      id,
-      parent,
-    };
-  },
-)();
-
-export const selectedYantraAction = createAction(
-  SpellActionTypes.selectedYantra,
-  (yantra: Yantra, parent: string) => {
-    return {
-      yantra,
-      parent,
-    };
-  },
-)();
-
-export const setYantraValueAction = createAction(
-  SpellActionTypes.setYantraValue,
-  (identifier: string, value: number, parent: string) => {
-    return {
-      identifier,
-      value,
-      parent,
-    };
-  },
-)();
-
-export const saveSpellAction = createAction(
-  SpellActionTypes.saveSpell,
-  (parent: string) => {
-    return {
-      parent,
-    };
-  },
-)();
-
-export const saveSpellError = createAction(
-  SpellActionTypes.saveSpellError,
-  (parent: string, errorMessage: string) => {
-    return {
-      parent,
-      error: errorMessage,
-    };
-  },
-)();
-
-export const addCustomYantra = createAction(
-  SpellActionTypes.addCustomYantra,
-  (title: string | undefined, value: number, parent: string) => {
-    return {
-      parent,
-      title,
-      value,
-    };
-  },
-)();
-
-export const addCustomYantraError = createAction(
-  SpellActionTypes.addCustomYantraError,
-  (title: string | undefined, value: number, parent: string, error: string) => {
-    return {
-      parent,
-      title,
-      value,
-      error,
-    };
-  },
-)();
-
-export const rollSpellDiceAction = createAction(
-  SpellActionTypes.rollSpellDice,
-  (parent: string) => {
-    return {
-      parent,
-    };
-  },
-)();
-
-export const didRollSpellDiceAction = createAction(
-  SpellActionTypes.didRollSpellDice,
-  (parent: string, result: RollForSpellResult) => {
-    return {
-      parent,
-      result,
-    };
-  },
-)();
-
-const actions = {
-  setNumberValueAction,
-  setStringValueAction,
-  setBooleanValueAction,
-  setSpellFactorLevelAction,
-  setSpellFactorValueAction,
-  deleteYantraAction,
-  selectedYantraAction,
-  setYantraValueAction,
-  saveSpellAction,
-  saveSpellError,
-  addCustomYantra,
-  addCustomYantraError,
-  rollSpellDiceAction,
-  didRollSpellDiceAction,
-};
-
-export type SpellActions = ActionType<typeof actions>;
+import {SpellFactorLevel} from '../../rules/spells/spell-factors/SpellFactor.level';
+import uuid from 'uuid';
+import {SpellStatus} from './Spell.status';
+import {makeSpellCastingConfig} from '../../rules/spells/Spell.config';
+import {spellFromConfig} from '../../rules/spells/calculations/spellFromConfig';
 
 export const spellReducer = produce(
   (draft: SpellsState, action: SpellActions): void => {
@@ -492,6 +272,24 @@ export const spellReducer = produce(
           );
           specification.yantras.unshift(yantra);
         }
+        break;
+      case SpellActionTypes.didRollSpellDice:
+        const paradoxRoll = action.payload.result.paradoxRoll;
+        const containRoll = action.payload.result.containParadoxRoll;
+        const spellRoll = action.payload.result.spellRoll;
+
+        if (paradoxRoll) {
+          spell.roll.paradoxRollId = paradoxRoll.id;
+        }
+
+        if (containRoll) {
+          spell.roll.containParadoxRollId = containRoll.id;
+        }
+
+        if (spellRoll) {
+          spell.roll.spellRollId = spellRoll.id;
+        }
+
         break;
     }
 

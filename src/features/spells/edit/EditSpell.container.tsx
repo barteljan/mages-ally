@@ -18,7 +18,7 @@ import {
   deleteYantraAction,
   setYantraValueAction,
   saveSpellAction,
-} from '../Spell.redux';
+} from '../Spell.actions';
 import {Theme} from 'react-native-paper';
 import {SpellFactorType} from '../../../rules/spells/spell-factors/SpellFactor.type';
 import {SpellFactorLevel} from '../../../rules/spells/spell-factors/SpellFactor.level';

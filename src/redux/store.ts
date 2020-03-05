@@ -12,7 +12,7 @@ const persistConfig = {
   key: 'mage',
   storage,
   version: 3,
-  migrate: createMigrate(migrations, {debug: true}),
+  migrate: createMigrate(migrations, {debug: false}),
 };
 
 //@ts-ignore

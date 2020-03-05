@@ -45,8 +45,15 @@ export const rollDiceAction = createAction(
 
 export const didRollDiceAction = createAction(
   RollDiceActionTypes.didRollDice,
-  (roll: DiceRoll) => roll,
+  (roll: DiceRoll, context: DiceRollContext) => {
+    return {roll, context};
+  },
 )();
+
+export type DidRollDiceAction = PayloadAction<
+  RollDiceActionTypes.didRollDice,
+  {roll: DiceRoll; context: DiceRollContext}
+>;
 
 export const clearCurrentRollAction = createAction(
   RollDiceActionTypes.clearCurrentRoll,
@@ -59,11 +66,6 @@ export const setCurrentRoll = createAction(
     return {roll, context};
   },
 )();
-
-export type DidRollDiceAction = PayloadAction<
-  RollDiceActionTypes.didRollDice,
-  DiceRoll
->;
 
 const actions = {
   setNumberOfDiceAction,

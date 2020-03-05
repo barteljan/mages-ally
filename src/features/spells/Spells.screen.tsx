@@ -5,7 +5,7 @@ import AddButton from './add-button/SpellsAddButton.container';
 import {withTheme} from 'react-native-paper';
 import {DynamiclyStyledPureComponent} from '../../components/DynamiclyStyledPureComponent';
 import {SpellsProps} from './Spells.props';
-import {SpellState} from './Spell.redux';
+import {SpellState} from './Spell.state';
 import {SpellListItem} from './list-item/SpellListItem';
 
 class _SpellsScreen extends DynamiclyStyledPureComponent<

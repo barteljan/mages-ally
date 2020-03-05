@@ -1,5 +1,5 @@
 import {Theme} from 'react-native-paper';
-import {SpellState} from './Spell.redux';
+import {SpellState} from './Spell.state';
 
 export type SpellsProps = {
   theme: Theme;

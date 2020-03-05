@@ -1,8 +1,8 @@
 import {PersistedState} from 'redux-persist';
 import {AppState} from './AppState';
-import {makeSpellRollState} from '../features/spells/Spell.redux';
 import {makeWisdomValue} from '../rules/character/WisdomValue';
 import {DiceRollAgainType} from '../rules/dice-roll/DiceRollAgainType';
+import {makeSpellRollState} from '../features/spells/Spell.state';
 export const migrations = {
   3: (state: PersistedState) => {
     let realState: AppState = {...((state as unknown) as AppState)};

@@ -5,7 +5,7 @@ import {
   SpellsState,
   SpellState,
   makeSpellRollState,
-} from '../features/spells/Spell.redux';
+} from '../features/spells/Spell.state';
 import {makeSpellCastingConfig} from '../rules/spells/Spell.config';
 import {SpellStatus} from '../features/spells/Spell.status';
 import {spellFromConfig} from '../rules/spells/calculations/spellFromConfig';

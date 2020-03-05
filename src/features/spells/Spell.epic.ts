@@ -11,7 +11,7 @@ import {
   addCustomYantraError,
   rollSpellDiceAction,
   didRollSpellDiceAction,
-} from './Spell.redux';
+} from './Spell.actions';
 import {AppState} from '../../redux/AppState';
 import {spellStateFor} from './Spell.selectors';
 import {showMessage} from 'react-native-flash-message';
@@ -19,6 +19,7 @@ import {localization} from './Spell.strings';
 import {theme} from '../../layout/Theme';
 import {rollForSpell} from '../../rules/spells/roll/rollForSpell';
 import {didRollDiceAction} from '../roll-dice/RollDice.redux';
+import {DiceRollContext} from '../../rules/DiceRollContext';
 
 const setYantraEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
@@ -95,15 +96,21 @@ const didRollDicesEpic: Epic<RootAction, RootAction, AppState> = action$ =>
       let actions: any[] = [];
 
       if (result.spellRoll) {
-        actions.push(didRollDiceAction(result.spellRoll));
+        actions.push(
+          didRollDiceAction(result.spellRoll, DiceRollContext.spell),
+        );
       }
 
       if (result.containParadoxRoll) {
-        actions.push(didRollDiceAction(result.containParadoxRoll));
+        actions.push(
+          didRollDiceAction(result.containParadoxRoll, DiceRollContext.spell),
+        );
       }
 
       if (result.paradoxRoll) {
-        actions.push(didRollDiceAction(result.paradoxRoll));
+        actions.push(
+          didRollDiceAction(result.paradoxRoll, DiceRollContext.spell),
+        );
       }
 
       return actions;

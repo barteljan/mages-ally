@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {Theme} from 'react-native-paper';
-import {SpellState} from './Spell.redux';
+import {SpellState} from './Spell.state';
 import {AppState} from '../../redux/AppState';
 import {createSelector} from 'reselect';
 import {SpellsProps} from './Spells.props';
@@ -27,6 +27,7 @@ const spellsSelector = (state: AppState) => state.spells.spells;
 
 const spellsList = createSelector(spellsSelector, spells => {
   let spellList: SpellState[] = [];
+
   for (let key in spells) {
     const spell = spells[key];
     if (spell.status !== SpellStatus.new) {

@@ -7,7 +7,7 @@ import {AppState} from '../../../../redux/AppState';
 import {SectionListData} from 'react-native';
 import {makeChoosableYantras} from '../../../../rules/spells/yantra/helper/makeChoosableYantras';
 import {YantraType} from '../../../../rules/spells/yantra/Yantra.type';
-import {selectedYantraAction, addCustomYantra} from '../../Spell.redux';
+import {selectedYantraAction, addCustomYantra} from '../../Spell.actions';
 
 type OwnProps = {
   theme: Theme;
