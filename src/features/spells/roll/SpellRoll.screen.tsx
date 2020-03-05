@@ -34,6 +34,7 @@ import {FormSection} from '../../../components/FormSection/FormSection';
 import {FormSectionTitle} from '../../../components/FormSection/FormSectionTitle/FormSectionTitle';
 import {ParadoxSectionDescription} from '../edit/ParadoxSection/ParadoxSectionDescription';
 import {ParadoxResolution} from '../../../rules/spells/paradox/ParadoxResolution';
+import {SpellRollInfo} from './SpellRollInfo';
 
 type SpellRollScreenState = {
   styles: SpellRollScreenStyle;
@@ -286,6 +287,13 @@ class _SpellRollScreen extends PureComponent<
           containerStyle={styles.inputContainer}
         />
       ) : null;
+
+    const spellRollInfo = this.props.spellRollInfoConfig ? (
+      <SpellRollInfo
+        theme={this.props.theme}
+        spellInformationConfig={this.props.spellRollInfoConfig}
+      />
+    ) : null;
     return (
       <ScrollView style={styles.container}>
         <SpellListItem
@@ -307,6 +315,7 @@ class _SpellRollScreen extends PureComponent<
           wrapperStyle={styles.spellItemWrapper}
           spellFactorStyle={styles.spellFactorStyle}
         />
+        {spellRollInfo}
         <View style={styles.formContainer}>
           {paradoxResolution}
           {rollParadox}

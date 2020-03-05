@@ -6,7 +6,8 @@ import {SpellRollScreen} from './SpellRoll.screen';
 import {
   spellCastingConfigFor,
   spellFor,
-  spellRollsFor,
+  spellRollStateFor,
+  spellRollInfoConfigFor,
 } from '../Spell.selectors';
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {Spell} from '../../../rules/spells/Spell';
@@ -19,6 +20,7 @@ import {
   rollSpellDiceAction,
 } from '../Spell.actions';
 import {SpellRollState} from '../Spell.state';
+import {SpellRollInfoConfig} from './SpellRollInfoConfig';
 
 type OwnProps = {
   theme: Theme;
@@ -30,6 +32,7 @@ type StateProps = {
   config: SpellCastingConfig;
   spell: Spell;
   roll: SpellRollState;
+  spellRollInfoConfig: SpellRollInfoConfig | undefined;
 };
 
 type DispatchProps = {
@@ -49,9 +52,12 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
 
   const config: SpellCastingConfig = spellCastingConfigFor(state, id)!;
   const spell: Spell = spellFor(state, id)!;
-  const roll: SpellRollState = spellRollsFor(state, id)!;
+  const roll: SpellRollState = spellRollStateFor(state, id)!;
 
-  return {config, spell, roll};
+  let spellRollInfoConfig:
+    | SpellRollInfoConfig
+    | undefined = spellRollInfoConfigFor(state, id);
+  return {config, spell, roll, spellRollInfoConfig};
 };
 
 const showSpell = (id: string) => {
@@ -83,6 +89,7 @@ const mergeProps: MergeProps<
     roll: stateProps.roll,
     navigation: ownProps.navigation,
     rollDice: dispatchProps.rollDice,
+    spellRollInfoConfig: stateProps.spellRollInfoConfig,
   };
 };
 

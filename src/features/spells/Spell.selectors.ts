@@ -3,6 +3,11 @@ import {SpellCastingConfig} from '../../rules/spells/Spell.config';
 import {SpellStatus} from './Spell.status';
 import {Spell} from '../../rules/spells/Spell';
 import {SpellState, SpellRollState} from './Spell.state';
+import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
+import {
+  SpellRollInfoConfig,
+  makeSpellRollInfoConfig,
+} from './roll/SpellRollInfoConfig';
 
 export const addedSpellCastingConfig = (
   state: AppState,
@@ -74,9 +79,42 @@ export const spellStateFor = (
   return state.spells.spells[id];
 };
 
-export const spellRollsFor = (
+export const spellRollStateFor = (
   state: AppState,
   id: string,
 ): SpellRollState | undefined => {
   return state.spells.spells[id].roll;
+};
+
+export const diceRollFor = (
+  state: AppState,
+  id: string | undefined,
+): DiceRoll | undefined => {
+  if (id) {
+    return state.rolls.diceRolls[id];
+  }
+  return undefined;
+};
+
+export const spellRollInfoConfigFor = (
+  state: AppState,
+  id: string | undefined,
+): SpellRollInfoConfig | undefined => {
+  if (!id) {
+    return undefined;
+  }
+
+  const roll: SpellRollState = spellRollStateFor(state, id)!;
+
+  let spellRollInfoConfig: SpellRollInfoConfig | undefined;
+
+  if (roll.containParadoxRollId || roll.paradoxRollId || roll.spellRollId) {
+    spellRollInfoConfig = makeSpellRollInfoConfig(roll.config, {
+      paradoxRoll: diceRollFor(state, roll.paradoxRollId),
+      containParadoxRoll: diceRollFor(state, roll.containParadoxRollId),
+      spellRoll: diceRollFor(state, roll.spellRollId),
+    });
+  }
+
+  return spellRollInfoConfig;
 };
