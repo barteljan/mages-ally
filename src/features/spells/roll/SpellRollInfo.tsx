@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {DynamiclyStyledPureComponent} from '../../../components/DynamiclyStyledPureComponent';
 import {SpellRollInfoConfig} from './SpellRollInfoConfig';
-import {DiceRoll} from 'src/rules/dice-roll/DiceRoll';
+import {DiceRoll} from '../../../rules/dice-roll/DiceRoll';
 
 export type SpellRollInfoProps = {
   theme: Theme;
