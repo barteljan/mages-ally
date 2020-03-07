@@ -51,7 +51,7 @@ export type EditDiceStrings = {
   add_custom_yantra_overlay_value_field_title: string;
   add_custom_yantra_overlay_add_button_text: string;
   add_custom_yantra_overlay_cancle_button_text: string;
-  roll_dice_button_text: string;
+  cast_spell_button_text: string;
   spell_roll_roll_paradox_first_title: string;
   spell_roll_roll_contain_paradox_title: string;
   spell_roll_successes_on_paradox_roll_title: string;
@@ -63,6 +63,7 @@ export type EditDiceStrings = {
   eightAgain: string;
   roteQuality: string;
   paradox_resolution_title: string;
+  spell_roll_info_title_prefix: string;
 };
 
 export enum VariablePlaceholder {
@@ -127,7 +128,7 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     add_custom_yantra_overlay_value_field_title: 'Value',
     add_custom_yantra_overlay_add_button_text: 'Add',
     add_custom_yantra_overlay_cancle_button_text: 'Cancle',
-    roll_dice_button_text: 'Roll dice!',
+    cast_spell_button_text: 'Cast spell!',
     spell_roll_roll_paradox_first_title: 'Roll paradox?',
     spell_roll_roll_contain_paradox_title: 'Roll to contain paradox?',
     spell_roll_successes_on_paradox_roll_title: 'Successes on paradox roll',
@@ -139,6 +140,7 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     eightAgain: '8 again',
     roteQuality: 'rote quality',
     paradox_resolution_title: 'How do you handle paradox?',
+    spell_roll_info_title_prefix: 'Cast',
   },
 });
 

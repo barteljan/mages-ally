@@ -20,7 +20,7 @@ import {
   rollSpellDiceAction,
 } from '../Spell.actions';
 import {SpellRollState} from '../Spell.state';
-import {SpellRollInfoConfig} from './SpellRollInfoConfig';
+import {SpellRollInfoConfig} from './SpellRollInfo/SpellRollInfo.config';
 
 type OwnProps = {
   theme: Theme;

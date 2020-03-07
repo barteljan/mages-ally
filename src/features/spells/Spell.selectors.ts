@@ -7,7 +7,7 @@ import {DiceRoll} from '../../rules/dice-roll/DiceRoll';
 import {
   SpellRollInfoConfig,
   makeSpellRollInfoConfig,
-} from './roll/SpellRollInfoConfig';
+} from './roll/SpellRollInfo/SpellRollInfo.config';
 
 export const addedSpellCastingConfig = (
   state: AppState,
@@ -104,16 +104,24 @@ export const spellRollInfoConfigFor = (
     return undefined;
   }
 
+  const config = spellCastingConfigFor(state, id)!;
+  const title = config ? config.title : undefined;
+
   const roll: SpellRollState = spellRollStateFor(state, id)!;
 
   let spellRollInfoConfig: SpellRollInfoConfig | undefined;
 
   if (roll.containParadoxRollId || roll.paradoxRollId || roll.spellRollId) {
-    spellRollInfoConfig = makeSpellRollInfoConfig(roll.config, {
-      paradoxRoll: diceRollFor(state, roll.paradoxRollId),
-      containParadoxRoll: diceRollFor(state, roll.containParadoxRollId),
-      spellRoll: diceRollFor(state, roll.spellRollId),
-    });
+    spellRollInfoConfig = makeSpellRollInfoConfig(
+      title,
+      roll.config,
+      config.caster.wisdom.diceModifier,
+      {
+        paradoxRoll: diceRollFor(state, roll.paradoxRollId),
+        containParadoxRoll: diceRollFor(state, roll.containParadoxRollId),
+        spellRoll: diceRollFor(state, roll.spellRollId),
+      },
+    );
   }
 
   return spellRollInfoConfig;

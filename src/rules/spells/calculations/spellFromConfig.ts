@@ -101,7 +101,7 @@ export function spellFromConfig(
 
   const freeReaches =
     config.spell.type === SpellType.rote
-      ? 5
+      ? 5 - config.spell.requiredArcanumValue + 1
       : config.caster.highestSpellArcanum.diceModifier -
         config.spell.requiredArcanumValue +
         1;

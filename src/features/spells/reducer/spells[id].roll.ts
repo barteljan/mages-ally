@@ -19,8 +19,16 @@ export const spellRollStateReducer: (
         switch (action.payload.identifier) {
           case SpellLogicValueIdentifier.paradoxRollSuccesses: {
             roll.config.successesOnParadoxRoll = action.payload.value;
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
             break;
           }
+          default:
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
+            break;
         }
         break;
       //set number in config
@@ -29,6 +37,15 @@ export const spellRollStateReducer: (
           case SpellLogicValueIdentifier.paradoxResolution:
             roll.config.paradoxResolution = action.payload
               .value as ParadoxResolution;
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
+
+            break;
+          default:
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
             break;
         }
         break;
@@ -36,9 +53,20 @@ export const spellRollStateReducer: (
         switch (action.payload.identifier) {
           case SpellLogicValueIdentifier.rollParadoxFirst:
             roll.config.rollParadox = action.payload.value;
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
             break;
           case SpellLogicValueIdentifier.rollWisdomToContainParadox:
             roll.config.rollWisdomToContainParadox = action.payload.value;
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
+            break;
+          default:
+            roll.paradoxRollId = undefined;
+            roll.containParadoxRollId = undefined;
+            roll.spellRollId = undefined;
             break;
         }
         break;
@@ -50,14 +78,20 @@ export const spellRollStateReducer: (
 
         if (paradoxRoll) {
           roll.paradoxRollId = paradoxRoll.id;
+        } else {
+          roll.paradoxRollId = undefined;
         }
 
         if (containRoll) {
           roll.containParadoxRollId = containRoll.id;
+        } else {
+          roll.containParadoxRollId = undefined;
         }
 
         if (spellRoll) {
           roll.spellRollId = spellRoll.id;
+        } else {
+          roll.spellRollId = undefined;
         }
 
         break;

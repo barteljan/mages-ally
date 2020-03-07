@@ -10,7 +10,7 @@ import {
   makeSpellListItemStyles,
 } from './SpellListItem.styles';
 import {SpellListItemProps} from './SpellListItem.props';
-import {DiceView} from '../../../components/DiceView/DiceView';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export class _SpellListItem extends DynamiclyStyledPureComponent<
   SpellListItemProps,
@@ -35,10 +35,10 @@ export class _SpellListItem extends DynamiclyStyledPureComponent<
     const actionItem = this.props.actionItem ? (
       this.props.actionItem
     ) : (
-      <DiceView
-        theme={this.props.theme}
-        index={1}
-        scale={0.5}
+      <Icon
+        name="magic"
+        size={18}
+        color={this.props.theme.colors.primary}
         onPress={this.onActionPress}
       />
     );
@@ -73,6 +73,7 @@ export class _SpellListItem extends DynamiclyStyledPureComponent<
             </View>
             <View style={this.state.styles.spellFactorContainer}>
               {description}
+              {this.props.children}
             </View>
             <SpellInformation
               spell={this.props.spell}

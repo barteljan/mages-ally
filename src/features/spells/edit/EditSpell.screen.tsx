@@ -24,9 +24,9 @@ import {YantraSection} from './YantraSection/YantraSection';
 import {SpellInformation} from './SpellInformation/SpellInformation';
 import {ParadoxSection} from './ParadoxSection/ParadoxSection';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import FontawesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import {TouchableOpacity} from 'react-native';
 import {AttainmentsSection} from './AttainmentsSection/AttainmentsSection';
-import {DiceView} from '../../../components/DiceView/DiceView';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;
@@ -84,12 +84,11 @@ class _EditSpellScreen extends PureComponent<
           </TouchableOpacity>
         ) : (
           <View style={this.state.styles.saveButtonContainer}>
-            <DiceView
-              theme={this.props.theme}
-              index={1}
+            <FontawesomeIcon
+              name="magic"
+              size={18}
+              color={this.props.theme.colors.primary}
               onPress={this.onRollDice}
-              scale={0.5}
-              activeOpacity={0.5}
             />
           </View>
         ),

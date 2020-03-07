@@ -3,6 +3,7 @@ import {AppState} from './AppState';
 import {makeWisdomValue} from '../rules/character/WisdomValue';
 import {DiceRollAgainType} from '../rules/dice-roll/DiceRollAgainType';
 import {makeSpellRollState} from '../features/spells/Spell.state';
+import {spellFromConfig} from '../rules/spells/calculations/spellFromConfig';
 export const migrations = {
   3: (state: PersistedState) => {
     let realState: AppState = {...((state as unknown) as AppState)};
@@ -27,6 +28,15 @@ export const migrations = {
         realState.spells.spells[key].spellCastingConfig.spell.rollAgainType =
           DiceRollAgainType.tenAgain;
       }
+    }
+
+    return (realState as unknown) as PersistedState;
+  },
+  4: (state: PersistedState) => {
+    let realState: AppState = {...((state as unknown) as AppState)};
+    for (let key in realState.spells.spells) {
+      let spellState = realState.spells.spells[key];
+      spellState.spell = spellFromConfig(spellState.spellCastingConfig);
     }
 
     return (realState as unknown) as PersistedState;

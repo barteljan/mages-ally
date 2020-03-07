@@ -52,13 +52,15 @@ export const makeSpellListItemStyles = (
       color: theme.colors.disabled,
     },
     actionWrapper: {
-      right: 15,
+      right: 10,
       top: 10,
       width: 32,
       height: 32,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     spellFactorContainer: {
-      paddingBottom: hidesDescription ? 12 : 20,
+      paddingBottom: hidesDescription ? 0 : 20,
     },
     surface: {
       elevation: 3,

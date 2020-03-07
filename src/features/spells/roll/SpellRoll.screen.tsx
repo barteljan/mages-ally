@@ -27,14 +27,13 @@ import {
 } from '../../../rules/spells/paradox/Paradox.strings';
 import {SleeperWitnesses} from '../../../rules/spells/paradox/SleeperWitnesses';
 import {FormButton} from '../../../components/FormButton/FormButton';
-import {DiceView} from '../../../components/DiceView/DiceView';
 import {MageSwitch} from '../../../components/MageSwitch/MageSwitch';
 import {SpellLogicValueIdentifier} from '../Spell.identifiers';
 import {FormSection} from '../../../components/FormSection/FormSection';
 import {FormSectionTitle} from '../../../components/FormSection/FormSectionTitle/FormSectionTitle';
 import {ParadoxSectionDescription} from '../edit/ParadoxSection/ParadoxSectionDescription';
 import {ParadoxResolution} from '../../../rules/spells/paradox/ParadoxResolution';
-import {SpellRollInfo} from './SpellRollInfo';
+import {SpellRollInfo} from './SpellRollInfo/SpellRollInfo';
 
 type SpellRollScreenState = {
   styles: SpellRollScreenStyle;
@@ -72,12 +71,11 @@ class _SpellRollScreen extends PureComponent<
     this.props.navigation.setOptions({
       headerRight: () => (
         <View style={this.state.styles.headerIconContainer}>
-          <DiceView
-            theme={this.props.theme}
-            index={1}
+          <Icon
+            name="magic"
+            size={18}
+            color={this.props.theme.colors.primary}
             onPress={this.onRollDice}
-            scale={0.5}
-            activeOpacity={0.5}
           />
         </View>
       ),
@@ -97,8 +95,7 @@ class _SpellRollScreen extends PureComponent<
 
     if (
       prevState.sectionCollapsed !== this.state.sectionCollapsed ||
-      prevProps.spell.roll.paradox.number !==
-        this.props.spell.roll.paradox.number
+      !isEqual(prevProps.roll, this.props.roll)
     ) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
     }
@@ -293,7 +290,10 @@ class _SpellRollScreen extends PureComponent<
         theme={this.props.theme}
         spellInformationConfig={this.props.spellRollInfoConfig}
       />
-    ) : null;
+    ) : (
+      undefined
+    );
+
     return (
       <ScrollView style={styles.container}>
         <SpellListItem
@@ -313,14 +313,44 @@ class _SpellRollScreen extends PureComponent<
             </View>
           }
           wrapperStyle={styles.spellItemWrapper}
-          spellFactorStyle={styles.spellFactorStyle}
-        />
-        {spellRollInfo}
+          spellFactorStyle={styles.spellFactorStyle}>
+          {spellRollInfo}
+        </SpellListItem>
         <View style={styles.formContainer}>
           {paradoxResolution}
           {rollParadox}
           {paradoxSuccesses}
           {rollContainParadox}
+          <InputContainer
+            title={localization.number_of_active_spells}
+            containerStyle={styles.inputContainer}>
+            <NumberSwitch
+              key={SpellValueIds.activeSpells + 'select'}
+              identifier={SpellValueIds.activeSpells}
+              parent={this.props.config.id}
+              selected={this.props.config.caster.activeSpells}
+              onChangedTo={this.props.setValue}
+              minValue={0}
+              maxValue={20}
+              singularItemLabel={localization.number_of_active_spells_singular}
+              pluralItemLabel={localization.number_of_active_spells_plural}
+            />
+          </InputContainer>
+          <InputContainer
+            title={localization.extra_reach_title}
+            containerStyle={styles.inputContainer}>
+            <NumberSwitch
+              key={SpellValueIds.extraReach + 'select'}
+              identifier={SpellValueIds.extraReach}
+              parent={this.props.config.id}
+              selected={this.props.config.spell.additionalSpecs.extraReach}
+              onChangedTo={this.props.setValue}
+              minValue={0}
+              maxValue={20}
+              singularItemLabel={localization.extra_reach_singular}
+              pluralItemLabel={localization.extra_reach_plural}
+            />
+          </InputContainer>
           <FormSection
             identifier={'paradox'}
             title={(identifier, collapsed) => (
@@ -386,16 +416,14 @@ class _SpellRollScreen extends PureComponent<
           <FormButton
             parent={config.id}
             theme={this.props.theme}
-            title={localization.roll_dice_button_text}
+            title={localization.cast_spell_button_text}
             onPress={this.onRollDice}
             containerStyle={this.state.styles.rollDiceButtonStyle}
             actionComponent={
-              <DiceView
-                theme={this.props.theme}
-                index={1}
-                scale={0.5}
-                activeOpacity={0.5}
-                diceImageStyle={{tintColor: this.props.theme.colors.primary}}
+              <Icon
+                name="magic"
+                size={18}
+                color={this.props.theme.colors.primary}
                 onPress={this.onRollDice}
               />
             }

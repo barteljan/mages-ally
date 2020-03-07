@@ -2,7 +2,7 @@ import {Theme} from 'react-native-paper';
 import {SpellCastingConfig} from '../../../rules/spells/Spell.config';
 import {Spell} from '../../../rules/spells/Spell';
 import {SpellRollState} from '../Spell.state';
-import {SpellRollInfoConfig} from './SpellRollInfoConfig';
+import {SpellRollInfoConfig} from './SpellRollInfo/SpellRollInfo.config';
 
 export type SpellRollScreenProps = {
   navigation: any;
