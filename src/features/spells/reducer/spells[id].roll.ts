@@ -71,6 +71,8 @@ export const spellRollStateReducer: (
         }
         break;
 
+      case SpellActionTypes.rollSpellDice:
+        break;
       case SpellActionTypes.didRollSpellDice:
         const paradoxRoll = action.payload.result.paradoxRoll;
         const containRoll = action.payload.result.containParadoxRoll;

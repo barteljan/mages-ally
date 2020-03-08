@@ -130,10 +130,21 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
   };
 
   onRollDice = () => {
-    this.props.rollDice();
-    if (this.scrollView) {
-      //@ts-ignore
-      this.scrollView.scrollTo({x: 0, y: 0, animated: true});
+    if (this.props.currentRoll) {
+      this.onHideRoll();
+      setTimeout(() => {
+        this.props.rollDice();
+        if (this.scrollView) {
+          //@ts-ignore
+          this.scrollView.scrollTo({x: 0, y: 0, animated: true});
+        }
+      }, 600);
+    } else {
+      this.props.rollDice();
+      if (this.scrollView) {
+        //@ts-ignore
+        this.scrollView.scrollTo({x: 0, y: 0, animated: true});
+      }
     }
   };
 

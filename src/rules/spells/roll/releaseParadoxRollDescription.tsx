@@ -6,12 +6,12 @@ export function releaseParadoxRollDescription(
   wisdomRules: WisdomRule[] = makeWisdomRules(),
 ): string {
   if (!paradoxRoll || paradoxRoll.successes === 0) {
-    return 'Released no paradox to the environment';
+    return 'Released **no paradox** to the environment';
   } else {
     return (
-      'Released ' +
+      'Released **' +
       paradoxRoll.successes +
-      ' paradox reach to the environment.\nA paradox anomaly will appear for ' +
+      ' paradox reach** to the environment.\nA paradox anomaly will appear for ' +
       wisdomRules[wisdom].releaseParadoxConditionDuration
     );
   }

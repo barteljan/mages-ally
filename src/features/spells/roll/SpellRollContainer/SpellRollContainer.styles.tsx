@@ -1,30 +1,41 @@
-import {ViewStyle, TextStyle, StyleSheet} from 'react-native';
+import {ViewStyle, StyleSheet} from 'react-native';
 import {Theme} from 'react-native-paper';
+import {MarkdownProps} from 'react-native-markdown-renderer';
 
-export type SpellRollContainerStyles = {
+export type BasicSpellRollContainerStyles = {
   container: ViewStyle;
+  titleRow: ViewStyle;
   titleContainer: ViewStyle;
-  rollTitle: TextStyle;
-  diceRollInfo: ViewStyle;
-  infoText: TextStyle;
+  diceContainer: ViewStyle;
 };
 
-export const makeSpellRollContainerStyles = (theme: Theme) =>
-  StyleSheet.create<SpellRollContainerStyles>({
+export type SpellRollContainerStyles = BasicSpellRollContainerStyles & {
+  rollTitle: MarkdownProps['style'];
+};
+
+export const makeSpellRollContainerStyles = (
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  theme: Theme,
+): SpellRollContainerStyles => {
+  const basicStyle = StyleSheet.create<BasicSpellRollContainerStyles>({
     container: {},
-    titleContainer: {},
-    rollTitle: {
-      fontSize: 12,
-    },
-    diceRollInfo: {
-      backgroundColor: theme.colors.disabled,
+    titleRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingHorizontal: 15,
-      paddingVertical: 5,
     },
-    infoText: {
-      color: theme.colors.background,
-      fontSize: 11,
-    },
+    titleContainer: {maxWidth: '90%'},
+    diceContainer: {paddingBottom: 10, paddingTop: 0},
   });
+
+  const rollTitle: MarkdownProps['style'] = {
+    text: {
+      fontSize: 12,
+    },
+    strong: {
+      color: theme.colors.primary,
+      fontWeight: 'bold',
+    },
+  };
+
+  return {...basicStyle, rollTitle};
+};

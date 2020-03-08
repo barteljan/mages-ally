@@ -29,6 +29,9 @@ class _RollItem extends DynamiclyStyledPureComponent<
 
   render() {
     const roll = this.props.item;
+    if (!roll.configuration) {
+      return null;
+    }
 
     const subtitle = roll.successes + ' Successes';
     return (

@@ -13,6 +13,7 @@ export type SpellRollScreenStyle = {
   headerIconContainer: ViewStyle;
   rollButton: ViewStyle;
   section: ViewStyle;
+  spellRollInfoReplacement: ViewStyle;
 };
 
 export const makeSpellRollScreenStyle = (theme: Theme) =>
@@ -48,4 +49,5 @@ export const makeSpellRollScreenStyle = (theme: Theme) =>
       marginBottom: 20,
     },
     section: {width: '100%', marginTop: 0},
+    spellRollInfoReplacement: {height: 15},
   });

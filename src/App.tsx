@@ -7,6 +7,12 @@ import FlashMessage from 'react-native-flash-message';
 import {TabNavigation} from './navigation/Navigation.tabs';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {theme} from './layout/Theme';
+import {YellowBox} from 'react-native';
+
+YellowBox.ignoreWarnings([
+  'componentWillReceiveProps has been renamed',
+  'componentWillMount has been renamed',
+]);
 
 function App() {
   return (

@@ -6,7 +6,7 @@ export function spellRollDescription(
   spellTitle: string | undefined,
 ): string {
   if (!roll) {
-    return 'Spell could not be cast';
+    return 'Spell **could not be cast** (No remaining dice)';
   }
   const title = spellTitle ? spellTitle : 'spell';
   let numberOfDice = 0;
@@ -21,9 +21,9 @@ export function spellRollDescription(
         title +
         ' with ' +
         numberOfDice +
-        ' dice and ' +
+        ' dice and **' +
         roll.successes +
-        ' successes.';
+        ' successes.**';
       break;
     case DiceRollOutcome.exceptionalSuccess:
       result +=
@@ -33,14 +33,15 @@ export function spellRollDescription(
         numberOfDice +
         ' dice and ' +
         roll.successes +
-        ' successes as an exceptional success.';
+        ' successes as an **exceptional success**.';
       break;
     case DiceRollOutcome.failure:
-      result += 'Failed to cast ' + title + ' with ' + numberOfDice + ' dice.';
+      result +=
+        '**Failed to cast** ' + title + ' with ' + numberOfDice + ' dice.';
       break;
     case DiceRollOutcome.dramaticFailure:
       result +=
-        'Dramatically failed to cast ' +
+        '**Dramatically failed** to cast ' +
         title +
         ' with ' +
         numberOfDice +

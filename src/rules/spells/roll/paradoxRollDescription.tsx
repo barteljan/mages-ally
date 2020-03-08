@@ -2,7 +2,7 @@ import {DiceRoll} from '../../dice-roll/DiceRoll';
 
 export function paradoxRollDescription(roll: DiceRoll | undefined): string {
   if (!roll || Object.keys(roll.configuration.modifiers).length === 0) {
-    return 'Rolled no paradox';
+    return '**No paradox roll nessecary**';
   }
   let numberOfDice = 0;
   for (let key in roll.configuration.modifiers) {
@@ -10,9 +10,9 @@ export function paradoxRollDescription(roll: DiceRoll | undefined): string {
   }
   let result = 'Rolled ' + numberOfDice + ' dice for paradox.';
   if (roll.successes === 0) {
-    result += '\nGenerated no paradox reach.';
+    result += '\nGenerated **no paradox reach**.';
   } else {
-    result += '\nGenerated ' + roll.successes + ' paradox reach.';
+    result += '\nGenerated **' + roll.successes + ' paradox reach**.';
   }
   return result;
 }

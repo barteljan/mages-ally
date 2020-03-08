@@ -1,17 +1,11 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, Ref} from 'react';
 import {
   SpellRollScreenStyle,
   makeSpellRollScreenStyle,
 } from './SpellRoll.styles';
 import {SpellRollScreenProps} from './SpellRoll.props';
 import {withTheme} from 'react-native-paper';
-import {
-  View,
-  LayoutRectangle,
-  Platform,
-  UIManager,
-  LayoutAnimation,
-} from 'react-native';
+import {View, Platform, UIManager, LayoutAnimation} from 'react-native';
 import {isEqual} from 'lodash';
 import {SpellListItem} from '../list-item/SpellListItem';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -37,9 +31,8 @@ import {SpellRollInfo} from './SpellRollInfo/SpellRollInfo';
 
 type SpellRollScreenState = {
   styles: SpellRollScreenStyle;
-  overlayVisible: boolean;
-  overlayHeight: number;
   sectionCollapsed: boolean;
+  spellRollInfoCollapsed: boolean;
 };
 
 class _SpellRollScreen extends PureComponent<
@@ -52,6 +45,7 @@ class _SpellRollScreen extends PureComponent<
     overlayVisible: false,
     overlayHeight: 100,
     sectionCollapsed: true,
+    spellRollInfoCollapsed: false,
   };
 
   constructor(props: SpellRollScreenProps) {
@@ -61,10 +55,30 @@ class _SpellRollScreen extends PureComponent<
     }
   }
 
+  scrollView: Ref<ScrollView> | undefined;
+
   show = () => this.props.showSpell(this.props.config.id);
 
   onRollDice = () => {
-    this.props.rollDice(this.props.config.id);
+    if (this.props.spellRollInfoConfig) {
+      this.setState({spellRollInfoCollapsed: true}, () => {
+        setTimeout(() => {
+          this.props.rollDice(this.props.config.id);
+          this.setState({spellRollInfoCollapsed: false});
+        }, 600);
+      });
+    } else {
+      this.props.rollDice(this.props.config.id);
+      this.setState({spellRollInfoCollapsed: false});
+    }
+    if (this.scrollView) {
+      //@ts-ignore
+      this.scrollView.scrollTo({x: 0, y: 0, animated: true});
+    }
+  };
+
+  onSetSpellRollInfoCollapsed = (collapsed: boolean): void => {
+    this.setState({spellRollInfoCollapsed: collapsed});
   };
 
   componentDidMount() {
@@ -82,7 +96,6 @@ class _SpellRollScreen extends PureComponent<
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidUpdate(
     prevProps: SpellRollScreenProps,
     prevState: SpellRollScreenState,
@@ -95,6 +108,7 @@ class _SpellRollScreen extends PureComponent<
 
     if (
       prevState.sectionCollapsed !== this.state.sectionCollapsed ||
+      prevState.spellRollInfoCollapsed !== this.state.spellRollInfoCollapsed ||
       !isEqual(prevProps.roll, this.props.roll)
     ) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
@@ -104,9 +118,6 @@ class _SpellRollScreen extends PureComponent<
   makeStyle(): SpellRollScreenStyle {
     return makeSpellRollScreenStyle(this.props.theme);
   }
-
-  onLayout = (rect: LayoutRectangle) =>
-    this.setState({overlayHeight: rect.height});
 
   paradoxResolutionItems = [
     labelForParadoxResolution(ParadoxResolution.contain),
@@ -208,7 +219,9 @@ class _SpellRollScreen extends PureComponent<
     this.setState({sectionCollapsed: collapsed});
   };
 
-  render() {
+  scrollViewRef = (ref: any) => (this.scrollView = ref);
+
+  render = () => {
     const config = this.props.config;
     const spell = this.props.spell;
     const paradox = config.paradox;
@@ -288,14 +301,16 @@ class _SpellRollScreen extends PureComponent<
     const spellRollInfo = this.props.spellRollInfoConfig ? (
       <SpellRollInfo
         theme={this.props.theme}
+        collapsed={this.state.spellRollInfoCollapsed}
+        onSetCollapse={this.onSetSpellRollInfoCollapsed}
         spellInformationConfig={this.props.spellRollInfoConfig}
       />
     ) : (
-      undefined
+      <View style={styles.spellRollInfoReplacement} />
     );
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} ref={this.scrollViewRef}>
         <SpellListItem
           theme={this.props.theme}
           config={this.props.config}
@@ -431,7 +446,7 @@ class _SpellRollScreen extends PureComponent<
         </View>
       </ScrollView>
     );
-  }
+  };
 }
 
 export const SpellRollScreen = withTheme(_SpellRollScreen);

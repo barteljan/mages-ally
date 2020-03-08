@@ -1,5 +1,4 @@
-import React from 'react';
-import {DynamiclyStyledPureComponent} from '../../../../components/DynamiclyStyledPureComponent';
+import React, {PureComponent} from 'react';
 import {localization} from '../../Spell.strings';
 import {ParadoxResolution} from '../../../../rules/spells/paradox/ParadoxResolution';
 import {paradoxRollDescription} from '../../../../rules/spells/roll/paradoxRollDescription';
@@ -12,15 +11,41 @@ import {
   SpellRollInfoStyles,
   makeSpellRollInfoStyles,
 } from './SpellRollInfo.styles';
-import {View, Text} from 'react-native';
+import {View, Text, LayoutAnimation} from 'react-native';
+import Markdown from 'react-native-markdown-renderer';
+import {isEqual} from 'lodash';
 
-export class SpellRollInfo extends DynamiclyStyledPureComponent<
+type SpellRollInfoState = {
+  styles: SpellRollInfoStyles;
+};
+
+export class SpellRollInfo extends PureComponent<
   SpellRollInfoProps,
-  SpellRollInfoStyles
+  SpellRollInfoState
 > {
+  state = {
+    styles: this.makeStyle(),
+  };
+
+  componentDidUpdate(prevProps: SpellRollInfoProps) {
+    const styles = this.makeStyle();
+    if (!isEqual(this.state.styles, styles)) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({styles: styles});
+    }
+
+    if (prevProps && prevProps.collapsed !== this.props.collapsed) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    }
+  }
   makeStyle() {
     return makeSpellRollInfoStyles(this.props.theme);
   }
+
+  onSwitchCollapse = () => {
+    console.log('onSwitchCollapse:', !this.props.collapsed);
+    this.props.onSetCollapse(!this.props.collapsed);
+  };
 
   render() {
     const styles = this.state.styles;
@@ -59,12 +84,12 @@ export class SpellRollInfo extends DynamiclyStyledPureComponent<
       this.props.spellInformationConfig.spellRollConfig.paradoxResolution ===
         ParadoxResolution.release ? (
         <View style={[styles.rollContainer, styles.releaseParadoxContainer]}>
-          <Text style={styles.releaseParadoxDescription}>
+          <Markdown style={styles.releaseParadoxDescription}>
             {releaseParadoxRollDescription(
               this.props.spellInformationConfig.paradoxRoll,
               this.props.spellInformationConfig.wisdom,
             )}
-          </Text>
+          </Markdown>
         </View>
       ) : null;
 
@@ -84,17 +109,19 @@ export class SpellRollInfo extends DynamiclyStyledPureComponent<
     return (
       <View style={styles.wrapper}>
         <View style={styles.container}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>
-              {localization.spell_roll_info_title_prefix}
-              {title ? ' "' + title + '"' : ''}
-            </Text>
+          <View style={styles.titleRow}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>
+                {localization.spell_roll_info_title_prefix}
+                {title ? ' "' + title + '"' : ''}
+              </Text>
+            </View>
           </View>
 
-          {paradoxRollContainer}
-          {containParadoxRollContainer}
-          {releaseParadoxContainer}
-          {spellRollContainer}
+          {!this.props.collapsed ? paradoxRollContainer : null}
+          {!this.props.collapsed ? containParadoxRollContainer : null}
+          {!this.props.collapsed ? releaseParadoxContainer : null}
+          {!this.props.collapsed ? spellRollContainer : null}
         </View>
       </View>
     );

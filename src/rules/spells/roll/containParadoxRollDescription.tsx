@@ -14,15 +14,16 @@ export function containParadoxRollDescription(
   }
   let result = 'Contain paradox with wisdom ' + numberOfDice + '.';
   if (roll.successes >= paradoxRoll.successes) {
-    result += '\nContained paradox successfuly';
+    result += '\n**Contained paradox** successfuly';
   } else {
     result +=
-      '\n' +
+      '\n**' +
       (paradoxRoll.successes - roll.successes) +
-      ' uncontained paradox reach remaining.';
+      ' uncontained paradox reach** remaining.';
     result +=
       "\nMage get's a paradox condition for " +
-      wisdomRules[numberOfDice].containParadoxConditionDuration;
+      wisdomRules[numberOfDice].containParadoxConditionDuration +
+      '.';
   }
   return result;
 }
