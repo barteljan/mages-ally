@@ -9,6 +9,8 @@ import {DynamiclyStyledPureComponent} from '../../components/DynamiclyStyledPure
 import {withTheme} from 'react-native-paper';
 import {RollItem} from './list-item/RollItem';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import {DeleteItem} from '../../components/DeleteItem/DeleteItem';
 
 class _RollsScreen extends DynamiclyStyledPureComponent<
   RollsProps,
@@ -59,6 +61,17 @@ class _RollsScreen extends DynamiclyStyledPureComponent<
 
   flatListRef = (ref: any) => (this.flatList = ref);
 
+  renderHiddenItem = (data: {item: DiceRoll}) => {
+    return (
+      <DeleteItem
+        delete={this.props.delete}
+        theme={this.props.theme}
+        id={data.item.id}
+        containerStyle={this.state.styles.swipeBackground}
+      />
+    );
+  };
+
   render() {
     const button =
       Platform.OS === 'android' ? (
@@ -66,7 +79,7 @@ class _RollsScreen extends DynamiclyStyledPureComponent<
       ) : null;
     return (
       <View style={this.state.styles.container}>
-        <FlatList<DiceRoll>
+        <SwipeListView<DiceRoll>
           ref={this.flatListRef}
           style={this.state.styles.list}
           data={this.props.rolls}
@@ -77,6 +90,11 @@ class _RollsScreen extends DynamiclyStyledPureComponent<
               <Text>No rolls found!</Text>
             </View>
           }
+          renderHiddenItem={this.renderHiddenItem}
+          rightOpenValue={-75}
+          disableRightSwipe={true}
+          closeOnRowPress={true}
+          closeOnRowOpen={true}
         />
         {button}
       </View>

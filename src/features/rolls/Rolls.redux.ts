@@ -35,6 +35,10 @@ export const rollsReducer = produce((draft: RollsState, action: RootAction) => {
           break;
       }
       break;
+    case RollDiceActionTypes.deleteDiceRoll:
+      delete draft.diceRolls[action.payload.id];
+      draft.list = draft.list.filter(roll => roll.id !== action.payload.id);
+      break;
   }
 });
 

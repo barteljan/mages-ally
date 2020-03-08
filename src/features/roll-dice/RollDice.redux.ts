@@ -19,6 +19,7 @@ export enum RollDiceActionTypes {
   didRollDice = 'rollDice/didRollDice',
   clearCurrentRoll = 'rollDice/clearCurrentRoll',
   setCurrentRoll = 'rollDice/setCurrentRoll',
+  deleteDiceRoll = 'rollDice/delete',
 }
 
 export const setNumberOfDiceAction = createAction(
@@ -67,6 +68,13 @@ export const setCurrentRoll = createAction(
   },
 )();
 
+export const deleteRollAction = createAction(
+  RollDiceActionTypes.deleteDiceRoll,
+  (id: string, context: DiceRollContext) => {
+    return {id, context};
+  },
+)();
+
 const actions = {
   setNumberOfDiceAction,
   setRollAgainTypeAction,
@@ -75,6 +83,7 @@ const actions = {
   didRollDiceAction,
   clearCurrentRoll: clearCurrentRollAction,
   setCurrentRoll,
+  deleteRollAction,
 };
 import {isEqual} from 'lodash';
 

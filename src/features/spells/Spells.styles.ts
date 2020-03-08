@@ -8,7 +8,6 @@ export type SpellsStyle = {
   emptyComponentText: ViewStyle;
   list: ViewStyle;
   swipeBackground: ViewStyle;
-  delete: ViewStyle;
 };
 
 export const makeSpellsStyle = (theme: Theme) =>
@@ -31,20 +30,6 @@ export const makeSpellsStyle = (theme: Theme) =>
       color: theme.colors.disabled,
     },
     swipeBackground: {
-      alignItems: 'center',
-      backgroundColor: theme.colors.error,
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       marginVertical: 10,
-    },
-    delete: {
-      alignItems: 'center',
-      bottom: 0,
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 0,
-      width: 75,
-      right: 0,
     },
   });

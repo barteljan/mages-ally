@@ -7,6 +7,7 @@ export type RollsStyle = {
   emptyComponentContainer: ViewStyle;
   emptyComponentText: ViewStyle;
   list: ViewStyle;
+  swipeBackground: ViewStyle;
 };
 
 export const makeRollsStyle = (theme: Theme) =>
@@ -29,5 +30,8 @@ export const makeRollsStyle = (theme: Theme) =>
     },
     emptyComponentText: {
       color: theme.colors.disabled,
+    },
+    swipeBackground: {
+      marginVertical: 15,
     },
   });
