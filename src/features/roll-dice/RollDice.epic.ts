@@ -4,7 +4,7 @@ import {map, filter, mergeMap} from 'rxjs/operators';
 import {
   didRollDiceAction,
   rollDiceAction,
-  setCurrentRoll,
+  setCurrentRollAction,
 } from './RollDice.redux';
 import {rollDice} from '../../rules/dice-roll/rollDice';
 import {RootAction} from '../../redux/rootReducer';
@@ -28,7 +28,7 @@ const rollDicesEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   );
 const openDicesViewEpic: Epic<RootAction, RootAction, AppState> = action$ =>
   action$.pipe(
-    filter(isActionOf(setCurrentRoll)),
+    filter(isActionOf(setCurrentRollAction)),
     mergeMap(action => {
       if (action.payload.context === DiceRollContext.rollsList) {
         return [navigateToAction(Routes.addRoll)];

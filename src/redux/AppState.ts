@@ -33,6 +33,7 @@ export function makeAppState(): AppState {
       exceptionalSuccessAt: 5,
       numberOfDice: 3,
       rollAgainType: DiceRollAgainType.tenAgain,
+      rollOneDiceAsChanceDice: false,
     },
     rolls: {
       diceRolls: {},

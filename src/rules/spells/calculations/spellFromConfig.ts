@@ -136,10 +136,12 @@ export function spellFromConfig(
     }
   }
 
+  let paradoxOneAsChanceDice = false;
   if (paradoxDice <= 0 && didAddPositiveParadoxDice === false) {
     paradoxDice = 0;
   } else if (paradoxDice <= 0 && didAddPositiveParadoxDice === true) {
     paradoxDice = 1;
+    paradoxOneAsChanceDice = true;
   }
 
   const rollSuccessesForExceptionalSuccess =
@@ -157,11 +159,13 @@ export function spellFromConfig(
         number: numberOfDices,
         type: diceRollAgainType,
         successesForExceptionalSuccess: rollSuccessesForExceptionalSuccess,
+        oneAsChanceDice: false,
       },
       paradox: {
         number: paradoxDice,
         type: paradoxDiceType,
         successesForExceptionalSuccess: 5,
+        oneAsChanceDice: paradoxOneAsChanceDice,
       },
     },
     reaches: {

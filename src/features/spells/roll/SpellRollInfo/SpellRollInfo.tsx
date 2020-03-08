@@ -43,7 +43,6 @@ export class SpellRollInfo extends PureComponent<
   }
 
   onSwitchCollapse = () => {
-    console.log('onSwitchCollapse:', !this.props.collapsed);
     this.props.onSetCollapse(!this.props.collapsed);
   };
 

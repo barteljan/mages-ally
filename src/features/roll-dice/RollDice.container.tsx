@@ -8,6 +8,7 @@ import {
   setExceptionalSuccessAtAction,
   rollDiceAction,
   clearCurrentRollAction,
+  setRollAsChanceDice,
 } from './RollDice.redux';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
@@ -28,6 +29,7 @@ type StateProps = {
   numberOfDice: number;
   exceptionalSuccessAt: number;
   rollAgainType: DiceRollAgainType;
+  rollOneDiceAsChanceDice: boolean;
 };
 
 type DispatchProps = {
@@ -36,6 +38,7 @@ type DispatchProps = {
   setExceptionalSuccessAt: (at: number) => Action;
   rollDice: (config: DiceRollConfig, context: DiceRollContext) => Action;
   clearCurrentRoll: () => void;
+  setRollOneDiceAsChanceDice: (rollAsChanceDice: boolean) => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -44,6 +47,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     numberOfDice: state.rollDice.numberOfDice,
     rollAgainType: state.rollDice.rollAgainType,
     exceptionalSuccessAt: state.rollDice.exceptionalSuccessAt,
+    rollOneDiceAsChanceDice: state.rollDice.rollOneDiceAsChanceDice,
   };
 };
 
@@ -53,6 +57,7 @@ const mapDispatchToProps: DispatchProps = {
   setExceptionalSuccessAt: setExceptionalSuccessAtAction,
   rollDice: rollDiceAction,
   clearCurrentRoll: clearCurrentRollAction,
+  setRollOneDiceAsChanceDice: setRollAsChanceDice,
 };
 
 const mergeProps: MergeProps<
@@ -66,17 +71,20 @@ const mergeProps: MergeProps<
     numberOfDice: stateProps.numberOfDice,
     rollAgainType: stateProps.rollAgainType,
     exceptionalSuccessAt: stateProps.exceptionalSuccessAt,
+    rollOneDiceAsChanceDice: stateProps.rollOneDiceAsChanceDice,
     setNumberOfDice: dispatchProps.setNumberOfDice,
     setRollAgainType: dispatchProps.setRollAgainType,
     setExceptionalSuccessAt: dispatchProps.setExceptionalSuccessAt,
     currentRoll: stateProps.currentRoll,
     clearCurrentRoll: dispatchProps.clearCurrentRoll,
     navigation: ownProps.navigation,
+    setRollOneDiceAsChanceDice: dispatchProps.setRollOneDiceAsChanceDice,
     rollDice: () => {
       const config = makeDiceRollConfig(
         stateProps.numberOfDice,
         stateProps.rollAgainType,
         stateProps.exceptionalSuccessAt,
+        stateProps.rollOneDiceAsChanceDice,
       );
       dispatchProps.rollDice(config, DiceRollContext.rollDice);
     },

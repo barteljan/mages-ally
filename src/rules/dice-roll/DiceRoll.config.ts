@@ -74,7 +74,7 @@ export function makeRollConfig(
 
 /**
  * make a roll config for a 9 again dice roll
- * @param rollFor all dice providing properties mapped to a number of dice provided by them
+ * @param modifiers all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function make9AgainRollConfig(
@@ -100,7 +100,7 @@ export function make9AgainRollConfig(
 
 /**
  * make a roll config for a 8 again dice roll
- * @param rollFor all dice providing properties mapped to a number of dice provided by them
+ * @param modifiers all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function make8AgainRollConfig(
@@ -126,7 +126,7 @@ export function make8AgainRollConfig(
 
 /**
  * make a roll config for a rote quality dice roll
- * @param rollFor all dice providing properties mapped to a number of dice provided by them
+ * @param modifiers all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
 export function makeRoteQualityRollConfig(
@@ -147,5 +147,27 @@ export function makeRoteQualityRollConfig(
     },
     difficulty: 8,
     successesNeededForExceptionalSuccess,
+  };
+}
+
+/**
+ * make a roll config for a chance dice roll
+ */
+export function makeChanceDiceConfig(
+  title: string,
+  id: string = uuid.v4(),
+): DiceRollConfig {
+  return {
+    id,
+    title,
+    modifiers: {chance: 1},
+    explodeFor: [],
+    explodeOnceFor: [],
+    diceRange: {
+      lowest: 1,
+      highest: 10,
+    },
+    difficulty: 10,
+    successesNeededForExceptionalSuccess: 5,
   };
 }

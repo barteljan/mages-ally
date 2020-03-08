@@ -41,4 +41,12 @@ export const migrations = {
 
     return (realState as unknown) as PersistedState;
   },
+  5: (state: PersistedState) => {
+    let realState: AppState = {...((state as unknown) as AppState)};
+    if (realState.rollDice.rollOneDiceAsChanceDice === undefined) {
+      realState.rollDice.rollOneDiceAsChanceDice = false;
+    }
+
+    return (realState as unknown) as PersistedState;
+  },
 };

@@ -19,6 +19,7 @@ export type RollDiceStrings = {
   message_failure_description: string;
   message_dramatic_failure: string;
   message_rerolls: string;
+  chance_dice: string;
 };
 
 export enum LocalizationParams {
@@ -64,5 +65,6 @@ export const localization = new LocalizedStrings<RollDiceStrings>({
       ' with no successes',
     message_dramatic_failure: 'Dramatic Failure!',
     message_rerolls: ' (' + LocalizationParams.rerolled + ' dice rolled again)',
+    chance_dice: 'Chance Dice',
   },
 });

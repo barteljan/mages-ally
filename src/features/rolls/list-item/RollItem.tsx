@@ -22,12 +22,13 @@ class _RollItem extends DynamiclyStyledPureComponent<
   };
 
   onPress = () => {
+    const item = this.props.item;
     if (this.props.onPress) {
-      this.props.onPress(this.props.item);
+      this.props.onPress(item);
     }
   };
 
-  render() {
+  render = () => {
     const roll = this.props.item;
     if (!roll.configuration) {
       return null;
@@ -75,7 +76,7 @@ class _RollItem extends DynamiclyStyledPureComponent<
         </Surface>
       </TouchableOpacity>
     );
-  }
+  };
 }
 
 export const RollItem = withTheme(_RollItem);

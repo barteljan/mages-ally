@@ -9,7 +9,7 @@ import {makeAllRollsSelector} from './Rolls.selector';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
 import {
   rollDiceAction,
-  setCurrentRoll,
+  setCurrentRollAction,
   deleteRollAction,
 } from '../roll-dice/RollDice.redux';
 import {DiceRollContext} from '../../rules/DiceRollContext';
@@ -48,7 +48,7 @@ const reroll = (config: DiceRollConfig) => {
 };
 
 const itemSelected = (item: DiceRoll) => {
-  return setCurrentRoll(item, DiceRollContext.rollsList);
+  return setCurrentRollAction(item, DiceRollContext.rollsList);
 };
 
 const deleteRoll = (id: string) => {

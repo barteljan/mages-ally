@@ -5,6 +5,7 @@ import {
   make9AgainRollConfig,
   make8AgainRollConfig,
   makeRoteQualityRollConfig,
+  makeChanceDiceConfig,
 } from '../../../rules/dice-roll/DiceRoll.config';
 import {DiceRollAgainType} from '../../../rules/dice-roll/DiceRollAgainType';
 import {localization, LocalizationParams} from '../RollDice.strings';
@@ -13,6 +14,7 @@ export const makeDiceRollConfig = (
   numberOfDice: number,
   rollAgainType: DiceRollAgainType,
   exceptionalSuccessAt: number,
+  rollOneDiceAsChanceDice: boolean,
   titleString?: string,
 ): DiceRollConfig => {
   const diceString: string =
@@ -27,6 +29,13 @@ export const makeDiceRollConfig = (
         .replace(LocalizationParams.diceString, diceString);
 
   let id = uuid.v4();
+
+  if (rollOneDiceAsChanceDice && numberOfDice === 1) {
+    return makeChanceDiceConfig(
+      title + ' (' + localization.chance_dice + ')',
+      id,
+    );
+  }
 
   switch (rollAgainType) {
     case DiceRollAgainType.tenAgain:

@@ -19,6 +19,9 @@ export class RollInformationView extends DynamiclyStyledPureComponent<
   render() {
     const roll = this.props.roll;
     const config = roll.configuration;
+    if (!config) {
+      return null;
+    }
     let outcome = '';
     switch (roll.outcome) {
       case DiceRollOutcome.exceptionalSuccess:

@@ -9,12 +9,14 @@ export type RollDiceState = {
   rollAgainType: DiceRollAgainType;
   exceptionalSuccessAt: number;
   currentRollId: string | null;
+  rollOneDiceAsChanceDice: boolean;
 };
 
 export enum RollDiceActionTypes {
   setNumberOfDice = 'rollDice/setNumberOfDice',
   setRollAgainType = 'rollDice/setRollAgainType',
   setExceptionalSuccessAt = 'rollDice/setExceptionalSuccessAt',
+  setRollAsChanceDice = 'rollDice/setRollAsChanceDice',
   rollDice = 'rollDice/rollDice',
   didRollDice = 'rollDice/didRollDice',
   clearCurrentRoll = 'rollDice/clearCurrentRoll',
@@ -35,6 +37,11 @@ export const setRollAgainTypeAction = createAction(
 export const setExceptionalSuccessAtAction = createAction(
   RollDiceActionTypes.setExceptionalSuccessAt,
   (at: number) => at,
+)();
+
+export const setRollAsChanceDice = createAction(
+  RollDiceActionTypes.setRollAsChanceDice,
+  (rollAsChanceDice: boolean) => rollAsChanceDice,
 )();
 
 export const rollDiceAction = createAction(
@@ -61,7 +68,7 @@ export const clearCurrentRollAction = createAction(
   () => {},
 )();
 
-export const setCurrentRoll = createAction(
+export const setCurrentRollAction = createAction(
   RollDiceActionTypes.setCurrentRoll,
   (roll: DiceRoll, context: DiceRollContext) => {
     return {roll, context};
@@ -81,9 +88,10 @@ const actions = {
   setExceptionalSuccessAtAction,
   rollDiceAction,
   didRollDiceAction,
-  clearCurrentRoll: clearCurrentRollAction,
-  setCurrentRoll,
+  clearCurrentRollAction,
+  setCurrentRollAction,
   deleteRollAction,
+  setRollAsChanceDice,
 };
 import {isEqual} from 'lodash';
 
@@ -107,6 +115,9 @@ export const rollDiceReducer = produce(
         break;
       case RollDiceActionTypes.setRollAgainType:
         draft.rollAgainType = action.payload;
+        break;
+      case RollDiceActionTypes.setRollAsChanceDice:
+        draft.rollOneDiceAsChanceDice = action.payload;
         break;
       case RollDiceActionTypes.clearCurrentRoll:
         draft.currentRollId = null;

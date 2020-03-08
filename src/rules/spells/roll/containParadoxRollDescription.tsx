@@ -5,7 +5,7 @@ export function containParadoxRollDescription(
   paradoxRoll: DiceRoll | undefined,
   wisdomRules: WisdomRule[] = makeWisdomRules(),
 ): string {
-  if (!roll || !paradoxRoll) {
+  if (!roll || !paradoxRoll || !roll.configuration) {
     return 'Skipped contain paradox roll';
   }
   let numberOfDice = 0;

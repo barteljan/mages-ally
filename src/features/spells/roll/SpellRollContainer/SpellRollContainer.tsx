@@ -52,6 +52,14 @@ export class SpellRollContainer extends PureComponent<
 
   render() {
     const styles = this.state.styles;
+    const roll = this.props.roll;
+    if (!roll) {
+      return null;
+    }
+    const config = roll.configuration;
+    if (!config) {
+      return null;
+    }
 
     const content =
       this.props.roll && !this.state.collapsed ? (

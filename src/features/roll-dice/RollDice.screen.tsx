@@ -21,6 +21,7 @@ import {InputContainer} from '../../components/InputContainer/InputContainer';
 import {FormButton} from '../../components/FormButton/FormButton';
 import {RollItem} from '../rolls/list-item/RollItem';
 import {DiceView} from '../../components/DiceView/DiceView';
+import {MageSwitch} from '../../components/MageSwitch/MageSwitch';
 
 type AddRollState = {
   styles: RollDiceStyle;
@@ -153,6 +154,9 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
       ? this.props.clearCurrentRoll(this.props.currentRoll)
       : '';
 
+  onSetRollAsChanceDice = (identifier: string, value: boolean) =>
+    this.props.setRollOneDiceAsChanceDice(value);
+
   scrollViewRef = (ref: any) => (this.scrollView = ref);
 
   render() {
@@ -211,6 +215,53 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
       undefined
     );
 
+    const rollAsChanceDice =
+      this.props.numberOfDice === 1 ? (
+        <MageSwitch
+          parent="dice_roll"
+          theme={this.props.theme}
+          value={this.props.rollOneDiceAsChanceDice}
+          label={'Roll as Chance Dice'}
+          identifier="chance_dice"
+          onValueChanged={this.onSetRollAsChanceDice}
+          containerStyle={this.state.styles.switch}
+        />
+      ) : null;
+
+    const rollAgainType =
+      this.props.numberOfDice > 1 ||
+      this.props.rollOneDiceAsChanceDice === false ? (
+        <InputContainer
+          title={localization.tenAgain_title}
+          height={buttonContainerHeight}
+          containerStyle={this.state.styles.inputContainer}>
+          <ButtonGroup
+            buttons={tenAgainButtons}
+            selectedButtonStyle={this.state.styles.selectedButtonStyle}
+            selectedIndex={tenAgainSelectedIndex}
+            onPress={this.onChangeRollAgainType}
+            underlayColor={this.props.theme.colors.primary}
+          />
+        </InputContainer>
+      ) : null;
+
+    const exceptionalSuccesses =
+      this.props.numberOfDice > 1 ||
+      this.props.rollOneDiceAsChanceDice === false ? (
+        <InputContainer
+          title={localization.exceptional_sucesses_title}
+          height={buttonContainerHeight}
+          containerStyle={this.state.styles.inputContainer}>
+          <ButtonGroup
+            buttons={exceptionalSuccessButtons}
+            selectedButtonStyle={this.state.styles.selectedButtonStyle}
+            selectedIndex={this.props.exceptionalSuccessAt - 1}
+            onPress={this.onChangeExceptionalSuccess}
+            underlayColor={this.props.theme.colors.primary}
+          />
+        </InputContainer>
+      ) : null;
+
     return (
       <ScrollView
         ref={this.scrollViewRef}
@@ -235,32 +286,11 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
               scale={scale}
             />
           </InputContainer>
-          <InputContainer
-            title={localization.tenAgain_title}
-            height={buttonContainerHeight}
-            containerStyle={this.state.styles.inputContainer}>
-            <ButtonGroup
-              buttons={tenAgainButtons}
-              selectedButtonStyle={this.state.styles.selectedButtonStyle}
-              selectedIndex={tenAgainSelectedIndex}
-              onPress={this.onChangeRollAgainType}
-              underlayColor={this.props.theme.colors.primary}
-            />
-          </InputContainer>
-          <InputContainer
-            title={localization.exceptional_sucesses_title}
-            height={buttonContainerHeight}
-            containerStyle={this.state.styles.inputContainer}>
-            <ButtonGroup
-              buttons={exceptionalSuccessButtons}
-              selectedButtonStyle={this.state.styles.selectedButtonStyle}
-              selectedIndex={this.props.exceptionalSuccessAt - 1}
-              onPress={this.onChangeExceptionalSuccess}
-              underlayColor={this.props.theme.colors.primary}
-            />
-          </InputContainer>
+          {rollAsChanceDice}
+          {rollAgainType}
+          {exceptionalSuccesses}
           <FormButton
-            parent={'no_parent'}
+            parent={'dice_roll'}
             theme={this.props.theme}
             title={localization.roll_dice_button_text}
             onPress={this.onRollDice}

@@ -14,6 +14,7 @@ export type RollDiceStyle = {
   diceRollWrapper: ViewStyle;
   diceRollTitle: ViewStyle;
   headerIconContainer: ViewStyle;
+  switch: ViewStyle;
 };
 
 export const makeRollDiceStyle = (theme: Theme) =>
@@ -30,12 +31,14 @@ export const makeRollDiceStyle = (theme: Theme) =>
       marginTop: 20,
       paddingTop: 20,
       paddingHorizontal: 15,
+      marginBottom: 20,
     },
     inputContainer: {
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 20,
     },
+    switch: {justifyContent: 'space-between'},
     optionsTitle: {
       fontSize: FontSize.header,
       fontFamily: theme.fonts.regular.fontFamily,
