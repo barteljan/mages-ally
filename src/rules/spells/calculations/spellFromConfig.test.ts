@@ -288,7 +288,7 @@ test('free reach is calculated correctly for a rote', () => {
   );
 
   const result = spellFromConfig(config);
-  expect(result.reaches.free).toBe(3);
+  expect(result.reaches.free).toBe(4);
 });
 
 test('free reach is calculated correctly for a improvised spell', () => {
