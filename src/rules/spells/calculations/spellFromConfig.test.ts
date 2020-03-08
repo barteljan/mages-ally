@@ -273,14 +273,13 @@ test('Result has 8 dices for gnosis 5, mind 4, spending willpower as a rote with
 test('free reach is calculated correctly for a rote', () => {
   const caster = makeSpellCaster({
     highestSpellArcanum: makeCharactersArcanum(ArcanaType.mind, {
-      diceModifier: 4,
+      diceModifier: 5,
     }),
   });
 
   const spellSpecification = makeSpellSpecification({
     requiredArcanumValue: 2,
     type: SpellType.rote,
-    roteSkill: makeCharacterSkill('empathy', {diceModifier: 4}),
   });
 
   let config = makeSpellCastingConfig(
@@ -289,7 +288,7 @@ test('free reach is calculated correctly for a rote', () => {
   );
 
   const result = spellFromConfig(config);
-  expect(result.reaches.free).toBe(5);
+  expect(result.reaches.free).toBe(3);
 });
 
 test('free reach is calculated correctly for a improvised spell', () => {

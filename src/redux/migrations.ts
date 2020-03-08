@@ -49,4 +49,13 @@ export const migrations = {
 
     return (realState as unknown) as PersistedState;
   },
+  6: (state: PersistedState) => {
+    let realState: AppState = {...((state as unknown) as AppState)};
+    for (let key in realState.spells.spells) {
+      let spellState = realState.spells.spells[key];
+      spellState.spell = spellFromConfig(spellState.spellCastingConfig);
+    }
+
+    return (realState as unknown) as PersistedState;
+  },
 };
