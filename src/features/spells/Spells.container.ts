@@ -9,6 +9,7 @@ import {SpellsScreen} from './Spells.screen';
 import {SpellStatus} from './Spell.status';
 import {navigateToAction} from '../../navigation/Navigation.actions';
 import {Routes} from '../../navigation/Routes';
+import {deleteSpellAction} from './Spell.actions';
 
 type OwnProps = {
   theme: Theme;
@@ -21,6 +22,7 @@ type StateProps = {
 type DispatchProps = {
   showSpell: (id: string) => void;
   rollDice: (id: string) => void;
+  delete: (id: string) => void;
 };
 
 const spellsSelector = (state: AppState) => state.spells.spells;
@@ -54,6 +56,7 @@ const rollDice = (id: string) => {
 const mapDispatchToProps: DispatchProps = {
   showSpell,
   rollDice,
+  delete: deleteSpellAction,
 };
 
 const mergeProps: MergeProps<
@@ -67,6 +70,7 @@ const mergeProps: MergeProps<
     spells: stateProps.spells,
     showSpell: dispatchProps.showSpell,
     rollDice: dispatchProps.rollDice,
+    delete: dispatchProps.delete,
   };
 };
 

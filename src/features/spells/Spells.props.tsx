@@ -6,4 +6,5 @@ export type SpellsProps = {
   spells: SpellState[];
   showSpell: (id: string) => void;
   rollDice: (id: string) => void;
+  delete: (id: string) => void;
 };

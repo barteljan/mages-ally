@@ -19,6 +19,7 @@ export enum SpellActionTypes {
   addCustomYantraError = 'spell/edit/addCustomYantraError',
   rollSpellDice = 'spell/rollDice',
   didRollSpellDice = 'spell/didRollSpellDice',
+  deleteSpell = 'spell/delete',
 }
 
 export const setNumberValueAction = createAction(
@@ -168,6 +169,15 @@ export const didRollSpellDiceAction = createAction(
   },
 )();
 
+export const deleteSpellAction = createAction(
+  SpellActionTypes.deleteSpell,
+  (parent: string) => {
+    return {
+      parent,
+    };
+  },
+)();
+
 const actions = {
   setNumberValueAction,
   setStringValueAction,
@@ -183,6 +193,7 @@ const actions = {
   addCustomYantraError,
   rollSpellDiceAction,
   didRollSpellDiceAction,
+  deleteSpellAction,
 };
 
 export type SpellActions = ActionType<typeof actions>;

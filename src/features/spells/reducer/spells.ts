@@ -18,7 +18,6 @@ export const spellsStateReducer = produce(
     );
 
     switch (action.type) {
-      //set number in config
       case SpellActionTypes.saveSpell: {
         let spell = draft.spells[action.payload.parent];
         if (
@@ -36,6 +35,10 @@ export const spellsStateReducer = produce(
           };
           draft.spells[newConfig.id] = newSpellState;
         }
+        break;
+      }
+      case SpellActionTypes.deleteSpell: {
+        delete draft.spells[action.payload.parent];
         break;
       }
     }
