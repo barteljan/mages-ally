@@ -10,13 +10,16 @@ export type RollDiceState = {
   exceptionalSuccessAt: number;
   currentRollId: string | null;
   rollOneDiceAsChanceDice: boolean;
+  roteQuality: boolean;
 };
+import {isEqual} from 'lodash';
 
 export enum RollDiceActionTypes {
   setNumberOfDice = 'rollDice/setNumberOfDice',
   setRollAgainType = 'rollDice/setRollAgainType',
   setExceptionalSuccessAt = 'rollDice/setExceptionalSuccessAt',
   setRollAsChanceDice = 'rollDice/setRollAsChanceDice',
+  setRoteQuality = 'rollDice/setRoteQuality',
   rollDice = 'rollDice/rollDice',
   didRollDice = 'rollDice/didRollDice',
   clearCurrentRoll = 'rollDice/clearCurrentRoll',
@@ -42,6 +45,11 @@ export const setExceptionalSuccessAtAction = createAction(
 export const setRollAsChanceDice = createAction(
   RollDiceActionTypes.setRollAsChanceDice,
   (rollAsChanceDice: boolean) => rollAsChanceDice,
+)();
+
+export const setRoteQualityAction = createAction(
+  RollDiceActionTypes.setRoteQuality,
+  (roteQuality: boolean) => roteQuality,
 )();
 
 export const rollDiceAction = createAction(
@@ -92,8 +100,8 @@ const actions = {
   setCurrentRollAction,
   deleteRollAction,
   setRollAsChanceDice,
+  setRoteQuality: setRoteQualityAction,
 };
-import {isEqual} from 'lodash';
 
 export type RollDiceActions = ActionType<typeof actions>;
 
@@ -119,6 +127,9 @@ export const rollDiceReducer = produce(
       case RollDiceActionTypes.setRollAsChanceDice:
         draft.rollOneDiceAsChanceDice = action.payload;
         break;
+      case RollDiceActionTypes.setRoteQuality:
+        draft.roteQuality = action.payload;
+        break;
       case RollDiceActionTypes.clearCurrentRoll:
         draft.currentRollId = null;
         break;
@@ -141,8 +152,24 @@ export const rollDiceReducer = produce(
           draft.rollAgainType = DiceRollAgainType.nineAgain;
         } else if (isEqual(config.explodeFor, [10])) {
           draft.rollAgainType = DiceRollAgainType.tenAgain;
-        } else if (isEqual(config.explodeOnceFor, [1, 2, 3, 4, 5, 6, 7])) {
-          draft.rollAgainType = DiceRollAgainType.roteQuality;
+        } else if (isEqual(config.explodeFor, [])) {
+          draft.rollAgainType = DiceRollAgainType.none;
+        }
+
+        if (isEqual(config.explodeOnceFor, [1, 2, 3, 4, 5, 6, 7])) {
+          draft.roteQuality = true;
+        } else {
+          draft.roteQuality = false;
+        }
+
+        if (
+          isEqual(config.explodeFor, []) &&
+          isEqual(config.explodeOnceFor, []) &&
+          config.difficulty === 10
+        ) {
+          draft.rollOneDiceAsChanceDice = true;
+          draft.rollAgainType = DiceRollAgainType.none;
+          draft.roteQuality = false;
         }
     }
   },

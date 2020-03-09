@@ -54,6 +54,7 @@ export type DiceRollConfig = {
 export function makeRollConfig(
   title: string,
   modifiers: StringMap<number>,
+  roteQuality: boolean,
   id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
@@ -62,7 +63,7 @@ export function makeRollConfig(
     title,
     modifiers,
     explodeFor: [10],
-    explodeOnceFor: [],
+    explodeOnceFor: roteQuality ? [1, 2, 3, 4, 5, 6, 7] : [],
     diceRange: {
       lowest: 1,
       highest: 10,
@@ -80,6 +81,7 @@ export function makeRollConfig(
 export function make9AgainRollConfig(
   title: string,
   modifiers: StringMap<number>,
+  roteQuality: boolean,
   id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
@@ -88,7 +90,7 @@ export function make9AgainRollConfig(
     title,
     modifiers,
     explodeFor: [9, 10],
-    explodeOnceFor: [],
+    explodeOnceFor: roteQuality ? [1, 2, 3, 4, 5, 6, 7] : [],
     diceRange: {
       lowest: 1,
       highest: 10,
@@ -106,6 +108,7 @@ export function make9AgainRollConfig(
 export function make8AgainRollConfig(
   title: string,
   modifiers: StringMap<number>,
+  roteQuality: boolean,
   id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
@@ -114,7 +117,7 @@ export function make8AgainRollConfig(
     title,
     modifiers,
     explodeFor: [8, 9, 10],
-    explodeOnceFor: [],
+    explodeOnceFor: roteQuality ? [1, 2, 3, 4, 5, 6, 7] : [],
     diceRange: {
       lowest: 1,
       highest: 10,
@@ -125,13 +128,14 @@ export function make8AgainRollConfig(
 }
 
 /**
- * make a roll config for a rote quality dice roll
+ * make a roll config for a roll not rerolling successes
  * @param modifiers all dice providing properties mapped to a number of dice provided by them
  * @param successesNeededForExceptionalSuccess number of successes needed for an exceptional success
  */
-export function makeRoteQualityRollConfig(
+export function makeNoRollAgainRollConfig(
   title: string,
   modifiers: StringMap<number>,
+  roteQuality: boolean,
   id: string = uuid.v4(),
   successesNeededForExceptionalSuccess: number = 5,
 ): DiceRollConfig {
@@ -140,7 +144,7 @@ export function makeRoteQualityRollConfig(
     title,
     modifiers,
     explodeFor: [],
-    explodeOnceFor: [1, 2, 3, 4, 5, 6, 7],
+    explodeOnceFor: roteQuality ? [1, 2, 3, 4, 5, 6, 7] : [],
     diceRange: {
       lowest: 1,
       highest: 10,

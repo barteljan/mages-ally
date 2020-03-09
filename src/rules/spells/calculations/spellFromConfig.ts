@@ -119,6 +119,7 @@ export function spellFromConfig(
   let paradoxDice = 0;
   let paradoxDiceType = DiceRollAgainType.tenAgain;
   let didAddPositiveParadoxDice = false;
+  let paradoxRoteQualty = false;
 
   for (let key in modifiers) {
     const modifier = modifiers[key];
@@ -127,6 +128,9 @@ export function spellFromConfig(
     if (paradoxModifier) {
       if (paradoxModifier.paradoxModifier > 0) {
         didAddPositiveParadoxDice = true;
+      }
+      if (paradoxModifier.roteQuality) {
+        paradoxRoteQualty = true;
       }
       paradoxDice += paradoxModifier.paradoxModifier;
       paradoxDiceType = bestRollAgainType(
@@ -160,12 +164,14 @@ export function spellFromConfig(
         type: diceRollAgainType,
         successesForExceptionalSuccess: rollSuccessesForExceptionalSuccess,
         oneAsChanceDice: false,
+        roteQuality: config.spell.roteQuality,
       },
       paradox: {
         number: paradoxDice,
         type: paradoxDiceType,
         successesForExceptionalSuccess: 5,
         oneAsChanceDice: paradoxOneAsChanceDice,
+        roteQuality: paradoxRoteQualty,
       },
     },
     reaches: {

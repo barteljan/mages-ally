@@ -128,7 +128,7 @@ export class SpellSection extends DynamiclyStyledPureComponent<
     localization.tenAgain,
     localization.nineAgain,
     localization.eightAgain,
-    localization.roteQuality,
+    localization.none,
   ];
 
   indexForRollAgainType = (type: DiceRollAgainType): number => {
@@ -139,7 +139,7 @@ export class SpellSection extends DynamiclyStyledPureComponent<
         return 1;
       case DiceRollAgainType.eightAgain:
         return 2;
-      case DiceRollAgainType.roteQuality:
+      case DiceRollAgainType.none:
         return 3;
     }
   };
@@ -158,7 +158,7 @@ export class SpellSection extends DynamiclyStyledPureComponent<
         type = DiceRollAgainType.eightAgain;
         break;
       case 3:
-        type = DiceRollAgainType.roteQuality;
+        type = DiceRollAgainType.none;
         break;
       default:
         type = DiceRollAgainType.tenAgain;
@@ -269,6 +269,21 @@ export class SpellSection extends DynamiclyStyledPureComponent<
           />
         </InputContainer>
         <InputContainer
+          title={localization.mana_cost_title}
+          containerStyle={styles.inputContainer}>
+          <NumberSwitch
+            key={SpellValueIds.manaCost + 'select'}
+            identifier={SpellValueIds.manaCost}
+            parent={parent}
+            selected={spell.additionalSpecs.manaCost}
+            onChangedTo={this.props.setValue}
+            minValue={0}
+            maxValue={20}
+            singularItemLabel={localization.mana_cost_singular}
+            pluralItemLabel={localization.mana_cost_plural}
+          />
+        </InputContainer>
+        <InputContainer
           title={localization.tenAgain_title}
           height={buttonGroupContainerHeight}
           containerStyle={styles.inputContainer}>
@@ -282,6 +297,15 @@ export class SpellSection extends DynamiclyStyledPureComponent<
             underlayColor={this.props.theme.colors.primary}
           />
         </InputContainer>
+        <MageSwitch
+          parent={parent}
+          theme={this.props.theme}
+          value={this.props.spellCastingConfig.spell.roteQuality}
+          label={localization.rote_quality_title}
+          identifier={SpellValueIds.roteQuality}
+          onValueChanged={this.props.setBooleanValue}
+          containerStyle={styles.switch}
+        />
       </FormSection>
     );
   }

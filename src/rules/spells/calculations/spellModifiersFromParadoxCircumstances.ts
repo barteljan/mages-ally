@@ -65,6 +65,7 @@ export function spellModifiersFromParadoxCircumstances(
 
   if (circumstances.sleeperWitnesses !== SleeperWitnesses.none) {
     let rollAgainType: DiceRollAgainType;
+    let roteQuality: boolean = false;
     switch (circumstances.sleeperWitnesses) {
       case SleeperWitnesses.few:
         rollAgainType = DiceRollAgainType.nineAgain;
@@ -73,7 +74,8 @@ export function spellModifiersFromParadoxCircumstances(
         rollAgainType = DiceRollAgainType.eightAgain;
         break;
       case SleeperWitnesses.fullCrowd:
-        rollAgainType = DiceRollAgainType.roteQuality;
+        rollAgainType = DiceRollAgainType.none;
+        roteQuality = true;
         break;
       default:
         rollAgainType = DiceRollAgainType.tenAgain;
@@ -81,6 +83,7 @@ export function spellModifiersFromParadoxCircumstances(
     const sleeperWitnesses = makeSleeperWitnessesValue({
       paradoxModifier: 1,
       rollAgainType: rollAgainType,
+      roteQuality,
     });
     modifiers[sleeperWitnesses.id] = sleeperWitnesses;
   }

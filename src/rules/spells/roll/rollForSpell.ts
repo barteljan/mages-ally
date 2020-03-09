@@ -33,6 +33,7 @@ export function rollForSpell(
       paradox.type,
       paradox.successesForExceptionalSuccess,
       spell.roll.paradox.oneAsChanceDice,
+      spell.roll.paradox.roteQuality,
       'Rolled ' +
         paradox.number +
         ' paradox dice for "' +
@@ -52,6 +53,7 @@ export function rollForSpell(
       spell.config.caster.wisdom.diceModifier,
       DiceRollAgainType.tenAgain,
       5,
+      false,
       false,
       'Contain paradox for "' + spell.config.title + '"',
     );
@@ -79,6 +81,7 @@ export function rollForSpell(
       spell.roll.dices.type,
       spell.roll.dices.successesForExceptionalSuccess,
       spell.roll.dices.oneAsChanceDice,
+      spell.roll.dices.roteQuality,
       'Rolled ' + dice + ' spell dice for "' + spell.config.title + '"',
     );
     spellRoll = rollDice(spellDiceRollConfig);

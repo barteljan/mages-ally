@@ -11,7 +11,7 @@ import {migrations} from './migrations';
 const persistConfig = {
   key: 'mage',
   storage,
-  version: 6,
+  version: 7,
   migrate: createMigrate(migrations, {debug: true}),
 };
 

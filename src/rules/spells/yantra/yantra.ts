@@ -56,6 +56,7 @@ export const makeRoteYantra = (value: number): Yantra => {
     description: yantraDescriptionLocalization[YantraType.roteSkill],
     type: GameValueType.yantra,
     yantraType: YantraType.roteSkill,
+    roteQuality: false,
     fixedDice: false,
     unique: true,
     maxDice: 10,
@@ -72,6 +73,7 @@ export const makeCustomYantra = (title: string, value: number): Yantra => {
     description: yantraDescriptionLocalization[YantraType.roteSkill],
     type: GameValueType.yantra,
     yantraType: YantraType.custom,
+    roteQuality: false,
     fixedDice: false,
     unique: true,
     maxDice: 10,
@@ -90,6 +92,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.location]: {
     id: YantraType.location,
@@ -112,6 +115,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.concentration]: {
     id: YantraType.concentration,
@@ -123,6 +127,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.highSpeech]: {
     id: YantraType.highSpeech,
@@ -134,6 +139,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.runes]: {
     id: YantraType.runes,
@@ -145,6 +151,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.dedicatedTool]: {
     id: YantraType.dedicatedTool,
@@ -156,6 +163,7 @@ export const staticYantras = {
     diceModifier: 0,
     paradoxModifier: -2,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.pathTool]: {
     id: YantraType.pathTool,
@@ -167,6 +175,7 @@ export const staticYantras = {
     diceModifier: 1,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.orderTool]: {
     id: YantraType.orderTool,
@@ -178,6 +187,7 @@ export const staticYantras = {
     diceModifier: 1,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.materialSympathy]: {
     id: YantraType.orderTool,
@@ -189,6 +199,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.representationalSympathy]: {
     id: YantraType.representationalSympathy,
@@ -200,6 +211,7 @@ export const staticYantras = {
     diceModifier: 1,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.symbolicSympathy]: {
     id: YantraType.symbolicSympathy,
@@ -211,6 +223,7 @@ export const staticYantras = {
     diceModifier: 0,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.sacrament]: {
     id: YantraType.sacrament,
@@ -222,6 +235,7 @@ export const staticYantras = {
     diceModifier: 1,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.rareSacrament]: {
     id: YantraType.rareSacrament,
@@ -233,6 +247,7 @@ export const staticYantras = {
     diceModifier: 2,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.otherworldlySacrament]: {
     id: YantraType.otherworldlySacrament,
@@ -244,6 +259,7 @@ export const staticYantras = {
     diceModifier: 3,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
   [YantraType.roteSkill]: makeRoteYantra(0),
   [YantraType.persona]: {
@@ -256,5 +272,6 @@ export const staticYantras = {
     diceModifier: 0,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
   },
 };

@@ -7,6 +7,7 @@ export type RollDiceStyle = {
   containerContent: ViewStyle;
   diceSelectContainer: ViewStyle;
   inputContainer: ViewStyle;
+  rollAgainOptions: ViewStyle;
   optionsTitle: TextStyle;
   selectedButtonStyle: ViewStyle;
   rollDiceButtonStyle: ViewStyle;
@@ -37,6 +38,11 @@ export const makeRollDiceStyle = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 20,
+    },
+    rollAgainOptions: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: 20,
     },
     switch: {justifyContent: 'space-between'},
     optionsTitle: {

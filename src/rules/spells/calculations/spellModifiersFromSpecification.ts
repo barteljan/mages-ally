@@ -29,6 +29,7 @@ import {
   TemporalSympathyValue,
 } from '../spell-values/TemporalSympathyValue';
 import {makeChangePrimarySpellFactorValue} from '../spell-values/ChangePrimarySpellFactorValue';
+import {makeManaCostValue} from '../spell-values/ManaCostValue';
 
 export function spellModifiersFromSpecification(
   highestArcanum: CharactersArcanum,
@@ -73,6 +74,13 @@ export function spellModifiersFromSpecification(
   if (specification.additionalSpecs.temporalSympathy) {
     const temporalSympathy = makeTemporalSympathyValue({manaModifier: 1});
     modifier[temporalSympathy.id] = temporalSympathy;
+  }
+
+  if (specification.additionalSpecs.manaCost) {
+    const manaCostValue = makeManaCostValue({
+      manaModifier: specification.additionalSpecs.manaCost,
+    });
+    modifier[manaCostValue.id] = manaCostValue;
   }
 
   if (specification.additionalSpecs.changePrimarySpellFactor) {

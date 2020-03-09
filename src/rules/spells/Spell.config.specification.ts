@@ -32,6 +32,7 @@ export type SpellSpecificationAdditionalSpecs = {
   timeInABottle: boolean;
   everywhere: boolean;
   extraReach: number;
+  manaCost: number;
   changePrimarySpellFactor: boolean;
 };
 
@@ -45,6 +46,7 @@ export function makeSpellSpecificationAdditionalSpecs(
     temporalSympathy: false,
     timeInABottle: false,
     changePrimarySpellFactor: false,
+    manaCost: 0,
     ...specs,
   };
 }
@@ -57,6 +59,7 @@ export type SpellSpecification = {
   spellFactors: SpellSpecificationSpellFactors;
   additionalSpecs: SpellSpecificationAdditionalSpecs;
   rollAgainType: DiceRollAgainType;
+  roteQuality: boolean;
   yantras: Yantra[];
 };
 
@@ -70,6 +73,7 @@ export function makeSpellSpecification(
     requiredArcanumValue: 1,
     spellFactors: makeSpellSpecificationSpellFactors(),
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
     yantras: [],
     ...specification,
   };

@@ -6,7 +6,7 @@ export type RollDiceStrings = {
   tenAgain: string;
   nineAgain: string;
   eightAgain: string;
-  roteQuality: string;
+  none: string;
   exceptional_sucesses_title: string;
   roll_dice_button_text: string;
   dice_roll_title: string;
@@ -20,6 +20,8 @@ export type RollDiceStrings = {
   message_dramatic_failure: string;
   message_rerolls: string;
   chance_dice: string;
+  chance_dice_title: string;
+  rote_quality_title: string;
 };
 
 export enum LocalizationParams {
@@ -32,11 +34,11 @@ export enum LocalizationParams {
 export const localization = new LocalizedStrings<RollDiceStrings>({
   en: {
     choose_dice: 'Number of dice',
-    tenAgain_title: 'Options:',
+    tenAgain_title: 'Dice to explode (roll again)',
     tenAgain: '10 again',
     nineAgain: '9 again',
     eightAgain: '8 again',
-    roteQuality: 'rote quality',
+    none: 'none',
     exceptional_sucesses_title: 'Exceptional success at',
     roll_dice_button_text: 'Roll dice!',
     dice_roll_title:
@@ -66,5 +68,7 @@ export const localization = new LocalizedStrings<RollDiceStrings>({
     message_dramatic_failure: 'Dramatic Failure!',
     message_rerolls: ' (' + LocalizationParams.rerolled + ' dice rolled again)',
     chance_dice: 'Chance Dice',
+    rote_quality_title: 'Has rote quality?',
+    chance_dice_title: 'Roll as Chance Dice',
   },
 });

@@ -34,6 +34,7 @@ export function makeAppState(): AppState {
       numberOfDice: 3,
       rollAgainType: DiceRollAgainType.tenAgain,
       rollOneDiceAsChanceDice: false,
+      roteQuality: false,
     },
     rolls: {
       diceRolls: {},

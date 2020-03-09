@@ -24,4 +24,6 @@ export enum SpellValueIds {
   timeInABottle = 'timeInABottle',
   changePrimarySpellFactor = 'changePrimarySpellFactor',
   rollAgainType = 'rollAgainType',
+  roteQuality = 'roteQuality',
+  manaCost = 'manaCost',
 }

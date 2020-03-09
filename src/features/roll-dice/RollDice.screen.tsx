@@ -103,7 +103,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
         type = DiceRollAgainType.eightAgain;
         break;
       case 3:
-        type = DiceRollAgainType.roteQuality;
+        type = DiceRollAgainType.none;
         break;
       default:
         type = DiceRollAgainType.tenAgain;
@@ -121,7 +121,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
         return 1;
       case DiceRollAgainType.eightAgain:
         return 2;
-      case DiceRollAgainType.roteQuality:
+      case DiceRollAgainType.none:
         return 3;
     }
   };
@@ -156,6 +156,9 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
 
   onSetRollAsChanceDice = (identifier: string, value: boolean) =>
     this.props.setRollOneDiceAsChanceDice(value);
+
+  onSetRoteQuality = (identifier: string, value: boolean) =>
+    this.props.setRoteQuality(value);
 
   scrollViewRef = (ref: any) => (this.scrollView = ref);
 
@@ -192,7 +195,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
       localization.tenAgain,
       localization.nineAgain,
       localization.eightAgain,
-      localization.roteQuality,
+      localization.none,
     ];
     const tenAgainSelectedIndex = this.indexForRollAgainType(
       this.props.rollAgainType,
@@ -221,7 +224,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
           parent="dice_roll"
           theme={this.props.theme}
           value={this.props.rollOneDiceAsChanceDice}
-          label={'Roll as Chance Dice'}
+          label={localization.chance_dice_title}
           identifier="chance_dice"
           onValueChanged={this.onSetRollAsChanceDice}
           containerStyle={this.state.styles.switch}
@@ -234,7 +237,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
         <InputContainer
           title={localization.tenAgain_title}
           height={buttonContainerHeight}
-          containerStyle={this.state.styles.inputContainer}>
+          containerStyle={this.state.styles.rollAgainOptions}>
           <ButtonGroup
             buttons={tenAgainButtons}
             selectedButtonStyle={this.state.styles.selectedButtonStyle}
@@ -243,6 +246,20 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
             underlayColor={this.props.theme.colors.primary}
           />
         </InputContainer>
+      ) : null;
+
+    const roteQuality =
+      this.props.numberOfDice > 1 ||
+      this.props.rollOneDiceAsChanceDice === false ? (
+        <MageSwitch
+          parent="dice_roll"
+          theme={this.props.theme}
+          value={this.props.roteQuality}
+          label={localization.rote_quality_title}
+          identifier="rote_quality"
+          onValueChanged={this.onSetRoteQuality}
+          containerStyle={this.state.styles.switch}
+        />
       ) : null;
 
     const exceptionalSuccesses =
@@ -288,6 +305,7 @@ class _RollDiceScreen extends PureComponent<RollDiceProps, AddRollState> {
           </InputContainer>
           {rollAsChanceDice}
           {rollAgainType}
+          {roteQuality}
           {exceptionalSuccesses}
           <FormButton
             parent={'dice_roll'}

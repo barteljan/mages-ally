@@ -2,7 +2,7 @@ import {
   makeRollConfig,
   make9AgainRollConfig,
   make8AgainRollConfig,
-  makeRoteQualityRollConfig,
+  makeNoRollAgainRollConfig,
 } from './DiceRoll.config';
 import StringMap from '../../data-types/StringMap';
 
@@ -12,7 +12,7 @@ test('makeRollConfig return a correct value', () => {
   const id = 'an_identifier';
   const title = 'an_title';
 
-  const config = makeRollConfig(title, rollFor, id, 3);
+  const config = makeRollConfig(title, rollFor, false, id, 3);
 
   expect(config).toBeDefined();
   expect(config.id).toBe(id);
@@ -34,7 +34,7 @@ test('make9AgainRollConfig return a correct value', () => {
   const id = 'an_identifier';
   const title = 'an_title';
 
-  const config = make9AgainRollConfig(title, rollFor, id, 3);
+  const config = make9AgainRollConfig(title, rollFor, false, id, 3);
 
   expect(config).toBeDefined();
   expect(config.id).toBe(id);
@@ -56,7 +56,7 @@ test('make8AgainRollConfig return a correct value', () => {
   const id = 'an_identifier';
   const title = 'an_title';
 
-  const config = make8AgainRollConfig(title, rollFor, id, 3);
+  const config = make8AgainRollConfig(title, rollFor, false, id, 3);
 
   expect(config).toBeDefined();
   expect(config.id).toBe(id);
@@ -72,13 +72,13 @@ test('make8AgainRollConfig return a correct value', () => {
   expect(config.explodeFor).toEqual([8, 9, 10]);
 });
 
-test('makeRoteQualityRollConfig return a correct value', () => {
+test('makeNoRollAgainRollConfig return a correct value', () => {
   const rollFor: StringMap<number> = {Wits: 4, Composure: 5};
 
   const id = 'an_identifier';
   const title = 'an_title';
 
-  const config = makeRoteQualityRollConfig(title, rollFor, id, 3);
+  const config = makeNoRollAgainRollConfig(title, rollFor, true, id, 3);
 
   expect(config).toBeDefined();
   expect(config.id).toBe(id);

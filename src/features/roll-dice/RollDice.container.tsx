@@ -9,6 +9,7 @@ import {
   rollDiceAction,
   clearCurrentRollAction,
   setRollAsChanceDice,
+  setRoteQualityAction,
 } from './RollDice.redux';
 import {DiceRollAgainType} from '../../rules/dice-roll/DiceRollAgainType';
 import {DiceRollConfig} from '../../rules/dice-roll/DiceRoll.config';
@@ -30,6 +31,7 @@ type StateProps = {
   exceptionalSuccessAt: number;
   rollAgainType: DiceRollAgainType;
   rollOneDiceAsChanceDice: boolean;
+  roteQuality: boolean;
 };
 
 type DispatchProps = {
@@ -39,6 +41,7 @@ type DispatchProps = {
   rollDice: (config: DiceRollConfig, context: DiceRollContext) => Action;
   clearCurrentRoll: () => void;
   setRollOneDiceAsChanceDice: (rollAsChanceDice: boolean) => void;
+  setRoteQuality: (roteQuality: boolean) => void;
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
@@ -48,6 +51,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     rollAgainType: state.rollDice.rollAgainType,
     exceptionalSuccessAt: state.rollDice.exceptionalSuccessAt,
     rollOneDiceAsChanceDice: state.rollDice.rollOneDiceAsChanceDice,
+    roteQuality: state.rollDice.roteQuality,
   };
 };
 
@@ -58,6 +62,7 @@ const mapDispatchToProps: DispatchProps = {
   rollDice: rollDiceAction,
   clearCurrentRoll: clearCurrentRollAction,
   setRollOneDiceAsChanceDice: setRollAsChanceDice,
+  setRoteQuality: setRoteQualityAction,
 };
 
 const mergeProps: MergeProps<
@@ -72,9 +77,11 @@ const mergeProps: MergeProps<
     rollAgainType: stateProps.rollAgainType,
     exceptionalSuccessAt: stateProps.exceptionalSuccessAt,
     rollOneDiceAsChanceDice: stateProps.rollOneDiceAsChanceDice,
+    roteQuality: stateProps.roteQuality,
     setNumberOfDice: dispatchProps.setNumberOfDice,
     setRollAgainType: dispatchProps.setRollAgainType,
     setExceptionalSuccessAt: dispatchProps.setExceptionalSuccessAt,
+    setRoteQuality: dispatchProps.setRoteQuality,
     currentRoll: stateProps.currentRoll,
     clearCurrentRoll: dispatchProps.clearCurrentRoll,
     navigation: ownProps.navigation,
@@ -85,6 +92,7 @@ const mergeProps: MergeProps<
         stateProps.rollAgainType,
         stateProps.exceptionalSuccessAt,
         stateProps.rollOneDiceAsChanceDice,
+        stateProps.roteQuality,
       );
       dispatchProps.rollDice(config, DiceRollContext.rollDice);
     },

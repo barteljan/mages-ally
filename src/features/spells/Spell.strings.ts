@@ -24,6 +24,9 @@ export type EditDiceStrings = {
   extra_reach_title: string;
   extra_reach_singular: string;
   extra_reach_plural: string;
+  mana_cost_title: string;
+  mana_cost_singular: string;
+  mana_cost_plural: string;
   spell_factor_section_title: string;
   yantra_section_title: string;
   yantra_add_button_title: string;
@@ -61,9 +64,10 @@ export type EditDiceStrings = {
   tenAgain: string;
   nineAgain: string;
   eightAgain: string;
-  roteQuality: string;
+  none: string;
   paradox_resolution_title: string;
   spell_roll_info_title_prefix: string;
+  rote_quality_title: string;
 };
 
 export enum VariablePlaceholder {
@@ -138,9 +142,13 @@ export const localization = new LocalizedStrings<EditDiceStrings>({
     tenAgain: '10 again',
     nineAgain: '9 again',
     eightAgain: '8 again',
-    roteQuality: 'rote quality',
+    none: 'none',
     paradox_resolution_title: 'How do you handle paradox?',
     spell_roll_info_title_prefix: 'Cast',
+    rote_quality_title: 'Has spell roll rote quality?',
+    mana_cost_title: 'Mana cost of this spell',
+    mana_cost_singular: 'Mana',
+    mana_cost_plural: 'Mana',
   },
 });
 

@@ -5,6 +5,7 @@ import {DiceRollAgainType} from '../dice-roll/DiceRollAgainType';
 export type BaseParadoxModifier = BaseGameValue & {
   paradoxModifier: number;
   rollAgainType: DiceRollAgainType;
+  roteQuality: boolean;
 };
 
 export function makeParadoxModifier(
@@ -16,6 +17,7 @@ export function makeParadoxModifier(
     type: GameValueType.other,
     paradoxModifier: 0,
     rollAgainType: DiceRollAgainType.tenAgain,
+    roteQuality: false,
     description: '',
     ...modifier,
   };

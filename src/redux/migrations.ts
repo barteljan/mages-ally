@@ -58,4 +58,30 @@ export const migrations = {
 
     return (realState as unknown) as PersistedState;
   },
+  7: (state: PersistedState) => {
+    let realState: AppState = {...((state as unknown) as AppState)};
+    for (let key in realState.spells.spells) {
+      let spellState = realState.spells.spells[key];
+      if (
+        (spellState.spellCastingConfig.spell.rollAgainType as string) ===
+        'roteQuality'
+      ) {
+        spellState.spellCastingConfig.spell.roteQuality = true;
+        spellState.spellCastingConfig.spell.rollAgainType =
+          DiceRollAgainType.none;
+      } else {
+        spellState.spellCastingConfig.spell.roteQuality = false;
+      }
+      spellState.spell = spellFromConfig(spellState.spellCastingConfig);
+    }
+
+    if ((realState.rollDice.rollAgainType as string) === 'roteQuality') {
+      realState.rollDice.rollAgainType = DiceRollAgainType.none;
+      realState.rollDice.roteQuality = true;
+    } else {
+      realState.rollDice.roteQuality = false;
+    }
+
+    return (realState as unknown) as PersistedState;
+  },
 };

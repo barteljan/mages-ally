@@ -8,6 +8,7 @@ import {
   makeRollInformationViewStyles,
 } from './RollInformationView.styles';
 import {RollInformationViewProps} from './RollInformationView.props';
+import {isEqual} from 'lodash';
 
 export class RollInformationView extends DynamiclyStyledPureComponent<
   RollInformationViewProps,
@@ -44,8 +45,13 @@ export class RollInformationView extends DynamiclyStyledPureComponent<
     } else if (config.explodeFor.includes(10)) {
       rollAgain += localization.tenAgain;
     } else {
-      rollAgain += localization.roteQuality;
+      rollAgain += localization.none;
     }
+
+    if (isEqual(config.explodeOnceFor, [1, 2, 3, 4, 5, 6, 7])) {
+      rollAgain += ' / ' + localization.roteQuality;
+    }
+
     return (
       <View
         style={[

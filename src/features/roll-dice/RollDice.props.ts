@@ -9,11 +9,13 @@ export type RollDiceProps = {
   rollAgainType: DiceRollAgainType;
   exceptionalSuccessAt: number;
   rollOneDiceAsChanceDice: boolean;
+  roteQuality: boolean;
   theme: Theme;
   setNumberOfDice: (dice: number) => void;
   setRollAgainType: (type: DiceRollAgainType) => void;
   setExceptionalSuccessAt: (at: number) => void;
   setRollOneDiceAsChanceDice: (rollAsChanceDice: boolean) => void;
+  setRoteQuality: (roteQuality: boolean) => void;
   rollDice: () => void;
   clearCurrentRoll: (roll: DiceRoll) => void;
 };

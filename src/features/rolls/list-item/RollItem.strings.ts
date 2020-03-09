@@ -4,6 +4,7 @@ export type RollItemString = {
   tenAgain: string;
   nineAgain: string;
   eightAgain: string;
+  none: string;
   roteQuality: string;
   success: string;
   exceptional_success: string;
@@ -16,6 +17,7 @@ export const localization = new LocalizedStrings<RollItemString>({
     tenAgain: '10 again',
     nineAgain: '9 again',
     eightAgain: '8 again',
+    none: 'no roll again',
     roteQuality: 'rote quality',
     success: 'Success',
     exceptional_success: 'Exceptional Success!',

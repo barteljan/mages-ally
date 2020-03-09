@@ -131,6 +131,7 @@ test('sleeperWitnesses is added for witnesses = fullCrowd', () => {
   expect(modifiers.sleeperWitnesses).toBeDefined();
   expect(modifiers.sleeperWitnesses!.paradoxModifier).toBe(1);
   expect(modifiers.sleeperWitnesses!.rollAgainType).toBe(
-    DiceRollAgainType.roteQuality,
+    DiceRollAgainType.none,
   );
+  expect(modifiers.sleeperWitnesses!.roteQuality).toBe(true);
 });

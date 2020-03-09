@@ -2,18 +2,18 @@ export enum DiceRollAgainType {
   tenAgain = '10again',
   nineAgain = '9again',
   eightAgain = '8again',
-  roteQuality = 'roteQuality',
+  none = 'none',
 }
 
 function typeOrder(type: DiceRollAgainType): number {
   switch (type) {
-    case DiceRollAgainType.tenAgain:
+    case DiceRollAgainType.none:
       return 0;
-    case DiceRollAgainType.nineAgain:
+    case DiceRollAgainType.tenAgain:
       return 1;
-    case DiceRollAgainType.eightAgain:
+    case DiceRollAgainType.nineAgain:
       return 2;
-    case DiceRollAgainType.roteQuality:
+    case DiceRollAgainType.eightAgain:
       return 3;
   }
   return 0;

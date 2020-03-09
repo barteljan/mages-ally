@@ -51,6 +51,10 @@ export const spellSpecificationReducer: (
             specification.additionalSpecs.extraReach = action.payload.value;
             break;
           }
+          case SpellValueIds.manaCost: {
+            specification.additionalSpecs.manaCost = action.payload.value;
+            break;
+          }
         }
         break;
       //set number in config
@@ -94,6 +98,9 @@ export const spellSpecificationReducer: (
           case SpellValueIds.changePrimarySpellFactor:
             specification.additionalSpecs.changePrimarySpellFactor =
               action.payload.value;
+            break;
+          case SpellValueIds.roteQuality:
+            specification.roteQuality = action.payload.value;
             break;
         }
         break;

@@ -29,11 +29,13 @@ export type SpellRoll = {
     type: DiceRollAgainType;
     successesForExceptionalSuccess: number;
     oneAsChanceDice: boolean;
+    roteQuality: boolean;
   };
   paradox: {
     number: number;
     type: DiceRollAgainType;
     successesForExceptionalSuccess: number;
     oneAsChanceDice: boolean;
+    roteQuality: boolean;
   };
 };

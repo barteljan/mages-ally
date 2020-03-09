@@ -4,7 +4,7 @@ import {
   makeRollConfig,
   make9AgainRollConfig,
   make8AgainRollConfig,
-  makeRoteQualityRollConfig,
+  makeNoRollAgainRollConfig,
   makeChanceDiceConfig,
 } from '../../../rules/dice-roll/DiceRoll.config';
 import {DiceRollAgainType} from '../../../rules/dice-roll/DiceRollAgainType';
@@ -15,6 +15,7 @@ export const makeDiceRollConfig = (
   rollAgainType: DiceRollAgainType,
   exceptionalSuccessAt: number,
   rollOneDiceAsChanceDice: boolean,
+  roteQuality: boolean,
   titleString?: string,
 ): DiceRollConfig => {
   const diceString: string =
@@ -42,6 +43,7 @@ export const makeDiceRollConfig = (
       return makeRollConfig(
         title,
         {rolled: numberOfDice},
+        roteQuality,
         id,
         exceptionalSuccessAt,
       );
@@ -49,6 +51,7 @@ export const makeDiceRollConfig = (
       return make9AgainRollConfig(
         title,
         {rolled: numberOfDice},
+        roteQuality,
         id,
         exceptionalSuccessAt,
       );
@@ -56,13 +59,15 @@ export const makeDiceRollConfig = (
       return make8AgainRollConfig(
         title,
         {rolled: numberOfDice},
+        roteQuality,
         id,
         exceptionalSuccessAt,
       );
-    case DiceRollAgainType.roteQuality:
-      return makeRoteQualityRollConfig(
+    case DiceRollAgainType.none:
+      return makeNoRollAgainRollConfig(
         title,
         {rolled: numberOfDice},
+        roteQuality,
         id,
         exceptionalSuccessAt,
       );
