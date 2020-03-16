@@ -14,11 +14,12 @@ export const spellRollStateReducer: (
     }
 
     switch (action.type) {
-      //set number in config
       case SpellActionTypes.setNumberValue:
         switch (action.payload.identifier) {
           case SpellLogicValueIdentifier.paradoxRollSuccesses: {
-            roll.config.successesOnParadoxRoll = action.payload.value;
+            roll.config.successesOnParadoxRoll = action.payload.value
+              ? action.payload.value
+              : 0;
             roll.paradoxRollId = undefined;
             roll.containParadoxRollId = undefined;
             roll.spellRollId = undefined;
@@ -31,7 +32,6 @@ export const spellRollStateReducer: (
             break;
         }
         break;
-      //set number in config
       case SpellActionTypes.setStringValue:
         switch (action.payload.identifier) {
           case SpellLogicValueIdentifier.paradoxResolution:
@@ -52,13 +52,17 @@ export const spellRollStateReducer: (
       case SpellActionTypes.setBooleanValue:
         switch (action.payload.identifier) {
           case SpellLogicValueIdentifier.rollParadoxFirst:
-            roll.config.rollParadox = action.payload.value;
+            roll.config.rollParadox = action.payload.value
+              ? action.payload.value
+              : false;
             roll.paradoxRollId = undefined;
             roll.containParadoxRollId = undefined;
             roll.spellRollId = undefined;
             break;
           case SpellLogicValueIdentifier.rollWisdomToContainParadox:
-            roll.config.rollWisdomToContainParadox = action.payload.value;
+            roll.config.rollWisdomToContainParadox = action.payload.value
+              ? action.payload.value
+              : false;
             roll.paradoxRollId = undefined;
             roll.containParadoxRollId = undefined;
             roll.spellRollId = undefined;

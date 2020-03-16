@@ -1,11 +1,11 @@
-import {ViewStyle, TextStyle} from 'react-native';
+import {ViewStyle, TextStyle, StyleProp} from 'react-native';
 import {Theme} from 'react-native-paper';
 
 export type InputContainerProps = {
   title: string;
   children: Element;
   theme: Theme;
-  containerStyle?: ViewStyle;
-  titleStyle?: TextStyle;
+  containerStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
   height?: number | 'auto';
 };

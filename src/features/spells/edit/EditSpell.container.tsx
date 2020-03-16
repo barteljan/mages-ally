@@ -39,13 +39,21 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  setValue: (identifier: string, value: number, parent: string) => void;
+  setValue: (
+    identifier: string,
+    value: number | undefined,
+    parent: string,
+  ) => void;
   setStringValue: (
     identifier: string,
     value: string | undefined,
     parent: string,
   ) => void;
-  setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
+  setBooleanValue: (
+    identifier: string,
+    value: boolean | undefined,
+    parent: string,
+  ) => void;
   setSpellFactorLevel: (
     factor: SpellFactorType,
     level: SpellFactorLevel,

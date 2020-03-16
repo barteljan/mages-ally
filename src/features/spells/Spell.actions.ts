@@ -24,7 +24,7 @@ export enum SpellActionTypes {
 
 export const setNumberValueAction = createAction(
   SpellActionTypes.setNumberValue,
-  (identifier: string, value: number, parent: string) => {
+  (identifier: string, value: number | undefined, parent: string) => {
     return {
       identifier,
       value,
@@ -46,7 +46,7 @@ export const setStringValueAction = createAction(
 
 export const setBooleanValueAction = createAction(
   SpellActionTypes.setBooleanValue,
-  (identifier: string, value: boolean, parent: string) => {
+  (identifier: string, value: boolean | undefined, parent: string) => {
     return {
       identifier,
       value,

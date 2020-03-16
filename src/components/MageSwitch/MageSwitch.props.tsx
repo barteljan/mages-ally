@@ -1,5 +1,5 @@
 import {Theme} from 'react-native-paper';
-import {ViewStyle} from 'react-native';
+import {ViewStyle, StyleProp} from 'react-native';
 
 export type MageSwitchProps = {
   theme: Theme;
@@ -8,5 +8,5 @@ export type MageSwitchProps = {
   label: string;
   value: boolean;
   onValueChanged: (identifier: string, value: boolean, parent: string) => void;
-  containerStyle?: ViewStyle;
+  containerStyle?: StyleProp<ViewStyle>;
 };

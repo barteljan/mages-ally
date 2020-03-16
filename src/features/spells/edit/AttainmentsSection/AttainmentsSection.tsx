@@ -11,7 +11,8 @@ import {
   AttainmentsSectionStyle,
 } from './AttainmentsSection.style';
 import {AttainmentsSectionDescription} from './AttainmentsSectionDescription';
-import {MageSwitch} from '../../../../components/MageSwitch/MageSwitch';
+import {Form, FormRowItem} from '../../../../components/Form/Form';
+import {makeSwitchRowItem} from '../../../../components/Form/SwitchRow';
 
 export class AttainmentsSection extends DynamiclyStyledPureComponent<
   AttainmentsSectionProps,
@@ -26,6 +27,29 @@ export class AttainmentsSection extends DynamiclyStyledPureComponent<
     const parent = config.id;
     const spell = config.spell;
     const styles = this.props.styles;
+
+    const formItems: FormRowItem[] = [
+      makeSwitchRowItem(SpellValueIds.symphaticRange, {
+        parent,
+        value: spell.additionalSpecs.sympatheticRange,
+        label: localization.sympathetic_range_title,
+      }),
+      makeSwitchRowItem(SpellValueIds.temporalSympathy, {
+        parent,
+        value: spell.additionalSpecs.temporalSympathy,
+        label: localization.temporal_sympathy_title,
+      }),
+      makeSwitchRowItem(SpellValueIds.timeInABottle, {
+        parent,
+        value: spell.additionalSpecs.timeInABottle,
+        label: localization.time_in_a_bottle_title,
+      }),
+      makeSwitchRowItem(SpellValueIds.everywhere, {
+        parent,
+        value: spell.additionalSpecs.everywhere,
+        label: localization.everywhere_title,
+      }),
+    ];
 
     return (
       <FormSection
@@ -46,37 +70,11 @@ export class AttainmentsSection extends DynamiclyStyledPureComponent<
         containerStyles={styles.section}
         collapsed={this.props.collapsed}
         onChangeCollapse={this.props.onChangeCollapse}>
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.symphaticRange}
-          value={spell.additionalSpecs.sympatheticRange}
-          label={localization.sympathetic_range_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.temporalSympathy}
-          value={spell.additionalSpecs.temporalSympathy}
-          label={localization.temporal_sympathy_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.timeInABottle}
-          value={spell.additionalSpecs.timeInABottle}
-          label={localization.time_in_a_bottle_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.everywhere}
-          value={spell.additionalSpecs.everywhere}
-          label={localization.everywhere_title}
-          onValueChanged={this.props.setBooleanValue}
+        <Form
+          identifier={'attainments'}
+          rows={formItems}
+          theme={this.props.theme}
+          onChangeBoolean={this.props.setBooleanValue}
         />
       </FormSection>
     );

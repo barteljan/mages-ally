@@ -28,6 +28,9 @@ import {FormSectionTitle} from '../../../components/FormSection/FormSectionTitle
 import {ParadoxSectionDescription} from '../edit/ParadoxSection/ParadoxSectionDescription';
 import {ParadoxResolution} from '../../../rules/spells/paradox/ParadoxResolution';
 import {SpellRollInfo} from './SpellRollInfo/SpellRollInfo';
+import {makeNumberPickerRowItem} from '../../../components/Form/NumberPickerRow';
+import {makeTextOptionsRowItem} from '../../../components/Form/TextOptionsRow';
+import {Form, FormRowItem} from '../../../components/Form/Form';
 
 type SpellRollScreenState = {
   styles: SpellRollScreenStyle;
@@ -228,6 +231,7 @@ class _SpellRollScreen extends PureComponent<
     const roll = this.props.roll;
     const buttonGroupContainerHeight = 52 * 1.5;
     const styles = this.state.styles;
+    const parent = config.id;
 
     const paradoxResolution =
       spell.roll.paradox.number > 0 ? (
@@ -309,6 +313,51 @@ class _SpellRollScreen extends PureComponent<
       <View style={styles.spellRollInfoReplacement} />
     );
 
+    const paradoxSectionFormItems: FormRowItem[] = [
+      makeNumberPickerRowItem(
+        SpellValueIds.numberOfPreviousParadoxRolls,
+        localization.previous_paradox_rolls_singular,
+        localization.previous_paradox_rolls_plural,
+        {
+          parent,
+          value: paradox.previousParadoxRolls,
+          label: localization.previous_paradox_rolls_title,
+        },
+      ),
+      makeNumberPickerRowItem(
+        SpellValueIds.additionalManaSpendForReducingParadox,
+        localization.additional_mana_spend_singular,
+        localization.additional_mana_spend_plural,
+        {
+          parent,
+          value: paradox.manaSpent,
+          label: localization.additional_mana_spend_title,
+        },
+      ),
+      makeTextOptionsRowItem(
+        SpellValueIds.sleeperWitnesses,
+        [
+          SleeperWitnesses.none,
+          SleeperWitnesses.one,
+          SleeperWitnesses.few,
+          SleeperWitnesses.largeGroup,
+          SleeperWitnesses.fullCrowd,
+        ],
+        [
+          labelForSleeperWittness(SleeperWitnesses.none),
+          labelForSleeperWittness(SleeperWitnesses.one),
+          labelForSleeperWittness(SleeperWitnesses.few),
+          labelForSleeperWittness(SleeperWitnesses.largeGroup),
+          labelForSleeperWittness(SleeperWitnesses.fullCrowd),
+        ],
+        {
+          parent,
+          value: paradox.sleeperWitnesses,
+          label: localization.witnesses_title,
+        },
+      ),
+    ];
+
     return (
       <ScrollView style={styles.container} ref={this.scrollViewRef}>
         <SpellListItem
@@ -384,49 +433,14 @@ class _SpellRollScreen extends PureComponent<
             containerStyles={styles.section}
             collapsed={this.state.sectionCollapsed}
             onChangeCollapse={this.onChangeCollapse}>
-            <InputContainer
-              title={localization.witnesses_title}
-              containerStyle={styles.inputContainer}
-              height={buttonGroupContainerHeight}>
-              <ButtonGroup
-                buttons={this.witnessesItems}
-                onPress={this.changedWitnesses}
-                selectedIndex={this.indexForWitnesses(paradox.sleeperWitnesses)}
-                selectedButtonStyle={this.state.styles.selectedButton}
-              />
-            </InputContainer>
-            <InputContainer
-              title={localization.previous_paradox_rolls_title}
-              containerStyle={styles.inputContainer}>
-              <NumberSwitch
-                key={SpellValueIds.numberOfPreviousParadoxRolls + 'select'}
-                identifier={SpellValueIds.numberOfPreviousParadoxRolls}
-                parent={config.id}
-                selected={paradox.previousParadoxRolls}
-                onChangedTo={this.props.setValue}
-                minValue={0}
-                maxValue={20}
-                singularItemLabel={localization.previous_paradox_rolls_singular}
-                pluralItemLabel={localization.previous_paradox_rolls_plural}
-              />
-            </InputContainer>
-            <InputContainer
-              title={localization.additional_mana_spend_title}
-              containerStyle={styles.inputContainer}>
-              <NumberSwitch
-                key={
-                  SpellValueIds.additionalManaSpendForReducingParadox + 'select'
-                }
-                identifier={SpellValueIds.additionalManaSpendForReducingParadox}
-                parent={config.id}
-                selected={paradox.manaSpent}
-                onChangedTo={this.props.setValue}
-                minValue={0}
-                maxValue={20}
-                singularItemLabel={localization.additional_mana_spend_singular}
-                pluralItemLabel={localization.additional_mana_spend_plural}
-              />
-            </InputContainer>
+            <Form
+              identifier={'paradox'}
+              rows={paradoxSectionFormItems}
+              theme={this.props.theme}
+              onChangeBoolean={this.props.setBooleanValue}
+              onChangeNumber={this.props.setValue}
+              onChangeString={this.props.setStringValue}
+            />
           </FormSection>
           <FormButton
             parent={config.id}

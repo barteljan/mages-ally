@@ -5,7 +5,11 @@ import {SpellCastingConfig} from '../../../../rules/spells/Spell.config';
 export type AttainmentsSectionProps = {
   theme: Theme;
   spellCastingConfig: SpellCastingConfig;
-  setBooleanValue: (identifier: string, value: boolean, parent: string) => void;
+  setBooleanValue: (
+    identifier: string,
+    value: boolean | undefined,
+    parent: string,
+  ) => void;
   onChangeCollapse: (collapse: boolean) => void;
   collapsed: boolean;
   styles: EditSpellsStyle;

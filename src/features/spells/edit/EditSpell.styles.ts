@@ -14,6 +14,7 @@ export type EditSpellsStyle = {
   inputContainer: ViewStyle;
   switch: ViewStyle;
   saveButtonContainer: ViewStyle;
+  form: ViewStyle;
 };
 
 export const makeEditSpellStyles = (theme: Theme) =>
@@ -48,4 +49,5 @@ export const makeEditSpellStyles = (theme: Theme) =>
       marginBottom: 20,
     },
     saveButtonContainer: {paddingHorizontal: 10},
+    form: {width: '100%'},
   });

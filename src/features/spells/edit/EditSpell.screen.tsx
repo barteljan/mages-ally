@@ -10,11 +10,8 @@ import {EditSpellProps} from './EditSpell.props';
 import {EditSpellsStyle, makeEditSpellStyles} from './EditSpell.styles';
 import {localization} from '../Spell.strings';
 import {SpellValueIds} from '../../../rules/spells/spell-values/SpellValueIds';
-import {InputContainer} from '../../../components/InputContainer/InputContainer';
-import {MageTextInput} from '../../../components/MageTextInput/MageTextInput';
 import {ArcanaType} from '../../../rules/spells/arcana/Arcana.type';
 import {withTheme} from 'react-native-paper';
-import {ArcanaSwitch} from '../../../components/ArcanaSwitch/ArcanaSwitch';
 import {isEqual} from 'lodash';
 import {CasterSection} from './CasterSection/CasterSection';
 import {EditSpellSections} from './EditSpell.sections';
@@ -27,6 +24,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontawesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import {TouchableOpacity} from 'react-native';
 import {AttainmentsSection} from './AttainmentsSection/AttainmentsSection';
+import {FormRowItem, Form} from '../../../components/Form/Form';
+import {makeArkanaSwitchRow} from '../../../components/ArcanaSwitch/makeArcanaSwitchRow';
+import {makeTextInputRowItem} from '../../../components/Form/TextInputRow';
 
 type EditSpellScreenState = {
   styles: EditSpellsStyle;
@@ -133,6 +133,20 @@ class _EditSpellScreen extends PureComponent<
     const parent = config.id;
     const caster = config.caster;
 
+    let formItems: FormRowItem[] = [
+      makeTextInputRowItem(SpellValueIds.title, {
+        parent,
+        value: config.title,
+        label: localization.spell_title,
+      }),
+      makeArkanaSwitchRow(
+        SpellValueIds.highestArcanum,
+        parent,
+        localization.highest_arcanum_title,
+        caster.highestSpellArcanum.arcanumType,
+      ),
+    ];
+
     return (
       <View style={styles.container}>
         <SpellInformation spell={spell} />
@@ -140,23 +154,15 @@ class _EditSpellScreen extends PureComponent<
           style={[styles.scrollView]}
           contentContainerStyle={styles.containerContent}
           alwaysBounceVertical={false}>
-          <MageTextInput
-            style={styles.inputField}
-            identifier={SpellValueIds.title}
-            parent={parent}
-            value={config.title}
-            label={localization.spell_title}
-            onChangeText={this.props.setStringValue}
-            onBlur={this.props.setStringValue}
+          <Form
+            identifier={'edit_spell'}
+            rows={formItems}
+            theme={this.props.theme}
+            containerStyle={this.state.styles.form}
+            onChangeBoolean={this.props.setBooleanValue}
+            onChangeNumber={this.props.setValue}
+            onChangeString={this.props.setStringValue}
           />
-          <InputContainer
-            title={localization.highest_arcanum_title}
-            containerStyle={styles.inputContainer}>
-            <ArcanaSwitch
-              selected={caster.highestSpellArcanum.arcanumType}
-              onChangedTo={this.changedArcanum}
-            />
-          </InputContainer>
           <CasterSection
             {...this.props}
             collapsed={this.state.openedSection !== EditSpellSections.caster}

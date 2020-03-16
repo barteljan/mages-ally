@@ -4,19 +4,19 @@ import {FormSectionTitle} from '../../../../components/FormSection/FormSectionTi
 import {ParadoxSectionProps} from './ParadoxSection.props';
 import {localization} from '../../Spell.strings';
 import {EditSpellSections} from '../EditSpell.sections';
-import {InputContainer} from '../../../../components/InputContainer/InputContainer';
 import {SpellValueIds} from '../../../../rules/spells/spell-values/SpellValueIds';
-import {ButtonGroup} from 'react-native-elements';
 import {DynamiclyStyledPureComponent} from '../../../../components/DynamiclyStyledPureComponent';
 import {
   ParadoxSectionStyle,
   makeSpellSectionStyle,
 } from './ParadoxSection.style';
 import {ParadoxSectionDescription} from './ParadoxSectionDescription';
-import {MageSwitch} from '../../../../components/MageSwitch/MageSwitch';
-import {NumberSwitch} from '../../../../components/NumberSwitch/NumberSwitch';
 import {labelForSleeperWittness} from '../../../../rules/spells/paradox/Paradox.strings';
 import {SleeperWitnesses} from '../../../../rules/spells/paradox/SleeperWitnesses';
+import {FormRowItem, Form} from '../../../../components/Form/Form';
+import {makeSwitchRowItem} from '../../../../components/Form/SwitchRow';
+import {makeNumberPickerRowItem} from '../../../../components/Form/NumberPickerRow';
+import {makeTextOptionsRowItem} from '../../../../components/Form/TextOptionsRow';
 
 export class ParadoxSection extends DynamiclyStyledPureComponent<
   ParadoxSectionProps,
@@ -26,75 +26,61 @@ export class ParadoxSection extends DynamiclyStyledPureComponent<
     return makeSpellSectionStyle(this.props.theme);
   }
 
-  witnessesItems = [
-    labelForSleeperWittness(SleeperWitnesses.none),
-    labelForSleeperWittness(SleeperWitnesses.one),
-    labelForSleeperWittness(SleeperWitnesses.few),
-    labelForSleeperWittness(SleeperWitnesses.largeGroup),
-    labelForSleeperWittness(SleeperWitnesses.fullCrowd),
-  ];
-
-  changedWitnesses = (index: number) => {
-    switch (index) {
-      case 0:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.none,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 1:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.one,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 2:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.few,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 3:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.largeGroup,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 4:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.fullCrowd,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-    }
-  };
-
-  indexForWitnesses(type: SleeperWitnesses): number {
-    switch (type) {
-      case SleeperWitnesses.none:
-        return 0;
-      case SleeperWitnesses.one:
-        return 1;
-      case SleeperWitnesses.few:
-        return 2;
-      case SleeperWitnesses.largeGroup:
-        return 3;
-      case SleeperWitnesses.fullCrowd:
-        return 4;
-    }
-  }
-
   render() {
     const config = this.props.spellCastingConfig;
     const parent = config.id;
     const paradox = config.paradox;
     const styles = this.props.styles;
-    const buttonGroupContainerHeight = 52 * 1.5;
+
+    const formItems: FormRowItem[] = [
+      makeSwitchRowItem(SpellValueIds.inuredToSpell, {
+        parent,
+        value: paradox.inuredToSpell,
+        label: localization.inured_spell_title,
+      }),
+      makeNumberPickerRowItem(
+        SpellValueIds.numberOfPreviousParadoxRolls,
+        localization.previous_paradox_rolls_singular,
+        localization.previous_paradox_rolls_plural,
+        {
+          parent,
+          value: paradox.previousParadoxRolls,
+          label: localization.previous_paradox_rolls_title,
+        },
+      ),
+      makeNumberPickerRowItem(
+        SpellValueIds.additionalManaSpendForReducingParadox,
+        localization.additional_mana_spend_singular,
+        localization.additional_mana_spend_plural,
+        {
+          parent,
+          value: paradox.manaSpent,
+          label: localization.additional_mana_spend_title,
+        },
+      ),
+      makeTextOptionsRowItem(
+        SpellValueIds.sleeperWitnesses,
+        [
+          SleeperWitnesses.none,
+          SleeperWitnesses.one,
+          SleeperWitnesses.few,
+          SleeperWitnesses.largeGroup,
+          SleeperWitnesses.fullCrowd,
+        ],
+        [
+          labelForSleeperWittness(SleeperWitnesses.none),
+          labelForSleeperWittness(SleeperWitnesses.one),
+          labelForSleeperWittness(SleeperWitnesses.few),
+          labelForSleeperWittness(SleeperWitnesses.largeGroup),
+          labelForSleeperWittness(SleeperWitnesses.fullCrowd),
+        ],
+        {
+          parent,
+          value: paradox.sleeperWitnesses,
+          label: localization.witnesses_title,
+        },
+      ),
+    ];
 
     return (
       <FormSection
@@ -115,55 +101,14 @@ export class ParadoxSection extends DynamiclyStyledPureComponent<
         containerStyles={styles.section}
         collapsed={this.props.collapsed}
         onChangeCollapse={this.props.onChangeCollapse}>
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.inuredToSpell}
-          value={paradox.inuredToSpell}
-          label={localization.inured_spell_title}
-          onValueChanged={this.props.setBooleanValue}
+        <Form
+          identifier={'paradox'}
+          rows={formItems}
+          theme={this.props.theme}
+          onChangeBoolean={this.props.setBooleanValue}
+          onChangeNumber={this.props.setValue}
+          onChangeString={this.props.setStringValue}
         />
-        <InputContainer
-          title={localization.previous_paradox_rolls_title}
-          containerStyle={styles.inputContainer}>
-          <NumberSwitch
-            key={SpellValueIds.numberOfPreviousParadoxRolls + 'select'}
-            identifier={SpellValueIds.numberOfPreviousParadoxRolls}
-            parent={parent}
-            selected={paradox.previousParadoxRolls}
-            onChangedTo={this.props.setValue}
-            minValue={0}
-            maxValue={20}
-            singularItemLabel={localization.previous_paradox_rolls_singular}
-            pluralItemLabel={localization.previous_paradox_rolls_plural}
-          />
-        </InputContainer>
-        <InputContainer
-          title={localization.additional_mana_spend_title}
-          containerStyle={styles.inputContainer}>
-          <NumberSwitch
-            key={SpellValueIds.additionalManaSpendForReducingParadox + 'select'}
-            identifier={SpellValueIds.additionalManaSpendForReducingParadox}
-            parent={parent}
-            selected={paradox.manaSpent}
-            onChangedTo={this.props.setValue}
-            minValue={0}
-            maxValue={20}
-            singularItemLabel={localization.additional_mana_spend_singular}
-            pluralItemLabel={localization.additional_mana_spend_plural}
-          />
-        </InputContainer>
-        <InputContainer
-          title={localization.witnesses_title}
-          containerStyle={styles.inputContainer}
-          height={buttonGroupContainerHeight}>
-          <ButtonGroup
-            buttons={this.witnessesItems}
-            onPress={this.changedWitnesses}
-            selectedIndex={this.indexForWitnesses(paradox.sleeperWitnesses)}
-            selectedButtonStyle={this.state.styles.selectedButton}
-          />
-        </InputContainer>
       </FormSection>
     );
   }

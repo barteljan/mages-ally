@@ -19,20 +19,27 @@ export const spellCasterReducer: (
     }
 
     switch (action.type) {
-      //set number in config
       case SpellActionTypes.setNumberValue:
         switch (action.payload.identifier) {
           case CharacterValueId.gnosis:
-            caster.gnosis.diceModifier = action.payload.value;
+            caster.gnosis.diceModifier = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           case CharacterValueId.wisdom:
-            caster.wisdom.diceModifier = action.payload.value;
+            caster.wisdom.diceModifier = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           case SpellValueIds.highestArcanumValue:
-            caster.highestSpellArcanum.diceModifier = action.payload.value;
+            caster.highestSpellArcanum.diceModifier = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           case SpellValueIds.activeSpells:
-            caster.activeSpells = action.payload.value;
+            caster.activeSpells = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           case SpellValueIds.additionalDice: {
             const additionalDice =
@@ -40,7 +47,9 @@ export const spellCasterReducer: (
                 DefaultAdditionalDiceModifier.default
               ];
             if (additionalDice) {
-              additionalDice.diceModifier = action.payload.value;
+              additionalDice.diceModifier = action.payload.value
+                ? action.payload.value
+                : 0;
             } else {
               caster.additionalSpellCastingDice[
                 DefaultAdditionalDiceModifier.default
@@ -63,13 +72,19 @@ export const spellCasterReducer: (
       case SpellActionTypes.setBooleanValue:
         switch (action.payload.identifier) {
           case SpellValueIds.isMagesHighestArcanum:
-            caster.highestSpellArcanum.highest = action.payload.value;
+            caster.highestSpellArcanum.highest = action.payload.value
+              ? action.payload.value
+              : false;
             break;
           case SpellValueIds.isMagesRulingArcanum:
-            caster.highestSpellArcanum.rulingArcana = action.payload.value;
+            caster.highestSpellArcanum.rulingArcana = action.payload.value
+              ? action.payload.value
+              : false;
             break;
           case CharacterValueId.willpower:
-            caster.spendsWillpower = action.payload.value;
+            caster.spendsWillpower = action.payload.value
+              ? action.payload.value
+              : false;
             break;
         }
         break;

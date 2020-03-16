@@ -51,10 +51,15 @@ class _MageTextInput extends PureComponent<
   };
 
   onChange = (text: string) => {
-    this.setState({text});
-    if (this.props.onChangeText) {
-      this.props.onChangeText(this.props.identifier, text, this.props.parent);
-    }
+    this.setState({text}, () => {
+      if (this.props.onChangeText) {
+        this.props.onChangeText(
+          this.props.identifier,
+          this.state.text,
+          this.props.parent,
+        );
+      }
+    });
   };
 
   render = () => {

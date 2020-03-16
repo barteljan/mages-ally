@@ -14,15 +14,16 @@ export const paradoxCircumstancesReducer: (
     }
 
     switch (action.type) {
-      //set number in config
       case SpellActionTypes.setNumberValue:
         switch (action.payload.identifier) {
           case SpellValueIds.numberOfPreviousParadoxRolls: {
-            paradox.previousParadoxRolls = action.payload.value;
+            paradox.previousParadoxRolls = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           }
           case SpellValueIds.additionalManaSpendForReducingParadox: {
-            paradox.manaSpent = action.payload.value;
+            paradox.manaSpent = action.payload.value ? action.payload.value : 0;
             break;
           }
         }
@@ -38,7 +39,9 @@ export const paradoxCircumstancesReducer: (
       case SpellActionTypes.setBooleanValue:
         switch (action.payload.identifier) {
           case SpellValueIds.inuredToSpell:
-            paradox.inuredToSpell = action.payload.value;
+            paradox.inuredToSpell = action.payload.value
+              ? action.payload.value
+              : false;
             break;
         }
         break;

@@ -24,11 +24,12 @@ export const spellSpecificationReducer: (
     }
 
     switch (action.type) {
-      //set number in config
       case SpellActionTypes.setNumberValue:
         switch (action.payload.identifier) {
           case SpellValueIds.requiredArcanumValue:
-            specification.requiredArcanumValue = action.payload.value;
+            specification.requiredArcanumValue = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           case YantraType.roteSkill:
             if (specification.type === SpellType.rote) {
@@ -36,28 +37,35 @@ export const spellSpecificationReducer: (
 
               specification.yantras.forEach(yantra => {
                 if (yantra.yantraType === YantraType.roteSkill) {
-                  yantra.diceModifier = action.payload.value;
+                  yantra.diceModifier = action.payload.value
+                    ? action.payload.value
+                    : 0;
                   foundRote = true;
                 }
               });
 
               if (!foundRote) {
-                const rote = makeRoteYantra(action.payload.value);
+                const rote = makeRoteYantra(
+                  action.payload.value ? action.payload.value : 0,
+                );
                 specification.yantras.push(rote);
               }
             }
             break;
           case SpellValueIds.extraReach: {
-            specification.additionalSpecs.extraReach = action.payload.value;
+            specification.additionalSpecs.extraReach = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           }
           case SpellValueIds.manaCost: {
-            specification.additionalSpecs.manaCost = action.payload.value;
+            specification.additionalSpecs.manaCost = action.payload.value
+              ? action.payload.value
+              : 0;
             break;
           }
         }
         break;
-      //set number in config
       case SpellActionTypes.setStringValue:
         switch (action.payload.identifier) {
           case SpellValueIds.primaryFactor:
@@ -82,25 +90,37 @@ export const spellSpecificationReducer: (
       case SpellActionTypes.setBooleanValue:
         switch (action.payload.identifier) {
           case SpellValueIds.everywhere:
-            specification.additionalSpecs.everywhere = action.payload.value;
+            specification.additionalSpecs.everywhere = action.payload.value
+              ? action.payload.value
+              : false;
             break;
           case SpellValueIds.symphaticRange:
-            specification.additionalSpecs.sympatheticRange =
-              action.payload.value;
+            specification.additionalSpecs.sympatheticRange = action.payload
+              .value
+              ? action.payload.value
+              : false;
             break;
           case SpellValueIds.temporalSympathy:
-            specification.additionalSpecs.temporalSympathy =
-              action.payload.value;
+            specification.additionalSpecs.temporalSympathy = action.payload
+              .value
+              ? action.payload.value
+              : false;
             break;
           case SpellValueIds.timeInABottle:
-            specification.additionalSpecs.timeInABottle = action.payload.value;
+            specification.additionalSpecs.timeInABottle = action.payload.value
+              ? action.payload.value
+              : false;
             break;
           case SpellValueIds.changePrimarySpellFactor:
-            specification.additionalSpecs.changePrimarySpellFactor =
-              action.payload.value;
+            specification.additionalSpecs.changePrimarySpellFactor = action
+              .payload.value
+              ? action.payload.value
+              : false;
             break;
           case SpellValueIds.roteQuality:
-            specification.roteQuality = action.payload.value;
+            specification.roteQuality = action.payload.value
+              ? action.payload.value
+              : false;
             break;
         }
         break;

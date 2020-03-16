@@ -5,10 +5,7 @@ import {SpellSectionProps} from './SpellSection.props';
 import {localization, VariablePlaceholder} from '../../Spell.strings';
 import {EditSpellSections} from '../EditSpell.sections';
 import {localization as arkanaLocalization} from '../../../../rules/spells/arcana/Arcana.strings';
-import {InputContainer} from '../../../../components/InputContainer/InputContainer';
-import {DotSelect} from '../../../../components/DotSelect/DotSelect';
 import {SpellValueIds} from '../../../../rules/spells/spell-values/SpellValueIds';
-import {ButtonGroup} from 'react-native-elements';
 import {SpellFactorType} from '../../../../rules/spells/spell-factors/SpellFactor.type';
 import {spellFactorName} from '../../../../rules/spells/spell-factors/SpellFactor.strings';
 import {DynamiclyStyledPureComponent} from '../../../../components/DynamiclyStyledPureComponent';
@@ -16,11 +13,13 @@ import {SpellSectionStyle, makeSpellSectionStyle} from './SpellSection.style';
 import {SpellType} from '../../../../rules/spells/Spell.type';
 import {spellTypeName} from '../../../../rules/spells/Spell.config.strings';
 import {YantraType} from '../../../../rules/spells/yantra/Yantra.type';
-import {SpellCastingConfig} from '../../../../rules/spells/Spell.config';
 import {SpellSectionDescription} from './SpellSectionDescription';
-import {NumberSwitch} from '../../../../components/NumberSwitch/NumberSwitch';
-import {MageSwitch} from '../../../../components/MageSwitch/MageSwitch';
 import {DiceRollAgainType} from '../../../../rules/dice-roll/DiceRollAgainType';
+import {Form, FormRowItem} from '../../../../components/Form/Form';
+import {makeDotsRowItem} from '../../../../components/Form/DotSelectRow';
+import {makeTextOptionsRowItem} from '../../../../components/Form/TextOptionsRow';
+import {makeSwitchRowItem} from '../../../../components/Form/SwitchRow';
+import {makeNumberPickerRowItem} from '../../../../components/Form/NumberPickerRow';
 
 export class SpellSection extends DynamiclyStyledPureComponent<
   SpellSectionProps,
@@ -29,148 +28,6 @@ export class SpellSection extends DynamiclyStyledPureComponent<
   makeStyle(): SpellSectionStyle {
     return makeSpellSectionStyle(this.props.theme);
   }
-
-  primaryFactorItems = [
-    spellFactorName(SpellFactorType.potency),
-    spellFactorName(SpellFactorType.duration),
-  ];
-
-  spellTypeItems = [
-    spellTypeName(SpellType.improvised),
-    spellTypeName(SpellType.praxis),
-    spellTypeName(SpellType.rote),
-  ];
-
-  changedPrimaryFactor = (index: number) => {
-    switch (index) {
-      case 0:
-        this.props.setStringValue(
-          SpellValueIds.primaryFactor,
-          SpellFactorType.potency,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 1:
-        this.props.setStringValue(
-          SpellValueIds.primaryFactor,
-          SpellFactorType.duration,
-          this.props.spellCastingConfig.id,
-        );
-    }
-  };
-
-  changedSpellType = (index: number) => {
-    switch (index) {
-      case 0:
-        this.props.setStringValue(
-          SpellValueIds.spellType,
-          SpellType.improvised,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 1:
-        this.props.setStringValue(
-          SpellValueIds.spellType,
-          SpellType.praxis,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-      case 2:
-        this.props.setStringValue(
-          SpellValueIds.spellType,
-          SpellType.rote,
-          this.props.spellCastingConfig.id,
-        );
-        break;
-    }
-  };
-
-  indexForSpellType(type: SpellType): number {
-    switch (type) {
-      case SpellType.improvised:
-        return 0;
-      case SpellType.praxis:
-        return 1;
-      case SpellType.rote:
-        return 2;
-    }
-  }
-
-  roteSkillSelect = (config: SpellCastingConfig) => {
-    const spell = config.spell;
-    const styles = this.props.styles;
-    const parent = config.id;
-
-    const roteSkillYantra = config.spell.yantras.filter(
-      yantra => yantra.yantraType === YantraType.roteSkill,
-    )[0];
-
-    let roteSkillSelect =
-      spell.type === SpellType.rote ? (
-        <InputContainer
-          title={localization.rote_skill_title}
-          containerStyle={styles.inputContainer}>
-          <DotSelect
-            key={YantraType.roteSkill + 'select'}
-            parent={parent}
-            value={roteSkillYantra ? roteSkillYantra.diceModifier : 0}
-            identifier={YantraType.roteSkill}
-            didSelect={this.props.setValue}
-            numberOfDots={10}
-          />
-        </InputContainer>
-      ) : null;
-
-    return roteSkillSelect;
-  };
-
-  tenAgainButtons = [
-    localization.tenAgain,
-    localization.nineAgain,
-    localization.eightAgain,
-    localization.none,
-  ];
-
-  indexForRollAgainType = (type: DiceRollAgainType): number => {
-    switch (type) {
-      case DiceRollAgainType.tenAgain:
-        return 0;
-      case DiceRollAgainType.nineAgain:
-        return 1;
-      case DiceRollAgainType.eightAgain:
-        return 2;
-      case DiceRollAgainType.none:
-        return 3;
-    }
-  };
-
-  onChangeRollAgainType = (index: number) => {
-    let type: DiceRollAgainType;
-
-    switch (index) {
-      case 0:
-        type = DiceRollAgainType.tenAgain;
-        break;
-      case 1:
-        type = DiceRollAgainType.nineAgain;
-        break;
-      case 2:
-        type = DiceRollAgainType.eightAgain;
-        break;
-      case 3:
-        type = DiceRollAgainType.none;
-        break;
-      default:
-        type = DiceRollAgainType.tenAgain;
-        break;
-    }
-
-    this.props.setStringValue(
-      SpellValueIds.rollAgainType,
-      type,
-      this.props.spellCastingConfig.id,
-    );
-  };
 
   render() {
     const config = this.props.spellCastingConfig;
@@ -182,9 +39,131 @@ export class SpellSection extends DynamiclyStyledPureComponent<
     const chosenArkanumTitle: string =
       arkanaLocalization[caster.highestSpellArcanum.arcanumType];
 
-    const buttonGroupContainerHeight = 52 * 1.5;
+    let formItems: FormRowItem[] = [];
 
-    let roteSkillSelect = this.roteSkillSelect(config);
+    formItems.push(
+      makeDotsRowItem(SpellValueIds.requiredArcanumValue, {
+        parent,
+        value: spell.requiredArcanumValue,
+        label: localization.required_arcanum_value_title.replace(
+          VariablePlaceholder.highestArcanum,
+          chosenArkanumTitle,
+        ),
+        maxValue: 5,
+      }),
+    );
+
+    formItems.push(
+      makeTextOptionsRowItem(
+        SpellValueIds.primaryFactor,
+        [SpellFactorType.potency, SpellFactorType.duration],
+        [
+          spellFactorName(SpellFactorType.potency),
+          spellFactorName(SpellFactorType.duration),
+        ],
+        {
+          parent,
+          value: spell.primaryFactor,
+          label: localization.primary_factor_title,
+        },
+      ),
+    );
+    formItems.push(
+      makeSwitchRowItem(SpellValueIds.changePrimarySpellFactor, {
+        parent,
+        value: spell.additionalSpecs.changePrimarySpellFactor,
+        label: localization.changed_primary_factor_title,
+      }),
+    );
+
+    formItems.push(
+      makeTextOptionsRowItem(
+        SpellValueIds.spellType,
+        [SpellType.improvised, SpellType.praxis, SpellType.rote],
+        [
+          spellTypeName(SpellType.improvised!),
+          spellTypeName(SpellType.praxis!),
+          spellTypeName(SpellType.rote!),
+        ],
+        {
+          parent,
+          value: spell.type,
+          label: localization.spell_type_title,
+        },
+      ),
+    );
+
+    if (spell.type === SpellType.rote) {
+      const roteSkillYantra = config.spell.yantras.filter(
+        yantra => yantra.yantraType === YantraType.roteSkill,
+      )[0];
+
+      formItems.push(
+        makeDotsRowItem(YantraType.roteSkill, {
+          parent,
+          value: roteSkillYantra ? roteSkillYantra.diceModifier : 0,
+          label: localization.rote_skill_title,
+          maxValue: 10,
+        }),
+      );
+    }
+
+    formItems.push(
+      makeNumberPickerRowItem(
+        SpellValueIds.extraReach,
+        localization.extra_reach_singular,
+        localization.extra_reach_plural,
+        {
+          parent,
+          value: spell.additionalSpecs.extraReach,
+          label: localization.extra_reach_title,
+        },
+      ),
+    );
+
+    formItems.push(
+      makeNumberPickerRowItem(
+        SpellValueIds.manaCost,
+        localization.mana_cost_singular,
+        localization.mana_cost_plural,
+        {
+          parent,
+          value: spell.additionalSpecs.manaCost,
+          label: localization.mana_cost_title,
+        },
+      ),
+    );
+
+    formItems.push(
+      makeTextOptionsRowItem(
+        SpellValueIds.rollAgainType,
+        [
+          DiceRollAgainType.tenAgain,
+          DiceRollAgainType.nineAgain,
+          DiceRollAgainType.eightAgain,
+          DiceRollAgainType.none,
+        ],
+        [
+          localization.tenAgain,
+          localization.nineAgain,
+          localization.eightAgain,
+          localization.none,
+        ],
+        {
+          parent,
+          value: this.props.spellCastingConfig.spell.rollAgainType,
+          label: localization.tenAgain_title,
+        },
+      ),
+    );
+
+    formItems.push(
+      makeSwitchRowItem(SpellValueIds.roteQuality, {
+        parent,
+        value: this.props.spellCastingConfig.spell.roteQuality,
+        label: localization.rote_quality_title,
+      }),
+    );
 
     return (
       <FormSection
@@ -205,106 +184,13 @@ export class SpellSection extends DynamiclyStyledPureComponent<
         containerStyles={styles.section}
         collapsed={this.props.collapsed}
         onChangeCollapse={this.props.onChangeCollapse}>
-        <InputContainer
-          title={localization.required_arcanum_value_title.replace(
-            VariablePlaceholder.highestArcanum,
-            chosenArkanumTitle,
-          )}
-          containerStyle={styles.inputContainer}>
-          <DotSelect
-            key={SpellValueIds.requiredArcanumValue + 'select'}
-            parent={parent}
-            value={spell.requiredArcanumValue}
-            identifier={SpellValueIds.requiredArcanumValue}
-            didSelect={this.props.setValue}
-            numberOfDots={5}
-          />
-        </InputContainer>
-        <InputContainer
-          title={localization.primary_factor_title}
-          containerStyle={styles.inputContainer}
-          height={buttonGroupContainerHeight}>
-          <ButtonGroup
-            buttons={this.primaryFactorItems}
-            onPress={this.changedPrimaryFactor}
-            selectedIndex={
-              spell.primaryFactor === SpellFactorType.potency ? 0 : 1
-            }
-            selectedButtonStyle={this.state.styles.selectedButton}
-          />
-        </InputContainer>
-        <MageSwitch
-          parent={parent}
-          containerStyle={styles.switch}
-          identifier={SpellValueIds.changePrimarySpellFactor}
-          value={spell.additionalSpecs.changePrimarySpellFactor}
-          label={localization.changed_primary_factor_title}
-          onValueChanged={this.props.setBooleanValue}
-        />
-        <InputContainer
-          title={localization.spell_type_title}
-          containerStyle={styles.inputContainer}
-          height={buttonGroupContainerHeight}>
-          <ButtonGroup
-            buttons={this.spellTypeItems}
-            onPress={this.changedSpellType}
-            selectedIndex={this.indexForSpellType(spell.type)}
-            selectedButtonStyle={this.state.styles.selectedButton}
-          />
-        </InputContainer>
-        {roteSkillSelect}
-        <InputContainer
-          title={localization.extra_reach_title}
-          containerStyle={styles.inputContainer}>
-          <NumberSwitch
-            key={SpellValueIds.extraReach + 'select'}
-            identifier={SpellValueIds.extraReach}
-            parent={parent}
-            selected={spell.additionalSpecs.extraReach}
-            onChangedTo={this.props.setValue}
-            minValue={0}
-            maxValue={20}
-            singularItemLabel={localization.extra_reach_singular}
-            pluralItemLabel={localization.extra_reach_plural}
-          />
-        </InputContainer>
-        <InputContainer
-          title={localization.mana_cost_title}
-          containerStyle={styles.inputContainer}>
-          <NumberSwitch
-            key={SpellValueIds.manaCost + 'select'}
-            identifier={SpellValueIds.manaCost}
-            parent={parent}
-            selected={spell.additionalSpecs.manaCost}
-            onChangedTo={this.props.setValue}
-            minValue={0}
-            maxValue={20}
-            singularItemLabel={localization.mana_cost_singular}
-            pluralItemLabel={localization.mana_cost_plural}
-          />
-        </InputContainer>
-        <InputContainer
-          title={localization.tenAgain_title}
-          height={buttonGroupContainerHeight}
-          containerStyle={styles.inputContainer}>
-          <ButtonGroup
-            buttons={this.tenAgainButtons}
-            selectedButtonStyle={this.state.styles.selectedButton}
-            selectedIndex={this.indexForRollAgainType(
-              this.props.spellCastingConfig.spell.rollAgainType,
-            )}
-            onPress={this.onChangeRollAgainType}
-            underlayColor={this.props.theme.colors.primary}
-          />
-        </InputContainer>
-        <MageSwitch
-          parent={parent}
+        <Form
+          identifier={'spell'}
+          rows={formItems}
           theme={this.props.theme}
-          value={this.props.spellCastingConfig.spell.roteQuality}
-          label={localization.rote_quality_title}
-          identifier={SpellValueIds.roteQuality}
-          onValueChanged={this.props.setBooleanValue}
-          containerStyle={styles.switch}
+          onChangeBoolean={this.props.setBooleanValue}
+          onChangeNumber={this.props.setValue}
+          onChangeString={this.props.setStringValue}
         />
       </FormSection>
     );

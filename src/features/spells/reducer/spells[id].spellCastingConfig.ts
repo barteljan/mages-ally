@@ -20,7 +20,6 @@ export const spellCastingConfigReducer: (
     config.paradox = paradoxCircumstancesReducer(config.paradox, action);
 
     switch (action.type) {
-      //set number in config
       case SpellActionTypes.setStringValue:
         switch (action.payload.identifier) {
           case SpellValueIds.title:
