@@ -10,27 +10,18 @@ import {isEqual} from 'lodash';
 import {SpellListItem} from '../list-item/SpellListItem';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScrollView} from 'react-native-gesture-handler';
-import {InputContainer} from '../../../components/InputContainer/InputContainer';
 import {localization} from '../Spell.strings';
 import {SpellValueIds} from '../../../rules/spells/spell-values/SpellValueIds';
-import {NumberSwitch} from '../../../components/NumberSwitch/NumberSwitch';
-import {ButtonGroup} from 'react-native-elements';
-import {
-  labelForSleeperWittness,
-  labelForParadoxResolution,
-} from '../../../rules/spells/paradox/Paradox.strings';
-import {SleeperWitnesses} from '../../../rules/spells/paradox/SleeperWitnesses';
+import {labelForParadoxResolution} from '../../../rules/spells/paradox/Paradox.strings';
 import {FormButton} from '../../../components/FormButton/FormButton';
-import {MageSwitch} from '../../../components/MageSwitch/MageSwitch';
 import {SpellLogicValueIdentifier} from '../Spell.identifiers';
-import {FormSection} from '../../../components/FormSection/FormSection';
-import {FormSectionTitle} from '../../../components/FormSection/FormSectionTitle/FormSectionTitle';
-import {ParadoxSectionDescription} from '../edit/ParadoxSection/ParadoxSectionDescription';
 import {ParadoxResolution} from '../../../rules/spells/paradox/ParadoxResolution';
 import {SpellRollInfo} from './SpellRollInfo/SpellRollInfo';
 import {makeNumberPickerRowItem} from '../../../components/Form/NumberPickerRow';
 import {makeTextOptionsRowItem} from '../../../components/Form/TextOptionsRow';
 import {Form, FormRowItem} from '../../../components/Form/Form';
+import {SpellRollParadoxSection} from './ParadoxSection/SpellRollParadoxSection';
+import {makeSwitchRowItem} from '../../../components/Form/SwitchRow';
 
 type SpellRollScreenState = {
   styles: SpellRollScreenStyle;
@@ -122,102 +113,6 @@ class _SpellRollScreen extends PureComponent<
     return makeSpellRollScreenStyle(this.props.theme);
   }
 
-  paradoxResolutionItems = [
-    labelForParadoxResolution(ParadoxResolution.contain),
-    labelForParadoxResolution(ParadoxResolution.release),
-  ];
-
-  changedParadoxResolution = (index: number) => {
-    switch (index) {
-      case 0:
-        this.props.setStringValue(
-          SpellLogicValueIdentifier.paradoxResolution,
-          ParadoxResolution.contain,
-          this.props.config.id,
-        );
-        break;
-      case 1:
-        this.props.setStringValue(
-          SpellLogicValueIdentifier.paradoxResolution,
-          ParadoxResolution.release,
-          this.props.config.id,
-        );
-        break;
-    }
-  };
-
-  indexForParadoxResolution(resolution: ParadoxResolution): number {
-    switch (resolution) {
-      case ParadoxResolution.contain:
-        return 0;
-      case ParadoxResolution.release:
-        return 1;
-    }
-  }
-
-  witnessesItems = [
-    labelForSleeperWittness(SleeperWitnesses.none),
-    labelForSleeperWittness(SleeperWitnesses.one),
-    labelForSleeperWittness(SleeperWitnesses.few),
-    labelForSleeperWittness(SleeperWitnesses.largeGroup),
-    labelForSleeperWittness(SleeperWitnesses.fullCrowd),
-  ];
-
-  changedWitnesses = (index: number) => {
-    switch (index) {
-      case 0:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.none,
-          this.props.config.id,
-        );
-        break;
-      case 1:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.one,
-          this.props.config.id,
-        );
-        break;
-      case 2:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.few,
-          this.props.config.id,
-        );
-        break;
-      case 3:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.largeGroup,
-          this.props.config.id,
-        );
-        break;
-      case 4:
-        this.props.setStringValue(
-          SpellValueIds.sleeperWitnesses,
-          SleeperWitnesses.fullCrowd,
-          this.props.config.id,
-        );
-        break;
-    }
-  };
-
-  indexForWitnesses(type: SleeperWitnesses): number {
-    switch (type) {
-      case SleeperWitnesses.none:
-        return 0;
-      case SleeperWitnesses.one:
-        return 1;
-      case SleeperWitnesses.few:
-        return 2;
-      case SleeperWitnesses.largeGroup:
-        return 3;
-      case SleeperWitnesses.fullCrowd:
-        return 4;
-    }
-  }
-
   onChangeCollapse = (collapsed: boolean) => {
     this.setState({sectionCollapsed: collapsed});
   };
@@ -227,80 +122,9 @@ class _SpellRollScreen extends PureComponent<
   render = () => {
     const config = this.props.config;
     const spell = this.props.spell;
-    const paradox = config.paradox;
     const roll = this.props.roll;
-    const buttonGroupContainerHeight = 52 * 1.5;
     const styles = this.state.styles;
     const parent = config.id;
-
-    const paradoxResolution =
-      spell.roll.paradox.number > 0 ? (
-        <InputContainer
-          title={localization.paradox_resolution_title}
-          containerStyle={styles.inputContainer}
-          height={buttonGroupContainerHeight}>
-          <ButtonGroup
-            buttons={this.paradoxResolutionItems}
-            onPress={this.changedParadoxResolution}
-            selectedIndex={this.indexForParadoxResolution(
-              roll.config.paradoxResolution,
-            )}
-            selectedButtonStyle={this.state.styles.selectedButton}
-          />
-        </InputContainer>
-      ) : null;
-
-    const rollParadox =
-      spell.roll.paradox.number > 0 ? (
-        <MageSwitch
-          theme={this.props.theme}
-          value={roll.config.rollParadox}
-          label={localization.spell_roll_roll_paradox_first_title}
-          identifier={SpellLogicValueIdentifier.rollParadoxFirst}
-          onValueChanged={this.props.setBooleanValue}
-          parent={config.id}
-          containerStyle={styles.inputContainer}
-        />
-      ) : null;
-
-    const paradoxSuccesses =
-      spell.roll.paradox.number > 0 &&
-      !roll.config.rollParadox &&
-      roll.config.paradoxResolution === ParadoxResolution.release ? (
-        <InputContainer
-          title={localization.spell_roll_successes_on_paradox_roll_title}
-          containerStyle={styles.inputContainer}>
-          <NumberSwitch
-            key={SpellLogicValueIdentifier.paradoxRollSuccesses + 'select'}
-            identifier={SpellLogicValueIdentifier.paradoxRollSuccesses}
-            parent={config.id}
-            selected={roll.config.successesOnParadoxRoll}
-            onChangedTo={this.props.setValue}
-            minValue={0}
-            maxValue={20}
-            singularItemLabel={
-              localization.spell_roll_successes_on_paradox_roll_singular
-            }
-            pluralItemLabel={
-              localization.spell_roll_successes_on_paradox_roll_plural
-            }
-          />
-        </InputContainer>
-      ) : null;
-
-    const rollContainParadox =
-      spell.roll.paradox.number > 0 &&
-      roll.config.paradoxResolution === ParadoxResolution.contain ? (
-        <MageSwitch
-          theme={this.props.theme}
-          value={roll.config.rollWisdomToContainParadox}
-          label={localization.spell_roll_roll_contain_paradox_title}
-          identifier={SpellLogicValueIdentifier.rollWisdomToContainParadox}
-          onValueChanged={this.props.setBooleanValue}
-          parent={config.id}
-          containerStyle={styles.inputContainer}
-        />
-      ) : null;
 
     const spellRollInfo = this.props.spellRollInfoConfig ? (
       <SpellRollInfo
@@ -313,50 +137,90 @@ class _SpellRollScreen extends PureComponent<
       <View style={styles.spellRollInfoReplacement} />
     );
 
-    const paradoxSectionFormItems: FormRowItem[] = [
+    let items: FormRowItem[] = [];
+
+    if (spell.roll.paradox.number > 0) {
+      items.push(
+        makeTextOptionsRowItem(
+          SpellLogicValueIdentifier.paradoxResolution,
+          [ParadoxResolution.contain, ParadoxResolution.release],
+          [
+            labelForParadoxResolution(ParadoxResolution.contain),
+            labelForParadoxResolution(ParadoxResolution.release),
+          ],
+          {
+            parent,
+            value: roll.config.paradoxResolution,
+            label: localization.paradox_resolution_title,
+          },
+        ),
+      );
+
+      items.push(
+        makeSwitchRowItem(SpellLogicValueIdentifier.rollParadoxFirst, {
+          parent,
+          value: roll.config.rollParadox,
+          label: localization.spell_roll_roll_paradox_first_title,
+        }),
+      );
+
+      if (
+        !roll.config.rollParadox &&
+        roll.config.paradoxResolution === ParadoxResolution.release
+      ) {
+        items.push(
+          makeNumberPickerRowItem(
+            SpellLogicValueIdentifier.paradoxRollSuccesses,
+            localization.spell_roll_successes_on_paradox_roll_singular,
+            localization.spell_roll_successes_on_paradox_roll_plural,
+            {
+              parent,
+              value: roll.config.successesOnParadoxRoll,
+              label: localization.spell_roll_successes_on_paradox_roll_title,
+            },
+          ),
+        );
+      }
+
+      if (roll.config.paradoxResolution === ParadoxResolution.contain) {
+        items.push(
+          makeSwitchRowItem(
+            SpellLogicValueIdentifier.rollWisdomToContainParadox,
+            {
+              parent,
+              value: roll.config.rollWisdomToContainParadox,
+              label: localization.spell_roll_roll_contain_paradox_title,
+            },
+          ),
+        );
+      }
+    }
+
+    items.push(
       makeNumberPickerRowItem(
-        SpellValueIds.numberOfPreviousParadoxRolls,
-        localization.previous_paradox_rolls_singular,
-        localization.previous_paradox_rolls_plural,
+        SpellValueIds.extraReach,
+        localization.extra_reach_singular,
+        localization.extra_reach_plural,
         {
           parent,
-          value: paradox.previousParadoxRolls,
-          label: localization.previous_paradox_rolls_title,
+          value: config.spell.additionalSpecs.extraReach,
+          label: localization.extra_reach_title,
         },
       ),
+    );
+
+    items.push(
       makeNumberPickerRowItem(
-        SpellValueIds.additionalManaSpendForReducingParadox,
-        localization.additional_mana_spend_singular,
-        localization.additional_mana_spend_plural,
+        SpellValueIds.activeSpells,
+        localization.number_of_active_spells_singular,
+        localization.number_of_active_spells_plural,
         {
           parent,
-          value: paradox.manaSpent,
-          label: localization.additional_mana_spend_title,
+          value: config.caster.activeSpells,
+          label: localization.number_of_active_spells,
         },
       ),
-      makeTextOptionsRowItem(
-        SpellValueIds.sleeperWitnesses,
-        [
-          SleeperWitnesses.none,
-          SleeperWitnesses.one,
-          SleeperWitnesses.few,
-          SleeperWitnesses.largeGroup,
-          SleeperWitnesses.fullCrowd,
-        ],
-        [
-          labelForSleeperWittness(SleeperWitnesses.none),
-          labelForSleeperWittness(SleeperWitnesses.one),
-          labelForSleeperWittness(SleeperWitnesses.few),
-          labelForSleeperWittness(SleeperWitnesses.largeGroup),
-          labelForSleeperWittness(SleeperWitnesses.fullCrowd),
-        ],
-        {
-          parent,
-          value: paradox.sleeperWitnesses,
-          label: localization.witnesses_title,
-        },
-      ),
-    ];
+    );
 
     return (
       <ScrollView style={styles.container} ref={this.scrollViewRef}>
@@ -381,67 +245,20 @@ class _SpellRollScreen extends PureComponent<
           {spellRollInfo}
         </SpellListItem>
         <View style={styles.formContainer}>
-          {paradoxResolution}
-          {rollParadox}
-          {paradoxSuccesses}
-          {rollContainParadox}
-          <InputContainer
-            title={localization.number_of_active_spells}
-            containerStyle={styles.inputContainer}>
-            <NumberSwitch
-              key={SpellValueIds.activeSpells + 'select'}
-              identifier={SpellValueIds.activeSpells}
-              parent={this.props.config.id}
-              selected={this.props.config.caster.activeSpells}
-              onChangedTo={this.props.setValue}
-              minValue={0}
-              maxValue={20}
-              singularItemLabel={localization.number_of_active_spells_singular}
-              pluralItemLabel={localization.number_of_active_spells_plural}
-            />
-          </InputContainer>
-          <InputContainer
-            title={localization.extra_reach_title}
-            containerStyle={styles.inputContainer}>
-            <NumberSwitch
-              key={SpellValueIds.extraReach + 'select'}
-              identifier={SpellValueIds.extraReach}
-              parent={this.props.config.id}
-              selected={this.props.config.spell.additionalSpecs.extraReach}
-              onChangedTo={this.props.setValue}
-              minValue={0}
-              maxValue={20}
-              singularItemLabel={localization.extra_reach_singular}
-              pluralItemLabel={localization.extra_reach_plural}
-            />
-          </InputContainer>
-          <FormSection
-            identifier={'paradox'}
-            title={(identifier, collapsed) => (
-              <FormSectionTitle
-                title={localization.paradox_section_title}
-                iconName="bomb"
-                collapsed={collapsed}
-                description={
-                  <ParadoxSectionDescription
-                    spellCastingConfig={config}
-                    theme={this.props.theme}
-                  />
-                }
-              />
-            )}
-            containerStyles={styles.section}
+          <Form
+            identifier={'roll'}
+            rows={items}
+            theme={this.props.theme}
+            onChangeBoolean={this.props.setBooleanValue}
+            onChangeNumber={this.props.setValue}
+            onChangeString={this.props.setStringValue}
+          />
+          <SpellRollParadoxSection
+            {...this.props}
             collapsed={this.state.sectionCollapsed}
-            onChangeCollapse={this.onChangeCollapse}>
-            <Form
-              identifier={'paradox'}
-              rows={paradoxSectionFormItems}
-              theme={this.props.theme}
-              onChangeBoolean={this.props.setBooleanValue}
-              onChangeNumber={this.props.setValue}
-              onChangeString={this.props.setStringValue}
-            />
-          </FormSection>
+            containerStyles={styles.section}
+            onChangeCollapse={this.onChangeCollapse}
+          />
           <FormButton
             parent={config.id}
             theme={this.props.theme}
