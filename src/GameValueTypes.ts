@@ -1,11 +1,12 @@
 export enum GameValueType {
   additionalDiceModifier = 'additionalDiceModifier',
+  character = 'character',
   characterValue = 'characterValue',
-  skill = 'skill',
   other = 'other',
   arcanum = 'arcanum',
   spellFactor = 'spellFactor',
   spellFactorRuleLevel = 'spellFactorRuleLevel',
   spellValue = 'spellValue',
+  valueGroup = 'valueGroup',
   yantra = 'yantra',
 }

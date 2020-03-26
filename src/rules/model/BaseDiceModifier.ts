@@ -1,12 +1,16 @@
 import {BaseGameValue} from './BaseGameValue';
 import {GameValueType} from '../../GameValueTypes';
 
-export type BaseDiceModifier = BaseGameValue & {
-  diceModifier: number;
+export type BaseDiceModifier<
+  IdType extends string = string,
+  ValueType extends number = number
+> = BaseGameValue & {
+  id: IdType;
+  diceModifier: ValueType;
 };
 
-export function makeDiceModifier(
-  id: string,
+export function makeDiceModifier<IdType extends string = string>(
+  id: IdType,
   modifier?: Partial<BaseDiceModifier>,
 ): BaseDiceModifier {
   return {

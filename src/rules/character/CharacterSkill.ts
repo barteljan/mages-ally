@@ -11,7 +11,7 @@ export function makeCharacterSkill(
 ): CharacterSkill {
   return {
     id,
-    type: GameValueType.skill,
+    type: GameValueType.characterValue,
     diceModifier: 0,
     ...skill,
   };

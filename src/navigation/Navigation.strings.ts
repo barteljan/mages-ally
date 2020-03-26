@@ -8,6 +8,8 @@ export type NavigationStrings = {
   edit_spell_route_title: string;
   roll_spell_route_title: string;
   choose_yantras_route_title: string;
+  characters_route_title: string;
+  edit_character_route_title: string;
 };
 
 export const localization = new LocalizedStrings<NavigationStrings>({
@@ -19,5 +21,7 @@ export const localization = new LocalizedStrings<NavigationStrings>({
     edit_spell_route_title: 'Edit spell',
     choose_yantras_route_title: 'Choose a yantra!',
     roll_spell_route_title: 'Cast Spell',
+    characters_route_title: 'Characters',
+    edit_character_route_title: 'Edit character',
   },
 });

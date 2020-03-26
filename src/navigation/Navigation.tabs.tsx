@@ -11,6 +11,7 @@ import {RollsStackScreen} from './Navigation.stack.rolls';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {localization} from './Navigation.strings';
 import {theme} from '../layout/Theme';
+import {CharactersStackScreen} from './Navigation.stack.characters';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,10 @@ export function TabNavigation() {
         inactiveTintColor: theme.colors.disabled,
         showLabel: false,
       }}>
+      <Tab.Screen
+        name={Routes.charactersTab}
+        component={CharactersStackScreen}
+      />
       <Tab.Screen name={Routes.spellsTab} component={SpellsStackScreen} />
       <Tab.Screen name={Routes.rollsTab} component={RollsStackScreen} />
     </Tab.Navigator>
@@ -50,6 +55,9 @@ function screenOptions(nav: Route): BottomTabNavigationOptions {
     case Routes.rollsTab:
       title = localization.add_roll_route_title;
       break;
+    case Routes.charactersTab:
+      title = localization.characters_route_title;
+      break;
     default:
   }
 
@@ -60,6 +68,16 @@ function screenOptions(nav: Route): BottomTabNavigationOptions {
           return (
             <View style={styles.iconContainer}>
               <Icon name="magic" size={props.size - 3} color={props.color} />
+            </View>
+          );
+        case Routes.charactersTab:
+          return (
+            <View style={styles.iconContainer}>
+              <Icon
+                name="hat-wizard"
+                size={props.size - 3}
+                color={props.color}
+              />
             </View>
           );
         default:

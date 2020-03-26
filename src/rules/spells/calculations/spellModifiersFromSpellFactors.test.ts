@@ -521,7 +521,7 @@ test('result gives correct mana and reach for indefinite duration', () => {
 
 test('potency is calculated correct', () => {
   const highestArcanum: CharactersArcanum = {
-    id: 'arcanum_death',
+    id: ArcanaType.death,
     arcanumType: ArcanaType.death,
     type: GameValueType.arcanum,
     highest: false,

@@ -1,4 +1,5 @@
 export enum Routes {
+  charactersTab = 'charactersTab',
   spellsTab = 'spellsTab',
   rollsTab = 'rollsTab',
   rolls = 'rolls',
@@ -8,4 +9,6 @@ export enum Routes {
   editSpell = 'editSpell',
   rollSpellDice = 'rollSpellDice',
   chooseYantras = 'chooseYantras',
+  characters = 'characters',
+  editCharacter = 'editCharacter',
 }
